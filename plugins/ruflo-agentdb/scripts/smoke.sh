@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Structural smoke test for ruflo-agentdb plugin v0.3.0.
+# Structural smoke test for gemiflow-agentdb plugin v0.3.0.
 # Per ADR-0001 §6 Verification: 10 numbered checks against the documented
 # CLI MCP surface plus three documentation invariants.
 #
@@ -49,13 +49,13 @@ grep -q "## Namespace convention" "$ROOT/README.md" \
 
 # 1. Plugin version + new keywords
 step "1. plugin.json declares version 0.3.0 with rabitq + namespace-convention keywords"
-v=$(grep -E '"version"[[:space:]]*:' "$ROOT/.claude-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+v=$(grep -E '"version"[[:space:]]*:' "$ROOT/.gemiflow-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
 if [[ "$v" != "0.3.0" ]]; then
   bad "expected 0.3.0, got '$v'"
 else
   miss=""
   for k in rabitq quantization namespace-convention controller-bridge; do
-    grep -q "\"$k\"" "$ROOT/.claude-plugin/plugin.json" || miss="$miss $k"
+    grep -q "\"$k\"" "$ROOT/.gemiflow-plugin/plugin.json" || miss="$miss $k"
   done
   [[ -z "$miss" ]] && ok || bad "missing keywords:$miss"
 fi
@@ -113,7 +113,7 @@ fi
 
 # 7. Pattern-store fallback is source-inspectable (no env var gates this — see ADR §6 caveat)
 step "7. memory-store-fallback path is source-inspectable in agentdb-tools.ts"
-TOOLS="$REPO_ROOT/v3/@claude-flow/cli/src/mcp-tools/agentdb-tools.ts"
+TOOLS="$REPO_ROOT/v3/@gemiflow/cli/src/mcp-tools/agentdb-tools.ts"
 if [[ -f "$TOOLS" ]] \
    && grep -q "memory-store-fallback" "$TOOLS" \
    && grep -q "ReasoningBank controller registry unavailable" "$TOOLS"; then
@@ -124,7 +124,7 @@ fi
 
 # 8. agentdb_hierarchical-store rejects an unknown tier
 step "8. tier validator rejects unknown tier values"
-TOOLS="$REPO_ROOT/v3/@claude-flow/cli/src/mcp-tools/agentdb-tools.ts"
+TOOLS="$REPO_ROOT/v3/@gemiflow/cli/src/mcp-tools/agentdb-tools.ts"
 if grep -qE "(working|episodic|semantic).*tier|tier.*(working|episodic|semantic)" "$TOOLS"; then
   ok
 else
@@ -133,7 +133,7 @@ fi
 
 # 9. Batch size is bounded
 step "9. agentdb_batch enforces MAX_BATCH_SIZE = 500"
-TOOLS="$REPO_ROOT/v3/@claude-flow/cli/src/mcp-tools/agentdb-tools.ts"
+TOOLS="$REPO_ROOT/v3/@gemiflow/cli/src/mcp-tools/agentdb-tools.ts"
 if grep -qE "MAX_BATCH_SIZE\s*=\s*500" "$TOOLS"; then
   ok
 else
@@ -189,14 +189,14 @@ fi
 # Live mode (optional, requires daemon)
 if [[ "$LIVE" == "1" ]]; then
   step "L1 (live): agentdb_health responds (requires running daemon)"
-  if command -v claude-flow >/dev/null 2>&1; then
-    if claude-flow mcp call agentdb_health 2>/dev/null | grep -q '"available"'; then
+  if command -v gemiflow >/dev/null 2>&1; then
+    if gemiflow mcp call agentdb_health 2>/dev/null | grep -q '"available"'; then
       ok
     else
       bad "agentdb_health did not return an 'available' field"
     fi
   else
-    bad "claude-flow CLI not on PATH (skipping --live checks)"
+    bad "gemiflow CLI not on PATH (skipping --live checks)"
   fi
 fi
 

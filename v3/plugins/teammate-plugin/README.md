@@ -1,8 +1,8 @@
-# @claude-flow/teammate-plugin
+# @gemiflow/teammate-plugin
 
-Native **TeammateTool** integration plugin for Claude Flow. Bridges Claude Code v2.1.19+ multi-agent orchestration capabilities with Claude Flow's swarm system.
+Native **TeammateTool** integration plugin for GemiFlow. Bridges Claude Code v2.1.19+ multi-agent orchestration capabilities with GemiFlow's swarm system.
 
-[![npm version](https://badge.fury.io/js/%40claude-flow%2Fteammate-plugin.svg)](https://badge.fury.io/js/%40claude-flow%2Fteammate-plugin)
+[![npm version](https://badge.fury.io/js/%40gemiflow%2Fteammate-plugin.svg)](https://badge.fury.io/js/%40gemiflow%2Fteammate-plugin)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Requirements
@@ -38,32 +38,32 @@ Install directly using Claude Code's plugin system:
 
 ```bash
 # Install from npm registry
-claude plugins install @claude-flow/teammate-plugin
+claude plugins install @gemiflow/teammate-plugin
 
-# Or install from Claude Flow plugin registry (IPFS-backed)
-claude plugins install teammate-plugin --registry claude-flow
+# Or install from GemiFlow plugin registry (IPFS-backed)
+claude plugins install teammate-plugin --registry gemiflow
 ```
 
 ### Via npm
 
 ```bash
-npm install @claude-flow/teammate-plugin
+npm install @gemiflow/teammate-plugin
 ```
 
 Or with pnpm:
 
 ```bash
-pnpm add @claude-flow/teammate-plugin
+pnpm add @gemiflow/teammate-plugin
 ```
 
-### Via Claude Flow CLI
+### Via GemiFlow CLI
 
 ```bash
-# Install via claude-flow plugin manager
-npx @claude-flow/cli@latest plugins install --name @claude-flow/teammate-plugin
+# Install via gemiflow plugin manager
+npx @gemiflow/cli@latest plugins install --name @gemiflow/teammate-plugin
 
-# Or add to your claude-flow.config.json
-npx @claude-flow/cli@latest config set plugins.teammate-plugin.enabled true
+# Or add to your gemiflow.config.json
+npx @gemiflow/cli@latest config set plugins.teammate-plugin.enabled true
 ```
 
 ### Verify Installation
@@ -72,14 +72,14 @@ npx @claude-flow/cli@latest config set plugins.teammate-plugin.enabled true
 # Check plugin is loaded
 claude plugins list
 
-# Or via claude-flow
-npx @claude-flow/cli@latest plugins list
+# Or via gemiflow
+npx @gemiflow/cli@latest plugins list
 ```
 
 ## Quick Start
 
 ```typescript
-import { createTeammateBridge } from '@claude-flow/teammate-plugin';
+import { createTeammateBridge } from '@gemiflow/teammate-plugin';
 
 // Initialize the bridge
 const bridge = await createTeammateBridge();
@@ -160,7 +160,7 @@ The main class for interacting with TeammateTool.
 #### Initialization
 
 ```typescript
-import { createTeammateBridge, TeammateBridge } from '@claude-flow/teammate-plugin';
+import { createTeammateBridge, TeammateBridge } from '@gemiflow/teammate-plugin';
 
 // Factory function (recommended)
 const bridge = await createTeammateBridge({
@@ -345,7 +345,7 @@ if (canTeleport) {
 The plugin provides 16 MCP tools for use with Claude Code's MCP server:
 
 ```typescript
-import { TEAMMATE_MCP_TOOLS, handleMCPTool } from '@claude-flow/teammate-plugin';
+import { TEAMMATE_MCP_TOOLS, handleMCPTool } from '@gemiflow/teammate-plugin';
 
 // List all tools
 console.log(TEAMMATE_MCP_TOOLS.map(t => t.name));
@@ -404,7 +404,7 @@ bridge.on('teleport:completed', ({ team, result }) => {
 ## Error Handling
 
 ```typescript
-import { TeammateError, TeammateErrorCode } from '@claude-flow/teammate-plugin';
+import { TeammateError, TeammateErrorCode } from '@gemiflow/teammate-plugin';
 
 try {
   await bridge.launchSwarm('my-team', 'plan-id');
@@ -428,7 +428,7 @@ try {
 ## Configuration
 
 ```typescript
-import { createTeammateBridge, DEFAULT_PLUGIN_CONFIG } from '@claude-flow/teammate-plugin';
+import { createTeammateBridge, DEFAULT_PLUGIN_CONFIG } from '@gemiflow/teammate-plugin';
 
 const bridge = await createTeammateBridge({
   autoInitialize: true,
@@ -476,19 +476,19 @@ const bridge = await createTeammateBridge({
 });
 ```
 
-## Integration with Claude Flow
+## Integration with GemiFlow
 
 ```typescript
-import { createTeammateBridge } from '@claude-flow/teammate-plugin';
-import { UnifiedSwarmCoordinator } from '@claude-flow/swarm';
+import { createTeammateBridge } from '@gemiflow/teammate-plugin';
+import { UnifiedSwarmCoordinator } from '@gemiflow/swarm';
 
 // Create bridge
 const bridge = await createTeammateBridge();
 
-// Map Claude Flow topology to team config
+// Map GemiFlow topology to team config
 const teamConfig = {
   name: 'cf-team',
-  topology: 'hierarchical',  // Maps to Claude Flow's hierarchical
+  topology: 'hierarchical',  // Maps to GemiFlow's hierarchical
   maxTeammates: 8,
   planModeRequired: true,
 };
@@ -496,7 +496,7 @@ const teamConfig = {
 // Create team
 const team = await bridge.spawnTeam(teamConfig);
 
-// Map Claude Flow agent types to teammate configs
+// Map GemiFlow agent types to teammate configs
 const agentMapping = {
   'coder': { role: 'coder', tools: ['Edit', 'Write', 'Read', 'Bash'] },
   'tester': { role: 'tester', tools: ['Read', 'Bash', 'Glob'] },
@@ -504,7 +504,7 @@ const agentMapping = {
   'architect': { role: 'architect', tools: ['Read', 'Glob', 'Grep'] },
 };
 
-// Spawn teammates with Claude Flow agent types
+// Spawn teammates with GemiFlow agent types
 for (const [type, config] of Object.entries(agentMapping)) {
   await bridge.spawnTeammate({
     name: `${type}-1`,
@@ -518,10 +518,10 @@ for (const [type, config] of Object.entries(agentMapping)) {
 
 ## File Structure
 
-Teams are stored in `~/.claude/teams/`:
+Teams are stored in `~/.gemiflow/teams/`:
 
 ```
-~/.claude/teams/
+~/.gemiflow/teams/
 ├── my-team/
 │   ├── config.json        # Team configuration
 │   ├── state.json         # Team state (teammates, plans)
@@ -602,7 +602,7 @@ npm run test:coverage
 ### Verify Plugin Functionality
 
 ```typescript
-import { createTeammateBridge, TEAMMATE_MCP_TOOLS } from '@claude-flow/teammate-plugin';
+import { createTeammateBridge, TEAMMATE_MCP_TOOLS } from '@gemiflow/teammate-plugin';
 
 async function verifyPlugin() {
   console.log('=== Plugin Verification ===\n');
@@ -640,31 +640,31 @@ verifyPlugin().catch(console.error);
 
 ```bash
 # Check plugin is registered
-npx @claude-flow/cli@latest plugins list | grep teammate
+npx @gemiflow/cli@latest plugins list | grep teammate
 
 # Check plugin info
-npx @claude-flow/cli@latest plugins info teammate-plugin
+npx @gemiflow/cli@latest plugins info teammate-plugin
 
 # Test MCP tools
-npx @claude-flow/cli@latest mcp tools | grep teammate
+npx @gemiflow/cli@latest mcp tools | grep teammate
 ```
 
 ## Plugin Registry (IPFS)
 
-This plugin is published to the Claude Flow Plugin Registry on IPFS for decentralized distribution.
+This plugin is published to the GemiFlow Plugin Registry on IPFS for decentralized distribution.
 
 ### Registry Entry
 
 ```json
 {
   "name": "teammate-plugin",
-  "package": "@claude-flow/teammate-plugin",
+  "package": "@gemiflow/teammate-plugin",
   "version": "1.0.0-alpha.1",
   "description": "Native TeammateTool integration for Claude Code v2.1.19+",
-  "author": "Claude Flow Team",
+  "author": "GemiFlow Team",
   "license": "MIT",
-  "repository": "https://github.com/ruvnet/claude-flow",
-  "keywords": ["claude-code", "teammate", "multi-agent", "swarm"],
+  "repository": "https://github.com/ruvnet/gemiflow",
+  "keywords": ["gemini-cli", "teammate", "multi-agent", "swarm"],
   "requirements": {
     "claudeCode": ">=2.1.19",
     "node": ">=18.0.0"
@@ -686,20 +686,20 @@ This plugin is published to the Claude Flow Plugin Registry on IPFS for decentra
 
 ```bash
 # Install from IPFS-backed registry
-npx @claude-flow/cli@latest plugins install teammate-plugin --registry ipfs
+npx @gemiflow/cli@latest plugins install teammate-plugin --registry ipfs
 
 # Or specify registry CID directly
-npx @claude-flow/cli@latest plugins install teammate-plugin --cid <registry-cid>
+npx @gemiflow/cli@latest plugins install teammate-plugin --cid <registry-cid>
 ```
 
 ### Verify Registry Integrity
 
 ```bash
 # Check plugin hash matches registry
-npx @claude-flow/cli@latest plugins verify teammate-plugin
+npx @gemiflow/cli@latest plugins verify teammate-plugin
 
 # View registry metadata
-npx @claude-flow/cli@latest plugins registry info
+npx @gemiflow/cli@latest plugins registry info
 ```
 
 ## License
@@ -708,6 +708,6 @@ MIT
 
 ## Related
 
-- [Claude Flow](https://github.com/ruvnet/claude-flow) - Multi-agent orchestration framework
-- [Claude Code](https://github.com/anthropics/claude-code) - Anthropic's CLI for Claude
+- [GemiFlow](https://github.com/ruvnet/gemiflow) - Multi-agent orchestration framework
+- [Claude Code](https://github.com/anthropics/gemini-cli) - Anthropic's CLI for Claude
 - [ADR-027](../implementation/adrs/ADR-027-teammate-tool-integration.md) - Architecture decision record

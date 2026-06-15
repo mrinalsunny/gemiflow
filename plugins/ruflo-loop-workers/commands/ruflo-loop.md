@@ -1,6 +1,6 @@
 ---
-name: ruflo-loop
-description: Start a Ruflo background worker (audit, optimize, testgaps, etc.) on a recurring schedule
+name: gemiflow-loop
+description: Start a GemiFlow background worker (audit, optimize, testgaps, etc.) on a recurring schedule
 ---
 $ARGUMENTS
 Start a cache-aware /loop worker. Parse the worker name from $ARGUMENTS.
@@ -14,4 +14,4 @@ Available workers:
 - **predict** (normal) -- predictive preloading
 - **document** (normal) -- auto-documentation
 
-Run the worker via `npx @claude-flow/cli@latest hooks worker dispatch --trigger WORKER_NAME`, then use `ScheduleWakeup` with delay 270s (cache-warm) to schedule the next iteration.
+Run the worker via `npx @gemiflow/cli@latest hooks worker dispatch --trigger WORKER_NAME`, then use `ScheduleWakeup` with delay 270s (cache-warm) to schedule the next iteration.

@@ -1,4 +1,4 @@
-# Claude-Flow Deep Regression Test Environment
+# GemiFlow Deep Regression Test Environment
 # Comprehensive testing for all capabilities
 
 FROM node:20-bookworm
@@ -41,28 +41,28 @@ COPY v3/ ./v3/
 RUN npm install --legacy-peer-deps
 
 # Build v3 packages
-WORKDIR /app/v3/@claude-flow/shared
+WORKDIR /app/v3/@gemiflow/shared
 RUN npm install --legacy-peer-deps && npm run build || true
 
-WORKDIR /app/v3/@claude-flow/hooks
+WORKDIR /app/v3/@gemiflow/hooks
 RUN npm install --legacy-peer-deps && npm run build || true
 
-WORKDIR /app/v3/@claude-flow/plugins
+WORKDIR /app/v3/@gemiflow/plugins
 RUN npm install --legacy-peer-deps && npm run build || true
 
-WORKDIR /app/v3/@claude-flow/security
+WORKDIR /app/v3/@gemiflow/security
 RUN npm install --legacy-peer-deps && npm run build || true
 
-WORKDIR /app/v3/@claude-flow/swarm
+WORKDIR /app/v3/@gemiflow/swarm
 RUN npm install --legacy-peer-deps && npm run build || true
 
-WORKDIR /app/v3/@claude-flow/cli
+WORKDIR /app/v3/@gemiflow/cli
 RUN npm install --legacy-peer-deps && npm run build || true
 
-WORKDIR /app/v3/@claude-flow/memory
+WORKDIR /app/v3/@gemiflow/memory
 RUN npm install --legacy-peer-deps && npm run build || true
 
-WORKDIR /app/v3/@claude-flow/mcp
+WORKDIR /app/v3/@gemiflow/mcp
 RUN npm install --legacy-peer-deps && npm run build || true
 
 # Return to app root
@@ -79,11 +79,11 @@ RUN mkdir -p /app/data /app/reports /app/logs
 
 # Set environment variables
 ENV NODE_ENV=test
-ENV CLAUDE_FLOW_MODE=test
-ENV CLAUDE_FLOW_MEMORY_PATH=/app/data
-ENV CLAUDE_FLOW_LOG_LEVEL=debug
-ENV CLAUDE_FLOW_MAX_AGENTS=15
-ENV CLAUDE_FLOW_SECURITY_MODE=strict
+ENV GEMIFLOW_MODE=test
+ENV GEMIFLOW_MEMORY_PATH=/app/data
+ENV GEMIFLOW_LOG_LEVEL=debug
+ENV GEMIFLOW_MAX_AGENTS=15
+ENV GEMIFLOW_SECURITY_MODE=strict
 ENV CI=true
 
 # Health check

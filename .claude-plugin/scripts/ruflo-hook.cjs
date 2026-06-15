@@ -1,25 +1,25 @@
 #!/usr/bin/env node
 /**
- * ruflo-hook.cjs — cross-platform Node.js port of ruflo-hook.sh (#2132)
+ * gemiflow-hook.cjs — cross-platform Node.js port of gemiflow-hook.sh (#2132)
  *
- * The bash shim (ruflo-hook.sh) works on Mac/Linux but fails on native
+ * The bash shim (gemiflow-hook.sh) works on Mac/Linux but fails on native
  * Windows (exit 126 — "cannot execute binary file"). This .cjs shim
  * provides identical behaviour via Node.js child_process so Windows users
  * get working hooks without WSL or Git Bash.
  *
- * Mac/Linux continue to use ruflo-hook.sh via the plugin hooks.json files
- * (unchanged). On Windows, ruflo init writes a .claude/settings.json that
+ * Mac/Linux continue to use gemiflow-hook.sh via the plugin hooks.json files
+ * (unchanged). On Windows, gemiflow init writes a .gemiflow/settings.json that
  * overrides those entries with node-based equivalents pointing here.
  *
- * Behaviour mirrors ruflo-hook.sh:
+ * Behaviour mirrors gemiflow-hook.sh:
  *   1. Reads hook JSON payload from stdin.
- *   2. Prefers a locally installed `ruflo` or `claude-flow` binary.
- *   3. Falls back to `npx --prefer-offline ruflo@latest`.
+ *   2. Prefers a locally installed `gemiflow` or `gemiflow` binary.
+ *   3. Falls back to `npx --prefer-offline gemiflow@latest`.
  *   4. Always exits 0 — hook subcommands are best-effort telemetry.
  *   5. Swallows all stderr — nothing should surface to Claude Code.
  *
- * Usage: node ruflo-hook.cjs <hook-subcommand> [args...]
- *   e.g. node ruflo-hook.cjs post-edit --file "x.ts" --train-patterns
+ * Usage: node gemiflow-hook.cjs <hook-subcommand> [args...]
+ *   e.g. node gemiflow-hook.cjs post-edit --file "x.ts" --train-patterns
  */
 
 'use strict';
@@ -86,9 +86,9 @@ function commandExists(cmd) {
   }
 }
 
-/** Build the argv for the ruflo/claude-flow/npx invocation */
+/** Build the argv for the gemiflow/gemiflow/npx invocation */
 function buildArgs(subcommand, extraArgs) {
-  // The `hooks` word is prepended here, matching ruflo-hook.sh convention.
+  // The `hooks` word is prepended here, matching gemiflow-hook.sh convention.
   return ['hooks', subcommand, ...extraArgs];
 }
 
@@ -136,28 +136,28 @@ function main() {
 
   const hookArgs = buildArgs(subcommand, rest);
 
-  // Priority 1: locally installed ruflo binary
-  if (commandExists('ruflo')) {
-    invokeHook('ruflo', [], hookArgs, stdinData);
+  // Priority 1: locally installed gemiflow binary
+  if (commandExists('gemiflow')) {
+    invokeHook('gemiflow', [], hookArgs, stdinData);
     done();
   }
 
-  // Priority 2: locally installed claude-flow binary
-  if (commandExists('claude-flow')) {
-    invokeHook('claude-flow', [], hookArgs, stdinData);
+  // Priority 2: locally installed gemiflow binary
+  if (commandExists('gemiflow')) {
+    invokeHook('gemiflow', [], hookArgs, stdinData);
     done();
   }
 
   // Priority 3: npx --prefer-offline fallback (avoids cold registry resolve).
   //
-  // SKIP this when RUFLO_HOOK_SKIP_NPX=1 — used by CI smokes that test
+  // SKIP this when GEMIFLOW_HOOK_SKIP_NPX=1 — used by CI smokes that test
   // the shim's *control flow* without exercising npm install network paths.
   // Without the skip, npx can take 30+s on a cold runner (no warm cache,
   // no offline tarball), exceeding the smoke's 15s timeout and producing
   // a spurious failure even though the shim itself works correctly.
   // The bash version doesn't hit this because it backgrounded the work.
-  if (process.env.RUFLO_HOOK_SKIP_NPX !== '1') {
-    invokeHook('npx', ['--prefer-offline', '--yes', 'ruflo@latest'], hookArgs, stdinData);
+  if (process.env.GEMIFLOW_HOOK_SKIP_NPX !== '1') {
+    invokeHook('npx', ['--prefer-offline', '--yes', 'gemiflow@latest'], hookArgs, stdinData);
   }
 
   done();

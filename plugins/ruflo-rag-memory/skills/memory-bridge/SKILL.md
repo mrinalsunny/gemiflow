@@ -2,7 +2,7 @@
 name: memory-bridge
 description: Bridge Claude Code auto-memory into AgentDB with ONNX embeddings, deduplicate, and enable unified cross-project search
 argument-hint: "[--all-projects] [--dedupe]"
-allowed-tools: Bash Read mcp__claude-flow__memory_import_claude mcp__claude-flow__memory_bridge_status mcp__claude-flow__memory_search_unified
+allowed-tools: Bash Read mcp__gemiflow__memory_import_claude mcp__gemiflow__memory_bridge_status mcp__gemiflow__memory_search_unified
 ---
 
 # Memory Bridge
@@ -11,7 +11,7 @@ Import Claude Code's native auto-memory files into AgentDB for semantic search a
 
 ## What it does
 
-Claude Code stores memories as markdown files in `~/.claude/projects/*/memory/*.md`. This bridge:
+Claude Code stores memories as markdown files in `~/.gemiflow/projects/*/memory/*.md`. This bridge:
 1. Reads all memory files (current project or all projects)
 2. Generates 384-dim ONNX embeddings (all-MiniLM-L6-v2)
 3. Stores in AgentDB's `claude-memories` namespace with HNSW indexing
@@ -21,28 +21,28 @@ Claude Code stores memories as markdown files in `~/.claude/projects/*/memory/*.
 ## Steps
 
 1. **Check bridge health**:
-   `mcp__claude-flow__memory_bridge_status({})`
+   `mcp__gemiflow__memory_bridge_status({})`
    Verify: Claude files count, AgentDB entries, SONA state, connection status.
 
 2. **Import memories**:
-   - Current project: `mcp__claude-flow__memory_import_claude({})`
-   - All projects: `mcp__claude-flow__memory_import_claude({ allProjects: true })`
+   - Current project: `mcp__gemiflow__memory_import_claude({})`
+   - All projects: `mcp__gemiflow__memory_import_claude({ allProjects: true })`
 
    CLI alternative:
    ```bash
-   node .claude/helpers/auto-memory-hook.mjs import-all
+   node .gemiflow/helpers/auto-memory-hook.mjs import-all
    ```
 
 3. **Verify import**:
-   `mcp__claude-flow__memory_bridge_status({})`
+   `mcp__gemiflow__memory_bridge_status({})`
    Confirm entry counts match expected file counts.
 
 4. **Deduplicate** (if --dedupe):
    Search for near-duplicate entries (cosine > 0.95) and merge them, keeping the most recent version.
 
 5. **Test unified search**:
-   `mcp__claude-flow__memory_search_unified({ query: "test query", limit: 3 })`
-   Results include source attribution: `claude-code`, `auto-memory`, or `agentdb`.
+   `mcp__gemiflow__memory_search_unified({ query: "test query", limit: 3 })`
+   Results include source attribution: `gemini-cli`, `auto-memory`, or `agentdb`.
 
 ## Auto-import
 
@@ -53,7 +53,7 @@ The bridge runs automatically on `session-start` via the SessionStart hook. Manu
 
 ## Integration with ruvector
 
-When `ruflo-ruvector` is loaded, bridged memories are also indexed by ruvector for:
+When `gemiflow-ruvector` is loaded, bridged memories are also indexed by ruvector for:
 - Hybrid search (sparse + dense with RRF)
 - Graph RAG multi-hop queries across memory entries
 - Brain knowledge sharing across sessions

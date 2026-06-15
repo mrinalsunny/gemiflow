@@ -1,6 +1,6 @@
 ---
 id: ADR-0001
-title: ruflo-agent plugin contract — pinning, namespace coordination, ADR-070 integration cross-reference, smoke as contract
+title: gemiflow-agent plugin contract — pinning, namespace coordination, ADR-070 integration cross-reference, smoke as contract
 status: Accepted
 date: 2026-05-04
 updated: 2026-05-09
@@ -11,9 +11,9 @@ tags: [plugin, wasm, sandbox, gallery, namespace, smoke-test]
 
 ## Context
 
-`ruflo-agent` (v0.1.0) — sandboxed WASM agent creation, execution, and gallery sharing. 1 agent (`wasm-specialist`), 2 skills (`wasm-agent`, `wasm-gallery`), 1 command (`/wasm`).
+`gemiflow-agent` (v0.1.0) — sandboxed WASM agent creation, execution, and gallery sharing. 1 agent (`wasm-specialist`), 2 skills (`wasm-agent`, `wasm-gallery`), 1 command (`/wasm`).
 
-Wraps **10 `wasm_*` MCP tools** at `v3/@claude-flow/cli/src/mcp-tools/wasm-agent-tools.ts:18, 51, 74, 103, 117, 138, 160, 181, 195, 216`:
+Wraps **10 `wasm_*` MCP tools** at `v3/@gemiflow/cli/src/mcp-tools/wasm-agent-tools.ts:18, 51, 74, 103, 117, 138, 160, 181, 195, 216`:
 
 | Tool | Purpose |
 |------|---------|
@@ -48,17 +48,17 @@ Wraps **10 `wasm_*` MCP tools** at `v3/@claude-flow/cli/src/mcp-tools/wasm-agent
 ## Verification
 
 ```bash
-bash plugins/ruflo-agent/scripts/smoke.sh
+bash plugins/gemiflow-agent/scripts/smoke.sh
 # Expected: "11 passed, 0 failed"
 ```
 
 ## Related
 
 - `v3/implementation/adrs/ADR-070-rvagent-wasm-completion.md` — upstream integration completion (Implemented)
-- `plugins/ruflo-agentdb/docs/adrs/0001-agentdb-optimization.md` — namespace convention
-- `plugins/ruflo-aidefence/docs/adrs/0001-aidefence-contract.md` — 3-gate pattern (relevant for sandboxed prompt-injection defense)
-- `v3/@claude-flow/cli/src/mcp-tools/wasm-agent-tools.ts` — 10 `wasm_*` tools
+- `plugins/gemiflow-agentdb/docs/adrs/0001-agentdb-optimization.md` — namespace convention
+- `plugins/gemiflow-aidefence/docs/adrs/0001-aidefence-contract.md` — 3-gate pattern (relevant for sandboxed prompt-injection defense)
+- `v3/@gemiflow/cli/src/mcp-tools/wasm-agent-tools.ts` — 10 `wasm_*` tools
 
 ## Implementation status
 
-Plugin version v0.2.0 shipped and listed in marketplace.json. Source exists at `plugins/ruflo-agent/`. Contract elements implemented: all 10 `wasm_*` MCP tools covered; ADR-070 (rvagent WASM completion) cross-referenced; 3-gate pattern alignment with ruflo-aidefence documented for sandboxed prompt-injection defense; namespace `wasm-agents` claimed; smoke-as-contract gate defined in `scripts/smoke.sh` (11 checks).
+Plugin version v0.2.0 shipped and listed in marketplace.json. Source exists at `plugins/gemiflow-agent/`. Contract elements implemented: all 10 `wasm_*` MCP tools covered; ADR-070 (rvagent WASM completion) cross-referenced; 3-gate pattern alignment with gemiflow-aidefence documented for sandboxed prompt-injection defense; namespace `wasm-agents` claimed; smoke-as-contract gate defined in `scripts/smoke.sh` (11 checks).

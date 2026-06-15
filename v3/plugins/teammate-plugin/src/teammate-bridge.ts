@@ -13,7 +13,7 @@
  * - Session memory persistence
  * - Teleport/session resume
  *
- * @module @claude-flow/teammate-plugin/bridge
+ * @module @gemiflow/teammate-plugin/bridge
  * @version 1.0.0-alpha.1
  */
 
@@ -283,7 +283,7 @@ export class TeammateBridge extends EventEmitter {
   constructor(config: Partial<PluginConfig> = {}) {
     super();
     this.config = { ...DEFAULT_PLUGIN_CONFIG, ...config };
-    this.teamsDir = path.join(os.homedir(), '.claude', 'teams');
+    this.teamsDir = path.join(os.homedir(), '.gemiflow', 'teams');
 
     // Initialize rate limiter
     this.rateLimiter = new RateLimiter(DEFAULT_RATE_LIMIT_CONFIG);

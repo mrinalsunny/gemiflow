@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * Smoke test for ruvnet/ruflo#2132 — ruflo-hook.cjs cross-platform shim.
+ * Smoke test for ruvnet/gemiflow#2132 — gemiflow-hook.cjs cross-platform shim.
  *
- * Verifies that plugins/ruflo-core/scripts/ruflo-hook.cjs:
- *   1. Can be invoked via `node ruflo-hook.cjs <subcommand>`
- *   2. Always exits 0 (even when ruflo binary is not installed)
+ * Verifies that plugins/gemiflow-core/scripts/gemiflow-hook.cjs:
+ *   1. Can be invoked via `node gemiflow-hook.cjs <subcommand>`
+ *   2. Always exits 0 (even when gemiflow binary is not installed)
  *   3. Accepts stdin JSON input without crashing
  *   4. Works with all the common hook subcommands
  *
@@ -17,7 +17,7 @@ import { dirname, resolve } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, '..');
-const SHIM_PATH = resolve(REPO_ROOT, 'plugins', 'ruflo-core', 'scripts', 'ruflo-hook.cjs');
+const SHIM_PATH = resolve(REPO_ROOT, 'plugins', 'gemiflow-core', 'scripts', 'gemiflow-hook.cjs');
 
 let passed = 0;
 let failed = 0;
@@ -45,12 +45,12 @@ function runShim(subcommand, extraArgs = [], stdinInput = '') {
       // CLI dispatch. npx --prefer-offline can take 30+s on a cold CI runner
       // (no warm cache, registry resolve), which exceeds our timeout above.
       // The CLI dispatch path is covered by the agent-execute smoke separately.
-      env: { ...process.env, RUFLO_HOOK_SKIP_NPX: '1' },
+      env: { ...process.env, GEMIFLOW_HOOK_SKIP_NPX: '1' },
     }
   );
 }
 
-console.log(`Testing ruflo-hook.cjs on ${process.platform}`);
+console.log(`Testing gemiflow-hook.cjs on ${process.platform}`);
 console.log(`Shim path: ${SHIM_PATH}\n`);
 
 // Test 1: No arguments → exit 0
@@ -120,4 +120,4 @@ console.log(`\nResults: ${passed} passed, ${failed} failed`);
 if (failed > 0) {
   process.exit(1);
 }
-console.log('ok: smoke-ruflo-hook-cjs passed');
+console.log('ok: smoke-gemiflow-hook-cjs passed');

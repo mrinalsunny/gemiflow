@@ -9,7 +9,7 @@
 The `hookCmd()` function in `settings-generator.ts` generated complex `node -e "..."` one-liners for hook commands:
 
 ```
-node -e "var c=require('child_process'),p=require('path'),r;try{r=c.execSync('git rev-parse --show-toplevel',{encoding:'utf8'}).trim()}catch(e){r=process.cwd()}var s=p.join(r,'.claude/helpers/hook-handler.cjs');process.argv.splice(1,0,s);require(s)" pre-bash
+node -e "var c=require('child_process'),p=require('path'),r;try{r=c.execSync('git rev-parse --show-toplevel',{encoding:'utf8'}).trim()}catch(e){r=process.cwd()}var s=p.join(r,'.gemiflow/helpers/hook-handler.cjs');process.argv.splice(1,0,s);require(s)" pre-bash
 ```
 
 This broke on Windows because:
@@ -44,7 +44,7 @@ function hookCmd(script: string, subcommand: string): string {
 
 **Generated command example:**
 ```
-node .claude/helpers/hook-handler.cjs pre-bash
+node .gemiflow/helpers/hook-handler.cjs pre-bash
 ```
 
 ### Why This Works
@@ -53,11 +53,11 @@ The `node -e` one-liner existed to resolve the git root at runtime, ensuring hoo
 
 ### Platform Detection
 
-Added `detectPlatform()` integration to `generateSettings()`. The detected platform (OS, architecture, shell type) is now stored in `claudeFlow.platform` within settings.json:
+Added `detectPlatform()` integration to `generateSettings()`. The detected platform (OS, architecture, shell type) is now stored in `gemiflow.platform` within settings.json:
 
 ```json
 {
-  "claudeFlow": {
+  "gemiflow": {
     "platform": {
       "os": "windows",
       "arch": "x64",
@@ -75,9 +75,9 @@ All 12 hook types, auto-memory, learning bridge, memory graph, agent scopes, neu
 
 | Before | After |
 |--------|-------|
-| `node -e "var c=require('child_process')..." pre-bash` | `node .claude/helpers/hook-handler.cjs pre-bash` |
-| `node -e "...import(u.pathToFileURL(f)...)" import` | `node .claude/helpers/auto-memory-hook.mjs import` |
-| `node -e "..." (statusline)` | `node .claude/helpers/statusline.cjs` |
+| `node -e "var c=require('child_process')..." pre-bash` | `node .gemiflow/helpers/hook-handler.cjs pre-bash` |
+| `node -e "...import(u.pathToFileURL(f)...)" import` | `node .gemiflow/helpers/auto-memory-hook.mjs import` |
+| `node -e "..." (statusline)` | `node .gemiflow/helpers/statusline.cjs` |
 
 ## Files Changed
 

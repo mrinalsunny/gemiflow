@@ -2,14 +2,14 @@
 
 ## Overview
 
-This document defines the Domain-Driven Design (DDD) architecture for integrating OpenAI Codex support into claude-flow via the `@claude-flow/codex` package. The design follows the existing V3 architecture patterns while introducing new bounded contexts for Codex-specific functionality.
+This document defines the Domain-Driven Design (DDD) architecture for integrating OpenAI Codex support into gemiflow via the `@gemiflow/codex` package. The design follows the existing V3 architecture patterns while introducing new bounded contexts for Codex-specific functionality.
 
 ## Package Information
 
-- **Package Name**: `@claude-flow/codex`
-- **Location**: `v3/@claude-flow/codex/`
+- **Package Name**: `@gemiflow/codex`
+- **Location**: `v3/@gemiflow/codex/`
 - **Future Umbrella**: `coflow` (npm/npx coflow)
-- **Compatibility**: Maintains `claude-flow` branding during transition
+- **Compatibility**: Maintains `gemiflow` branding during transition
 
 ## Strategic Design
 
@@ -17,7 +17,7 @@ This document defines the Domain-Driven Design (DDD) architecture for integratin
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                           Claude Flow V3 Core Domain                         │
+│                           GemiFlow V3 Core Domain                         │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
 │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────────┐ │
@@ -111,7 +111,7 @@ interface PlatformConfiguration {
 }
 
 enum Platform {
-  CLAUDE_CODE = 'claude-code',
+  CLAUDE_CODE = 'gemini-cli',
   CODEX = 'codex',
   DUAL = 'dual'
 }
@@ -306,8 +306,8 @@ class ConfigurationPath {
         : path.join(this.basePath, '.agents', 'config.toml');
     }
     return this.scope === 'global'
-      ? path.join(os.homedir(), '.claude', 'settings.json')
-      : path.join(this.basePath, '.claude', 'settings.json');
+      ? path.join(os.homedir(), '.gemiflow', 'settings.json')
+      : path.join(this.basePath, '.gemiflow', 'settings.json');
   }
 }
 ```
@@ -427,7 +427,7 @@ class SkillLibraryAggregate {
 ```typescript
 class PlatformDetectionService {
   detect(projectPath: string): DetectedPlatform {
-    const hasClaudeDir = fs.existsSync(path.join(projectPath, '.claude'));
+    const hasClaudeDir = fs.existsSync(path.join(projectPath, '.gemiflow'));
     const hasAgentsDir = fs.existsSync(path.join(projectPath, '.agents'));
     const hasClaudeMd = fs.existsSync(path.join(projectPath, 'CLAUDE.md'));
     const hasAgentsMd = fs.existsSync(path.join(projectPath, 'AGENTS.md'));
@@ -448,7 +448,7 @@ class PlatformDetectionService {
   async detectUserPreference(): Promise<Platform> {
     // Check for global Codex config
     const codexConfig = path.join(os.homedir(), '.codex', 'config.toml');
-    const claudeConfig = path.join(os.homedir(), '.claude');
+    const claudeConfig = path.join(os.homedir(), '.gemiflow');
 
     const hasCodex = fs.existsSync(codexConfig);
     const hasClaude = fs.existsSync(claudeConfig);
@@ -772,7 +772,7 @@ class InitializationApplicationService {
     return {
       claude: claudeResult,
       codex: codexResult,
-      syncConfigPath: path.join(options.projectPath, '.claude-flow', 'platform-sync.yaml')
+      syncConfigPath: path.join(options.projectPath, '.gemiflow', 'platform-sync.yaml')
     };
   }
 }
@@ -851,7 +851,7 @@ class PlatformConversionCompleted implements DomainEvent {
 ## Package Structure
 
 ```
-v3/@claude-flow/
+v3/@gemiflow/
 ├── cli/
 │   └── src/
 │       └── commands/
@@ -918,9 +918,9 @@ v3/@claude-flow/
 ### With Existing Init System
 
 ```typescript
-// v3/@claude-flow/cli/src/commands/init.ts
+// v3/@gemiflow/cli/src/commands/init.ts
 
-import { CodexInitializer } from '@claude-flow/codex';
+import { CodexInitializer } from '@gemiflow/codex';
 
 // Add new options
 const initCommand: Command = {

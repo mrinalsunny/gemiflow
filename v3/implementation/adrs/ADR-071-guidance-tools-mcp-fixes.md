@@ -20,13 +20,13 @@ Three areas needed attention in v3.5.43:
 
 ### 1. Guidance MCP Tools
 
-Add 5 new MCP tools to the `@claude-flow/cli` package:
+Add 5 new MCP tools to the `@gemiflow/cli` package:
 
 | Tool | Purpose |
 |------|---------|
 | `guidance_capabilities` | List 16 capability areas with tools, commands, agents, skills, and when-to-use guidance |
 | `guidance_recommend` | Task-based routing — given a description, recommend capabilities and workflow template |
-| `guidance_discover` | Live filesystem scan of `.claude/agents/` and `.claude/skills/` |
+| `guidance_discover` | Live filesystem scan of `.gemiflow/agents/` and `.gemiflow/skills/` |
 | `guidance_workflow` | Step-by-step workflow templates for 15 task types (bugfix, feature, refactor, security, etc.) |
 | `guidance_quickref` | Quick reference cards for 6 operational domains |
 
@@ -53,9 +53,9 @@ Changes:
 
 **Self-detection fix**: `start()` now skips the "already running" check when the reported PID matches the current process. `getStatus()` reports `running: true` with `process.pid` for stdio transport even before startup — this is correct for health checks but must not block the initial `start()` call.
 
-**PID reuse guard**: `isProcessRunning()` now verifies the process is actually `node`/`claude-flow`/`npx` by inspecting `/proc/{pid}/cmdline` (Linux) or `ps -p` (macOS). Falls back to `kill -0` on platforms where this isn't available.
+**PID reuse guard**: `isProcessRunning()` now verifies the process is actually `node`/`gemiflow`/`npx` by inspecting `/proc/{pid}/cmdline` (Linux) or `ps -p` (macOS). Falls back to `kill -0` on platforms where this isn't available.
 
-**Legacy cleanup**: `removePidFile()` now also removes `.claude-flow/mcp-server.pid` from older versions that wrote to a different path than the current `/tmp/claude-flow-mcp.pid`.
+**Legacy cleanup**: `removePidFile()` now also removes `.gemiflow/mcp-server.pid` from older versions that wrote to a different path than the current `/tmp/gemiflow-mcp.pid`.
 
 ## Consequences
 
@@ -66,15 +66,15 @@ Changes:
 - `init` generates clean agents when scaffolding new projects
 
 ### Negative
-- `hooks` fields were removed from agent frontmatter (they contained Claude Flow shell scripts, not Claude Code hook references — functionality preserved in CLI hooks system)
+- `hooks` fields were removed from agent frontmatter (they contained GemiFlow shell scripts, not Claude Code hook references — functionality preserved in CLI hooks system)
 - Guidance tools use a static catalog that must be updated when new capabilities are added
 
 ## Files Changed
 
-- `v3/@claude-flow/cli/src/mcp-tools/guidance-tools.ts` — new (5 tools)
-- `v3/@claude-flow/cli/src/mcp-tools/index.ts` — export guidance tools
-- `v3/@claude-flow/cli/src/mcp-client.ts` — register guidance tools
-- `v3/@claude-flow/cli/src/mcp-server.ts` — PID self-detection + reuse guard + legacy cleanup
-- `v3/@claude-flow/cli/src/init/executor.ts` — stop counting .yaml files
-- `.claude/agents/**/*.md` — 100+ files standardized
-- `.claude/skills/**/SKILL.md` — 17 files standardized
+- `v3/@gemiflow/cli/src/mcp-tools/guidance-tools.ts` — new (5 tools)
+- `v3/@gemiflow/cli/src/mcp-tools/index.ts` — export guidance tools
+- `v3/@gemiflow/cli/src/mcp-client.ts` — register guidance tools
+- `v3/@gemiflow/cli/src/mcp-server.ts` — PID self-detection + reuse guard + legacy cleanup
+- `v3/@gemiflow/cli/src/init/executor.ts` — stop counting .yaml files
+- `.gemiflow/agents/**/*.md` — 100+ files standardized
+- `.gemiflow/skills/**/SKILL.md` — 17 files standardized

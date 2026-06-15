@@ -6,7 +6,7 @@
 
 ## Overview
 
-Successfully implemented MCP-first API design for Claude Flow V3. CLI commands now call MCP tools rather than implementing functionality directly, following the principle:
+Successfully implemented MCP-first API design for GemiFlow V3. CLI commands now call MCP tools rather than implementing functionality directly, following the principle:
 
 > **"MCP coordinates, Claude Code creates!"**
 
@@ -104,7 +104,7 @@ Implemented in `index.ts`:
 
 ## Integration with MCP Server
 
-Updated `/workspaces/claude-flow/v3/mcp/server.ts`:
+Updated `/workspaces/gemiflow/v3/mcp/server.ts`:
 
 ```typescript
 private async registerBuiltInTools(): Promise<void> {
@@ -352,16 +352,16 @@ This implementation satisfies:
 
 ## Files Created
 
-1. `/workspaces/claude-flow/v3/mcp/tools/agent-tools.ts` (463 lines)
-2. `/workspaces/claude-flow/v3/mcp/tools/swarm-tools.ts` (489 lines)
-3. `/workspaces/claude-flow/v3/mcp/tools/memory-tools.ts` (575 lines)
-4. `/workspaces/claude-flow/v3/mcp/tools/config-tools.ts` (568 lines)
-5. `/workspaces/claude-flow/v3/mcp/tools/index.ts` (300 lines)
-6. `/workspaces/claude-flow/v3/mcp/tools/README.md` (405 lines)
+1. `/workspaces/gemiflow/v3/mcp/tools/agent-tools.ts` (463 lines)
+2. `/workspaces/gemiflow/v3/mcp/tools/swarm-tools.ts` (489 lines)
+3. `/workspaces/gemiflow/v3/mcp/tools/memory-tools.ts` (575 lines)
+4. `/workspaces/gemiflow/v3/mcp/tools/config-tools.ts` (568 lines)
+5. `/workspaces/gemiflow/v3/mcp/tools/index.ts` (300 lines)
+6. `/workspaces/gemiflow/v3/mcp/tools/README.md` (405 lines)
 
 ## Files Modified
 
-1. `/workspaces/claude-flow/v3/mcp/server.ts` (updated `registerBuiltInTools()`)
+1. `/workspaces/gemiflow/v3/mcp/server.ts` (updated `registerBuiltInTools()`)
 
 ## Testing Checklist
 
@@ -387,7 +387,7 @@ This implementation satisfies:
 
 ## Extension: Hooks MCP Tools (2026-01-06)
 
-Added hooks-related MCP tools in `@claude-flow/cli/src/mcp-tools/hooks-tools.ts`:
+Added hooks-related MCP tools in `@gemiflow/cli/src/mcp-tools/hooks-tools.ts`:
 
 ### Additional Tools (13 total hooks tools)
 
@@ -437,12 +437,12 @@ The implementation provides a solid foundation for CLI commands, web interfaces,
 
 ### CLI Implementation Complete
 
-All MCP tools now exposed via CLI commands in `@claude-flow/cli@3.0.0-alpha.7`:
+All MCP tools now exposed via CLI commands in `@gemiflow/cli@3.0.0-alpha.7`:
 
 #### File-Based Persistence Architecture
 
 ```
-.claude-flow/
+.gemiflow/
 ├── agents/store.json       # Agent lifecycle state
 ├── tasks/store.json        # Task execution state
 ├── sessions/store.json     # Session management
@@ -496,8 +496,8 @@ All MCP tools now exposed via CLI commands in `@claude-flow/cli@3.0.0-alpha.7`:
 
 4. **Mac Settings Validation** (alpha.89) - Fixed Claude Code settings.json validation errors on macOS
    - Issue: `PermissionRequest` hook type not recognized; permission patterns required `:*` syntax
-   - Fix: Removed `PermissionRequest` hook block; changed patterns from `*` to `:*` (e.g., `Bash(npx claude-flow:*)`)
-   - Affected: `settings-generator.ts`, `types.ts`, `.claude/settings.json`
+   - Fix: Removed `PermissionRequest` hook block; changed patterns from `*` to `:*` (e.g., `Bash(npx gemiflow:*)`)
+   - Affected: `settings-generator.ts`, `types.ts`, `.gemiflow/settings.json`
 
 #### Testing Results
 
@@ -517,7 +517,7 @@ node bin/cli.js hive-mind broadcast -m "Hello"  # ✅ Works
 - **File Persistence**: 6 storage domains
 - **Architecture Compliance**: 100%
 
-**Published**: `@claude-flow/cli@3.0.0-alpha.90` with `v3alpha` tag (latest)
+**Published**: `@gemiflow/cli@3.0.0-alpha.90` with `v3alpha` tag (latest)
 
 #### Version History
 
@@ -608,14 +608,14 @@ if (existingStatus.running && shouldForceRestart) {
 Added automatic dist-tag updates to `scripts/publish.sh`:
 ```bash
 # Update all tags to point to the new version
-npm dist-tag add @claude-flow/cli@$VERSION alpha
-npm dist-tag add @claude-flow/cli@$VERSION latest
-npm dist-tag add @claude-flow/cli@$VERSION v3alpha
-npm dist-tag add claude-flow@$VERSION alpha
-npm dist-tag add claude-flow@$VERSION latest
-npm dist-tag add claude-flow@$VERSION v3alpha
+npm dist-tag add @gemiflow/cli@$VERSION alpha
+npm dist-tag add @gemiflow/cli@$VERSION latest
+npm dist-tag add @gemiflow/cli@$VERSION v3alpha
+npm dist-tag add gemiflow@$VERSION alpha
+npm dist-tag add gemiflow@$VERSION latest
+npm dist-tag add gemiflow@$VERSION v3alpha
 ```
 
-This ensures `npx claude-flow@alpha` always gets the latest version.
+This ensures `npx gemiflow@alpha` always gets the latest version.
 
-**Published**: `@claude-flow/cli@3.0.0-alpha.95`, `claude-flow@3.0.0-alpha.46`
+**Published**: `@gemiflow/cli@3.0.0-alpha.95`, `gemiflow@3.0.0-alpha.46`

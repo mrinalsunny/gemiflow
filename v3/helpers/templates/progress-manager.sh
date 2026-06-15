@@ -1,10 +1,10 @@
 #!/bin/bash
-# Claude Flow V3 Progress Manager Template (Linux/macOS)
+# GemiFlow V3 Progress Manager Template (Linux/macOS)
 
 set -e
 
-METRICS_DIR="${PROJECT_ROOT:-.}/.claude-flow/metrics"
-SECURITY_DIR="${PROJECT_ROOT:-.}/.claude-flow/security"
+METRICS_DIR="${PROJECT_ROOT:-.}/.gemiflow/metrics"
+SECURITY_DIR="${PROJECT_ROOT:-.}/.gemiflow/security"
 
 # Colors
 GREEN='\033[0;32m'

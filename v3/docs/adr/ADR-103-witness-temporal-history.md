@@ -2,7 +2,7 @@
 
 **Status**: Accepted
 **Date**: 2026-05-08
-**Version**: ruflo-core@0.2.1+ / @claude-flow/cli@3.7.0-alpha.18+
+**Version**: gemiflow-core@0.2.1+ / @gemiflow/cli@3.7.0-alpha.18+
 **Related**: ADR-102 (CI smoke harness), #1867, #1859, #1862, project memory `project_verification_process.md`
 
 ## Context
@@ -23,14 +23,14 @@ commit X and Y, on date D, in PR #N". For a project with 80+ tracked
 fixes across rapid alpha churn, this turns regression triage into a
 manual git-bisect every time.
 
-### Gap 2 — Toolkit is ruflo-internal
+### Gap 2 — Toolkit is gemiflow-internal
 
 The regen logic was originally inline in shell heredocs (per the
 `project_verification_process.md` memory) and later extracted to
-`scripts/regen-witness.mjs`. Both forms hard-code ruflo's paths and
+`scripts/regen-witness.mjs`. Both forms hard-code gemiflow's paths and
 fix list. Other projects can't adopt the witness pattern without
 copy-pasting and rewriting. Given that several downstream consumers
-of `ruflo` and `@claude-flow/cli` ship their own fixes, this is a
+of `gemiflow` and `@gemiflow/cli` ship their own fixes, this is a
 real adoption blocker.
 
 ## Decision
@@ -66,9 +66,9 @@ The file is committed alongside `verification.md.json`. They must move
 as a pair — the manifest is the latest signed snapshot, the JSONL is
 the timeline that proves it's the latest.
 
-### 2. Ship the toolkit as a `ruflo-core` plugin asset
+### 2. Ship the toolkit as a `gemiflow-core` plugin asset
 
-The witness scripts move to `plugins/ruflo-core/scripts/witness/`:
+The witness scripts move to `plugins/gemiflow-core/scripts/witness/`:
 
 | File | Purpose |
 |---|---|
@@ -82,16 +82,16 @@ Plus exposure as Claude Code surface area:
 
 | File | Purpose |
 |---|---|
-| `plugins/ruflo-core/skills/witness/SKILL.md` | Workflow doc + anti-patterns |
-| `plugins/ruflo-core/commands/witness.md` | Slash-command thin wrapper |
-| `plugins/ruflo-core/agents/witness-curator.md` | Agent for adding fixes / interpreting regressions |
+| `plugins/gemiflow-core/skills/witness/SKILL.md` | Workflow doc + anti-patterns |
+| `plugins/gemiflow-core/commands/witness.md` | Slash-command thin wrapper |
+| `plugins/gemiflow-core/agents/witness-curator.md` | Agent for adding fixes / interpreting regressions |
 
 The scripts are project-agnostic: they take `--manifest`, `--history`,
 `--fixes`, `--root` flags. They probe `<root>` and `<root>/v3` for
 `@noble/ed25519`, so they work in monorepo and flat layouts.
 
-The ruflo internal entrypoint at `scripts/regen-witness.mjs` is now a
-thin wrapper that hard-codes ruflo's paths and reads the
+The gemiflow internal entrypoint at `scripts/regen-witness.mjs` is now a
+thin wrapper that hard-codes gemiflow's paths and reads the
 project-specific fix list from `witness-fixes.json`. Single source of
 truth lives in the plugin.
 
@@ -123,8 +123,8 @@ to a small set of commits to read.
 - The JSONL keeps fixes keyed by id (object), not array. This makes
   per-fix lookups O(1) without scanning, which matters once history
   reaches 100+ entries.
-- `verify.mjs` is parallel to the bundled `ruflo verify` command but
-  has no ruflo CLI dependency — adopters who only want the witness
+- `verify.mjs` is parallel to the bundled `gemiflow verify` command but
+  has no gemiflow CLI dependency — adopters who only want the witness
   toolkit can install one tiny package (`@noble/ed25519`) and run it.
 
 ## Consequences
@@ -135,7 +135,7 @@ to a small set of commits to read.
 - Per-fix status timelines for trend analysis (which fixes flap, which
   drift consistently, which regress permanently).
 - Other projects can adopt the witness pattern by copying
-  `plugins/ruflo-core/scripts/witness/` and `init`-ing — no ruflo
+  `plugins/gemiflow-core/scripts/witness/` and `init`-ing — no gemiflow
   install required.
 - The CI surface gains a soft gate that highlights *what* regressed,
   not just *that* something regressed.
@@ -158,15 +158,15 @@ to a small set of commits to read.
 - No cross-project history aggregation. Each project's JSONL is local.
   Multi-project rollups would need a separate ingestion service.
 - The `verify.mjs` script duplicates a small amount of logic with
-  `v3/@claude-flow/cli/src/commands/verify.ts`. Acceptable for now
+  `v3/@gemiflow/cli/src/commands/verify.ts`. Acceptable for now
   (the standalone needs to work without the CLI installed); could be
   unified later if both move to the plugin.
 
 ## References
 
-- `plugins/ruflo-core/skills/witness/SKILL.md` — adoption guide
-- `plugins/ruflo-core/agents/witness-curator.md` — agent definition
-- `~/.claude/.../project_verification_process.md` — original inline
+- `plugins/gemiflow-core/skills/witness/SKILL.md` — adoption guide
+- `plugins/gemiflow-core/agents/witness-curator.md` — agent definition
+- `~/.gemiflow/.../project_verification_process.md` — original inline
   regen process; superseded by this ADR's plugin-extracted form
 - ADR-102 — CI smoke harness pattern (this ADR generalizes the
   smoke-test layer to a fully temporal verification layer)

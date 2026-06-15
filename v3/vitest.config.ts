@@ -1,5 +1,5 @@
 /**
- * V3 Claude-Flow Vitest Configuration
+ * V3 GemiFlow Vitest Configuration
  *
  * London School TDD Configuration
  * - Mock-first testing approach
@@ -10,6 +10,21 @@ import { defineConfig } from 'vitest/config';
 import path from 'path';
 
 export default defineConfig({
+  plugins: [
+    {
+      name: 'externalize-optional-deps',
+      enforce: 'pre',
+      resolveId(source) {
+        if (source.startsWith('agentic-flow')) return { id: source, external: true };
+        if (source.startsWith('agentdb')) return { id: source, external: true };
+        if (source.startsWith('@ruvector/')) return { id: source, external: true };
+        if (source.startsWith('@huggingface/transformers')) return { id: source, external: true };
+        if (source.startsWith('@xenova/transformers')) return { id: source, external: true };
+        if (source.startsWith('@noble/ed25519')) return { id: source, external: true };
+        return null;
+      },
+    },
+  ],
   test: {
     // Test environment
     environment: 'node',
@@ -21,8 +36,8 @@ export default defineConfig({
     include: [
       '__tests__/**/*.test.ts',
       '__tests__/**/*.spec.ts',
-      '@claude-flow/**/__tests__/**/*.test.ts',
-      '@claude-flow/**/__tests__/**/*.spec.ts',
+      '@gemiflow/**/__tests__/**/*.test.ts',
+      '@gemiflow/**/__tests__/**/*.spec.ts',
       'mcp/__tests__/**/*.test.ts',
       'mcp/__tests__/**/*.spec.ts',
     ],

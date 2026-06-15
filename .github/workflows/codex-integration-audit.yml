@@ -1,12 +1,12 @@
 name: codex-integration-audit
 
-# Guards the Codex ↔ Ruflo integration invariants (issue #1909):
+# Guards the Codex ↔ GemiFlow integration invariants (issue #1909):
 # - the `codex` MCP backend uses the real `mcp-server` subcommand
-# - @claude-flow/codex VERSION const tracks its package.json
+# - @gemiflow/codex VERSION const tracks its package.json
 # - the dual-mode orchestrator / agent defs drive real `codex exec`
-# - CLI refs are standardized to `ruflo`, `dual run` exposes `--worker`,
+# - CLI refs are standardized to `gemiflow`, `dual run` exposes `--worker`,
 #   generated SKILL.md frontmatter is complete, config.toml emits a
-#   working `ruflo` MCP server.
+#   working `gemiflow` MCP server.
 # Pure-Node static checks — no install needed. Build + unit tests are
 # covered by the main CI workflow.
 
@@ -14,18 +14,18 @@ on:
   push:
     branches: [main]
     paths:
-      - 'v3/@claude-flow/codex/**'
-      - 'ruflo/src/mcp-bridge/**'
-      - 'ruflo/src/ruvocal/mcp-bridge/**'
-      - '.claude/agents/dual-mode/**'
+      - 'v3/@gemiflow/codex/**'
+      - 'gemiflow/src/mcp-bridge/**'
+      - 'gemiflow/src/ruvocal/mcp-bridge/**'
+      - '.gemiflow/agents/dual-mode/**'
       - 'scripts/audit-codex-integration.mjs'
       - '.github/workflows/codex-integration-audit.yml'
   pull_request:
     paths:
-      - 'v3/@claude-flow/codex/**'
-      - 'ruflo/src/mcp-bridge/**'
-      - 'ruflo/src/ruvocal/mcp-bridge/**'
-      - '.claude/agents/dual-mode/**'
+      - 'v3/@gemiflow/codex/**'
+      - 'gemiflow/src/mcp-bridge/**'
+      - 'gemiflow/src/ruvocal/mcp-bridge/**'
+      - '.gemiflow/agents/dual-mode/**'
       - 'scripts/audit-codex-integration.mjs'
       - '.github/workflows/codex-integration-audit.yml'
 

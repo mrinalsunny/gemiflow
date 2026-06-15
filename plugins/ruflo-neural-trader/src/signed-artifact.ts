@@ -21,7 +21,7 @@
  * Key sourcing:
  *   - The signer accepts a 32-byte private key as a hex string. The
  *     `trader-backtest` skill resolves the key at runtime via the env var
- *     `RUFLO_WITNESS_KEY_PATH` (a JSON file with a `{ "privateKey": "<hex>" }`
+ *     `GEMIFLOW_WITNESS_KEY_PATH` (a JSON file with a `{ "privateKey": "<hex>" }`
  *     field). If unset, callers may fall back to the legacy ADR-103 witness
  *     key path; if neither is available, the skill stores the artifact in
  *     UNSIGNED degraded mode with a loud warning — never silently.
@@ -41,7 +41,7 @@
 /* ---------------------------------------------------------------------- */
 
 export interface SignedBacktestArtifact {
-  schema: 'ruflo-neural-trader-backtest/v1';
+  schema: 'gemiflow-neural-trader-backtest/v1';
   strategyId: string;
   paramsHash: string;           // sha256 of canonical params JSON
   dataRange: { from: string; to: string };
@@ -94,7 +94,7 @@ export async function signBacktestArtifact(
   const publicKeyBytes = await ed.getPublicKeyAsync(privateKey);
 
   return {
-    schema: 'ruflo-neural-trader-backtest/v1',
+    schema: 'gemiflow-neural-trader-backtest/v1',
     ...body,
     witnessPublicKey: `ed25519:${bytesToHex(publicKeyBytes)}`,
     witnessSignature: bytesToHex(signatureBytes),

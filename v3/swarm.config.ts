@@ -5,21 +5,32 @@
  * Based on the V3 Architecture Decision Records and Swarm Implementation Plan
  */
 
-import {
-  SwarmConfig,
-  TopologyType,
-  LoadBalancingStrategy,
-  AgentDomain,
-  PhaseId,
-  PerformanceTargets,
-  V3_PERFORMANCE_TARGETS
-} from './shared/types';
+type SwarmConfig = any;
+type TopologyType = any;
+type LoadBalancingStrategy = any;
+type AgentDomain = any;
+type PhaseId = any;
+type PerformanceTargets = any;
+
+const V3_PERFORMANCE_TARGETS = {
+  flashAttention: '2.49x-7.47x speedup',
+  agentDbSearch: '150x-12,500x improvement',
+  memoryReduction: '50-75%',
+  codeReduction: '<5,000 lines',
+  startupTime: '<500ms'
+};
 
 // =============================================================================
 // Swarm Configuration
 // =============================================================================
 
 export interface V3SwarmConfig extends SwarmConfig {
+  topology?: string;
+  maxAgents?: number;
+  messageTimeout?: number;
+  retryAttempts?: number;
+  healthCheckInterval?: number;
+  loadBalancingStrategy?: string;
   name: string;
   version: string;
   description: string;
@@ -74,7 +85,7 @@ export const defaultSwarmConfig: V3SwarmConfig = {
   loadBalancingStrategy: 'capability-match',
 
   // V3 Extensions
-  name: 'claude-flow-v3-swarm',
+  name: 'gemiflow-v3-swarm',
   version: '3.0.0',
   description: '15-agent hierarchical mesh swarm for V3 implementation',
 
@@ -156,7 +167,7 @@ export const defaultSwarmConfig: V3SwarmConfig = {
   // GitHub Integration
   github: {
     enabled: true,
-    repository: 'ruvnet/claude-flow',
+    repository: 'ruvnet/gemiflow',
     issueLabels: {
       'agent-1': 'swarm:agent-1',
       'agent-2-4': 'swarm:agent-2-4',

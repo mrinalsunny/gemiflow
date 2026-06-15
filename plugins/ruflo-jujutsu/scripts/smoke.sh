@@ -8,11 +8,11 @@ ok()   { printf "PASS\n"; PASS=$((PASS+1)); }
 bad()  { printf "FAIL: %s\n" "$1"; FAIL=$((FAIL+1)); }
 
 step "1. plugin.json declares 0.2.0 with new keywords"
-v=$(grep -E '"version"' "$ROOT/.claude-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+v=$(grep -E '"version"' "$ROOT/.gemiflow-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
 if [[ "$v" != "0.2.0" ]]; then bad "expected 0.2.0, got '$v'"; else
   miss=""
   for k in mcp change-classification reviewer-recommendation; do
-    grep -q "\"$k\"" "$ROOT/.claude-plugin/plugin.json" || miss="$miss $k"
+    grep -q "\"$k\"" "$ROOT/.gemiflow-plugin/plugin.json" || miss="$miss $k"
   done
   [[ -z "$miss" ]] && ok || bad "missing keywords:$miss"
 fi
@@ -39,19 +39,19 @@ step "4. agent + command present"
 [[ -f "$ROOT/agents/git-specialist.md" ]] && [[ -f "$ROOT/commands/jujutsu.md" ]] \
   && ok || bad "agent or command missing"
 
-step "5. README pins @claude-flow/cli to v3.6"
-grep -qE "@claude-flow/cli.*v3\.6|v3\.6.*claude-flow/cli" "$ROOT/README.md" \
+step "5. README pins @gemiflow/cli to v3.6"
+grep -qE "@gemiflow/cli.*v3\.6|v3\.6.*gemiflow/cli" "$ROOT/README.md" \
   && ok || bad "v3.6 pin missing"
 
-step "6. README defers to ruflo-agentdb namespace convention"
-grep -q "ruflo-agentdb" "$ROOT/README.md" \
+step "6. README defers to gemiflow-agentdb namespace convention"
+grep -q "gemiflow-agentdb" "$ROOT/README.md" \
   && grep -q "Namespace convention" "$ROOT/README.md" \
   && ok || bad "namespace coordination block incomplete"
 
-step "7. ADR-compliance integration documented (ruflo-adr cross-reference)"
+step "7. ADR-compliance integration documented (gemiflow-adr cross-reference)"
 F="$ROOT/README.md"
 grep -q "ADR-compliance" "$F" \
-  && grep -q "ruflo-adr" "$F" \
+  && grep -q "gemiflow-adr" "$F" \
   && grep -q "/adr check" "$F" \
   && ok || bad "ADR-compliance integration block incomplete"
 

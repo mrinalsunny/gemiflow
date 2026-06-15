@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Regression guard for ruvnet/ruflo#2195.
+ * Regression guard for ruvnet/gemiflow#2195.
  *
  * The statusline generator previously re-implemented all data readers
  * locally with fragile file probes that returned wrong values:
@@ -9,7 +9,7 @@
  *   - ADR count:    87/87 (missed v3/docs/adr/ → should be 128)
  *   - Vectors:      22    (read session-imports, not AgentDB total)
  *
- * The fix delegates to 'npx @claude-flow/cli@latest hooks statusline --json'
+ * The fix delegates to 'npx @gemiflow/cli@latest hooks statusline --json'
  * as the single source of truth and counts ADRs in both directories.
  *
  * This smoke verifies:
@@ -24,9 +24,9 @@ import { resolve, join } from 'node:path';
 import { tmpdir, homedir } from 'node:os';
 
 const REPO_ROOT = resolve(process.cwd());
-const GENERATOR_SRC = join(REPO_ROOT, 'v3/@claude-flow/cli/src/init/statusline-generator.ts');
-const GENERATOR_DIST = join(REPO_ROOT, 'v3/@claude-flow/cli/dist/src/init/statusline-generator.js');
-const CJS_PATH = join(tmpdir(), 'ruflo-smoke-statusline.cjs');
+const GENERATOR_SRC = join(REPO_ROOT, 'v3/@gemiflow/cli/src/init/statusline-generator.ts');
+const GENERATOR_DIST = join(REPO_ROOT, 'v3/@gemiflow/cli/dist/src/init/statusline-generator.js');
+const CJS_PATH = join(tmpdir(), 'gemiflow-smoke-statusline.cjs');
 
 let passed = 0;
 let failed = 0;

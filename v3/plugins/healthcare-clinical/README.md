@@ -1,7 +1,7 @@
-# @claude-flow/plugin-healthcare-clinical
+# @gemiflow/plugin-healthcare-clinical
 
-[![npm version](https://img.shields.io/npm/v/@claude-flow/plugin-healthcare-clinical.svg)](https://www.npmjs.com/package/@claude-flow/plugin-healthcare-clinical)
-[![npm downloads](https://img.shields.io/npm/dm/@claude-flow/plugin-healthcare-clinical.svg)](https://www.npmjs.com/package/@claude-flow/plugin-healthcare-clinical)
+[![npm version](https://img.shields.io/npm/v/@gemiflow/plugin-healthcare-clinical.svg)](https://www.npmjs.com/package/@gemiflow/plugin-healthcare-clinical)
+[![npm downloads](https://img.shields.io/npm/dm/@gemiflow/plugin-healthcare-clinical.svg)](https://www.npmjs.com/package/@gemiflow/plugin-healthcare-clinical)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A HIPAA-compliant clinical decision support plugin that combines ultra-fast vector search for medical literature retrieval with graph neural networks for patient pathway analysis. The plugin enables semantic search across medical records, drug interaction detection, and evidence-based treatment recommendations while maintaining strict data privacy through on-device WASM processing.
@@ -19,19 +19,19 @@ A HIPAA-compliant clinical decision support plugin that combines ultra-fast vect
 ### npm
 
 ```bash
-npm install @claude-flow/plugin-healthcare-clinical
+npm install @gemiflow/plugin-healthcare-clinical
 ```
 
 ### CLI
 
 ```bash
-npx claude-flow plugins install --name @claude-flow/plugin-healthcare-clinical
+npx gemiflow plugins install --name @gemiflow/plugin-healthcare-clinical
 ```
 
 ## Quick Start
 
 ```typescript
-import { HealthcareClinicalPlugin } from '@claude-flow/plugin-healthcare-clinical';
+import { HealthcareClinicalPlugin } from '@gemiflow/plugin-healthcare-clinical';
 
 // Initialize the plugin
 const healthcare = new HealthcareClinicalPlugin({
@@ -251,15 +251,15 @@ const rateLimits = {
 
 | Plugin | Description | Use Case |
 |--------|-------------|----------|
-| [@claude-flow/plugin-legal-contracts](../legal-contracts) | Contract analysis and compliance | Healthcare vendor agreements, BAAs |
-| [@claude-flow/plugin-financial-risk](../financial-risk) | Risk analysis and compliance | Healthcare billing fraud detection |
-| [@claude-flow/plugin-code-intelligence](../code-intelligence) | Code analysis | EHR integration development |
+| [@gemiflow/plugin-legal-contracts](../legal-contracts) | Contract analysis and compliance | Healthcare vendor agreements, BAAs |
+| [@gemiflow/plugin-financial-risk](../financial-risk) | Risk analysis and compliance | Healthcare billing fraud detection |
+| [@gemiflow/plugin-code-intelligence](../code-intelligence) | Code analysis | EHR integration development |
 
 ## License
 
 MIT License
 
-Copyright (c) 2026 Claude Flow
+Copyright (c) 2026 GemiFlow
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

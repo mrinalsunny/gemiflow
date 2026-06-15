@@ -8,11 +8,11 @@ ok()   { printf "PASS\n"; PASS=$((PASS+1)); }
 bad()  { printf "FAIL: %s\n" "$1"; FAIL=$((FAIL+1)); }
 
 step "1. plugin.json declares 0.2.0 with new keywords"
-v=$(grep -E '"version"' "$ROOT/.claude-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+v=$(grep -E '"version"' "$ROOT/.gemiflow-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
 if [[ "$v" != "0.2.0" ]]; then bad "expected 0.2.0, got '$v'"; else
   miss=""
   for k in mcp claude-memories bridged-memory; do
-    grep -q "\"$k\"" "$ROOT/.claude-plugin/plugin.json" || miss="$miss $k"
+    grep -q "\"$k\"" "$ROOT/.gemiflow-plugin/plugin.json" || miss="$miss $k"
   done
   [[ -z "$miss" ]] && ok || bad "missing keywords:$miss"
 fi
@@ -28,15 +28,15 @@ for s in memory-bridge memory-search; do
 done
 [[ -f "$ROOT/agents/memory-specialist.md" ]] || miss="$miss missing-agent"
 [[ -f "$ROOT/commands/recall.md" ]] || miss="$miss missing-recall-cmd"
-[[ -f "$ROOT/commands/ruflo-memory.md" ]] || miss="$miss missing-memory-cmd"
+[[ -f "$ROOT/commands/gemiflow-memory.md" ]] || miss="$miss missing-memory-cmd"
 [[ -z "$miss" ]] && ok || bad "$miss"
 
-step "3. README pins @claude-flow/cli to v3.6"
-grep -qE "@claude-flow/cli.*v3\.6|v3\.6.*claude-flow/cli" "$ROOT/README.md" \
+step "3. README pins @gemiflow/cli to v3.6"
+grep -qE "@gemiflow/cli.*v3\.6|v3\.6.*gemiflow/cli" "$ROOT/README.md" \
   && ok || bad "v3.6 pin missing"
 
-step "4. README defers to ruflo-agentdb namespace convention"
-grep -q "ruflo-agentdb" "$ROOT/README.md" \
+step "4. README defers to gemiflow-agentdb namespace convention"
+grep -q "gemiflow-agentdb" "$ROOT/README.md" \
   && grep -q "Namespace convention" "$ROOT/README.md" \
   && ok || bad "namespace coordination block incomplete"
 

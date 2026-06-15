@@ -2,12 +2,12 @@
 name: cost-track
 description: Auto-capture per-session token usage from the Claude Code session jsonl and persist to the cost-tracking namespace
 argument-hint: ""
-allowed-tools: Bash mcp__claude-flow__memory_store
+allowed-tools: Bash mcp__gemiflow__memory_store
 ---
 
 # Cost Track
 
-Reads the active Claude Code session jsonl (`~/.claude/projects/<encoded-cwd>/<session>.jsonl`), tallies assistant-message `usage` per model, computes USD cost using REFERENCE.md pricing, and writes a structured record to the `cost-tracking` AgentDB namespace. This is the **producer** that gives `cost-report` and `cost-optimize` real data to consume.
+Reads the active Claude Code session jsonl (`~/.gemiflow/projects/<encoded-cwd>/<session>.jsonl`), tallies assistant-message `usage` per model, computes USD cost using REFERENCE.md pricing, and writes a structured record to the `cost-tracking` AgentDB namespace. This is the **producer** that gives `cost-report` and `cost-optimize` real data to consume.
 
 ## When to use
 
@@ -20,14 +20,14 @@ Reads the active Claude Code session jsonl (`~/.claude/projects/<encoded-cwd>/<s
 1. **Run the tracker** from the project root:
 
    ```bash
-   node plugins/ruflo-cost-tracker/scripts/track.mjs
+   node plugins/gemiflow-cost-tracker/scripts/track.mjs
    ```
 
    The script auto-discovers the session jsonl from the current working directory. To pin a specific session: `TRACK_SESSION=/path/to/session.jsonl`. To dry-run (no memory write): `TRACK_DRY_RUN=1`.
 
 2. **Inspect the markdown summary** — total cost, per-model and per-tier breakdowns, and the persisted memory key.
 
-3. **Verify persistence** — `mcp__claude-flow__memory_search --query "session-" --namespace cost-tracking` should list the new record. `cost-report` step 1 reads from this namespace.
+3. **Verify persistence** — `mcp__gemiflow__memory_search --query "session-" --namespace cost-tracking` should list the new record. `cost-report` step 1 reads from this namespace.
 
 ## Record shape (in `cost-tracking` namespace)
 
@@ -36,7 +36,7 @@ Key: `session-<sessionId>`. Value (JSON):
 ```json
 {
   "sessionId": "1dba3b8c-...",
-  "cwd": "/Users/cohen/Projects/ruflo",
+  "cwd": "/Users/cohen/Projects/gemiflow",
   "startedAt": "2026-05-04T...",
   "endedAt": "2026-05-05T...",
   "messageCount": 234,

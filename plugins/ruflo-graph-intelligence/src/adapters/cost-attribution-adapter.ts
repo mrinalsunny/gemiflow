@@ -1,7 +1,7 @@
 /**
  * Cost Attribution Adapter (Wedge 6, ADR-123 Phase 3)
  *
- * `ruflo-cost-tracker` records token usage per session in a causation graph:
+ * `gemiflow-cost-tracker` records token usage per session in a causation graph:
  *   user-prompt → spawned-agent → MCP-call → model-invocation → tokens-USD
  *
  * This adapter exports that graph so `sublinear/page-rank-entry` answers
@@ -37,12 +37,12 @@ export interface CostAttributionAdapterOptions {
 }
 
 export function costAttributionGraphId(sessionId?: string): string {
-  return sessionId ? `ruflo-cost-tracker:causation:${sessionId}` : 'ruflo-cost-tracker:causation:global';
+  return sessionId ? `gemiflow-cost-tracker:causation:${sessionId}` : 'gemiflow-cost-tracker:causation:global';
 }
 
 export class CostAttributionAdapter implements SublinearAdapter {
   readonly graphId: string;
-  readonly ownerPlugin = 'ruflo-cost-tracker';
+  readonly ownerPlugin = 'gemiflow-cost-tracker';
   readonly requiresPreprocessing = false;
 
   private readonly source: CostCausationSource;

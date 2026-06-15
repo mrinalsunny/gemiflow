@@ -2,10 +2,10 @@
 
 **Status:** Implemented
 **Date:** 2026-02-10
-**Authors:** RuvNet, Claude Flow Team
+**Authors:** RuvNet, GemiFlow Team
 **Version:** 2.0.0
 **Related:** ADR-006 (Unified Memory), ADR-009 (Hybrid Memory Backend), ADR-027 (RuVector PostgreSQL), ADR-048 (Auto Memory Integration), ADR-049 (Self-Learning Memory GNN), ADR-052 (Statusline Observability)
-**Implementation:** `.claude/helpers/context-persistence-hook.mjs` (~1600 lines), `.claude/helpers/patch-aggressive-prune.mjs` (~120 lines)
+**Implementation:** `.gemiflow/helpers/context-persistence-hook.mjs` (~1600 lines), `.gemiflow/helpers/patch-aggressive-prune.mjs` (~120 lines)
 
 ## Context
 
@@ -40,7 +40,7 @@ Claude Code's SDK exposes two hook events relevant to compaction:
    - `source: 'compact'` (distinguishes post-compaction from fresh start)
    - Hook output supports `additionalContext` injection into the new context
 
-Current PreCompact hooks (`.claude/settings.json` lines 469-498) only:
+Current PreCompact hooks (`.gemiflow/settings.json` lines 469-498) only:
 - Print guidance text about available agents
 - Export learned patterns to `compact-patterns.json`
 - Export intelligence state to `intelligence-state.json`
@@ -210,19 +210,19 @@ instead of blocking.
 |  |              Memory Backend (tiered)                        |   |
 |  |                                                            |   |
 |  |  Tier 1: SQLite (better-sqlite3)                           |   |
-|  |    -> .claude-flow/data/transcript-archive.db              |   |
+|  |    -> .gemiflow/data/transcript-archive.db              |   |
 |  |    -> WAL mode, indexed queries, ACID transactions         |   |
 |  |                                                            |   |
 |  |  Tier 2: RuVector PostgreSQL (if RUVECTOR_* env set)       |   |
 |  |    -> TB-scale storage, pgvector embeddings                |   |
 |  |    -> GNN-enhanced retrieval, self-learning optimizer       |   |
 |  |                                                            |   |
-|  |  Tier 3: AgentDB + HNSW  (if @claude-flow/memory built)   |   |
+|  |  Tier 3: AgentDB + HNSW  (if @gemiflow/memory built)   |   |
 |  |    -> 150x-12,500x faster semantic search                  |   |
 |  |    -> Vector-indexed retrieval                             |   |
 |  |                                                            |   |
 |  |  Tier 4: JsonFileBackend                                   |   |
-|  |    -> .claude-flow/data/transcript-archive.json            |   |
+|  |    -> .gemiflow/data/transcript-archive.json            |   |
 |  |    -> Zero dependencies, always available                  |   |
 |  +-----------------------------------------------------------+   |
 |                                                                   |
@@ -478,7 +478,7 @@ The autopilot state is read by the statusline script to display real-time metric
 
 ### Autopilot State Persistence
 
-State is persisted to `.claude-flow/data/autopilot-state.json`:
+State is persisted to `.gemiflow/data/autopilot-state.json`:
 
 ```json
 {
@@ -528,14 +528,14 @@ State is persisted to `.claude-flow/data/autopilot-state.json`:
 
 | Environment Variable | Default | Description |
 |---------------------|---------|-------------|
-| `CLAUDE_FLOW_COMPACT_RESTORE_BUDGET` | `4000` | Max chars for restored context in SessionStart |
-| `CLAUDE_FLOW_COMPACT_INSTRUCTION_BUDGET` | `2000` | Max chars for custom compact instructions |
-| `CLAUDE_FLOW_AUTO_OPTIMIZE` | `true` | Enable importance ranking, pruning, RuVector sync |
-| `CLAUDE_FLOW_RETENTION_DAYS` | `30` | Auto-prune never-accessed entries older than N days |
-| `CLAUDE_FLOW_CONTEXT_AUTOPILOT` | `true` | Enable Context Autopilot tracking |
-| `CLAUDE_FLOW_CONTEXT_WINDOW` | `200000` | Context window size in tokens |
-| `CLAUDE_FLOW_AUTOPILOT_WARN` | `0.70` | Warning threshold (70%) |
-| `CLAUDE_FLOW_AUTOPILOT_PRUNE` | `0.85` | Critical threshold (85%) — session rotation advised |
+| `GEMIFLOW_COMPACT_RESTORE_BUDGET` | `4000` | Max chars for restored context in SessionStart |
+| `GEMIFLOW_COMPACT_INSTRUCTION_BUDGET` | `2000` | Max chars for custom compact instructions |
+| `GEMIFLOW_AUTO_OPTIMIZE` | `true` | Enable importance ranking, pruning, RuVector sync |
+| `GEMIFLOW_RETENTION_DAYS` | `30` | Auto-prune never-accessed entries older than N days |
+| `GEMIFLOW_CONTEXT_AUTOPILOT` | `true` | Enable Context Autopilot tracking |
+| `GEMIFLOW_CONTEXT_WINDOW` | `200000` | Context window size in tokens |
+| `GEMIFLOW_AUTOPILOT_WARN` | `0.70` | Warning threshold (70%) |
+| `GEMIFLOW_AUTOPILOT_PRUNE` | `0.85` | Critical threshold (85%) — session rotation advised |
 
 ### RuVector PostgreSQL (Optional)
 
@@ -552,7 +552,7 @@ State is persisted to `.claude-flow/data/autopilot-state.json`:
 
 1. **No credentials in transcript**: Tool inputs may contain file paths but not secrets
    (Claude Code already redacts sensitive content before tool execution)
-2. **Local storage default**: SQLite writes to `.claude-flow/data/` which is
+2. **Local storage default**: SQLite writes to `.gemiflow/data/` which is
    gitignored. No network calls unless RuVector PostgreSQL is configured.
 3. **Parameterized queries**: SQLite uses prepared statements, RuVector uses `$N`
    parameterized queries -- no SQL injection risk.
@@ -584,10 +584,10 @@ State is persisted to `.claude-flow/data/autopilot-state.json`:
 - Automatic fallback to SQLite if PostgreSQL connection fails
 
 ### Phase 3: AgentDB Integration (COMPLETE - Code Ready, Awaiting Build)
-- `resolveBackend()` checks for `@claude-flow/memory` dist at Tier 3
+- `resolveBackend()` checks for `@gemiflow/memory` dist at Tier 3
 - If `AgentDBBackend` class exists, uses HNSW-indexed embeddings
 - Cross-session retrieval: semantic search across archived transcripts
-- Transparent upgrade when `@claude-flow/memory` package is built
+- Transparent upgrade when `@gemiflow/memory` package is built
 
 ### Phase 4: JsonFileBackend (COMPLETE - Always Available)
 - `JsonFileBackend` class implemented (lines 278-355 of hook script)
@@ -597,7 +597,7 @@ State is persisted to `.claude-flow/data/autopilot-state.json`:
 
 ## Self-Learning Optimization Pipeline
 
-When `CLAUDE_FLOW_AUTO_OPTIMIZE` is not `false` (default: enabled), the system
+When `GEMIFLOW_AUTO_OPTIMIZE` is not `false` (default: enabled), the system
 automatically optimizes storage and retrieval using 5 self-learning stages:
 
 ### Stage 1: Confidence Decay
@@ -628,7 +628,7 @@ survive regardless of age, while irrelevant entries are pruned quickly.
 
 Standard retention policy as safety net:
 - **Criteria**: `access_count = 0` AND `created_at < now - RETENTION_DAYS`
-- **Default retention**: 30 days (configurable via `CLAUDE_FLOW_RETENTION_DAYS`)
+- **Default retention**: 30 days (configurable via `GEMIFLOW_RETENTION_DAYS`)
 - **Never prunes accessed entries**: If it was ever restored, it's kept
 
 ### Stage 4: ONNX Embedding Generation (384-dim)
@@ -777,9 +777,9 @@ All capabilities confirmed working (2026-02-10):
 
 | File | Lines | Purpose |
 |------|-------|---------|
-| `.claude/helpers/context-persistence-hook.mjs` | ~1600 | Core hook script (all 4 backends, autopilot, all commands) |
-| `.claude/helpers/patch-aggressive-prune.mjs` | ~120 | SDK patch: aggressive text pruning for cli.js |
-| `.claude/settings.json` | +12 | Hook wiring + pruning config env vars |
+| `.gemiflow/helpers/context-persistence-hook.mjs` | ~1600 | Core hook script (all 4 backends, autopilot, all commands) |
+| `.gemiflow/helpers/patch-aggressive-prune.mjs` | ~120 | SDK patch: aggressive text pruning for cli.js |
+| `.gemiflow/settings.json` | +12 | Hook wiring + pruning config env vars |
 | `tests/context-persistence-hook.test.mjs` | ~150 | Unit tests for parsing, chunking, dedup, retrieval |
 | `v3/implementation/adrs/ADR-051-infinite-context-compaction-bridge.md` | this file | Architecture decision record |
 
@@ -787,8 +787,8 @@ All capabilities confirmed working (2026-02-10):
 
 | Class | Lines | Storage | Features |
 |-------|-------|---------|----------|
-| `SQLiteBackend` | 57-272 | `.claude-flow/data/transcript-archive.db` | WAL mode, indexed queries, prepared statements, importance-ranked queries, access tracking, stale pruning |
-| `JsonFileBackend` | 278-355 | `.claude-flow/data/transcript-archive.json` | Zero dependencies, Map-based in-memory with JSON persist |
+| `SQLiteBackend` | 57-272 | `.gemiflow/data/transcript-archive.db` | WAL mode, indexed queries, prepared statements, importance-ranked queries, access tracking, stale pruning |
+| `JsonFileBackend` | 278-355 | `.gemiflow/data/transcript-archive.json` | Zero dependencies, Map-based in-memory with JSON persist |
 | `RuVectorBackend` | 361-596 | PostgreSQL with pgvector | Connection pooling (max 3), JSONB metadata, 768-dim vector column, ON CONFLICT dedup, async hash check |
 
 ### Exported Functions (for testing)
@@ -809,15 +809,15 @@ All core functions are exported from the hook module:
 ```json
 // PreCompact (manual + auto matchers)
 { "type": "command", "timeout": 5000,
-  "command": "node .claude/helpers/context-persistence-hook.mjs pre-compact 2>/dev/null || true" }
+  "command": "node .gemiflow/helpers/context-persistence-hook.mjs pre-compact 2>/dev/null || true" }
 
 // SessionStart (restores after compact OR /clear for session rotation)
 { "type": "command", "timeout": 6000,
-  "command": "node .claude/helpers/context-persistence-hook.mjs session-start 2>/dev/null || true" }
+  "command": "node .gemiflow/helpers/context-persistence-hook.mjs session-start 2>/dev/null || true" }
 
 // UserPromptSubmit (proactive archiving + autopilot)
 { "type": "command", "timeout": 5000,
-  "command": "node .claude/helpers/context-persistence-hook.mjs user-prompt-submit 2>/dev/null || true" }
+  "command": "node .gemiflow/helpers/context-persistence-hook.mjs user-prompt-submit 2>/dev/null || true" }
 ```
 
 **Note**: PreCompact hooks use `|| true` because exit code 2 blocking is not
@@ -828,13 +828,13 @@ turns and outputs custom compact instructions via exit code 0.
 
 ```bash
 # Apply aggressive text pruning patch
-node .claude/helpers/patch-aggressive-prune.mjs
+node .gemiflow/helpers/patch-aggressive-prune.mjs
 
 # Check if patched
-node .claude/helpers/patch-aggressive-prune.mjs --check
+node .gemiflow/helpers/patch-aggressive-prune.mjs --check
 
 # Revert to original
-node .claude/helpers/patch-aggressive-prune.mjs --revert
+node .gemiflow/helpers/patch-aggressive-prune.mjs --revert
 ```
 
 The patch inserts `_aggressiveTextPrune()` into the query loop in
@@ -859,7 +859,7 @@ is saved at `cli.js.backup` before patching. Must be re-applied after
 
 ```bash
 # Status check
-node .claude/helpers/context-persistence-hook.mjs status
+node .gemiflow/helpers/context-persistence-hook.mjs status
 
 # Run tests
 node --test tests/context-persistence-hook.test.mjs

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Package dependency overlap audit (regression guard for ruvnet/ruflo#1147 and #2018).
+ * Package dependency overlap audit (regression guard for ruvnet/gemiflow#1147 and #2018).
  *
  * Both issues are the same failure shape:
  *   `npm error Invalid Version: ` (empty) thrown by `new SemVer('')` inside
@@ -15,7 +15,7 @@
  *
  * Fix: any name should appear in EITHER `optionalDependencies` OR as an
  * optional peer — never both. This script scans every package.json under
- * `v3/@claude-flow/*` and `v3/plugins/*` and fails on the overlap.
+ * `v3/@gemiflow/*` and `v3/plugins/*` and fails on the overlap.
  *
  * Usage:
  *   node scripts/audit-package-dep-overlap.mjs            # exit 1 on any overlap
@@ -27,7 +27,7 @@ import { join } from 'node:path';
 
 const REPO_ROOT = process.cwd();
 const SCAN_DIRS = [
-  join(REPO_ROOT, 'v3', '@claude-flow'),
+  join(REPO_ROOT, 'v3', '@gemiflow'),
   join(REPO_ROOT, 'v3', 'plugins'),
 ];
 const JSON_OUT = process.argv.includes('--json');
@@ -87,7 +87,7 @@ if (JSON_OUT) {
     for (const i of issues) {
       console.log(`  fail [${i.code}] ${i.pkg}: ${i.message}`);
     }
-    console.log(`\n${issues.length} issue(s) — see ruvnet/ruflo#1147 and #2018 for context`);
+    console.log(`\n${issues.length} issue(s) — see ruvnet/gemiflow#1147 and #2018 for context`);
   }
 }
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Regression guard for ruvnet/ruflo#2089 — ADR-127 Phase 1.
+ * Regression guard for ruvnet/gemiflow#2089 — ADR-127 Phase 1.
  *
  * Generalizes the smoke-pre-bash-hook.mjs pattern (#2017) to the GitHub helper
  * surface.  `github-safe.js` writes untrusted PR/issue body content to a temp
@@ -18,8 +18,8 @@
  *   4. An empty body skips the temp-file path entirely (no-op, helper exits 0).
  *
  * Runs against BOTH copies:
- *   1. .claude/helpers/github-safe.js                       (dogfood)
- *   2. v3/@claude-flow/cli/.claude/helpers/github-safe.js   (init-template)
+ *   1. .gemiflow/helpers/github-safe.js                       (dogfood)
+ *   2. v3/@gemiflow/cli/.gemiflow/helpers/github-safe.js   (init-template)
  */
 
 import { spawnSync, execFileSync } from 'node:child_process';
@@ -30,8 +30,8 @@ import { randomBytes } from 'node:crypto';
 
 const REPO_ROOT = process.cwd();
 const HELPERS = [
-  join(REPO_ROOT, '.claude', 'helpers', 'github-safe.js'),
-  join(REPO_ROOT, 'v3', '@claude-flow', 'cli', '.claude', 'helpers', 'github-safe.js'),
+  join(REPO_ROOT, '.gemiflow', 'helpers', 'github-safe.js'),
+  join(REPO_ROOT, 'v3', '@gemiflow', 'cli', '.gemiflow', 'helpers', 'github-safe.js'),
 ];
 
 // 256 KB — the GitHub API body field limit documented in ADR-127.

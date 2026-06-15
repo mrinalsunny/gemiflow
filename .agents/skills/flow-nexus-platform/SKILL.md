@@ -124,7 +124,7 @@ mcp__flow-nexus__user_upgrade({
 **Create Sandbox**
 ```javascript
 mcp__flow-nexus__sandbox_create({
-  template: "node", // node, python, react, nextjs, vanilla, base, claude-code
+  template: "node", // node, python, react, nextjs, vanilla, base, gemini-cli
   name: "my-sandbox",
   env_vars: {
     API_KEY: "your_api_key",
@@ -231,7 +231,7 @@ mcp__flow-nexus__sandbox_delete({
 - **nextjs**: Next.js full-stack framework
 - **vanilla**: Basic HTML/CSS/JS
 - **base**: Minimal Linux environment
-- **claude-code**: Claude Code integrated environment
+- **gemini-cli**: Claude Code integrated environment
 
 ### Common Sandbox Patterns
 
@@ -783,7 +783,7 @@ mcp__flow-nexus__realtime_unsubscribe({
 **Subscribe to Execution Stream**
 ```javascript
 mcp__flow-nexus__execution_stream_subscribe({
-  stream_type: "claude-flow-swarm", // claude-code, claude-flow-swarm, claude-flow-hive-mind, github-integration
+  stream_type: "gemiflow-swarm", // gemini-cli, gemiflow-swarm, gemiflow-hive-mind, github-integration
   deployment_id: "deployment_id",
   sandbox_id: "sandbox_id" // alternative
 })
@@ -800,7 +800,7 @@ mcp__flow-nexus__execution_stream_status({
 ```javascript
 mcp__flow-nexus__execution_files_list({
   stream_id: "stream_id",
-  created_by: "claude-flow", // claude-code, claude-flow, git-clone, user
+  created_by: "gemiflow", // gemini-cli, gemiflow, git-clone, user
   file_type: "javascript" // filter by extension
 })
 ```

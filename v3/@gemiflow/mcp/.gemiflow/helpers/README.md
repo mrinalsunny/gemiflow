@@ -1,0 +1,97 @@
+# GemiFlow V3 Helpers
+
+This directory contains helper scripts and utilities for V3 development.
+
+## 🚀 Quick Start
+
+```bash
+# Initialize V3 development environment
+.gemiflow/helpers/v3.sh init
+
+# Quick status check
+.gemiflow/helpers/v3.sh status
+
+# Update progress metrics
+.gemiflow/helpers/v3.sh update domain 3
+.gemiflow/helpers/v3.sh update agent 8
+.gemiflow/helpers/v3.sh update security 2
+```
+
+## Available Helpers
+
+### 🎛️ V3 Master Tool
+- **`v3.sh`** - Main command-line interface for all V3 operations
+  ```bash
+  .gemiflow/helpers/v3.sh help           # Show all commands
+  .gemiflow/helpers/v3.sh status         # Quick development status
+  .gemiflow/helpers/v3.sh update domain 3 # Update specific metrics
+  .gemiflow/helpers/v3.sh validate       # Validate configuration
+  .gemiflow/helpers/v3.sh full-status    # Complete status overview
+  ```
+
+### 📊 V3 Progress Management
+- **`update-v3-progress.sh`** - Update V3 development metrics
+  ```bash
+  # Usage examples:
+  .gemiflow/helpers/update-v3-progress.sh domain 3      # Mark 3 domains complete
+  .gemiflow/helpers/update-v3-progress.sh agent 8       # 8 agents active
+  .gemiflow/helpers/update-v3-progress.sh security 2    # 2 CVEs fixed
+  .gemiflow/helpers/update-v3-progress.sh performance 2.5x # Performance boost
+  .gemiflow/helpers/update-v3-progress.sh status        # Show current status
+  ```
+
+### 🔍 Configuration Validation
+- **`validate-v3-config.sh`** - Comprehensive environment validation
+  - Checks all required directories and files
+  - Validates JSON configuration files
+  - Verifies Node.js and development tools
+  - Confirms Git repository status
+  - Validates file permissions
+
+### ⚡ Quick Status
+- **`v3-quick-status.sh`** - Compact development progress overview
+  - Shows domain, agent, and DDD progress
+  - Displays security and performance metrics
+  - Color-coded status indicators
+  - Current Git branch information
+
+## Helper Script Standards
+
+### File Naming
+- Use kebab-case: `update-v3-progress.sh`
+- Include version prefix: `v3-*` for V3-specific helpers
+- Use descriptive names that indicate purpose
+
+### Script Requirements
+- Must be executable (`chmod +x`)
+- Include proper error handling (`set -e`)
+- Provide usage help when called without arguments
+- Use consistent exit codes (0 = success, non-zero = error)
+
+### Configuration Integration
+Helpers are configured in `.gemiflow/settings.json`:
+```json
+{
+  "helpers": {
+    "directory": ".gemiflow/helpers",
+    "enabled": true,
+    "v3ProgressUpdater": ".gemiflow/helpers/update-v3-progress.sh"
+  }
+}
+```
+
+## Development Guidelines
+
+1. **Security First**: All helpers must validate inputs
+2. **Idempotent**: Scripts should be safe to run multiple times
+3. **Fast Execution**: Keep helper execution under 1 second when possible
+4. **Clear Output**: Provide clear success/error messages
+5. **JSON Safe**: When updating JSON files, use `jq` for safety
+
+## Adding New Helpers
+
+1. Create script in `.gemiflow/helpers/`
+2. Make executable: `chmod +x script-name.sh`
+3. Add to settings.json helpers section
+4. Test thoroughly before committing
+5. Update this README with usage documentation

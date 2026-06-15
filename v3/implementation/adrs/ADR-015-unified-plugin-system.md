@@ -8,10 +8,10 @@
 
 ## Context
 
-Claude Flow v3 has multiple extension mechanisms scattered across different packages:
-- Plugin interfaces in `@claude-flow/shared`
-- Worker system in `@claude-flow/integration`
-- Hooks system in `@claude-flow/hooks`
+GemiFlow v3 has multiple extension mechanisms scattered across different packages:
+- Plugin interfaces in `@gemiflow/shared`
+- Worker system in `@gemiflow/integration`
+- Hooks system in `@gemiflow/hooks`
 - Provider definitions spread across multiple modules
 - Duplicate security utilities in various places
 
@@ -24,12 +24,12 @@ This fragmentation leads to:
 
 ## Decision
 
-Create a unified `@claude-flow/plugins` package that consolidates all plugin development capabilities into a single, coherent SDK.
+Create a unified `@gemiflow/plugins` package that consolidates all plugin development capabilities into a single, coherent SDK.
 
 ### Package Structure
 
 ```
-@claude-flow/plugins/
+@gemiflow/plugins/
 ├── src/
 │   ├── types/              # Unified type definitions
 │   │   └── index.ts        # All plugin-related types
@@ -119,7 +119,7 @@ PluginRegistry automatically collects extension points during initialization:
 
 ### Positive
 
-1. **Single Import**: Plugin authors import from `@claude-flow/plugins` only
+1. **Single Import**: Plugin authors import from `@gemiflow/plugins` only
 2. **Type Safety**: Unified types with strict TypeScript validation
 3. **Security**: Centralized, audited security utilities
 4. **Testing**: Comprehensive test suite with 100+ test cases
@@ -209,24 +209,24 @@ PluginRegistry automatically collects extension points during initialization:
 
 ## Migration Guide
 
-### From @claude-flow/shared
+### From @gemiflow/shared
 
 ```typescript
 // Before
-import { IPlugin, PluginMetadata } from '@claude-flow/shared';
+import { IPlugin, PluginMetadata } from '@gemiflow/shared';
 
 // After
-import { IPlugin, PluginMetadata } from '@claude-flow/plugins';
+import { IPlugin, PluginMetadata } from '@gemiflow/plugins';
 ```
 
-### From @claude-flow/hooks
+### From @gemiflow/hooks
 
 ```typescript
 // Before
-import { HookEvent, HookHandler } from '@claude-flow/hooks';
+import { HookEvent, HookHandler } from '@gemiflow/hooks';
 
 // After
-import { HookEvent, HookHandler, HookRegistry } from '@claude-flow/plugins';
+import { HookEvent, HookHandler, HookRegistry } from '@gemiflow/plugins';
 ```
 
 ### From manual plugin creation
@@ -253,7 +253,7 @@ const myPlugin = new PluginBuilder('my-plugin', '1.0.0')
 The package includes a comprehensive example plugin that demonstrates all SDK capabilities:
 
 ```typescript
-import { pluginCreatorPlugin } from '@claude-flow/plugins/examples/plugin-creator';
+import { pluginCreatorPlugin } from '@gemiflow/plugins/examples/plugin-creator';
 
 // Register the meta-plugin
 await getDefaultRegistry().register(pluginCreatorPlugin);
@@ -296,9 +296,9 @@ TypeErrors  0 errors
 
 ## References
 
-- [Plugin Interface Design](../../@claude-flow/plugins/src/core/plugin-interface.ts)
-- [Base Plugin Implementation](../../@claude-flow/plugins/src/core/base-plugin.ts)
-- [Security Module](../../@claude-flow/plugins/src/security/index.ts)
-- [agentic-flow@alpha Integration](../../@claude-flow/plugins/src/integrations/agentic-flow.ts)
-- [Plugin Creator Example](../../@claude-flow/plugins/examples/plugin-creator/index.ts)
-- [README.md](../../@claude-flow/plugins/README.md)
+- [Plugin Interface Design](../../@gemiflow/plugins/src/core/plugin-interface.ts)
+- [Base Plugin Implementation](../../@gemiflow/plugins/src/core/base-plugin.ts)
+- [Security Module](../../@gemiflow/plugins/src/security/index.ts)
+- [agentic-flow@alpha Integration](../../@gemiflow/plugins/src/integrations/agentic-flow.ts)
+- [Plugin Creator Example](../../@gemiflow/plugins/examples/plugin-creator/index.ts)
+- [README.md](../../@gemiflow/plugins/README.md)

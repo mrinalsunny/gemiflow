@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Structural smoke test for ruflo-adr v0.2.0 (ADR-0001).
+# Structural smoke test for gemiflow-adr v0.2.0 (ADR-0001).
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PASS=0
@@ -10,13 +10,13 @@ bad()  { printf "FAIL: %s\n" "$1"; FAIL=$((FAIL+1)); }
 
 # 1. plugin.json bump + new keywords
 step "1. plugin.json declares 0.3.0 with new keywords"
-v=$(grep -E '"version"' "$ROOT/.claude-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+v=$(grep -E '"version"' "$ROOT/.gemiflow-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
 if [[ "$v" != "0.3.0" ]]; then
   bad "expected 0.3.0, got '$v'"
 else
   miss=""
   for k in lifecycle compliance causal-graph mcp; do
-    grep -q "\"$k\"" "$ROOT/.claude-plugin/plugin.json" || miss="$miss $k"
+    grep -q "\"$k\"" "$ROOT/.gemiflow-plugin/plugin.json" || miss="$miss $k"
   done
   [[ -z "$miss" ]] && ok || bad "missing keywords:$miss"
 fi
@@ -55,15 +55,15 @@ grep -q "adr-patterns" "$ROOT/skills/adr-create/SKILL.md" || miss="$miss adr-cre
 grep -q "adr-patterns" "$ROOT/skills/adr-index/SKILL.md" || miss="$miss adr-index"
 [[ -z "$miss" ]] && ok || bad "missing in:$miss"
 
-# 6. README pins to @claude-flow/cli v3.6
-step "6. README pins @claude-flow/cli to v3.6"
-grep -qE "@claude-flow/cli.*v3\.6|v3\.6.*claude-flow/cli" "$ROOT/README.md" \
+# 6. README pins to @gemiflow/cli v3.6
+step "6. README pins @gemiflow/cli to v3.6"
+grep -qE "@gemiflow/cli.*v3\.6|v3\.6.*gemiflow/cli" "$ROOT/README.md" \
   && ok || bad "Compatibility pin to v3.6 missing"
 
 # 7. README has namespace coordination section
-step "7. README defers to ruflo-agentdb ADR-0001 namespace convention"
+step "7. README defers to gemiflow-agentdb ADR-0001 namespace convention"
 grep -q "Namespace coordination" "$ROOT/README.md" \
-  && grep -q "ruflo-agentdb" "$ROOT/README.md" \
+  && grep -q "gemiflow-agentdb" "$ROOT/README.md" \
   && grep -q "Namespace convention" "$ROOT/README.md" \
   && ok || bad "namespace coordination block incomplete"
 

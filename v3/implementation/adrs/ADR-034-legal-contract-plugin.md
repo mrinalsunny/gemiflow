@@ -18,7 +18,7 @@ Create a **Legal Contract Analysis Plugin** that leverages RuVector WASM package
 
 ## Plugin Name
 
-`@claude-flow/plugin-legal-contracts`
+`@gemiflow/plugin-legal-contracts`
 
 ## Description
 

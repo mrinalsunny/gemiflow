@@ -1,11 +1,11 @@
 ---
-name: ruflo-status
-description: Show Ruflo system health, MCP server status, and active agents
+name: gemiflow-status
+description: Show GemiFlow system health, MCP server status, and active agents
 ---
 $ARGUMENTS
 Run diagnostics and show system status.
 ```bash
-npx @claude-flow/cli@latest doctor
-npx @claude-flow/cli@latest status
+npx @gemiflow/cli@latest doctor
+npx @gemiflow/cli@latest status
 ```
-To auto-fix issues, run `npx @claude-flow/cli@latest doctor --fix` separately.
+To auto-fix issues, run `npx @gemiflow/cli@latest doctor --fix` separately.

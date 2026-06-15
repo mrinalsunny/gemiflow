@@ -1,7 +1,7 @@
 ---
 name: trader-portfolio-cg
 description: Mean-variance portfolio optimization via Conjugate Gradient — 40-60× faster than the legacy Neumann path (ADR-126 Phase 3, ADR-123 Wedge 8)
-allowed-tools: Bash Read mcp__ruflo-sublinear__solve mcp__claude-flow__memory_store mcp__claude-flow__memory_retrieve mcp__claude-flow__memory_search mcp__claude-flow__agentdb_pattern-search
+allowed-tools: Bash Read mcp__gemiflow-sublinear__solve mcp__gemiflow__memory_store mcp__gemiflow__memory_retrieve mcp__gemiflow__memory_search mcp__gemiflow__agentdb_pattern-search
 argument-hint: "[--portfolio-id ID] [--tolerance 1e-6]"
 ---
 Solve the mean-variance optimization `Σ · x = μ` via Conjugate Gradient instead of the legacy Neumann series.
@@ -13,9 +13,9 @@ Solve the mean-variance optimization `Σ · x = μ` via Conjugate Gradient inste
 
 The covariance matrix Σ is symmetric positive-definite by construction (it's a Gram matrix on real returns), so CG is provably optimal — it converges in at most n iterations with no preconditioning, and typically far fewer when eigenvalues cluster.
 
-**Disable flag**: set `RUFLO_NEURAL_TRADER_DISABLE_CG=1` to skip the CG path entirely and fall through to step 4's legacy Neumann route. Useful for A/B validation or when an upstream covariance regression breaks SPD.
+**Disable flag**: set `GEMIFLOW_NEURAL_TRADER_DISABLE_CG=1` to skip the CG path entirely and fall through to step 4's legacy Neumann route. Useful for A/B validation or when an upstream covariance regression breaks SPD.
 
-**Native dispatch flag**: set `RUFLO_SUBLINEAR_NATIVE=1` to force the adapter to attempt the native `mcp__ruflo-sublinear__solve` path even when `globalThis` doesn't expose the tool (e.g. when the harness mounts it via a different transport). On any native-dispatch failure the adapter cleanly falls back to the local JS CG and records `method: 'cg-local'` in the artifact metadata — so the regression is auditable.
+**Native dispatch flag**: set `GEMIFLOW_SUBLINEAR_NATIVE=1` to force the adapter to attempt the native `mcp__gemiflow-sublinear__solve` path even when `globalThis` doesn't expose the tool (e.g. when the harness mounts it via a different transport). On any native-dispatch failure the adapter cleanly falls back to the local JS CG and records `method: 'cg-local'` in the artifact metadata — so the regression is auditable.
 
 Steps:
 
@@ -33,11 +33,11 @@ Steps:
    # OR pull from AgentDB if a prior run stored the matrix there:
    ```
    ```text
-   mcp__claude-flow__memory_search({ query: "covariance matrix current", namespace: "trading-risk", limit: 1 })
+   mcp__gemiflow__memory_search({ query: "covariance matrix current", namespace: "trading-risk", limit: 1 })
    ```
    The skill expects the response to include `covariance: number[][]` (n × n) and `expectedReturns: number[]` (length n).
 
-3. **Solve Σ · x = μ via the SublinearAdapter** (preferred path) when `RUFLO_NEURAL_TRADER_DISABLE_CG` is unset:
+3. **Solve Σ · x = μ via the SublinearAdapter** (preferred path) when `GEMIFLOW_NEURAL_TRADER_DISABLE_CG` is unset:
    ```js
    import { sublinearAdapter } from '../../src/sublinear-adapter.mjs';
    const result = await sublinearAdapter.solveCG(COVARIANCE, EXPECTED_RETURNS, {
@@ -52,11 +52,11 @@ Steps:
    // result.solver      — 'sublinear-time-solver@1.7.0' | 'local-js-cg'
    // result.degraded    — true if input failed SPD checks (fall back to step 4)
    ```
-   The adapter does the dispatch itself: it probes for `mcp__ruflo-sublinear__solve` on `globalThis` (and honours `RUFLO_SUBLINEAR_NATIVE=1` as a manual override), routes through the native kernel when reachable, and falls back transparently to the embedded ~50-LOC JS CG when not. The math is identical either way — CG, dense form, n × n SPD covariance. The operator reads `result.method` to know which backend produced the artifact.
+   The adapter does the dispatch itself: it probes for `mcp__gemiflow-sublinear__solve` on `globalThis` (and honours `GEMIFLOW_SUBLINEAR_NATIVE=1` as a manual override), routes through the native kernel when reachable, and falls back transparently to the embedded ~50-LOC JS CG when not. The math is identical either way — CG, dense form, n × n SPD covariance. The operator reads `result.method` to know which backend produced the artifact.
 
    The native MCP tool's wire shape (for direct callers who want to bypass the adapter):
    ```text
-   mcp__ruflo-sublinear__solve({
+   mcp__gemiflow-sublinear__solve({
      matrix: COVARIANCE,
      rhs: EXPECTED_RETURNS,
      algorithm: "cg",
@@ -69,7 +69,7 @@ Steps:
    { solution: number[], iterations: number, residual: number }
    ```
 
-4. **Fallback (legacy Neumann)** — if step 3 reports `degraded: true` (non-SPD input, non-square matrix, MCP error) OR if `RUFLO_NEURAL_TRADER_DISABLE_CG=1`:
+4. **Fallback (legacy Neumann)** — if step 3 reports `degraded: true` (non-SPD input, non-square matrix, MCP error) OR if `GEMIFLOW_NEURAL_TRADER_DISABLE_CG=1`:
    ```bash
    npx neural-trader --portfolio optimize
    ```
@@ -77,7 +77,7 @@ Steps:
 
 5. **Store the optimal weights** to `trading-risk` namespace with full provenance metadata. **Take `method` and `solver` straight from the adapter's result so the operator can verify which backend ran**:
    ```text
-   mcp__claude-flow__memory_store({
+   mcp__gemiflow__memory_store({
      key: "portfolio-weights-PORTFOLIO_ID-TIMESTAMP",
      namespace: "trading-risk",
      value: JSON.stringify({
@@ -96,7 +96,7 @@ Steps:
 
 6. **Cross-check against historical patterns** (optional but recommended):
    ```text
-   mcp__claude-flow__agentdb_pattern-search({
+   mcp__gemiflow__agentdb_pattern-search({
      query: "portfolio weights Sharpe regime:CURRENT_REGIME",
      namespace: "trading-risk"
    })
@@ -113,5 +113,5 @@ Steps:
 - ADR-126 Phase 3 (this skill's authoring ADR)
 - ADR-123 §162 Row 8 (Wedge 8 speedup claim)
 - ADR-123 §262-289 (the SublinearAdapter contract)
-- `plugins/ruflo-neural-trader/src/sublinear-adapter.ts` (the adapter)
-- `plugins/ruflo-neural-trader/benchmarks/portfolio-cg.bench.ts` (the measured numbers)
+- `plugins/gemiflow-neural-trader/src/sublinear-adapter.ts` (the adapter)
+- `plugins/gemiflow-neural-trader/benchmarks/portfolio-cg.bench.ts` (the measured numbers)

@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 #
-# Ruflo Installer (formerly Claude Flow)
-# https://github.com/ruvnet/ruflo
+# GemiFlow Installer (formerly GemiFlow)
+# https://github.com/ruvnet/gemiflow
 #
 # Usage:
-#   curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/claude-flow@main/scripts/install.sh | bash
-#   curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/claude-flow@main/scripts/install.sh | bash -s -- --full
-#   curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/claude-flow@main/scripts/install.sh | bash -s -- --global
-#   curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/claude-flow@main/scripts/install.sh | bash -s -- --minimal
+#   curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/gemiflow@main/scripts/install.sh | bash
+#   curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/gemiflow@main/scripts/install.sh | bash -s -- --full
+#   curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/gemiflow@main/scripts/install.sh | bash -s -- --global
+#   curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/gemiflow@main/scripts/install.sh | bash -s -- --minimal
 #
 # Options (via arguments):
 #   --global              Global install (npm install -g)
@@ -16,9 +16,9 @@
 #   --version=X.X.X       Specific version
 #
 # Options (via environment - requires export):
-#   export CLAUDE_FLOW_VERSION=alpha
-#   export CLAUDE_FLOW_MINIMAL=1
-#   export CLAUDE_FLOW_GLOBAL=1
+#   export GEMIFLOW_VERSION=alpha
+#   export GEMIFLOW_MINIMAL=1
+#   export GEMIFLOW_GLOBAL=1
 #
 
 set -euo pipefail
@@ -34,12 +34,12 @@ DIM='\033[2m'
 NC='\033[0m' # No Color
 
 # Default configuration (can be overridden by env vars)
-VERSION="${RUFLO_VERSION:-${CLAUDE_FLOW_VERSION:-latest}}"
-MINIMAL="${CLAUDE_FLOW_MINIMAL:-0}"
-GLOBAL="${CLAUDE_FLOW_GLOBAL:-0}"
-SETUP_MCP="${CLAUDE_FLOW_SETUP_MCP:-0}"
-RUN_DOCTOR="${CLAUDE_FLOW_DOCTOR:-0}"
-RUN_INIT="${CLAUDE_FLOW_INIT:-1}"
+VERSION="${GEMIFLOW_VERSION:-${GEMIFLOW_VERSION:-latest}}"
+MINIMAL="${GEMIFLOW_MINIMAL:-0}"
+GLOBAL="${GEMIFLOW_GLOBAL:-0}"
+SETUP_MCP="${GEMIFLOW_SETUP_MCP:-0}"
+RUN_DOCTOR="${GEMIFLOW_DOCTOR:-0}"
+RUN_INIT="${GEMIFLOW_INIT:-1}"
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -80,12 +80,12 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         --help|-h)
-            echo "Ruflo Installer"
+            echo "GemiFlow Installer"
             echo ""
             echo "Usage: curl -fsSL .../install.sh | bash -s -- [OPTIONS]"
             echo ""
             echo "Options:"
-            echo "  --global, -g     Install globally (npm install -g ruflo)"
+            echo "  --global, -g     Install globally (npm install -g gemiflow)"
             echo "  --minimal, -m    Minimal install (skip optional deps)"
             echo "  --setup-mcp      Auto-configure MCP server for Claude Code"
             echo "  --doctor, -d     Run diagnostics after install"
@@ -101,7 +101,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-PACKAGE="ruflo@${VERSION}"
+PACKAGE="gemiflow@${VERSION}"
 
 # Progress animation
 SPINNER_CHARS="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
@@ -115,7 +115,7 @@ spinner() {
 print_banner() {
     echo ""
     echo -e "${CYAN}╔═══════════════════════════════════════════════════════════╗${NC}"
-    echo -e "${CYAN}║${NC}  ${BOLD}Ruflo${NC} — AI Agent Orchestration for Claude Code     ${CYAN}║${NC}"
+    echo -e "${CYAN}║${NC}  ${BOLD}GemiFlow${NC} — AI Agent Orchestration for Claude Code     ${CYAN}║${NC}"
     echo -e "${CYAN}╚═══════════════════════════════════════════════════════════╝${NC}"
     echo ""
 }
@@ -186,7 +186,7 @@ check_requirements() {
     else
         print_warning "Claude Code CLI not found"
         print_substep "Installing Claude Code CLI via npm..."
-        if npm install -g @anthropic-ai/claude-code 2>/dev/null; then
+        if npm install -g @anthropic-ai/gemini-cli 2>/dev/null; then
             if command -v claude &> /dev/null; then
                 CLAUDE_VERSION=$(claude --version 2>/dev/null | head -1 || echo "installed")
                 print_substep "Claude Code ${GREEN}${CLAUDE_VERSION}${NC} ✓"
@@ -195,7 +195,7 @@ check_requirements() {
             fi
         else
             print_warning "npm install failed. Try manually:"
-            print_substep "${BOLD}npm install -g @anthropic-ai/claude-code${NC}"
+            print_substep "${BOLD}npm install -g @anthropic-ai/gemini-cli${NC}"
         fi
     fi
 
@@ -256,10 +256,10 @@ verify_installation() {
 
     local VERSION_OUTPUT
     if [ "$GLOBAL" = "1" ]; then
-        VERSION_OUTPUT=$(ruflo --version 2>/dev/null || claude-flow --version 2>/dev/null || echo "")
+        VERSION_OUTPUT=$(gemiflow --version 2>/dev/null || gemiflow --version 2>/dev/null || echo "")
         if [ -z "$VERSION_OUTPUT" ]; then
             print_warning "Global command not found in PATH"
-            print_substep "Try: ${BOLD}npm install -g ruflo@${VERSION}${NC}"
+            print_substep "Try: ${BOLD}npm install -g gemiflow@${VERSION}${NC}"
             return 0  # Don't fail - npm might need PATH refresh
         fi
     else
@@ -285,27 +285,27 @@ show_quickstart() {
 
     if [ "$GLOBAL" = "1" ]; then
         echo -e "  ${DIM}# Initialize project${NC}"
-        echo -e "  ${BOLD}ruflo init --wizard${NC}"
+        echo -e "  ${BOLD}gemiflow init --wizard${NC}"
         echo ""
         echo -e "  ${DIM}# Run system diagnostics${NC}"
-        echo -e "  ${BOLD}ruflo doctor${NC}"
+        echo -e "  ${BOLD}gemiflow doctor${NC}"
         echo ""
         echo -e "  ${DIM}# Add as MCP server to Claude Code${NC}"
-        echo -e "  ${BOLD}claude mcp add ruflo -- ruflo mcp start${NC}"
+        echo -e "  ${BOLD}claude mcp add gemiflow -- gemiflow mcp start${NC}"
     else
         echo -e "  ${DIM}# Initialize project${NC}"
-        echo -e "  ${BOLD}npx ruflo@latest init --wizard${NC}"
+        echo -e "  ${BOLD}npx gemiflow@latest init --wizard${NC}"
         echo ""
         echo -e "  ${DIM}# Run system diagnostics${NC}"
-        echo -e "  ${BOLD}npx ruflo@latest doctor${NC}"
+        echo -e "  ${BOLD}npx gemiflow@latest doctor${NC}"
         echo ""
         echo -e "  ${DIM}# Add as MCP server to Claude Code${NC}"
-        echo -e "  ${BOLD}claude mcp add ruflo -- npx -y ruflo@latest mcp start${NC}"
+        echo -e "  ${BOLD}claude mcp add gemiflow -- npx -y gemiflow@latest mcp start${NC}"
     fi
 
     echo ""
-    echo -e "${DIM}Documentation: https://github.com/ruvnet/ruflo${NC}"
-    echo -e "${DIM}Issues: https://github.com/ruvnet/ruflo/issues${NC}"
+    echo -e "${DIM}Documentation: https://github.com/ruvnet/gemiflow${NC}"
+    echo -e "${DIM}Issues: https://github.com/ruvnet/gemiflow/issues${NC}"
     echo ""
 }
 
@@ -322,21 +322,21 @@ setup_mcp_server() {
     fi
 
     # Check if already configured
-    if claude mcp list 2>/dev/null | grep -q "ruflo\|claude-flow"; then
+    if claude mcp list 2>/dev/null | grep -q "gemiflow\|gemiflow"; then
         print_substep "MCP server already configured ✓"
         return 0
     fi
 
-    # Add MCP server (pass CLAUDE_FLOW_CWD so tools resolve paths correctly
+    # Add MCP server (pass GEMIFLOW_CWD so tools resolve paths correctly
     # even when the MCP server is spawned with cwd='/')
     if [ "$GLOBAL" = "1" ]; then
-        claude mcp add ruflo -e CLAUDE_FLOW_CWD="$HOME" -- ruflo mcp start 2>/dev/null && \
+        claude mcp add gemiflow -e GEMIFLOW_CWD="$HOME" -- gemiflow mcp start 2>/dev/null && \
             print_substep "MCP server configured ✓" || \
-            print_warning "MCP setup failed - run manually: claude mcp add ruflo -e CLAUDE_FLOW_CWD=\"\$HOME\" -- ruflo mcp start"
+            print_warning "MCP setup failed - run manually: claude mcp add gemiflow -e GEMIFLOW_CWD=\"\$HOME\" -- gemiflow mcp start"
     else
-        claude mcp add ruflo -e CLAUDE_FLOW_CWD="$HOME" -- npx -y ruflo@${VERSION} mcp start 2>/dev/null && \
+        claude mcp add gemiflow -e GEMIFLOW_CWD="$HOME" -- npx -y gemiflow@${VERSION} mcp start 2>/dev/null && \
             print_substep "MCP server configured ✓" || \
-            print_warning "MCP setup failed - run manually: claude mcp add ruflo -e CLAUDE_FLOW_CWD=\"\$HOME\" -- npx -y ruflo@latest mcp start"
+            print_warning "MCP setup failed - run manually: claude mcp add gemiflow -e GEMIFLOW_CWD=\"\$HOME\" -- npx -y gemiflow@latest mcp start"
     fi
     echo ""
 }
@@ -350,9 +350,9 @@ run_doctor() {
     echo ""
 
     if [ "$GLOBAL" = "1" ]; then
-        ruflo doctor 2>&1 || true
+        gemiflow doctor 2>&1 || true
     else
-        npx ruflo@${VERSION} doctor 2>&1 || true
+        npx gemiflow@${VERSION} doctor 2>&1 || true
     fi
     echo ""
 }
@@ -366,9 +366,9 @@ run_init() {
     echo ""
 
     if [ "$GLOBAL" = "1" ]; then
-        ruflo init --yes 2>&1 || true
+        gemiflow init --yes 2>&1 || true
     else
-        npx ruflo@${VERSION} init --yes 2>&1 || true
+        npx gemiflow@${VERSION} init --yes 2>&1 || true
     fi
     echo ""
 }
@@ -385,7 +385,7 @@ main() {
     run_init
     show_quickstart
 
-    print_success "${BOLD}Ruflo is ready!${NC}"
+    print_success "${BOLD}GemiFlow is ready!${NC}"
     echo ""
 }
 

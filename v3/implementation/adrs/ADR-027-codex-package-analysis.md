@@ -231,16 +231,16 @@ The `bin/rg` file uses [dotslash](https://dotslash-cli.com/) format:
 }
 ```
 
-## Integration with Claude Flow
+## Integration with GemiFlow
 
 ### Parallels
 
-| Claude Flow | Codex | Notes |
+| GemiFlow | Codex | Notes |
 |-------------|-------|-------|
 | `CLAUDE.md` | `AGENTS.md` | Project instructions |
 | `CLAUDE.local.md` | `AGENTS.override.md` | Local overrides |
-| `.claude/skills/*.md` | `.agents/skills/*/SKILL.md` | Skills |
-| `.claude/settings.json` | `~/.codex/config.toml` | Configuration |
+| `.gemiflow/skills/*.md` | `.agents/skills/*/SKILL.md` | Skills |
+| `.gemiflow/settings.json` | `~/.codex/config.toml` | Configuration |
 | `.mcp.json` | `config.toml [mcp_servers]` | MCP config |
 | Hooks system | Automations | Background tasks |
 | `claude -p` | `codex exec` | Non-interactive |
@@ -250,11 +250,11 @@ The `bin/rg` file uses [dotslash](https://dotslash-cli.com/) format:
 
 1. **MCP Server Mode**
    - Codex can run as MCP server (`codex mcp-server`)
-   - Claude Flow can connect to Codex as MCP client
+   - GemiFlow can connect to Codex as MCP client
    - Enables cross-platform agent orchestration
 
 2. **Skills Conversion**
-   - Convert `.claude/skills/*.md` to `.agents/skills/*/SKILL.md`
+   - Convert `.gemiflow/skills/*.md` to `.agents/skills/*/SKILL.md`
    - Maintain bidirectional sync
 
 3. **Configuration Translation**
@@ -263,7 +263,7 @@ The `bin/rg` file uses [dotslash](https://dotslash-cli.com/) format:
 
 4. **Session Interop**
    - Codex sessions use `codex resume`/`codex fork`
-   - Claude Flow uses session persistence
+   - GemiFlow uses session persistence
    - Consider session format translation
 
 ## Security Considerations
@@ -303,7 +303,7 @@ This flag bypasses ALL safety checks. Only use in:
 1. **Generate AGENTS.md** from project analysis
 2. **Create `.agents/skills/`** directory with converted skills
 3. **Generate `config.toml`** with:
-   - MCP server configuration for claude-flow
+   - MCP server configuration for gemiflow
    - Skill enablement
    - Default approval policy (`on-request`)
    - Default sandbox mode (`workspace-write`)
@@ -313,17 +313,17 @@ This flag bypasses ALL safety checks. Only use in:
 ### For Dual-Mode Support
 
 1. **Keep both configurations in sync**
-2. **Use `.claude-flow/` as shared runtime**
+2. **Use `.gemiflow/` as shared runtime**
 3. **Generate platform-specific skills**
 4. **Map hooks ↔ automations**
 
 ### For MCP Integration
 
 ```toml
-# Claude Flow as MCP server for Codex
-[mcp_servers.claude-flow]
+# GemiFlow as MCP server for Codex
+[mcp_servers.gemiflow]
 command = "npx"
-args = ["-y", "@claude-flow/cli@latest"]
+args = ["-y", "@gemiflow/cli@latest"]
 enabled = true
 tool_timeout_sec = 120
 ```
@@ -334,7 +334,7 @@ The following features were discovered through binary string analysis and are no
 
 ### Undocumented Environment Variables
 
-| Variable | Purpose | Claude Flow Use Case |
+| Variable | Purpose | GemiFlow Use Case |
 |----------|---------|---------------------|
 | `CODEX_HOME` | Override config directory (default: `~/.codex`) | Custom config locations |
 | `CODEX_API_KEY` | Alternative to `OPENAI_API_KEY` | API key management |
@@ -480,7 +480,7 @@ Available models include:
 - `gpt-5.2-codex`
 - `gpt-5-codex`
 
-## Claude Flow Integration Opportunities
+## GemiFlow Integration Opportunities
 
 ### Using Undocumented Features
 
@@ -512,7 +512,7 @@ Available models include:
    Via JSON-RPC: `thread/fork` with collaboration mode for multi-agent workflows.
 
 6. **Dynamic Tools**
-   Register claude-flow tools at runtime via the MCP protocol.
+   Register gemiflow tools at runtime via the MCP protocol.
 
 ### Programmatic Control via JSON-RPC
 
@@ -561,16 +561,16 @@ The undocumented features provide significant opportunities for deep integration
 - **Ghost snapshots** for state management
 - **Dynamic tools** for runtime extensibility
 
-The package architecture is similar to Claude Code's approach, making it straightforward to create a compatible Codex integration in claude-flow.
+The package architecture is similar to Claude Code's approach, making it straightforward to create a compatible Codex integration in gemiflow.
 
-## @claude-flow/codex Package
+## @gemiflow/codex Package
 
-Based on this analysis, we've created the `@claude-flow/codex` package as the first step in the coflow rebranding initiative.
+Based on this analysis, we've created the `@gemiflow/codex` package as the first step in the coflow rebranding initiative.
 
 ### Package Location
 
 ```
-v3/@claude-flow/codex/
+v3/@gemiflow/codex/
 ├── package.json
 ├── tsconfig.json
 └── src/
@@ -606,31 +606,31 @@ v3/@claude-flow/codex/
 
 ```bash
 # Initialize new Codex project
-npx @claude-flow/codex init --template default
+npx @gemiflow/codex init --template default
 
 # Generate custom skill
-npx @claude-flow/codex generate-skill --name my-skill
+npx @gemiflow/codex generate-skill --name my-skill
 
 # Validate configuration
-npx @claude-flow/codex validate
+npx @gemiflow/codex validate
 
 # Migrate from Claude Code
-npx @claude-flow/codex migrate --from CLAUDE.md
+npx @gemiflow/codex migrate --from CLAUDE.md
 
 # List available templates
-npx @claude-flow/codex templates
+npx @gemiflow/codex templates
 
 # List built-in skills
-npx @claude-flow/codex skills
+npx @gemiflow/codex skills
 ```
 
 ### Future: coflow Umbrella
 
-This package is the first step in transitioning from `claude-flow` to `coflow`:
+This package is the first step in transitioning from `gemiflow` to `coflow`:
 
 ```bash
 # Current
-npx @claude-flow/codex init
+npx @gemiflow/codex init
 
 # Future (after umbrella rebrand)
 npx coflow init --codex

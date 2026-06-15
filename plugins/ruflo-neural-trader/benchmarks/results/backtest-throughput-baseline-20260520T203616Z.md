@@ -45,4 +45,4 @@ Seed: 314159
 ## Refs
 
 - ADR-126 §SOTA delta — bench-driven perf work
-- `plugins/ruflo-neural-trader/skills/trader-backtest/SKILL.md` — production backtest path
+- `plugins/gemiflow-neural-trader/skills/trader-backtest/SKILL.md` — production backtest path

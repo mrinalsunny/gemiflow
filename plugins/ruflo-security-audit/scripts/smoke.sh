@@ -8,11 +8,11 @@ ok()   { printf "PASS\n"; PASS=$((PASS+1)); }
 bad()  { printf "FAIL: %s\n" "$1"; FAIL=$((FAIL+1)); }
 
 step "1. plugin.json declares 0.2.0 with new keywords"
-v=$(grep -E '"version"' "$ROOT/.claude-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+v=$(grep -E '"version"' "$ROOT/.gemiflow-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
 if [[ "$v" != "0.2.0" ]]; then bad "expected 0.2.0, got '$v'"; else
   miss=""
   for k in mcp cve-monitoring policy-gates shell-injection; do
-    grep -q "\"$k\"" "$ROOT/.claude-plugin/plugin.json" || miss="$miss $k"
+    grep -q "\"$k\"" "$ROOT/.gemiflow-plugin/plugin.json" || miss="$miss $k"
   done
   [[ -z "$miss" ]] && ok || bad "missing keywords:$miss"
 fi
@@ -30,12 +30,12 @@ done
 [[ -f "$ROOT/commands/audit.md" ]] || miss="$miss missing-command"
 [[ -z "$miss" ]] && ok || bad "$miss"
 
-step "3. README pins @claude-flow/cli to v3.6"
-grep -qE "@claude-flow/cli.*v3\.6|v3\.6.*claude-flow/cli" "$ROOT/README.md" \
+step "3. README pins @gemiflow/cli to v3.6"
+grep -qE "@gemiflow/cli.*v3\.6|v3\.6.*gemiflow/cli" "$ROOT/README.md" \
   && ok || bad "v3.6 pin missing"
 
-step "4. README defers to ruflo-agentdb namespace convention"
-grep -q "ruflo-agentdb" "$ROOT/README.md" \
+step "4. README defers to gemiflow-agentdb namespace convention"
+grep -q "gemiflow-agentdb" "$ROOT/README.md" \
   && grep -q "Namespace convention" "$ROOT/README.md" \
   && ok || bad "namespace coordination block incomplete"
 
@@ -45,7 +45,7 @@ grep -q "security-findings" "$ROOT/README.md" \
 
 step "6. AIDefence integration cross-reference (3-gate pattern)"
 F="$ROOT/README.md"
-grep -q "ruflo-aidefence" "$F" \
+grep -q "gemiflow-aidefence" "$F" \
   && grep -qE "3-gate|3 gates|three gates" "$F" \
   && ok || bad "AIDefence 3-gate cross-reference missing"
 
@@ -60,7 +60,7 @@ grep -q "isSafePackageSpec" "$F" || miss="$miss package-spec"
 
 step "8. ADR-096 encryption-at-rest cross-reference"
 grep -q "ADR-096" "$ROOT/README.md" \
-  && grep -qE "CLAUDE_FLOW_ENCRYPT_AT_REST|encryption" "$ROOT/README.md" \
+  && grep -qE "GEMIFLOW_ENCRYPT_AT_REST|encryption" "$ROOT/README.md" \
   && ok || bad "ADR-096 encryption cross-reference missing"
 
 step "9. ADR-0001 exists with status Accepted"

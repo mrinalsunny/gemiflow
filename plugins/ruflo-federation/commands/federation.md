@@ -29,12 +29,12 @@ Errors return constant strings (`HOP_LIMIT_EXCEEDED`, `BUDGET_EXCEEDED`, `INVALI
 
 Steps by subcommand:
 
-**init**: `npx -y -p @claude-flow/plugin-agent-federation@latest ruflo-federation init`
-**join**: `npx -y -p @claude-flow/plugin-agent-federation@latest ruflo-federation join ENDPOINT`
-**leave**: `npx -y -p @claude-flow/plugin-agent-federation@latest ruflo-federation leave`
-**peers**: `npx -y -p @claude-flow/plugin-agent-federation@latest ruflo-federation peers`
-**send**: `npx -y -p @claude-flow/plugin-agent-federation@latest ruflo-federation send NODE_ID MSG_TYPE PAYLOAD [--max-hops N] [--max-tokens N] [--max-usd N] [--hop-count N] [--spent-tokens N] [--spent-usd N]`
-**status**: `npx -y -p @claude-flow/plugin-agent-federation@latest ruflo-federation status`
-**audit**: `npx -y -p @claude-flow/plugin-agent-federation@latest ruflo-federation audit --compliance MODE --since DATE`
-**trust**: `npx -y -p @claude-flow/plugin-agent-federation@latest ruflo-federation trust NODE_ID --review`
-**config**: `npx -y -p @claude-flow/plugin-agent-federation@latest ruflo-federation config --pii-policy PATH`
+**init**: `npx -y -p @gemiflow/plugin-agent-federation@latest gemiflow-federation init`
+**join**: `npx -y -p @gemiflow/plugin-agent-federation@latest gemiflow-federation join ENDPOINT`
+**leave**: `npx -y -p @gemiflow/plugin-agent-federation@latest gemiflow-federation leave`
+**peers**: `npx -y -p @gemiflow/plugin-agent-federation@latest gemiflow-federation peers`
+**send**: `npx -y -p @gemiflow/plugin-agent-federation@latest gemiflow-federation send NODE_ID MSG_TYPE PAYLOAD [--max-hops N] [--max-tokens N] [--max-usd N] [--hop-count N] [--spent-tokens N] [--spent-usd N]`
+**status**: `npx -y -p @gemiflow/plugin-agent-federation@latest gemiflow-federation status`
+**audit**: `npx -y -p @gemiflow/plugin-agent-federation@latest gemiflow-federation audit --compliance MODE --since DATE`
+**trust**: `npx -y -p @gemiflow/plugin-agent-federation@latest gemiflow-federation trust NODE_ID --review`
+**config**: `npx -y -p @gemiflow/plugin-agent-federation@latest gemiflow-federation config --pii-policy PATH`

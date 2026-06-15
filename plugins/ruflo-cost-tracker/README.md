@@ -1,4 +1,4 @@
-# ruflo-cost-tracker
+# gemiflow-cost-tracker
 
 Token usage tracking, model cost attribution per agent, budget alerts, and optimization recommendations.
 
@@ -9,7 +9,7 @@ Tracks token usage per agent, task, and model, then computes USD cost attributio
 ## Installation
 
 ```bash
-claude --plugin-dir plugins/ruflo-cost-tracker
+claude --plugin-dir plugins/gemiflow-cost-tracker
 ```
 
 ## Agents
@@ -63,10 +63,10 @@ Four upstream capabilities are now wired to the cost-tracker surface — every o
 
 | Capability | Where | Surfaced by |
 |---|---|---|
-| **Agent Booster bypass** (Tier 1, $0, WASM) | `hooks_route` emits `[AGENT_BOOSTER_AVAILABLE]` (CLI: `npx @claude-flow/cli@latest hooks route --task ...`) | `cost-booster-route` skill |
-| **Token optimizer / compact context** | `getTokenOptimizer().getCompactContext()` from `@claude-flow/integration` (uses `agentic-flow` when present) | `cost-compact-context` skill |
+| **Agent Booster bypass** (Tier 1, $0, WASM) | `hooks_route` emits `[AGENT_BOOSTER_AVAILABLE]` (CLI: `npx @gemiflow/cli@latest hooks route --task ...`) | `cost-booster-route` skill |
+| **Token optimizer / compact context** | `getTokenOptimizer().getCompactContext()` from `@gemiflow/integration` (uses `agentic-flow` when present) | `cost-compact-context` skill |
 | **Model-outcome feedback loop** | `hooks_model-outcome` (typed equivalent of legacy `routing-outcomes`) | `cost-optimize` skill step 8 |
-| **Optimize + benchmark loop workers** | `hooks_worker-status --worker optimize / --worker benchmark` (declared by ruflo-loop-workers) | `cost workers` command + `cost-analyst` agent |
+| **Optimize + benchmark loop workers** | `hooks_worker-status --worker optimize / --worker benchmark` (declared by gemiflow-loop-workers) | `cost workers` command + `cost-analyst` agent |
 
 CLAUDE.md root percentage claims (`-32%` retrieval, `-15%` booster edits, `352x` speedup, `95%` cache hit) are **claimed upstream, not yet verified** in this repo. The skills above tag every figure with that disclaimer; only the structural `$0` cost of Tier 1 bypasses is reported as a measured saving.
 
@@ -99,7 +99,7 @@ See [ADR-0002](./docs/adrs/0002-agentic-flow-and-agent-booster-integration.md) f
 | Use Agent Booster (Tier 1) | 100% | Only for simple transforms |
 | Shorten system prompts | 10-20% | Requires careful pruning |
 
-## Federation budget circuit breaker pairing (ruflo 3.6.25+)
+## Federation budget circuit breaker pairing (gemiflow 3.6.25+)
 
 This plugin pairs naturally with the federation budget envelope shipped in [ADR-097](../../v3/docs/adr/ADR-097-federation-budget-circuit-breaker.md). The `federation_send` MCP tool now accepts caller-supplied caps that this plugin's tracking should respect:
 
@@ -120,8 +120,8 @@ Until Phase 3 ships, federated spend is **not** counted in the host's cost-track
 
 ## Compatibility
 
-- **CLI:** pinned to `@claude-flow/cli` v3.6 major+minor.
-- **Verification:** `bash plugins/ruflo-cost-tracker/scripts/smoke.sh` is the contract.
+- **CLI:** pinned to `@gemiflow/cli` v3.6 major+minor.
+- **Verification:** `bash plugins/gemiflow-cost-tracker/scripts/smoke.sh` is the contract.
 
 ## Namespace coordination
 
@@ -130,7 +130,7 @@ This plugin owns two AgentDB namespaces:
 - `cost-tracking` — usage records (consumed by `cost-report`)
 - `cost-patterns` — optimization recommendations (consumed by `cost-optimize`)
 
-Both follow the kebab-case `<plugin-stem>-<intent>` convention from [ruflo-agentdb ADR-0001 §"Namespace convention"](../ruflo-agentdb/docs/adrs/0001-agentdb-optimization.md). Both are accessed via the `memory_*` tool family which routes by namespace.
+Both follow the kebab-case `<plugin-stem>-<intent>` convention from [gemiflow-agentdb ADR-0001 §"Namespace convention"](../gemiflow-agentdb/docs/adrs/0001-agentdb-optimization.md). Both are accessed via the `memory_*` tool family which routes by namespace.
 
 > **Routing note:** The `agentdb_hierarchical-*` and `agentdb_pattern-*` tools route by tier / ReasoningBank, not by namespace string. Earlier versions of `cost-report` and `cost-optimize` passed namespace arguments to those tools and got silently-ignored behavior. ADR-0001 fixes this by switching the load path to `memory_*` and documenting the dual write path for optimization patterns.
 
@@ -139,7 +139,7 @@ Reserved namespaces (`pattern`, `claude-memories`, `default`) MUST NOT be shadow
 ## Verification
 
 ```bash
-bash plugins/ruflo-cost-tracker/scripts/smoke.sh
+bash plugins/gemiflow-cost-tracker/scripts/smoke.sh
 # Expected: "44 passed, 0 failed"
 
 CI: see [`.github/workflows/cost-tracker-smoke.yml`](../../.github/workflows/cost-tracker-smoke.yml).
@@ -150,16 +150,16 @@ On every PR touching this plugin, GitHub Actions runs smoke + booster-only bench
 
 ## Architecture Decisions
 
-- [`ADR-0001` — ruflo-cost-tracker plugin contract (namespace-routing fix, federation budget pairing, smoke as contract)](./docs/adrs/0001-cost-tracker-contract.md)
+- [`ADR-0001` — gemiflow-cost-tracker plugin contract (namespace-routing fix, federation budget pairing, smoke as contract)](./docs/adrs/0001-cost-tracker-contract.md)
 - [`ADR-0002` — agentic-flow + Agent Booster integration, model-outcome feedback loop, optimize-worker consumption, tier-aware reporting](./docs/adrs/0002-agentic-flow-and-agent-booster-integration.md)
 - [`ADR-0003` — Implementation arc v0.5 → v0.15 (auto-capture, budget enforcement, model-outcome feedback, observability, federation consumer)](./docs/adrs/0003-implementation-arc-v0.5-to-v0.15.md)
 
 ## Related Plugins
 
-- `ruflo-agentdb` — namespace convention owner; defines the routing rules ADR-0001 fixes a violation of
-- `ruflo-observability` -- Token usage metrics collected via observability instrumentation
-- `ruflo-neural-trader` -- PnL tracking and cost-adjusted return calculation
-- `ruflo-federation` -- Budget circuit breaker on outbound federation_send (ADR-097)
+- `gemiflow-agentdb` — namespace convention owner; defines the routing rules ADR-0001 fixes a violation of
+- `gemiflow-observability` -- Token usage metrics collected via observability instrumentation
+- `gemiflow-neural-trader` -- PnL tracking and cost-adjusted return calculation
+- `gemiflow-federation` -- Budget circuit breaker on outbound federation_send (ADR-097)
 
 ## License
 

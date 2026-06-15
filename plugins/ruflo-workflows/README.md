@@ -1,17 +1,17 @@
-# ruflo-workflows
+# gemiflow-workflows
 
 Workflow automation across **two complementary surfaces**:
 
 1. **MCP `workflow_*` tools** — declarative, persisted workflow definitions with a full state-machine lifecycle (create → run ↔ pause → complete/cancel). Best for long-lived, resumable, human-gated pipelines.
-2. **Native Claude Code `Workflow` JS** — imperative orchestration scripts (`.claude/workflows/*.js`) that fan subagents out deterministically via `agent` / `parallel` / `pipeline` / `phase`. Best for comprehensive fan-out: review, audit, migration, research.
+2. **Native Claude Code `Workflow` JS** — imperative orchestration scripts (`.gemiflow/workflows/*.js`) that fan subagents out deterministically via `agent` / `parallel` / `pipeline` / `phase`. Best for comprehensive fan-out: review, audit, migration, research.
 
 Neither subsumes the other — see [Choosing a surface](#choosing-a-surface).
 
 ## Install
 
 ```
-/plugin marketplace add ruvnet/ruflo
-/plugin install ruflo-workflows@ruflo
+/plugin marketplace add ruvnet/gemiflow
+/plugin install gemiflow-workflows@gemiflow
 ```
 
 ## Features
@@ -19,25 +19,25 @@ Neither subsumes the other — see [Choosing a surface](#choosing-a-surface).
 - **MCP workflow definitions**: multi-step processes with conditions, parallel steps, and templates
 - **Lifecycle management**: execute, pause, resume, cancel running workflows
 - **Approval gates**: manual pause points for human review
-- **Native orchestration**: author `.claude/workflows/*.js` fan-out/pipeline scripts and run them with the `Workflow` tool
+- **Native orchestration**: author `.gemiflow/workflows/*.js` fan-out/pipeline scripts and run them with the `Workflow` tool
 
 ## Commands
 
-- `/workflow` -- List MCP workflows + templates **and** native `.claude/workflows/*.js` scripts
+- `/workflow` -- List MCP workflows + templates **and** native `.gemiflow/workflows/*.js` scripts
 
 ## Skills
 
-- `workflow-create` -- Author MCP workflow templates **or** native `.claude/workflows/*.js` orchestration scripts
+- `workflow-create` -- Author MCP workflow templates **or** native `.gemiflow/workflows/*.js` orchestration scripts
 - `workflow-run` -- Execute/manage MCP workflows **or** invoke + resume native workflows
 
 ## Compatibility
 
-- **CLI:** pinned to `@claude-flow/cli` v3.6 major+minor.
-- **Verification:** `bash plugins/ruflo-workflows/scripts/smoke.sh` is the contract.
+- **CLI:** pinned to `@gemiflow/cli` v3.6 major+minor.
+- **Verification:** `bash plugins/gemiflow-workflows/scripts/smoke.sh` is the contract.
 
 ## MCP surface (10 tools)
 
-All defined at `v3/@claude-flow/cli/src/mcp-tools/workflow-tools.ts`:
+All defined at `v3/@gemiflow/cli/src/mcp-tools/workflow-tools.ts`:
 
 | Tool | Purpose |
 |------|---------|
@@ -75,7 +75,7 @@ created ──run──→ running ──pause──→ paused ──resume─�
 
 ## Native Workflow Orchestration (Claude Code `Workflow` tool)
 
-The native surface runs a JavaScript orchestration script that fans subagents out deterministically. Scripts live in **`.claude/workflows/*.js`** and each begins with a **pure-literal** `export const meta` block — the `meta.name` makes it an invocable **named workflow**.
+The native surface runs a JavaScript orchestration script that fans subagents out deterministically. Scripts live in **`.gemiflow/workflows/*.js`** and each begins with a **pure-literal** `export const meta` block — the `meta.name` makes it an invocable **named workflow**.
 
 ```js
 export const meta = {
@@ -105,13 +105,13 @@ return { audited: sweep.results.length, failures, diagnoses }
 ### Invocation
 
 ```js
-Workflow({ name: 'plugin-contract-audit' })            // run a named .claude/workflows/*.js
-Workflow({ scriptPath: '.claude/workflows/foo.js' })   // run a script by path
-Workflow({ name: 'plugin-contract-audit', args: 'ruflo-agentdb' })  // pass args (the script's `args` global)
+Workflow({ name: 'plugin-contract-audit' })            // run a named .gemiflow/workflows/*.js
+Workflow({ scriptPath: '.gemiflow/workflows/foo.js' })   // run a script by path
+Workflow({ name: 'plugin-contract-audit', args: 'gemiflow-agentdb' })  // pass args (the script's `args` global)
 Workflow({ scriptPath, resumeFromRunId: 'wf_…' })      // resume — unchanged agent() calls return cached
 ```
 
-The repo ships a reference workflow at `.claude/workflows/plugin-contract-audit.js` and a worked example at `.claude/workflows/intelligence-system-hardening.js`.
+The repo ships a reference workflow at `.gemiflow/workflows/plugin-contract-audit.js` and a worked example at `.gemiflow/workflows/intelligence-system-hardening.js`.
 
 ## Choosing a surface
 
@@ -125,24 +125,24 @@ The repo ships a reference workflow at `.claude/workflows/plugin-contract-audit.
 
 ## Namespace coordination
 
-This plugin owns the `workflows-state` AgentDB namespace (kebab-case, follows the convention from [ruflo-agentdb ADR-0001 §"Namespace convention"](../ruflo-agentdb/docs/adrs/0001-agentdb-optimization.md)). Reserved namespaces (`pattern`, `claude-memories`, `default`) MUST NOT be shadowed.
+This plugin owns the `workflows-state` AgentDB namespace (kebab-case, follows the convention from [gemiflow-agentdb ADR-0001 §"Namespace convention"](../gemiflow-agentdb/docs/adrs/0001-agentdb-optimization.md)). Reserved namespaces (`pattern`, `claude-memories`, `default`) MUST NOT be shadowed.
 
 `workflows-state` indexes workflow definitions, current state, run history, and template metadata. Accessed via `memory_*` (namespace-routed).
 
 ## Verification
 
 ```bash
-bash plugins/ruflo-workflows/scripts/smoke.sh
+bash plugins/gemiflow-workflows/scripts/smoke.sh
 # Expected: "15 passed, 0 failed"
 ```
 
 ## Architecture Decisions
 
-- [`ADR-0001` — ruflo-workflows plugin contract (10-tool MCP surface, lifecycle state machine, smoke as contract)](./docs/adrs/0001-workflows-contract.md)
-- [`ADR-0002` — native Claude Code Workflow orchestration (`.claude/workflows/*.js` fan-out) alongside the MCP surface](./docs/adrs/0002-native-workflow-orchestration.md)
+- [`ADR-0001` — gemiflow-workflows plugin contract (10-tool MCP surface, lifecycle state machine, smoke as contract)](./docs/adrs/0001-workflows-contract.md)
+- [`ADR-0002` — native Claude Code Workflow orchestration (`.gemiflow/workflows/*.js` fan-out) alongside the MCP surface](./docs/adrs/0002-native-workflow-orchestration.md)
 
 ## Related Plugins
 
-- `ruflo-agentdb` — namespace convention owner
-- `ruflo-loop-workers` — sibling automation surface (loops are recurring; workflows are stateful pipelines)
-- `ruflo-sparc` — SPARC phase transitions can be modeled as workflows
+- `gemiflow-agentdb` — namespace convention owner
+- `gemiflow-loop-workers` — sibling automation surface (loops are recurring; workflows are stateful pipelines)
+- `gemiflow-sparc` — SPARC phase transitions can be modeled as workflows

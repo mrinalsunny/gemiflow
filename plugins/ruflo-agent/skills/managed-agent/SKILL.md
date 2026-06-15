@@ -2,12 +2,12 @@
 name: managed-agent
 description: Run an Anthropic Claude Managed Agent — a cloud agent harness (container + filesystem + tools), the cloud counterpart of the local wasm-agent runtime
 argument-hint: "<create|prompt|status|events|list|terminate> [options]"
-allowed-tools: mcp__claude-flow__managed_agent_create mcp__claude-flow__managed_agent_prompt mcp__claude-flow__managed_agent_status mcp__claude-flow__managed_agent_events mcp__claude-flow__managed_agent_list mcp__claude-flow__managed_agent_terminate mcp__claude-flow__wasm_agent_create Bash
+allowed-tools: mcp__gemiflow__managed_agent_create mcp__gemiflow__managed_agent_prompt mcp__gemiflow__managed_agent_status mcp__gemiflow__managed_agent_events mcp__gemiflow__managed_agent_list mcp__gemiflow__managed_agent_terminate mcp__gemiflow__wasm_agent_create Bash
 ---
 
 # Managed Agent (Anthropic cloud runtime)
 
-`ruflo-agent` has two agent runtimes behind one mental model:
+`gemiflow-agent` has two agent runtimes behind one mental model:
 
 | Runtime | Tools | Use it when |
 |---|---|---|
@@ -23,20 +23,20 @@ This skill drives the **managed** runtime — Anthropic's [Claude Managed Agents
 
 ## Steps
 
-1. **Create** — `mcp__claude-flow__managed_agent_create`
+1. **Create** — `mcp__gemiflow__managed_agent_create`
    `{ model?, system?, name?, networking?, packages?, initScript?, mcpServers?, skills? }`
    → `{ sessionId, agentId, environmentId, status }`. Provisions Agent + Environment + Session. Save the three ids.
-   - `mcpServers`: `[{type:"url", url, name, authorization_token?}]` — the cloud agent must be able to *reach* the URL. A local `ruflo mcp start` is **not** reachable from Anthropic's cloud; deploy/tunnel an HTTP ruflo MCP server first if you want the cloud agent to have ruflo's tools.
+   - `mcpServers`: `[{type:"url", url, name, authorization_token?}]` — the cloud agent must be able to *reach* the URL. A local `gemiflow mcp start` is **not** reachable from Anthropic's cloud; deploy/tunnel an HTTP gemiflow MCP server first if you want the cloud agent to have gemiflow's tools.
    - `packages`: `{pip?:[], npm?:[], apt?:[], cargo?:[], gem?:[], go?:[]}` — installed in the container.
 
-2. **Prompt** — `mcp__claude-flow__managed_agent_prompt`
+2. **Prompt** — `mcp__gemiflow__managed_agent_prompt`
    `{ sessionId, message, maxWaitMs? }` → sends a user turn, polls the event log until the session goes idle (default 180s, capped 600s) → `{ finished, status, stopReason, assistantText, toolUses[], eventCount }`. For very long tasks, raise `maxWaitMs` or follow up with `managed_agent_events`.
 
-3. **Inspect** — `mcp__claude-flow__managed_agent_status` `{ sessionId }` (idle/running/error) · `mcp__claude-flow__managed_agent_events` `{ sessionId, raw? }` (full transcript: user turns, agent thinking, tool_use, tool_result, status — the cloud counterpart of `wasm_agent_files`).
+3. **Inspect** — `mcp__gemiflow__managed_agent_status` `{ sessionId }` (idle/running/error) · `mcp__gemiflow__managed_agent_events` `{ sessionId, raw? }` (full transcript: user turns, agent thinking, tool_use, tool_result, status — the cloud counterpart of `wasm_agent_files`).
 
-4. **List** — `mcp__claude-flow__managed_agent_list` `{ limit? }` — every session on the org (so you can see which are still running / billing).
+4. **List** — `mcp__gemiflow__managed_agent_list` `{ limit? }` — every session on the org (so you can see which are still running / billing).
 
-5. **Terminate** — `mcp__claude-flow__managed_agent_terminate` `{ sessionId, environmentId? }` — **always do this when done**: a cloud session keeps billing container time + tokens until deleted. Pass `environmentId` to also delete the environment ruflo created.
+5. **Terminate** — `mcp__gemiflow__managed_agent_terminate` `{ sessionId, environmentId? }` — **always do this when done**: a cloud session keeps billing container time + tokens until deleted. Pass `environmentId` to also delete the environment gemiflow created.
 
 ## Cost & safety
 

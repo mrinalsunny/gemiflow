@@ -17,7 +17,7 @@ import * as os from 'os';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
-const distBase = path.join(projectRoot, 'v3/@claude-flow/cli/dist/src');
+const distBase = path.join(projectRoot, 'v3/@gemiflow/cli/dist/src');
 
 let passed = 0, failed = 0;
 function pass(l) { console.log(`  PASS  ${l}`); passed++; }
@@ -29,7 +29,7 @@ function assert(c, l, r = '') { c ? pass(l) : fail(l, r || 'assertion false'); }
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'adr130-p2-'));
 const dbPath = path.join(tmpDir, 'memory.db');
 // Set early so all lazy imports pick up the right path
-process.env.CLAUDE_FLOW_MEMORY_PATH = tmpDir;
+process.env.GEMIFLOW_MEMORY_PATH = tmpDir;
 
 async function cleanup() {
   try { fs.rmSync(tmpDir, { recursive: true, force: true }); } catch {}

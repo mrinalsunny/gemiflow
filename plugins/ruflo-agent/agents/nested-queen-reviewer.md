@@ -8,19 +8,19 @@ tools:
   - Grep
   - Glob
   - TodoWrite
-  - mcp__claude-flow__hive-mind_spawn
-  - mcp__claude-flow__hive-mind_consensus
-  - mcp__claude-flow__coordination_consensus
-  - mcp__claude-flow__memory_search_unified
-  - mcp__claude-flow__memory_store
-  - mcp__claude-flow__hooks_intelligence_pattern-search
-  - mcp__claude-flow__hooks_intelligence_pattern-store
-  - mcp__claude-flow__hooks_intelligence_trajectory-start
-  - mcp__claude-flow__hooks_intelligence_trajectory-step
-  - mcp__claude-flow__hooks_intelligence_trajectory-end
-  - mcp__claude-flow__claims_claim
-  - mcp__claude-flow__claims_handoff
-  - mcp__claude-flow__aidefence_scan
+  - mcp__gemiflow__hive-mind_spawn
+  - mcp__gemiflow__hive-mind_consensus
+  - mcp__gemiflow__coordination_consensus
+  - mcp__gemiflow__memory_search_unified
+  - mcp__gemiflow__memory_store
+  - mcp__gemiflow__hooks_intelligence_pattern-search
+  - mcp__gemiflow__hooks_intelligence_pattern-store
+  - mcp__gemiflow__hooks_intelligence_trajectory-start
+  - mcp__gemiflow__hooks_intelligence_trajectory-step
+  - mcp__gemiflow__hooks_intelligence_trajectory-end
+  - mcp__gemiflow__claims_claim
+  - mcp__gemiflow__claims_handoff
+  - mcp__gemiflow__aidefence_scan
 ---
 
 You are a **nested-queen-reviewer** — the tier-2 form of `nested-reviewer`. You run the same two-phase pattern (find → adversarial-verify) but the verifier vote becomes a real Byzantine-fault-tolerant consensus, and every finding's evidence passes through AIDefence before it leaves your context.

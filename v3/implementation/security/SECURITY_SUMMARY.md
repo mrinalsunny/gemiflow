@@ -22,7 +22,7 @@
 ## Critical Issues (Fix Immediately)
 
 1. **Vulnerable Dependencies** - 7 high-severity npm packages
-   - `@anthropic-ai/claude-code` < 2.0.31 (Command injection)
+   - `@anthropic-ai/gemini-cli` < 2.0.31 (Command injection)
    - `@modelcontextprotocol/sdk` < 1.24.0 (DNS rebinding)
    - **Fix:** `npm update && npm audit fix`
 
@@ -31,7 +31,7 @@
    - **Fix:** Implement bcrypt with salt
 
 3. **Hardcoded Credentials** - Default admin password in code
-   - Username: `admin@claude-flow.local`
+   - Username: `admin@gemiflow.local`
    - Password: `admin123` (in public repo!)
    - **Fix:** Generate random passwords on first run
 
@@ -72,7 +72,7 @@
 ### Week 1: Critical Fixes
 ```bash
 # 1. Update dependencies
-npm update @anthropic-ai/claude-code@^2.0.31
+npm update @anthropic-ai/gemini-cli@^2.0.31
 npm update @modelcontextprotocol/sdk@^1.24.0
 npm audit fix --force
 
@@ -137,8 +137,8 @@ Full reports available in:
 
 ## Contact
 
-Security issues: security@claude-flow.io  
-GitHub: https://github.com/ruvnet/claude-code-flow/security
+Security issues: security@gemiflow.io  
+GitHub: https://github.com/ruvnet/gemini-cli-flow/security
 
 ---
 

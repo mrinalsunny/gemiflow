@@ -1,4 +1,4 @@
-# ruflo-ruvector
+# gemiflow-ruvector
 
 Self-learning vector database powered by [`ruvector@0.2.25`](https://www.npmjs.com/package/ruvector) — HNSW, Adaptive LoRA embeddings, hooks-based intelligence, SONA self-optimizing patterns, brain (collective knowledge), and 103 MCP tools.
 
@@ -6,7 +6,7 @@ Self-learning vector database powered by [`ruvector@0.2.25`](https://www.npmjs.c
 
 ## Overview
 
-Wraps the `ruvector` npm package as a Ruflo plugin, providing vector embedding, semantic search, code-graph clustering, hyperbolic projection, self-learning hooks, and SONA / Brain diagnostics. ruvector's Rust backend delivers sub-millisecond queries and 52,000+ inserts/sec.
+Wraps the `ruvector` npm package as a GemiFlow plugin, providing vector embedding, semantic search, code-graph clustering, hyperbolic projection, self-learning hooks, and SONA / Brain diagnostics. ruvector's Rust backend delivers sub-millisecond queries and 52,000+ inserts/sec.
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ npx -y ruvector@0.2.25 doctor
 ## Installation
 
 ```bash
-claude --plugin-dir plugins/ruflo-ruvector
+claude --plugin-dir plugins/gemiflow-ruvector
 ```
 
 ## MCP Integration (103 Tools)
@@ -241,21 +241,21 @@ npx -y ruvector@0.2.25 sona stats
 
 ## Architecture Decisions
 
-- [`ADR-0001` — Pin ruflo-ruvector to ruvector@0.2.25 with optional add-ons](./docs/adrs/0001-pin-ruvector-0.2.25.md)
+- [`ADR-0001` — Pin gemiflow-ruvector to ruvector@0.2.25 with optional add-ons](./docs/adrs/0001-pin-ruvector-0.2.25.md)
 
 ## Smoke test
 
 ```bash
-bash plugins/ruflo-ruvector/scripts/smoke.sh
+bash plugins/gemiflow-ruvector/scripts/smoke.sh
 # Expected: "11 passed, 0 failed"
 ```
 
 ## Related Plugins
 
-- `ruflo-agentdb` — HNSW storage backend in AgentDB
-- `ruflo-intelligence` — SONA pattern learning integration
-- `ruflo-knowledge-graph` — Graph RAG for multi-hop retrieval
-- `ruflo-rag-memory` — Simple semantic search via ruvector
+- `gemiflow-agentdb` — HNSW storage backend in AgentDB
+- `gemiflow-intelligence` — SONA pattern learning integration
+- `gemiflow-knowledge-graph` — Graph RAG for multi-hop retrieval
+- `gemiflow-rag-memory` — Simple semantic search via ruvector
 
 ## License
 

@@ -1,6 +1,6 @@
 ---
 id: ADR-0001
-title: ruflo-docs plugin contract — pinning, namespace coordination, document-worker integration, smoke as contract
+title: gemiflow-docs plugin contract — pinning, namespace coordination, document-worker integration, smoke as contract
 status: Accepted
 date: 2026-05-04
 updated: 2026-05-09
@@ -11,11 +11,11 @@ tags: [plugin, docs, drift-detection, document-worker, namespace, smoke-test]
 
 ## Context
 
-`ruflo-docs` (v0.1.0): docs-writer agent (Haiku model — cost-efficient for docs work), 2 skills (`api-docs`, `doc-gen`), 1 command (`/ruflo-docs`). Drives the `document` background worker via `hooks_worker-dispatch`.
+`gemiflow-docs` (v0.1.0): docs-writer agent (Haiku model — cost-efficient for docs work), 2 skills (`api-docs`, `doc-gen`), 1 command (`/gemiflow-docs`). Drives the `document` background worker via `hooks_worker-dispatch`.
 
 Real surface used:
-- `mcp__claude-flow__hooks_worker-dispatch` with `trigger: "document"` (works; the `document` worker is one of the 12 background workers per CLAUDE.md)
-- `mcp__claude-flow__memory_store` for drift detection state
+- `mcp__gemiflow__hooks_worker-dispatch` with `trigger: "document"` (works; the `document` worker is one of the 12 background workers per CLAUDE.md)
+- `mcp__gemiflow__memory_store` for drift detection state
 - `Bash`, `Read`, `Write`, `Grep`, `Glob` for source/doc analysis
 
 Standard gaps: no plugin-level ADR, no smoke test, no Compatibility section, no namespace coordination.
@@ -36,16 +36,16 @@ Standard gaps: no plugin-level ADR, no smoke test, no Compatibility section, no 
 ## Verification
 
 ```bash
-bash plugins/ruflo-docs/scripts/smoke.sh
+bash plugins/gemiflow-docs/scripts/smoke.sh
 # Expected: "10 passed, 0 failed"
 ```
 
 ## Related
 
-- `plugins/ruflo-agentdb/docs/adrs/0001-agentdb-optimization.md`
-- `plugins/ruflo-adr/docs/adrs/0001-adr-plugin-pattern.md` — sibling docs cadence
-- `plugins/ruflo-loop-workers/...` — defines the `document` background worker
+- `plugins/gemiflow-agentdb/docs/adrs/0001-agentdb-optimization.md`
+- `plugins/gemiflow-adr/docs/adrs/0001-adr-plugin-pattern.md` — sibling docs cadence
+- `plugins/gemiflow-loop-workers/...` — defines the `document` background worker
 
 ## Implementation status
 
-Plugin version v0.2.0 shipped and listed in marketplace.json. Source exists at `plugins/ruflo-docs/`. Contract elements implemented: `document` background worker dispatch via `hooks_worker-dispatch`; namespace `docs-state` claimed for drift-detection state; Haiku model pinned for cost-efficiency; smoke-as-contract gate defined in `scripts/smoke.sh`.
+Plugin version v0.2.0 shipped and listed in marketplace.json. Source exists at `plugins/gemiflow-docs/`. Contract elements implemented: `document` background worker dispatch via `hooks_worker-dispatch`; namespace `docs-state` claimed for drift-detection state; Haiku model pinned for cost-efficiency; smoke-as-contract gate defined in `scripts/smoke.sh`.

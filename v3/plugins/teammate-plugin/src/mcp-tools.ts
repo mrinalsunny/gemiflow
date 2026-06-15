@@ -5,7 +5,7 @@
  * - 16 core TeammateTool integration tools
  * - 5 BMSSP optimization tools (10-15x faster with WASM)
  *
- * @module @claude-flow/teammate-plugin/mcp
+ * @module @gemiflow/teammate-plugin/mcp
  * @version 1.0.0-alpha.1
  */
 
@@ -112,7 +112,7 @@ export const TEAMMATE_MCP_TOOLS: MCPTool[] = [
 
   {
     name: 'teammate_discover_teams',
-    description: 'Discover existing teams in ~/.claude/teams/',
+    description: 'Discover existing teams in ~/.gemiflow/teams/',
     inputSchema: {
       type: 'object',
       properties: {},

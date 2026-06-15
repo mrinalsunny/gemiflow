@@ -21,7 +21,7 @@ hooks:
 
     # Security audit preparation
     echo "🔍 Security priorities:"
-    echo "  CVE-1: Vulnerable dependencies (@anthropic-ai$claude-code)"
+    echo "  CVE-1: Vulnerable dependencies (@anthropic-ai$gemini-cli)"
     echo "  CVE-2: Weak password hashing (SHA-256 → bcrypt)"
     echo "  CVE-3: Hardcoded credentials → random generation"
     echo "  HIGH-1: Command injection (shell:true → execFile)"
@@ -54,8 +54,8 @@ Design and implement comprehensive security architecture for v3, addressing all 
 ## Priority Security Fixes
 
 ### **CVE-1: Vulnerable Dependencies**
-- **Issue**: Outdated @anthropic-ai$claude-code version
-- **Action**: Update to @anthropic-ai$claude-code@^2.0.31
+- **Issue**: Outdated @anthropic-ai$gemini-cli version
+- **Action**: Update to @anthropic-ai$gemini-cli@^2.0.31
 - **Files**: package.json
 - **Timeline**: Phase 1 Week 1
 

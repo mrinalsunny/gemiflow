@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Regression guard for ruvnet/ruflo#1874.
+ * Regression guard for ruvnet/gemiflow#1874.
  *
  * Static dist scan: assert the MCP server packages emit a spec-compliant
  * `YYYY-MM-DD` string for `protocolVersion`, never the previous
@@ -23,8 +23,8 @@ import { resolve } from 'node:path';
 
 const REPO_ROOT = resolve(process.argv[2] ?? process.cwd());
 const TARGETS = [
-  'v3/@claude-flow/mcp/dist/server.js',
-  'v3/@claude-flow/shared/dist/mcp/server.js',
+  'v3/@gemiflow/mcp/dist/server.js',
+  'v3/@gemiflow/shared/dist/mcp/server.js',
 ];
 
 const SPEC_DATE_REGEX = /^['"]\d{4}-\d{2}-\d{2}['"]$/;

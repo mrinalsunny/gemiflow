@@ -1,4 +1,4 @@
-# ruflo-adr
+# gemiflow-adr
 
 ADR lifecycle management -- create, index, supersede, and link Architecture Decision Records to code.
 
@@ -9,7 +9,7 @@ Manages Architecture Decision Records through their full lifecycle (proposed, ac
 ## Installation
 
 ```bash
-claude --plugin-dir plugins/ruflo-adr
+claude --plugin-dir plugins/gemiflow-adr
 ```
 
 ## Agents
@@ -52,34 +52,34 @@ Relationships tracked as causal edges: `supersedes`, `amends`, `depends-on`, `re
 
 ## Compatibility
 
-- **CLI:** pinned to `@claude-flow/cli` v3.6 major+minor.
-- **Verification:** `bash plugins/ruflo-adr/scripts/smoke.sh` is the contract.
+- **CLI:** pinned to `@gemiflow/cli` v3.6 major+minor.
+- **Verification:** `bash plugins/gemiflow-adr/scripts/smoke.sh` is the contract.
 
 ## Namespace coordination
 
-This plugin owns the `adr-patterns` AgentDB namespace. It defers to [ruflo-agentdb ADR-0001 §"Namespace convention"](../ruflo-agentdb/docs/adrs/0001-agentdb-optimization.md) for naming rules. Reserved namespaces (`pattern`, `claude-memories`, `default`) MUST NOT be shadowed.
+This plugin owns the `adr-patterns` AgentDB namespace. It defers to [gemiflow-agentdb ADR-0001 §"Namespace convention"](../gemiflow-agentdb/docs/adrs/0001-agentdb-optimization.md) for naming rules. Reserved namespaces (`pattern`, `claude-memories`, `default`) MUST NOT be shadowed.
 
-`adr-patterns` follows kebab-case `<plugin-stem>-<intent>` per the convention. The plugin uses it for semantic ADR search and for cross-project pattern transfer (via `hooks_transfer` in `ruflo-intelligence`).
+`adr-patterns` follows kebab-case `<plugin-stem>-<intent>` per the convention. The plugin uses it for semantic ADR search and for cross-project pattern transfer (via `hooks_transfer` in `gemiflow-intelligence`).
 
 ## Verification
 
 ```bash
-bash plugins/ruflo-adr/scripts/smoke.sh
+bash plugins/gemiflow-adr/scripts/smoke.sh
 # Expected: "10 passed, 0 failed"
 ```
 
 ## Architecture Decisions
 
-- [`ADR-0001` — ruflo-adr plugin contract (pinning, namespace coordination, smoke as contract)](./docs/adrs/0001-adr-plugin-pattern.md)
+- [`ADR-0001` — gemiflow-adr plugin contract (pinning, namespace coordination, smoke as contract)](./docs/adrs/0001-adr-plugin-pattern.md)
 
 ## Related Plugins
 
-- `ruflo-agentdb` — namespace convention owner; backing store for the ADR graph
-- `ruflo-ddd` — document domain decisions as ADRs
-- `ruflo-sparc` — Architecture phase (Phase 3) produces ADRs
-- `ruflo-migrations` — schema change decisions recorded as ADRs
-- `ruflo-jujutsu` — ADR-aware diff analysis on PRs
-- `ruflo-intelligence` — `hooks_transfer` ships ADR patterns across projects
+- `gemiflow-agentdb` — namespace convention owner; backing store for the ADR graph
+- `gemiflow-ddd` — document domain decisions as ADRs
+- `gemiflow-sparc` — Architecture phase (Phase 3) produces ADRs
+- `gemiflow-migrations` — schema change decisions recorded as ADRs
+- `gemiflow-jujutsu` — ADR-aware diff analysis on PRs
+- `gemiflow-intelligence` — `hooks_transfer` ships ADR patterns across projects
 
 ## License
 

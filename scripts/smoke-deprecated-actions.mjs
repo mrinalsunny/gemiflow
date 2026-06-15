@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Deprecated-action regression guard for ruvnet/ruflo#2089 — ADR-127 Phase 3.
+ * Deprecated-action regression guard for ruvnet/gemiflow#2089 — ADR-127 Phase 3.
  *
  * Fails if any file in scope references:
  *   - actions/checkout@v3   (replaced by @v4 in Phase 3)
@@ -14,9 +14,9 @@
  * here prevents the pattern from re-entering the skill/agent templates.
  *
  * Scope:
- *   .claude/agents/github/[name].md
- *   .claude/skills/github-[name]/SKILL.md
- *   v3/@claude-flow/cli/.claude/commands/github/[name].md
+ *   .gemiflow/agents/github/[name].md
+ *   .gemiflow/skills/github-[name]/SKILL.md
+ *   v3/@gemiflow/cli/.gemiflow/commands/github/[name].md
  *
  * Zero runtime dependencies — pure readFileSync + regex.
  * Exit 0: no deprecated refs found.
@@ -34,11 +34,11 @@ const REPO_ROOT = process.cwd();
 // shipped `actions/checkout@v3` after the Phase 3 merge. Post-publish
 // validation against alpha.74 caught this and added the two missing trees.
 const SCAN_TREES = [
-  join(REPO_ROOT, '.claude', 'agents', 'github'),
-  join(REPO_ROOT, '.claude', 'skills'),
-  join(REPO_ROOT, '.claude', 'commands', 'github'),
-  join(REPO_ROOT, 'v3', '@claude-flow', 'cli', '.claude', 'agents', 'github'),
-  join(REPO_ROOT, 'v3', '@claude-flow', 'cli', '.claude', 'commands', 'github'),
+  join(REPO_ROOT, '.gemiflow', 'agents', 'github'),
+  join(REPO_ROOT, '.gemiflow', 'skills'),
+  join(REPO_ROOT, '.gemiflow', 'commands', 'github'),
+  join(REPO_ROOT, 'v3', '@gemiflow', 'cli', '.gemiflow', 'agents', 'github'),
+  join(REPO_ROOT, 'v3', '@gemiflow', 'cli', '.gemiflow', 'commands', 'github'),
 ];
 
 // Deprecated refs: [pattern, description, replacement]

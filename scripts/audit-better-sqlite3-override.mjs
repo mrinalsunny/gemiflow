@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Static guard for ruvnet/ruflo#2219 — keep the `better-sqlite3` override
+ * Static guard for ruvnet/gemiflow#2219 — keep the `better-sqlite3` override
  * pinned to a version that ships Node 24/25/26 prebuilds.
  *
  * Why: `agentdb` declares `better-sqlite3` as an OPTIONAL dependency at
@@ -11,8 +11,8 @@
  * loss). better-sqlite3 >=12.8.0 ships prebuilds for Node 20–26.
  *
  * Per the #2112 lesson, root overrides do NOT propagate to the published
- * `ruflo` wrapper — the override MUST be present in BOTH the root umbrella
- * (`package.json`) and the wrapper (`ruflo/package.json`). This guard asserts
+ * `gemiflow` wrapper — the override MUST be present in BOTH the root umbrella
+ * (`package.json`) and the wrapper (`gemiflow/package.json`). This guard asserts
  * both carry `better-sqlite3 >= 12.8.0`. Wired into v3-ci.yml.
  *
  * Exit codes:
@@ -33,8 +33,8 @@ const REPO_ROOT = resolve(__dirname, '..');
 const MIN_SAFE = '12.8.0';
 
 const TARGETS = [
-  { label: 'claude-flow (root umbrella)', path: 'package.json' },
-  { label: 'ruflo (published wrapper)', path: 'ruflo/package.json' },
+  { label: 'gemiflow (root umbrella)', path: 'package.json' },
+  { label: 'gemiflow (published wrapper)', path: 'gemiflow/package.json' },
 ];
 
 let failed = false;

@@ -1,14 +1,14 @@
-# ruflo-autopilot
+# gemiflow-autopilot
 
 Autonomous /loop-driven task completion with learning and prediction.
 
-Combines Ruflo's 10 autopilot MCP tools with Claude Code's native `/loop` + `ScheduleWakeup` for persistent, cache-aware task completion loops.
+Combines GemiFlow's 10 autopilot MCP tools with Claude Code's native `/loop` + `ScheduleWakeup` for persistent, cache-aware task completion loops.
 
 ## Install
 
 ```
-/plugin marketplace add ruvnet/ruflo
-/plugin install ruflo-autopilot@ruflo
+/plugin marketplace add ruvnet/gemiflow
+/plugin install gemiflow-autopilot@gemiflow
 ```
 
 ## Features
@@ -44,13 +44,13 @@ Combines Ruflo's 10 autopilot MCP tools with Claude Code's native `/loop` + `Sch
 | `autopilot_history` | Browse past iterations |
 | `autopilot_predict` | Predict the optimal next action from learned patterns |
 
-All 10 are wired in `v3/@claude-flow/cli/src/mcp-tools/autopilot-tools.ts`.
+All 10 are wired in `v3/@gemiflow/cli/src/mcp-tools/autopilot-tools.ts`.
 
 ## Compatibility
 
-- **CLI:** pinned to `@claude-flow/cli` v3.6 major+minor.
+- **CLI:** pinned to `@gemiflow/cli` v3.6 major+minor.
 - **MCP surface:** the 10 tools above.
-- **Verification:** `bash plugins/ruflo-autopilot/scripts/smoke.sh` is the contract.
+- **Verification:** `bash plugins/gemiflow-autopilot/scripts/smoke.sh` is the contract.
 
 ## Cache-aware /loop integration
 
@@ -60,17 +60,17 @@ For event-driven loops, arm a `Monitor` and let the 270s wake be the safety net.
 
 ## Namespace coordination
 
-This plugin owns the `autopilot-patterns` AgentDB namespace (kebab-case, follows the convention from [ruflo-agentdb ADR-0001 §"Namespace convention"](../ruflo-agentdb/docs/adrs/0001-agentdb-optimization.md)). Reserved namespaces (`pattern`, `claude-memories`, `default`) MUST NOT be shadowed.
+This plugin owns the `autopilot-patterns` AgentDB namespace (kebab-case, follows the convention from [gemiflow-agentdb ADR-0001 §"Namespace convention"](../gemiflow-agentdb/docs/adrs/0001-agentdb-optimization.md)). Reserved namespaces (`pattern`, `claude-memories`, `default`) MUST NOT be shadowed.
 
-`autopilot_learn` writes to this namespace via `agentdb_pattern-store` semantics — see [ruflo-intelligence ADR-0001](../ruflo-intelligence/docs/adrs/0001-intelligence-surface-completeness.md) for the 4-step pipeline this feeds (RETRIEVE → JUDGE → DISTILL → CONSOLIDATE).
+`autopilot_learn` writes to this namespace via `agentdb_pattern-store` semantics — see [gemiflow-intelligence ADR-0001](../gemiflow-intelligence/docs/adrs/0001-intelligence-surface-completeness.md) for the 4-step pipeline this feeds (RETRIEVE → JUDGE → DISTILL → CONSOLIDATE).
 
 ## Verification
 
 ```bash
-bash plugins/ruflo-autopilot/scripts/smoke.sh
+bash plugins/gemiflow-autopilot/scripts/smoke.sh
 # Expected: "10 passed, 0 failed"
 ```
 
 ## Architecture Decisions
 
-- [`ADR-0001` — ruflo-autopilot plugin contract](./docs/adrs/0001-autopilot-contract.md)
+- [`ADR-0001` — gemiflow-autopilot plugin contract](./docs/adrs/0001-autopilot-contract.md)

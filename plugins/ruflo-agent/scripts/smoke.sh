@@ -7,12 +7,12 @@ step() { printf "→ %s ... " "$1"; }
 ok()   { printf "PASS\n"; PASS=$((PASS+1)); }
 bad()  { printf "FAIL: %s\n" "$1"; FAIL=$((FAIL+1)); }
 
-step "1. plugin.json is ruflo-agent 0.2.0 with both-runtime keywords"
-P="$ROOT/.claude-plugin/plugin.json"
+step "1. plugin.json is gemiflow-agent 0.2.0 with both-runtime keywords"
+P="$ROOT/.gemiflow-plugin/plugin.json"
 v=$(grep -E '"version"' "$P" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
-n=$(grep -E '"name"' "$P" | grep -oE 'ruflo-agent' | head -1)
+n=$(grep -E '"name"' "$P" | grep -oE 'gemiflow-agent' | head -1)
 if [[ "$v" != "0.2.0" ]]; then bad "expected version 0.2.0, got '$v'";
-elif [[ "$n" != "ruflo-agent" ]]; then bad "expected name ruflo-agent";
+elif [[ "$n" != "gemiflow-agent" ]]; then bad "expected name gemiflow-agent";
 else
   miss=""
   # local WASM runtime (rvagent) + cloud runtime (managed-agents) keywords
@@ -42,12 +42,12 @@ for t in wasm_agent_create wasm_agent_prompt wasm_agent_tool wasm_agent_list was
 done
 [[ -z "$miss" ]] && ok || bad "undocumented:$miss"
 
-step "4. README pins @claude-flow/cli to v3.6"
-grep -qE "@claude-flow/cli.*v3\.6|v3\.6.*claude-flow/cli" "$ROOT/README.md" \
+step "4. README pins @gemiflow/cli to v3.6"
+grep -qE "@gemiflow/cli.*v3\.6|v3\.6.*gemiflow/cli" "$ROOT/README.md" \
   && ok || bad "v3.6 pin missing"
 
-step "5. README defers to ruflo-agentdb namespace convention"
-grep -q "ruflo-agentdb" "$ROOT/README.md" \
+step "5. README defers to gemiflow-agentdb namespace convention"
+grep -q "gemiflow-agentdb" "$ROOT/README.md" \
   && grep -q "Namespace convention" "$ROOT/README.md" \
   && ok || bad "namespace coordination block incomplete"
 
@@ -72,7 +72,7 @@ grep -q "Sandbox isolation\|sandbox isolation" "$F" \
 
 step "9. AIDefence 3-gate cross-reference (sandbox → host LLM defense)"
 F="$ROOT/README.md"
-grep -q "ruflo-aidefence" "$F" \
+grep -q "gemiflow-aidefence" "$F" \
   && grep -qE "3-gate|3 gates" "$F" \
   && ok || bad "AIDefence 3-gate cross-reference missing"
 

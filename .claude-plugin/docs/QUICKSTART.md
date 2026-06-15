@@ -1,6 +1,6 @@
-# 🚀 Claude Flow Plugin - Quickstart Guide
+# 🚀 GemiFlow Plugin - Quickstart Guide
 
-Get started with Claude Flow in 5 minutes!
+Get started with GemiFlow in 5 minutes!
 
 ---
 
@@ -11,7 +11,7 @@ Get started with Claude Flow in 5 minutes!
 In Claude Code:
 
 ```
-/plugin add ruvnet/claude-flow
+/plugin add ruvnet/gemiflow
 /restart
 ```
 
@@ -19,8 +19,8 @@ In Claude Code:
 
 ```bash
 # Clone the repository
-git clone https://github.com/ruvnet/claude-flow.git
-cd claude-flow
+git clone https://github.com/ruvnet/gemiflow.git
+cd gemiflow
 ```
 
 Then in Claude Code:
@@ -39,7 +39,7 @@ In Claude Code:
 /plugin list
 ```
 
-Look for `claude-flow` in the active plugins.
+Look for `gemiflow` in the active plugins.
 
 Try a command:
 ```
@@ -202,7 +202,7 @@ The swarm automatically:
 
 ```bash
 # Core MCP (required)
-claude mcp add claude-flow npx claude-flow@alpha mcp start
+claude mcp add gemiflow npx gemiflow@alpha mcp start
 
 # Enhanced coordination (optional)
 claude mcp add ruv-swarm npx ruv-swarm mcp start
@@ -216,7 +216,7 @@ claude mcp add flow-nexus npx flow-nexus@latest mcp start
 In Claude Code:
 
 ```
-List available MCP tools for claude-flow
+List available MCP tools for gemiflow
 ```
 
 Expected: 40+ tools including:
@@ -285,7 +285,7 @@ Expected: 40+ tools including:
 bash scripts/verify.sh
 
 # Check commands directory
-ls ~/.claude/commands/
+ls ~/.gemiflow/commands/
 
 # Restart Claude Code
 ```
@@ -294,23 +294,23 @@ ls ~/.claude/commands/
 
 ```bash
 # Check settings
-cat ~/.claude/settings.json
+cat ~/.gemiflow/settings.json
 
 # Verify MCP package
-npx claude-flow@alpha --version
+npx gemiflow@alpha --version
 
 # Reinstall if needed
-npm install -g claude-flow@alpha
+npm install -g gemiflow@alpha
 ```
 
 ### Agents Not Spawning
 
 ```bash
 # Check agents directory
-ls ~/.claude/agents/
+ls ~/.gemiflow/agents/
 
 # Verify permissions
-chmod -R 755 ~/.claude/agents/
+chmod -R 755 ~/.gemiflow/agents/
 
 # Restart Claude Code
 ```
@@ -319,7 +319,7 @@ chmod -R 755 ~/.claude/agents/
 
 ## 🎓 Next Steps
 
-1. **Explore Commands**: Browse `~/.claude/commands/` for all 150+ commands
+1. **Explore Commands**: Browse `~/.gemiflow/commands/` for all 150+ commands
 2. **Try Agents**: Experiment with different specialized agents
 3. **Read User Guide**: `docs/USER_GUIDE.md` for detailed documentation
 4. **Check Examples**: `docs/EXAMPLES.md` for real-world usage
@@ -356,6 +356,6 @@ chmod -R 755 ~/.claude/agents/
 
 ## 🚀 You're Ready!
 
-Start building with Claude Flow's enterprise AI agent orchestration.
+Start building with GemiFlow's enterprise AI agent orchestration.
 
 **Happy coding!** 🎉

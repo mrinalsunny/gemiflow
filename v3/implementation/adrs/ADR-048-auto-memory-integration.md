@@ -2,7 +2,7 @@
 
 **Status:** Implemented
 **Date:** 2026-02-08
-**Authors:** RuvNet, Claude Flow Team
+**Authors:** RuvNet, GemiFlow Team
 **Supersedes:** None
 **Related:** ADR-006 (Unified Memory), ADR-018 (Claude Code Integration)
 
@@ -12,10 +12,10 @@ Claude Code has introduced **Auto Memory** — a persistent directory where Clau
 
 ### What Is Auto Memory?
 
-Auto memory is a per-project persistent directory at `~/.claude/projects/<project>/memory/` containing:
+Auto memory is a per-project persistent directory at `~/.gemiflow/projects/<project>/memory/` containing:
 
 ```
-~/.claude/projects/<project>/memory/
+~/.gemiflow/projects/<project>/memory/
 ├── MEMORY.md          # Concise index (first 200 lines loaded into system prompt)
 ├── debugging.md       # Detailed notes on debugging patterns
 ├── api-conventions.md # API design decisions
@@ -26,7 +26,7 @@ Key characteristics:
 
 | Aspect | Details |
 |--------|---------|
-| Location | `~/.claude/projects/<project>/memory/` |
+| Location | `~/.gemiflow/projects/<project>/memory/` |
 | Entrypoint | `MEMORY.md` — first 200 lines loaded at session start |
 | Topic files | On-demand files for detailed notes (not auto-loaded) |
 | Scope | Per-project (derived from git repo root) |
@@ -42,7 +42,7 @@ Key characteristics:
 
 ### Problem Statement
 
-Claude-flow v3 has its own rich memory system (`@claude-flow/memory`) backed by AgentDB with HNSW vector indexing. These two memory systems are currently disconnected:
+Claude-flow v3 has its own rich memory system (`@gemiflow/memory`) backed by AgentDB with HNSW vector indexing. These two memory systems are currently disconnected:
 
 1. **Auto memory** — markdown files, loaded into system prompt, human-readable
 2. **AgentDB memory** — structured entries, vector-indexed, 150x-12,500x faster search
@@ -51,7 +51,7 @@ Without integration, insights discovered during swarm orchestration are lost bet
 
 ## Decision
 
-Implement a **bidirectional bridge** between Claude Code auto memory and claude-flow's unified memory system, treating auto memory as a persistent projection of the most relevant AgentDB entries.
+Implement a **bidirectional bridge** between Claude Code auto memory and gemiflow's unified memory system, treating auto memory as a persistent projection of the most relevant AgentDB entries.
 
 ### Architecture
 
@@ -63,7 +63,7 @@ Implement a **bidirectional bridge** between Claude Code auto memory and claude-
 │                                                      │
 │  ┌──────────────────┐     ┌──────────────────────┐  │
 │  │  Auto Memory Dir │◄───►│  AutoMemoryBridge    │  │
-│  │  ~/.claude/...   │     │  (@claude-flow/memory)│  │
+│  │  ~/.gemiflow/...   │     │  (@gemiflow/memory)│  │
 │  │                  │     │                       │  │
 │  │  MEMORY.md       │     │  ┌─────────────────┐ │  │
 │  │  debugging.md    │     │  │  AgentDB + HNSW │ │  │
@@ -84,7 +84,7 @@ Implement a **bidirectional bridge** between Claude Code auto memory and claude-
 
 #### 1. Auto Memory Bridge Service
 
-New service in `@claude-flow/memory` that syncs between AgentDB and auto memory files:
+New service in `@gemiflow/memory` that syncs between AgentDB and auto memory files:
 
 ```typescript
 interface AutoMemoryBridgeConfig {
@@ -135,7 +135,7 @@ function resolveAutoMemoryDir(workingDir: string): string {
 
   return path.join(
     os.homedir(),
-    '.claude',
+    '.gemiflow',
     'projects',
     projectKey,
     'memory'
@@ -173,7 +173,7 @@ interface MemoryInsight {
 Generated MEMORY.md structure:
 
 ```markdown
-# Claude Flow V3 Project Memory
+# GemiFlow V3 Project Memory
 
 ## Project Patterns
 - Use `pnpm` for package management (not npm)
@@ -182,7 +182,7 @@ Generated MEMORY.md structure:
 - See `patterns.md` for detailed conventions
 
 ## Architecture
-- DDD with bounded contexts in `v3/@claude-flow/`
+- DDD with bounded contexts in `v3/@gemiflow/`
 - Key packages: cli, memory, security, hooks, guidance
 - See `architecture.md` for module relationships
 
@@ -204,7 +204,7 @@ Generated MEMORY.md structure:
 
 #### 4. Hooks Integration
 
-Auto memory syncs are triggered by claude-flow hooks:
+Auto memory syncs are triggered by gemiflow hooks:
 
 | Hook | Auto Memory Action |
 |------|--------------------|
@@ -373,20 +373,20 @@ async function persistSwarmLearnings(
 
 #### 8. CLI Commands
 
-New subcommands under `npx claude-flow@v3alpha memory`:
+New subcommands under `npx gemiflow@v3alpha memory`:
 
 ```bash
 # Sync AgentDB → auto memory files
-npx claude-flow@v3alpha memory sync-auto
+npx gemiflow@v3alpha memory sync-auto
 
 # Import auto memory → AgentDB
-npx claude-flow@v3alpha memory import-auto
+npx gemiflow@v3alpha memory import-auto
 
 # Show auto memory status
-npx claude-flow@v3alpha memory auto-status
+npx gemiflow@v3alpha memory auto-status
 
 # Curate MEMORY.md (prune to 200 lines)
-npx claude-flow@v3alpha memory curate
+npx gemiflow@v3alpha memory curate
 ```
 
 #### 9. MCP Tool Extensions
@@ -427,7 +427,7 @@ New MCP tools for auto memory operations:
 
 ## Configuration
 
-Add to `claude-flow.config.json`:
+Add to `gemiflow.config.json`:
 
 ```json
 {
@@ -451,7 +451,7 @@ Add to `claude-flow.config.json`:
 }
 ```
 
-Add to `.claude/settings.json`:
+Add to `.gemiflow/settings.json`:
 
 ```json
 {
@@ -500,7 +500,7 @@ Add to `.claude/settings.json`:
 - [x] `pruneTopicFile()` for topic file line management
 - [x] `formatInsightLine()` for markdown formatting
 - [x] 73 unit tests passing (305ms runtime)
-- [x] Exported from `@claude-flow/memory` index
+- [x] Exported from `@gemiflow/memory` index
 
 ### Phase 1b: Optimizations -- COMPLETED
 - [x] Static `createDefaultEntry` import (was dynamic per-call)
@@ -559,9 +559,9 @@ Claude Code supports three distinct memory scopes for agents, beyond the project
 
 | Scope | Path | Shared via VCS | Use Case |
 |-------|------|----------------|----------|
-| `project` | `.claude/agent-memory/<agent-name>/` | Yes (committed) | Team-shared agent knowledge |
-| `local` | `.claude/agent-memory-local/<agent-name>/` | No (gitignored) | Machine-specific agent state |
-| `user` | `~/.claude/agent-memory/<agent-name>/` | No (global) | Cross-project agent knowledge |
+| `project` | `.gemiflow/agent-memory/<agent-name>/` | Yes (committed) | Team-shared agent knowledge |
+| `local` | `.gemiflow/agent-memory-local/<agent-name>/` | No (gitignored) | Machine-specific agent state |
+| `user` | `~/.gemiflow/agent-memory/<agent-name>/` | No (global) | Cross-project agent knowledge |
 
 Each scope has its own `MEMORY.md` entrypoint. Scope is selected via agent definition frontmatter:
 

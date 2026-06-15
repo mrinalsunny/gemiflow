@@ -150,7 +150,7 @@ class BottleneckAnalyzer {
 }
 ```
 
-## Integration with Claude Flow
+## Integration with GemiFlow
 
 ### Swarm Performance Optimization
 - **Agent Performance Monitoring**: Monitor individual agent performance

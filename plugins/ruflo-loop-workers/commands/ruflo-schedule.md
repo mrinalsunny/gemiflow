@@ -1,5 +1,5 @@
 ---
-name: ruflo-schedule
+name: gemiflow-schedule
 description: Schedule persistent workers via CronCreate
 ---
 $ARGUMENTS

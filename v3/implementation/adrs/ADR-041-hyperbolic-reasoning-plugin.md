@@ -18,7 +18,7 @@ Create a **Hyperbolic Reasoning Plugin** that leverages RuVector's hyperbolic WA
 
 ## Plugin Name
 
-`@claude-flow/plugin-hyperbolic-reasoning`
+`@gemiflow/plugin-hyperbolic-reasoning`
 
 ## Description
 

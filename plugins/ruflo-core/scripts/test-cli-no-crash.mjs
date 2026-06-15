@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Regression guard for ruvnet/ruflo#1863 (and the crash class it represents).
+ * Regression guard for ruvnet/gemiflow#1863 (and the crash class it represents).
  *
  * #1863: `task status <id>` threw `TypeError: Cannot read properties of
  * undefined (reading 'join')` because the command formatter did
@@ -25,10 +25,10 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(process.argv[2] ?? resolve(__dirname, '..', '..', '..'));
-const CLI = resolve(REPO_ROOT, 'v3/@claude-flow/cli/bin/cli.js');
+const CLI = resolve(REPO_ROOT, 'v3/@gemiflow/cli/bin/cli.js');
 
 if (!existsSync(CLI)) {
-  console.error(`FAIL: ${CLI} not found — run \`npm --prefix v3/@claude-flow/cli run build\` first`);
+  console.error(`FAIL: ${CLI} not found — run \`npm --prefix v3/@gemiflow/cli run build\` first`);
   process.exit(1);
 }
 

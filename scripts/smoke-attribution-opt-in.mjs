@@ -11,9 +11,9 @@
  * AI-generated snippet insertion.
  *
  * Scope (same three trees as the pins smoke):
- *   .claude/agents/github/*.md
- *   .claude/skills/github-[name]/SKILL.md
- *   v3/@claude-flow/cli/.claude/commands/github/[name].md
+ *   .gemiflow/agents/github/*.md
+ *   .gemiflow/skills/github-[name]/SKILL.md
+ *   v3/@gemiflow/cli/.gemiflow/commands/github/[name].md
  *
  * Exit 0 when clean, exit 1 with offending lines printed.
  */
@@ -46,15 +46,15 @@ function collectMarkdown(dir, recursive) {
 }
 
 const SCAN_TARGETS = [
-  collectMarkdown(join(ROOT, '.claude/agents/github'), false),
-  collectMarkdown(join(ROOT, '.claude/skills'), true).filter(f => f.includes('/github-')),
-  collectMarkdown(join(ROOT, 'v3/@claude-flow/cli/.claude/commands/github'), false),
+  collectMarkdown(join(ROOT, '.gemiflow/agents/github'), false),
+  collectMarkdown(join(ROOT, '.gemiflow/skills'), true).filter(f => f.includes('/github-')),
+  collectMarkdown(join(ROOT, 'v3/@gemiflow/cli/.gemiflow/commands/github'), false),
 ];
 
 const allFiles = SCAN_TARGETS.flat();
 
 // Pattern to detect: the emoji + "Generated with" prefix
-// Matches both "Generated with Claude Code" and "Generated with [RuFlo](…)"
+// Matches both "Generated with Claude Code" and "Generated with [GemiFlow](…)"
 const HARDCODED_PATTERN = /🤖\s+Generated with/;
 
 const violations = [];

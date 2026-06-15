@@ -1,174 +1,174 @@
 {
-  "name": "ruflo",
-  "description": "RuFlo Marketplace: Claude Code native agents, swarms, workers, and MCP tools for continuous software engineering",
+  "name": "gemiflow",
+  "description": "GemiFlow Marketplace: Claude Code native agents, swarms, workers, and MCP tools for continuous software engineering",
   "owner": {
     "name": "ruvnet",
     "url": "https://github.com/ruvnet"
   },
   "plugins": [
     {
-      "name": "ruflo-core",
-      "source": "./plugins/ruflo-core",
-      "description": "Core Ruflo MCP tools, commands, and Claude Code orchestration patterns"
+      "name": "gemiflow-core",
+      "source": "./plugins/gemiflow-core",
+      "description": "Core GemiFlow MCP tools, commands, and Claude Code orchestration patterns"
     },
     {
-      "name": "ruflo-swarm",
-      "source": "./plugins/ruflo-swarm",
+      "name": "gemiflow-swarm",
+      "source": "./plugins/gemiflow-swarm",
       "description": "Agent teams, swarm coordination, Monitor streams, and worktree isolation"
     },
     {
-      "name": "ruflo-loop-workers",
-      "source": "./plugins/ruflo-loop-workers",
+      "name": "gemiflow-loop-workers",
+      "source": "./plugins/gemiflow-loop-workers",
       "description": "Cache-aware /loop workers and CronCreate background automation"
     },
     {
-      "name": "ruflo-security-audit",
-      "source": "./plugins/ruflo-security-audit",
+      "name": "gemiflow-security-audit",
+      "source": "./plugins/gemiflow-security-audit",
       "description": "Security review, dependency scanning, policy gates, and CVE monitoring"
     },
     {
-      "name": "ruflo-rag-memory",
-      "source": "./plugins/ruflo-rag-memory",
+      "name": "gemiflow-rag-memory",
+      "source": "./plugins/gemiflow-rag-memory",
       "description": "RuVector memory with HNSW search, AgentDB, and semantic retrieval"
     },
     {
-      "name": "ruflo-testgen",
-      "source": "./plugins/ruflo-testgen",
+      "name": "gemiflow-testgen",
+      "source": "./plugins/gemiflow-testgen",
       "description": "Test gap detection, coverage analysis, and automated test generation"
     },
     {
-      "name": "ruflo-docs",
-      "source": "./plugins/ruflo-docs",
+      "name": "gemiflow-docs",
+      "source": "./plugins/gemiflow-docs",
       "description": "Documentation generation, drift detection, and API docs automation"
     },
     {
-      "name": "ruflo-autopilot",
-      "source": "./plugins/ruflo-autopilot",
+      "name": "gemiflow-autopilot",
+      "source": "./plugins/gemiflow-autopilot",
       "description": "Autonomous /loop-driven task completion with learning, prediction, and progress tracking"
     },
     {
-      "name": "ruflo-intelligence",
-      "source": "./plugins/ruflo-intelligence",
+      "name": "gemiflow-intelligence",
+      "source": "./plugins/gemiflow-intelligence",
       "description": "Self-learning neural intelligence with SONA patterns, trajectory learning, and model routing"
     },
     {
-      "name": "ruflo-agentdb",
-      "source": "./plugins/ruflo-agentdb",
+      "name": "gemiflow-agentdb",
+      "source": "./plugins/gemiflow-agentdb",
       "description": "AgentDB memory controllers with HNSW vector search, RuVector embeddings, and causal graphs"
     },
     {
-      "name": "ruflo-aidefence",
-      "source": "./plugins/ruflo-aidefence",
+      "name": "gemiflow-aidefence",
+      "source": "./plugins/gemiflow-aidefence",
       "description": "AI safety scanning, PII detection, prompt injection defense, and adaptive threat learning"
     },
     {
-      "name": "ruflo-browser",
-      "source": "./plugins/ruflo-browser",
+      "name": "gemiflow-browser",
+      "source": "./plugins/gemiflow-browser",
       "description": "Agentic browser automation with Playwright for testing, scraping, and UI interaction"
     },
     {
-      "name": "ruflo-jujutsu",
-      "source": "./plugins/ruflo-jujutsu",
+      "name": "gemiflow-jujutsu",
+      "source": "./plugins/gemiflow-jujutsu",
       "description": "Advanced git workflows with diff analysis, risk scoring, and reviewer recommendations"
     },
     {
-      "name": "ruflo-agent",
-      "source": "./plugins/ruflo-agent",
+      "name": "gemiflow-agent",
+      "source": "./plugins/gemiflow-agent",
       "description": "Agent runtimes — local WASM-sandboxed agents (rvagent) + Anthropic Claude Managed Agents (cloud); one interface, local-vs-cloud backends"
     },
     {
-      "name": "ruflo-workflows",
-      "source": "./plugins/ruflo-workflows",
+      "name": "gemiflow-workflows",
+      "source": "./plugins/gemiflow-workflows",
       "description": "Visual workflow automation with templates, orchestration, and lifecycle management"
     },
     {
-      "name": "ruflo-daa",
-      "source": "./plugins/ruflo-daa",
+      "name": "gemiflow-daa",
+      "source": "./plugins/gemiflow-daa",
       "description": "Dynamic Agentic Architecture with cognitive patterns, knowledge sharing, and adaptive agents"
     },
     {
-      "name": "ruflo-ruvllm",
-      "source": "./plugins/ruflo-ruvllm",
+      "name": "gemiflow-ruvllm",
+      "source": "./plugins/gemiflow-ruvllm",
       "description": "RuVLLM local inference with chat formatting, MicroLoRA fine-tuning, and SONA adaptation"
     },
     {
-      "name": "ruflo-rvf",
-      "source": "./plugins/ruflo-rvf",
+      "name": "gemiflow-rvf",
+      "source": "./plugins/gemiflow-rvf",
       "description": "RVF format for portable agent memory, session persistence, and cross-platform transfer"
     },
     {
-      "name": "ruflo-plugin-creator",
-      "source": "./plugins/ruflo-plugin-creator",
+      "name": "gemiflow-plugin-creator",
+      "source": "./plugins/gemiflow-plugin-creator",
       "description": "Scaffold, validate, and publish new Claude Code plugins with proper structure"
     },
     {
-      "name": "ruflo-goals",
-      "source": "./plugins/ruflo-goals",
+      "name": "gemiflow-goals",
+      "source": "./plugins/gemiflow-goals",
       "description": "Long-horizon goal planning, deep research orchestration, and adaptive replanning using GOAP"
     },
     {
-      "name": "ruflo-adr",
-      "source": "./plugins/ruflo-adr",
+      "name": "gemiflow-adr",
+      "source": "./plugins/gemiflow-adr",
       "description": "ADR lifecycle management — create, index, supersede, and link Architecture Decision Records to code"
     },
     {
-      "name": "ruflo-cost-tracker",
-      "source": "./plugins/ruflo-cost-tracker",
+      "name": "gemiflow-cost-tracker",
+      "source": "./plugins/gemiflow-cost-tracker",
       "description": "Token usage tracking, model cost attribution per agent, budget alerts, and optimization recommendations"
     },
     {
-      "name": "ruflo-ddd",
-      "source": "./plugins/ruflo-ddd",
+      "name": "gemiflow-ddd",
+      "source": "./plugins/gemiflow-ddd",
       "description": "Domain-Driven Design scaffolding — bounded contexts, aggregate roots, domain events, and anti-corruption layers"
     },
     {
-      "name": "ruflo-federation",
-      "source": "./plugins/ruflo-federation",
+      "name": "gemiflow-federation",
+      "source": "./plugins/gemiflow-federation",
       "description": "Cross-installation agent federation with zero-trust security, PII-gated data flow, and compliance-grade audit trails"
     },
     {
-      "name": "ruflo-graph-intelligence",
-      "source": "./plugins/ruflo-graph-intelligence",
+      "name": "gemiflow-graph-intelligence",
+      "source": "./plugins/gemiflow-graph-intelligence",
       "description": "Real-time graph intelligence — personalized PageRank, streaming delta updates, witness-signed reasoning, and federation-distributable vectors"
     },
     {
-      "name": "ruflo-iot-cognitum",
-      "source": "./plugins/ruflo-iot-cognitum",
+      "name": "gemiflow-iot-cognitum",
+      "source": "./plugins/gemiflow-iot-cognitum",
       "description": "IoT device lifecycle, telemetry anomaly detection, fleet management, and witness chain verification for Cognitum Seed hardware"
     },
     {
-      "name": "ruflo-knowledge-graph",
-      "source": "./plugins/ruflo-knowledge-graph",
+      "name": "gemiflow-knowledge-graph",
+      "source": "./plugins/gemiflow-knowledge-graph",
       "description": "Knowledge graph construction — entity extraction, relation mapping, and pathfinder graph traversal"
     },
     {
-      "name": "ruflo-market-data",
-      "source": "./plugins/ruflo-market-data",
+      "name": "gemiflow-market-data",
+      "source": "./plugins/gemiflow-market-data",
       "description": "Market data ingestion — feed normalization, OHLCV vectorization, and HNSW-indexed pattern matching"
     },
     {
-      "name": "ruflo-migrations",
-      "source": "./plugins/ruflo-migrations",
+      "name": "gemiflow-migrations",
+      "source": "./plugins/gemiflow-migrations",
       "description": "Schema migration management — generate, validate, dry-run, and rollback database migrations"
     },
     {
-      "name": "ruflo-neural-trader",
-      "source": "./plugins/ruflo-neural-trader",
+      "name": "gemiflow-neural-trader",
+      "source": "./plugins/gemiflow-neural-trader",
       "description": "Neural trading strategies — self-learning LSTM/Transformer/N-BEATS models with Rust/NAPI backtesting"
     },
     {
-      "name": "ruflo-observability",
-      "source": "./plugins/ruflo-observability",
+      "name": "gemiflow-observability",
+      "source": "./plugins/gemiflow-observability",
       "description": "Structured logging, distributed tracing, and metrics — correlate agent swarm activity with application telemetry"
     },
     {
-      "name": "ruflo-ruvector",
-      "source": "./plugins/ruflo-ruvector",
+      "name": "gemiflow-ruvector",
+      "source": "./plugins/gemiflow-ruvector",
       "description": "Self-learning vector database — HNSW, FlashAttention-3, Graph RAG, hybrid search, DiskANN, and Brain AGI"
     },
     {
-      "name": "ruflo-sparc",
-      "source": "./plugins/ruflo-sparc",
+      "name": "gemiflow-sparc",
+      "source": "./plugins/gemiflow-sparc",
       "description": "SPARC methodology — Specification, Pseudocode, Architecture, Refinement, Completion phases with quality gates"
     }
   ]

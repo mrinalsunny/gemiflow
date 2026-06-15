@@ -1,5 +1,5 @@
 #!/bin/bash
-# Claude-Flow Deep Regression Test Suite - Main Runner
+# GemiFlow Deep Regression Test Suite - Main Runner
 # Executes all capability tests for comprehensive regression testing
 
 set -e
@@ -15,7 +15,7 @@ NC='\033[0m' # No Color
 # Test configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPORT_DIR="${TEST_REPORT_PATH:-/app/reports}"
-LOG_DIR="${CLAUDE_FLOW_LOG_DIR:-/app/logs}"
+LOG_DIR="${GEMIFLOW_LOG_DIR:-/app/logs}"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 REPORT_FILE="${REPORT_DIR}/regression_report_${TIMESTAMP}.json"
 SUMMARY_FILE="${REPORT_DIR}/summary_${TIMESTAMP}.txt"
@@ -41,7 +41,7 @@ echo ""
 # Initialize JSON report
 cat > "$REPORT_FILE" << EOF
 {
-  "testSuite": "claude-flow-deep-regression",
+  "testSuite": "gemiflow-deep-regression",
   "version": "3.0.0",
   "timestamp": "$(date -Iseconds)",
   "environment": {

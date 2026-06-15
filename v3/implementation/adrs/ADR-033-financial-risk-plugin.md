@@ -18,7 +18,7 @@ Create a **Financial Risk Analysis Plugin** that leverages RuVector WASM package
 
 ## Plugin Name
 
-`@claude-flow/plugin-financial-risk`
+`@gemiflow/plugin-financial-risk`
 
 ## Description
 

@@ -1,18 +1,18 @@
-# 🎉 Claude Flow Plugin - Complete Summary
+# 🎉 GemiFlow Plugin - Complete Summary
 
 ## ✅ Plugin Status: PRODUCTION READY
 
 **Version**: 2.5.0
 **License**: MIT
 **Author**: rUv
-**Repository**: https://github.com/ruvnet/claude-flow
+**Repository**: https://github.com/ruvnet/gemiflow
 
 ---
 
 ## 📦 Plugin Structure
 
 ```
-claude-flow/
+gemiflow/
 ├── .claude-plugin/
 │   ├── plugin.json           ✓ Official plugin metadata
 │   ├── marketplace.json      ✓ Marketplace distribution metadata
@@ -45,7 +45,7 @@ claude-flow/
 
 ```
 # Install plugin
-/plugin add ruvnet/claude-flow
+/plugin add ruvnet/gemiflow
 
 # Restart Claude Code
 /restart
@@ -60,7 +60,7 @@ claude-flow/
 ### From Local Directory:
 
 ```
-cd claude-flow
+cd gemiflow
 /plugin add .
 /restart
 ```
@@ -104,7 +104,7 @@ cd claude-flow
 
 ### MCP Integration: 110+ Tools
 
-1. **claude-flow** (Required)
+1. **gemiflow** (Required)
    - 40+ orchestration tools
    - Swarm coordination
    - Agent management
@@ -208,7 +208,7 @@ All documentation follows official Claude Code plugin guidelines.
 - **Format**: JSON configuration
 - **Location**: `hooks/hooks.json`
 - **Events**: pre-task, post-task, post-edit, session-start, session-end
-- **Integration**: Claude Flow coordination
+- **Integration**: GemiFlow coordination
 
 ### MCP Servers
 - **Protocol**: Model Context Protocol
@@ -222,23 +222,23 @@ All documentation follows official Claude Code plugin guidelines.
 
 ### Install
 ```
-/plugin add ruvnet/claude-flow
+/plugin add ruvnet/gemiflow
 ```
 
 ### Update
 ```
-/plugin update claude-flow
+/plugin update gemiflow
 ```
 
 Or pull latest from GitHub:
 ```
-cd /path/to/claude-flow
+cd /path/to/gemiflow
 git pull
 ```
 
 ### Remove
 ```
-/plugin remove claude-flow
+/plugin remove gemiflow
 ```
 
 ### List Installed
@@ -264,7 +264,7 @@ After installation, verify with:
 /plugin list
 ```
 
-Should show `claude-flow` as active.
+Should show `gemiflow` as active.
 
 ---
 
@@ -292,9 +292,9 @@ Should show `claude-flow` as active.
 
 ## 🤝 Support & Community
 
-- **Repository**: https://github.com/ruvnet/claude-flow
-- **Issues**: https://github.com/ruvnet/claude-flow/issues
-- **Discussions**: https://github.com/ruvnet/claude-flow/discussions
+- **Repository**: https://github.com/ruvnet/gemiflow
+- **Issues**: https://github.com/ruvnet/gemiflow/issues
+- **Discussions**: https://github.com/ruvnet/gemiflow/discussions
 - **Website**: https://flow-nexus.ruv.io
 
 ---
@@ -326,7 +326,7 @@ The plugin is configured via `.claude-plugin/plugin.json`:
 
 ```json
 {
-  "name": "claude-flow",
+  "name": "gemiflow",
   "version": "2.5.0",
   "description": "Enterprise AI agent orchestration plugin...",
   "author": {
@@ -335,12 +335,12 @@ The plugin is configured via `.claude-plugin/plugin.json`:
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ruvnet/claude-flow.git"
+    "url": "https://github.com/ruvnet/gemiflow.git"
   },
   "mcpServers": {
-    "claude-flow": {
+    "gemiflow": {
       "command": "npx",
-      "args": ["claude-flow@alpha", "mcp", "start"]
+      "args": ["gemiflow@alpha", "mcp", "start"]
     }
   }
 }
@@ -350,7 +350,7 @@ Commands and agents are automatically discovered from `commands/` and `agents/` 
 
 Users install with:
 ```
-/plugin add ruvnet/claude-flow
+/plugin add ruvnet/gemiflow
 ```
 
 ---

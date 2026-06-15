@@ -2,7 +2,7 @@
 
 **Status:** Proposed
 **Date:** 2026-02-08
-**Authors:** RuvNet, Claude Flow Team
+**Authors:** RuvNet, GemiFlow Team
 
 ## Context
 
@@ -34,7 +34,7 @@ Fast Mode is not a different model - it uses the same Opus 4.6 with a different 
 
 ## Decision
 
-Integrate Fast Mode awareness into RuvFlow/Claude-Flow to enable:
+Integrate Fast Mode awareness into RuvFlow/GemiFlow to enable:
 
 1. **Automatic Fast Mode for time-critical swarm tasks**
 2. **Settings integration** for user preference management
@@ -45,12 +45,12 @@ Integrate Fast Mode awareness into RuvFlow/Claude-Flow to enable:
 
 #### 1. Settings Generator Update
 
-Add fast mode configuration to `.claude/settings.json`:
+Add fast mode configuration to `.gemiflow/settings.json`:
 
 ```json
 {
   "fastMode": false,
-  "claudeFlow": {
+  "gemiflow": {
     "fastMode": {
       "enabled": false,
       "autoEnable": {
@@ -167,7 +167,7 @@ Update `settings-generator.ts`:
 // Add to generateSettings()
 settings.fastMode = options.fastMode?.enabled || false;
 
-settings.claudeFlow.fastMode = {
+settings.gemiflow.fastMode = {
   enabled: options.fastMode?.enabled || false,
   autoEnable: {
     forDebugTasks: true,
@@ -285,7 +285,7 @@ No migration needed - this is an additive feature. Existing users:
 ```json
 {
   "fastMode": true,
-  "claudeFlow": {
+  "gemiflow": {
     "fastMode": {
       "enabled": true,
       "autoEnable": {

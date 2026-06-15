@@ -8,11 +8,11 @@ ok()   { printf "PASS\n"; PASS=$((PASS+1)); }
 bad()  { printf "FAIL: %s\n" "$1"; FAIL=$((FAIL+1)); }
 
 step "1. plugin.json declares 0.2.0 with new keywords"
-v=$(grep -E '"version"' "$ROOT/.claude-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+v=$(grep -E '"version"' "$ROOT/.gemiflow-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
 if [[ "$v" != "0.2.0" ]]; then bad "expected 0.2.0, got '$v'"; else
   miss=""
   for k in mcp cognitive-containers lineage-tracking; do
-    grep -q "\"$k\"" "$ROOT/.claude-plugin/plugin.json" || miss="$miss $k"
+    grep -q "\"$k\"" "$ROOT/.gemiflow-plugin/plugin.json" || miss="$miss $k"
   done
   [[ -z "$miss" ]] && ok || bad "missing keywords:$miss"
 fi
@@ -30,12 +30,12 @@ done
 [[ -f "$ROOT/commands/rvf.md" ]] || miss="$miss missing-command"
 [[ -z "$miss" ]] && ok || bad "$miss"
 
-step "3. README pins @claude-flow/cli to v3.6"
-grep -qE "@claude-flow/cli.*v3\.6|v3\.6.*claude-flow/cli" "$ROOT/README.md" \
+step "3. README pins @gemiflow/cli to v3.6"
+grep -qE "@gemiflow/cli.*v3\.6|v3\.6.*gemiflow/cli" "$ROOT/README.md" \
   && ok || bad "v3.6 pin missing"
 
-step "4. README defers to ruflo-agentdb namespace convention"
-grep -q "ruflo-agentdb" "$ROOT/README.md" \
+step "4. README defers to gemiflow-agentdb namespace convention"
+grep -q "gemiflow-agentdb" "$ROOT/README.md" \
   && grep -q "Namespace convention" "$ROOT/README.md" \
   && ok || bad "namespace coordination block incomplete"
 
@@ -43,15 +43,15 @@ step "5. rvf-sessions namespace claimed"
 grep -q "rvf-sessions" "$ROOT/README.md" \
   && ok || bad "rvf-sessions namespace not claimed"
 
-step "6. RVF cross-reference to ruflo-browser sessions"
+step "6. RVF cross-reference to gemiflow-browser sessions"
 F="$ROOT/README.md"
-grep -q "ruflo-browser" "$F" \
+grep -q "gemiflow-browser" "$F" \
   && grep -qE "session.*RVF|RVF.*session" "$F" \
   && ok || bad "browser-RVF cross-reference missing"
 
-step "7. RVF tooling cross-reference to ruflo-ruvector"
+step "7. RVF tooling cross-reference to gemiflow-ruvector"
 F="$ROOT/README.md"
-grep -q "ruflo-ruvector" "$F" \
+grep -q "gemiflow-ruvector" "$F" \
   && grep -qE "ruvector rvf|rvf tooling|RVF tooling" "$F" \
   && ok || bad "ruvector RVF tooling cross-reference missing"
 

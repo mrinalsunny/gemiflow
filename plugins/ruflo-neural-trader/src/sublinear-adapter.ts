@@ -1,7 +1,7 @@
 /**
  * SublinearAdapter — Phase 3 of ADR-126
  *
- * Wraps the Wedge-8 path from ADR-123 (`mcp__ruflo-sublinear__solve`,
+ * Wraps the Wedge-8 path from ADR-123 (`mcp__gemiflow-sublinear__solve`,
  * algorithm=CG) for the mean-variance portfolio optimisation problem
  *   Σ · x = μ
  * where Σ is the (assumed) symmetric positive-definite asset-covariance
@@ -13,9 +13,9 @@
  *   ⇒ 40-60× measured speedup, parity within 1e-4 on a fixed seed.
  *
  * Why a local CG implementation:
- *   - At ADR-126 Phase 3 write-time, the `ruflo-sublinear` plugin
+ *   - At ADR-126 Phase 3 write-time, the `gemiflow-sublinear` plugin
  *     (ADR-123 Phase 1) has not yet been published on the IPFS registry.
- *     The MCP tool `mcp__ruflo-sublinear__solve` may not be invocable
+ *     The MCP tool `mcp__gemiflow-sublinear__solve` may not be invocable
  *     from inside an agent task (depends on daemon state).
  *   - The point of Phase 3 is the speedup, not the dispatch mechanism.
  *     A self-contained ~50-LOC CG kernel ships now; when the upstream
@@ -25,11 +25,11 @@
  *
  * Detection:
  *   `SublinearAdapter.detectSublinearTool()` returns true iff the native
- *   `mcp__ruflo-sublinear__solve` dispatch surface is reachable from this
+ *   `mcp__gemiflow-sublinear__solve` dispatch surface is reachable from this
  *   runtime. Two probes are tried, in order:
- *     1) globalThis['mcp__ruflo-sublinear__solve'] is a function — this
- *        is how the ruflo MCP harness mounts tools into the agent runtime.
- *     2) process.env.RUFLO_SUBLINEAR_NATIVE === '1' — manual override for
+ *     1) globalThis['mcp__gemiflow-sublinear__solve'] is a function — this
+ *        is how the gemiflow MCP harness mounts tools into the agent runtime.
+ *     2) process.env.GEMIFLOW_SUBLINEAR_NATIVE === '1' — manual override for
  *        environments where the tool surface is provided out-of-band
  *        (e.g. a daemon-side spawn or a sidecar tool runner that's
  *        addressed by the same name through a different transport).
@@ -87,7 +87,7 @@ export interface SolveResult {
    * Human-readable method label for artifact provenance metadata. Downstream
    * callers (e.g. trader-portfolio-cg) record this alongside the weights so
    * the auditor can tell at a glance which solver produced the artifact.
-   *  - `cg-sublinear-native` — native dispatch via mcp__ruflo-sublinear__solve
+   *  - `cg-sublinear-native` — native dispatch via mcp__gemiflow-sublinear__solve
    *  - `cg-local`            — embedded JS CG fallback
    */
   method: 'cg-sublinear-native' | 'cg-local';
@@ -109,13 +109,13 @@ export interface SolveResult {
 
 export class SublinearAdapter {
   /**
-   * Detection — is `mcp__ruflo-sublinear__solve` reachable in this runtime?
+   * Detection — is `mcp__gemiflow-sublinear__solve` reachable in this runtime?
    *
    * Two probes, in priority order:
-   *   1) globalThis['mcp__ruflo-sublinear__solve'] is a function. This is the
-   *      convention the ruflo MCP harness uses to mount native tools into the
+   *   1) globalThis['mcp__gemiflow-sublinear__solve'] is a function. This is the
+   *      convention the gemiflow MCP harness uses to mount native tools into the
    *      agent runtime when the daemon is up and the plugin is registered.
-   *   2) process.env.RUFLO_SUBLINEAR_NATIVE === '1'. Manual override for
+   *   2) process.env.GEMIFLOW_SUBLINEAR_NATIVE === '1'. Manual override for
    *      operator-controlled rollouts (canary, A/B) where the harness mount
    *      happens out-of-band — the adapter will attempt `callMcpSolve` and
    *      let that path fail loudly if the tool isn't actually there.
@@ -126,7 +126,7 @@ export class SublinearAdapter {
   static detectSublinearTool(): boolean {
     try {
       const g = globalThis as unknown as Record<string, unknown>;
-      const tool = g['mcp__ruflo-sublinear__solve'];
+      const tool = g['mcp__gemiflow-sublinear__solve'];
       if (typeof tool === 'function') return true;
     } catch {
       /* fall through to env probe */
@@ -134,7 +134,7 @@ export class SublinearAdapter {
     try {
       // Manual override: operator declares the native surface is reachable.
       const envFlag = typeof process !== 'undefined' && process.env
-        ? process.env.RUFLO_SUBLINEAR_NATIVE
+        ? process.env.GEMIFLOW_SUBLINEAR_NATIVE
         : undefined;
       if (envFlag === '1' || envFlag === 'true') return true;
     } catch {
@@ -211,7 +211,7 @@ export class SublinearAdapter {
         };
       } catch {
         // Fall through to local kernel on any MCP error — the operator may
-        // have set RUFLO_SUBLINEAR_NATIVE=1 in an environment where the tool
+        // have set GEMIFLOW_SUBLINEAR_NATIVE=1 in an environment where the tool
         // surface is not actually present. The artifact will record
         // method='cg-local' so the regression is visible in the audit trail.
       }
@@ -353,11 +353,11 @@ async function callMcpSolve(
   opts: SolveOptions,
 ): Promise<McpSolveOutput> {
   const g = globalThis as unknown as Record<string, unknown>;
-  const tool = g['mcp__ruflo-sublinear__solve'] as
+  const tool = g['mcp__gemiflow-sublinear__solve'] as
     | ((args: unknown) => Promise<unknown>)
     | undefined;
   if (typeof tool !== 'function') {
-    throw new Error('mcp__ruflo-sublinear__solve not available');
+    throw new Error('mcp__gemiflow-sublinear__solve not available');
   }
   const out = (await tool({
     matrix,
@@ -367,7 +367,7 @@ async function callMcpSolve(
     maxIterations: opts.maxIterations ?? 200,
   })) as Partial<McpSolveOutput> | undefined;
   if (!out || !Array.isArray(out.solution)) {
-    throw new Error('mcp__ruflo-sublinear__solve returned invalid shape');
+    throw new Error('mcp__gemiflow-sublinear__solve returned invalid shape');
   }
   return {
     solution: out.solution,

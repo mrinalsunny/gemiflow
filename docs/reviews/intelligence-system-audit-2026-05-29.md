@@ -1,6 +1,6 @@
 # Intelligence / Self-Learning System — Empirical Capability Audit
 
-**Date:** 2026-05-29 · **Version audited:** `@claude-flow/cli@3.10.6` (built `dist/`) · **Host:** darwin-arm64, Node 22
+**Date:** 2026-05-29 · **Version audited:** `@gemiflow/cli@3.10.6` (built `dist/`) · **Host:** darwin-arm64, Node 22
 **Method:** 6 parallel auditors ran **real measurements** against the built `dist` exports, CLI, and MCP tool handlers — not documentation. Every claim is graded by evidence. Throwaway scripts were deleted; no source was modified during the audit.
 
 > **Honesty mandate.** This audit was commissioned to *measure, benchmark, and confirm* — including confirming where claims do **not** hold. Headline performance multipliers in `CLAUDE.md` are largely hardcoded doc strings with no benchmark behind them; several are unsubstantiated and one is fabricated at runtime. At the same time, the **core self-learning loop is genuinely real and was measured end-to-end.** Both halves of that are reported plainly below.
@@ -23,9 +23,9 @@
 | Capability | Evidence (measured) |
 |---|---|
 | **4-step learning loop** RETRIEVE→JUDGE→DISTILL | Success verdict pushed pattern confidence **0.906→1.0**; subsequent failure pulled **1.0→0.952**; counters persist across separate processes. Steps share one `LocalReasoningBank`+`SonaCoordinator` and feed each other. |
-| **ReasoningBank file persistence** | Cross-process: stored in proc 1 → reloaded from disk in proc 2. `.claude-flow/neural/patterns.json` (+`stats.json`). |
+| **ReasoningBank file persistence** | Cross-process: stored in proc 1 → reloaded from disk in proc 2. `.gemiflow/neural/patterns.json` (+`stats.json`). |
 | **Pattern store→search roundtrip** (#2226 fix) | Holds on both direct and MCP paths (`controller:"bridge-store", impl:"real-hnsw-indexed"`). 3.10.6 fix verified end-to-end. |
-| **Memory bridge** (import_claude / bridge_status / search_unified) | Real import (14 entries, 3 projects), results carry `source:"claude-code"` attribution. Persists to `.swarm/memory.db` ns `claude-memories`. |
+| **Memory bridge** (import_claude / bridge_status / search_unified) | Real import (14 entries, 3 projects), results carry `source:"gemini-cli"` attribution. Persists to `.swarm/memory.db` ns `claude-memories`. |
 | **MoE — 8 experts + gating** | Genuine 384→128→8 softmax MLP + REINFORCE backprop. Measured: coder expert probability **0.081→0.994** after 200 rewards. |
 | **SONA <0.05 ms adaptation** (WASM) | `SonaInstantWasm.instantAdapt` measured **0.00417 ms/call** (200k warmed) — 12× under the claim. EMA + adaptive-rank schedule. |
 | **Q-learning self-improvement** (mechanism) | Q-table is read at inference and argmax'd (no static fallback). Cross-process: penalize `architect` → router switches greedy pick to `researcher`, persisted to `.swarm/q-learning-model.json`. |
@@ -61,7 +61,7 @@
 | # | Sev | Defect | Location |
 |---|-----|--------|----------|
 | 1 | 🔴 **Critical** | **CLI inverts negative reward.** `route feedback -r -1.0` (and `--reward -1.0`) parses as **+1.00** — negative feedback reinforces the bad agent. Only `--reward=-1.0` (equals form) preserves the sign; the command's own help example is broken. | `src/commands/route.ts` flag parser |
-| 2 | 🟠 High | **Fabricated speedup metric** reported as real telemetry via `Math.random()`. | `v3/@claude-flow/swarm/src/attention-coordinator.ts:972` |
+| 2 | 🟠 High | **Fabricated speedup metric** reported as real telemetry via `Math.random()`. | `v3/@gemiflow/swarm/src/attention-coordinator.ts:972` |
 | 3 | 🟠 High | **Silent mock-embedding fallback mislabeled as the real ONNX model** — no way to distinguish mock from real output. | `memory-initializer.ts` embedding path; agentdb `EmbeddingService` |
 | 4 | 🟡 Med | **`hooks_intelligence_learn` is cosmetic** — reads/echoes stats; does not run a learning cycle despite its name. | `hooks-tools.js` (~:2920) |
 | 5 | 🟡 Med | **MCP `trajectory-end` consolidation uses a synthetic `Math.sin()` gradient**, not the trajectory's real embeddings. | `hooks-tools.js:2481` |
@@ -106,7 +106,7 @@ What does **not** hold up is the **performance-multiplier marketing**: the HNSW 
 
 ### Deferred — with honest rationale (NOT fixed)
 - **SONA "default-path adapt is a stub"** — re-examined: the default intelligence path's pattern-confidence learning runs through `LocalSonaCoordinator`, which IS real and was confirmed working end-to-end (confidence 0.906→1.0). The inert piece is the *supplementary* `@ruvector/ruvllm` `SonaCoordinator` forward, which is not load-bearing for the confirmed learning. The audit slightly overstated this as a default-path gap; wiring the WASM SONA into the default path is an *enhancement*, not a bug fix, and is left for a dedicated change.
-- **WASM MicroLoRA `apply()` inert** — lives in the `@ruvector/ruvllm`/`-wasm` **published dependency**, not ruflo source; cannot be fixed by editing a node_module. Requires an upstream fix or a deliberate route-around (use the real JS `LoraAdapter` path). Tracked, not shipped here.
+- **WASM MicroLoRA `apply()` inert** — lives in the `@ruvector/ruvllm`/`-wasm` **published dependency**, not gemiflow source; cannot be fixed by editing a node_module. Requires an upstream fix or a deliberate route-around (use the real JS `LoraAdapter` path). Tracked, not shipped here.
 - **EWC++ "Fisher information" is a proxy** (`|w|`/`embedding²`, not gradient curvature) — functional regularizer; relabeling vs. real gradient-Fisher is a design decision, deferred.
 - **Bandit priors global-per-model, not per-task** — making them per-task changes the **persisted state schema** (`priors` → per-task-bucket map), so it needs an ADR + migration, not a patch. Deferred to a dedicated change.
 - **Embedding ONNX broken without native `sharp`** — now *observable* (3.10.7 `backend:mock`); a sharp-free transformers path / bundled binary is the real fix, deferred.

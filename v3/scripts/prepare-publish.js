@@ -16,7 +16,7 @@ const v3Root = path.join(__dirname, '..');
 const VERSION = '3.0.0-alpha.1';
 const TAG = 'v3alpha';
 
-// All @claude-flow packages
+// All @gemiflow packages
 const packages = [
   'shared',
   'security',
@@ -57,7 +57,7 @@ const publishOrder = [
 ];
 
 function updatePackageJson(pkgName) {
-  const pkgPath = path.join(v3Root, '@claude-flow', pkgName, 'package.json');
+  const pkgPath = path.join(v3Root, '@gemiflow', pkgName, 'package.json');
 
   if (!fs.existsSync(pkgPath)) {
     console.log(`⚠️  ${pkgName}: package.json not found`);
@@ -127,7 +127,7 @@ function updatePackageJson(pkgName) {
 }
 
 function updateMainPackage() {
-  const pkgPath = path.join(v3Root, 'claude-flow', 'package.json');
+  const pkgPath = path.join(v3Root, 'gemiflow', 'package.json');
   const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
 
   pkg.version = VERSION;
@@ -146,28 +146,28 @@ function updateMainPackage() {
   }
 
   fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
-  console.log(`✅ claude-flow: Updated for publishing`);
+  console.log(`✅ gemiflow: Updated for publishing`);
 }
 
 console.log('📦 Preparing V3 packages for npm publishing...\n');
 
-// Update all @claude-flow packages
+// Update all @gemiflow packages
 for (const pkg of packages) {
   updatePackageJson(pkg);
 }
 
-// Update main claude-flow package
+// Update main gemiflow package
 updateMainPackage();
 
 console.log('\n✅ All packages prepared for publishing!');
 console.log(`\n📋 Publish order (${publishOrder.length} packages + main):`);
-publishOrder.forEach((pkg, i) => console.log(`   ${i + 1}. @claude-flow/${pkg}`));
-console.log(`   ${publishOrder.length + 1}. claude-flow`);
+publishOrder.forEach((pkg, i) => console.log(`   ${i + 1}. @gemiflow/${pkg}`));
+console.log(`   ${publishOrder.length + 1}. gemiflow`);
 
 console.log('\n🚀 To publish, run:');
 console.log('   npm login');
 console.log('   cd v3 && npm run build');
 for (const pkg of publishOrder) {
-  console.log(`   cd @claude-flow/${pkg} && npm publish --tag v3alpha && cd ../..`);
+  console.log(`   cd @gemiflow/${pkg} && npm publish --tag v3alpha && cd ../..`);
 }
-console.log('   cd claude-flow && npm publish --tag v3alpha');
+console.log('   cd gemiflow && npm publish --tag v3alpha');

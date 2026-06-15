@@ -1,17 +1,17 @@
 
 !/memory/agents/README.md
 !/memory/sessions/README.md
-!bin/claude-flow
-!v3/@claude-flow/
+!bin/gemiflow
+!v3/@gemiflow/
 # Binaries
 # Build outputs
 
-# Claude-Flow specific
+# GemiFlow specific
 # Dependencies
 # Development
 # Dot folders to ignore (except .claude, .claude-plugin, .git, .github, .githooks)
 # Environment
-# Exclude @claude-flow module directories from ignore patterns
+# Exclude @gemiflow module directories from ignore patterns
 # IDE
 # Logs
 # MCP/Swarm
@@ -50,13 +50,13 @@
 *.tmp
 *.tsbuildinfo
 *~
-./claude/checkpoints/
+./gemiflow/checkpoints/
 .DS_Store
 .Python
 .agentic-flow/
 .cache/
-.claude-flow/
-.claude/settings.local.json
+.gemiflow-flow/
+.gemiflow/settings.local.json
 .deno/
 .env
 .env.*.local
@@ -79,18 +79,18 @@
 /coordination/
 /memory/
 /memory/agents/*
-/memory/claude-flow-data.json
+/memory/gemiflow-data.json
 /memory/sessions/*
 Thumbs.db
 __pycache__/
 analyzing
 api-project/
-bin/claude-flow-*
+bin/gemiflow-*
 build/
-claude-flow
-claude-flow-mcp-wrapper
-claude-flow.config.json
-claude-flow.db
+gemiflow
+gemiflow-mcp-wrapper
+gemiflow.config.json
+gemiflow.db
 coordination/memory_bank/*
 coordination/orchestration/*
 coordination/subtasks/*
@@ -123,16 +123,16 @@ ui_*.log
 yarn-debug.log*
 yarn-error.log*
 
-# Claude Flow generated files
-.claude/settings.local.json
+# GemiFlow generated files
+.gemiflow/settings.local.json
 .mcp.json
-claude-flow.config.json
+gemiflow.config.json
 .swarm/
 .hive-mind/
-.claude-flow/
+.gemiflow-flow/
 /memory/
 /coordination/
-/memory/claude-flow-data.json
+/memory/gemiflow-data.json
 /memory/sessions/*
 !/memory/sessions/README.md
 /memory/agents/*
@@ -146,16 +146,16 @@ claude-flow.config.json
 *.sqlite
 *.sqlite-journal
 *.sqlite-wal
-claude-flow
+gemiflow
 # Removed Windows wrapper files per user request
 hive-mind-prompt-*.txt
 
 # Codex local configuration
 .codex/
 
-# Claude Flow runtime data
-.claude-flow/data/
-.claude-flow/logs/
+# GemiFlow runtime data
+.gemiflow-flow/data/
+.gemiflow-flow/logs/
 
 # Environment variables — block ALL .env variants except .example templates
 .env

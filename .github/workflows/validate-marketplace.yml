@@ -27,7 +27,7 @@ jobs:
             for (const p of catalog.plugins) {
               const dir = p.source;
               if (!fs.existsSync(dir)) throw new Error('Missing plugin dir: ' + dir);
-              const manifest = dir + '/.claude-plugin/plugin.json';
+              const manifest = dir + '/.gemiflow-plugin/plugin.json';
               if (!fs.existsSync(manifest)) throw new Error('Missing manifest: ' + manifest);
               const m = JSON.parse(fs.readFileSync(manifest));
               if (!m.name || !m.description || !m.version) throw new Error('Manifest missing required fields: ' + manifest);
@@ -39,7 +39,7 @@ jobs:
       - name: Validate plugin structure
         run: |
           for dir in plugins/*/; do
-            manifest="$dir/.claude-plugin/plugin.json"
+            manifest="$dir/.gemiflow-plugin/plugin.json"
             if [ ! -f "$manifest" ]; then echo "FAIL: Missing $manifest"; exit 1; fi
             node -e "JSON.parse(require('fs').readFileSync('${manifest}'))" || exit 1
 

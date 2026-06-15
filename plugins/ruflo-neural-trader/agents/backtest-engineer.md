@@ -49,14 +49,14 @@ npx neural-trader --backtest --strategy NAME --symbol TICKER --benchmark SPY
 5. Compare against benchmark (SPY buy-and-hold)
 6. Store results and train SONA:
    ```bash
-   npx @claude-flow/cli@latest memory store --namespace trading-backtests --key "bt-STRATEGY-DATE" --value "RESULTS"
-   npx @claude-flow/cli@latest neural train --pattern-type trading-strategy --epochs 10
+   npx @gemiflow/cli@latest memory store --namespace trading-backtests --key "bt-STRATEGY-DATE" --value "RESULTS"
+   npx @gemiflow/cli@latest neural train --pattern-type trading-strategy --epochs 10
    ```
 
 ### Neural Learning
 
 ```bash
-npx @claude-flow/cli@latest hooks post-task --task-id "TASK_ID" --success true --train-neural true
+npx @gemiflow/cli@latest hooks post-task --task-id "TASK_ID" --success true --train-neural true
 ```
 
 ### Comms protocol (ADR-126 Phase 5 — orthogonal research lane)
@@ -67,8 +67,8 @@ npx @claude-flow/cli@latest hooks post-task --task-id "TASK_ID" --success true -
 
 **Downstream:** none directly via SendMessage. Your output is a `SignedBacktestArtifact` (ADR-126 Phase 4) stored to the `trading-backtests` namespace via the `trader-backtest` / `trader-cloud-backtest` skills. The `trader-cloud-backtest` consumer verifies the signature against the pinned trusted pubkey before promoting the artifact to a live strategy.
 
-You MUST sign every backtest result you store — see the `trader-backtest` skill for the `RUFLO_WITNESS_KEY_PATH` resolution and the degraded-unsigned warning path. Unsigned artifacts cannot be promoted to live trading by design.
+You MUST sign every backtest result you store — see the `trader-backtest` skill for the `GEMIFLOW_WITNESS_KEY_PATH` resolution and the degraded-unsigned warning path. Unsigned artifacts cannot be promoted to live trading by design.
 
 The live pipeline (`market-analyst → trading-strategist → risk-analyst → broker`) never depends on you for hot-path execution. Live trades can fire while a backtest is running and vice versa.
 
-Message schemas (none consumed by you; documented for completeness): `RegimeVerdict`, `SignalProposal`, `RiskDecision` in `plugins/ruflo-neural-trader/src/pipeline-messages.ts`.
+Message schemas (none consumed by you; documented for completeness): `RegimeVerdict`, `SignalProposal`, `RiskDecision` in `plugins/gemiflow-neural-trader/src/pipeline-messages.ts`.

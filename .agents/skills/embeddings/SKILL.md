@@ -26,32 +26,32 @@ Vector embeddings for semantic search and pattern matching with HNSW indexing.
 
 ### Initialize Embeddings
 ```bash
-npx claude-flow embeddings init --backend sqlite
+npx gemiflow embeddings init --backend sqlite
 ```
 
 ### Embed Text
 ```bash
-npx claude-flow embeddings embed --text "authentication patterns"
+npx gemiflow embeddings embed --text "authentication patterns"
 ```
 
 ### Batch Embed
 ```bash
-npx claude-flow embeddings batch --file documents.json
+npx gemiflow embeddings batch --file documents.json
 ```
 
 ### Semantic Search
 ```bash
-npx claude-flow embeddings search --query "security best practices" --top-k 5
+npx gemiflow embeddings search --query "security best practices" --top-k 5
 ```
 
 ## Memory Integration
 
 ```bash
 # Store with embeddings
-npx claude-flow memory store --key "pattern-1" --value "description" --embed
+npx gemiflow memory store --key "pattern-1" --value "description" --embed
 
 # Search with embeddings
-npx claude-flow memory search --query "related patterns" --semantic
+npx gemiflow memory search --query "related patterns" --semantic
 ```
 
 ## Quantization

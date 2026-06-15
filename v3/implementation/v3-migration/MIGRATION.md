@@ -1,6 +1,6 @@
 # Migration Guide: v2 → v3
 
-Complete guide for upgrading from Claude Flow v2 to v3.0.0-alpha.1
+Complete guide for upgrading from GemiFlow v2 to v3.0.0-alpha.1
 
 ---
 
@@ -21,10 +21,10 @@ Complete guide for upgrading from Claude Flow v2 to v3.0.0-alpha.1
 ## Overview
 
 ### What's Changed
-Claude Flow v3 is a complete architectural overhaul based on 10 Architecture Decision Records (ADRs). The migration involves:
+GemiFlow v3 is a complete architectural overhaul based on 10 Architecture Decision Records (ADRs). The migration involves:
 
 - **Code reduction**: 15,000+ lines → <5,000 lines
-- **Module architecture**: Monolith → 10 @claude-flow modules
+- **Module architecture**: Monolith → 10 @gemiflow modules
 - **Foundation**: Custom implementation → agentic-flow@alpha core
 - **Memory**: 6+ fragmented systems → Unified AgentDB
 - **Testing**: Jest → Vitest (10x faster)
@@ -45,7 +45,7 @@ Claude Flow v3 is a complete architectural overhaul based on 10 Architecture Dec
 ### 1. Backup Current Setup
 ```bash
 # Backup your v2 installation
-cp -r ~/.claude-flow ~/.claude-flow.v2.backup
+cp -r ~/.gemiflow ~/.gemiflow.v2.backup
 cp -r ./node_modules ./node_modules.v2.backup
 cp package.json package.json.v2.backup
 cp package-lock.json package-lock.json.v2.backup
@@ -57,13 +57,13 @@ npx agentic-flow memory export --output ./v2-memory-backup.json
 ### 2. Document Current Configuration
 ```bash
 # Save current configuration
-cat ~/.claude-flow/config.json > v2-config-backup.json
+cat ~/.gemiflow/config.json > v2-config-backup.json
 
 # List installed agents
 npx agentic-flow --list > v2-agents-list.txt
 
 # Export environment variables
-env | grep CLAUDE_FLOW > v2-env-backup.txt
+env | grep GEMIFLOW > v2-env-backup.txt
 ```
 
 ### 3. System Requirements Check
@@ -90,7 +90,7 @@ npm list @ruvector/attention
 npm list @ruvector/sona
 
 # Check for custom plugins or extensions
-ls ~/.claude-flow/plugins/
+ls ~/.gemiflow/plugins/
 ```
 
 ---
@@ -131,7 +131,7 @@ ls ~/.claude-flow/plugins/
 - npx agentic-flow memory --backend mongodb
 
 + # v3: Unified AgentDB
-+ npx @claude-flow/memory unify --backend agentdb
++ npx @gemiflow/memory unify --backend agentdb
 ```
 
 **Action Required**: Migrate all memory data to AgentDB.
@@ -144,7 +144,7 @@ ls ~/.claude-flow/plugins/
 - import { AdaptiveCoordinator } from './coordinators/adaptive'
 
 + # v3: Single UnifiedSwarmCoordinator
-+ import { SwarmCoordinator } from '@claude-flow/swarm'
++ import { SwarmCoordinator } from '@gemiflow/swarm'
 ```
 
 **Action Required**: Update all coordinator imports and usage.
@@ -180,9 +180,9 @@ ls ~/.claude-flow/plugins/
 - import { Security, Memory, Swarm } from 'agentic-flow';
 
 + # v3: Module imports
-+ import { SecurityModule } from '@claude-flow/security';
-+ import { MemoryModule } from '@claude-flow/memory';
-+ import { SwarmModule } from '@claude-flow/swarm';
++ import { SecurityModule } from '@gemiflow/security';
++ import { MemoryModule } from '@gemiflow/memory';
++ import { SwarmModule } from '@gemiflow/swarm';
 ```
 
 ### 3. Configuration Changes
@@ -247,13 +247,13 @@ rm package-lock.json
 # 2. Install v3 alpha
 npm install agentic-flow@3.0.0-alpha.1
 
-# 3. Install required @claude-flow modules
-npm install @claude-flow/security@latest
-npm install @claude-flow/memory@latest
-npm install @claude-flow/integration@latest
-npm install @claude-flow/performance@latest
-npm install @claude-flow/swarm@latest
-npm install @claude-flow/cli@latest
+# 3. Install required @gemiflow modules
+npm install @gemiflow/security@latest
+npm install @gemiflow/memory@latest
+npm install @gemiflow/integration@latest
+npm install @gemiflow/performance@latest
+npm install @gemiflow/swarm@latest
+npm install @gemiflow/cli@latest
 
 # 4. Install peer dependencies
 npm install agentdb@2.0.0-alpha.3.4
@@ -272,35 +272,35 @@ npm install --save-dev @vitest/ui@^2.1.8
 npx agentic-flow@3.0.0-alpha.1 init --v3
 
 # 2. Migrate v2 configuration (manual merge)
-# Edit ~/.claude-flow/config.json with your v2 settings
+# Edit ~/.gemiflow/config.json with your v2 settings
 # Follow new schema from v3/config/schema.json
 
 # 3. Set environment variables
-export CLAUDE_FLOW_VERSION=3
-export CLAUDE_FLOW_MODE=production
-export CLAUDE_FLOW_MEMORY_BACKEND=agentdb
+export GEMIFLOW_VERSION=3
+export GEMIFLOW_MODE=production
+export GEMIFLOW_MEMORY_BACKEND=agentdb
 ```
 
 #### Windows Configuration
 ```powershell
 # PowerShell
-setx CLAUDE_FLOW_VERSION "3"
-setx CLAUDE_FLOW_MODE "production"
-setx CLAUDE_FLOW_MEMORY_BACKEND "agentdb"
+setx GEMIFLOW_VERSION "3"
+setx GEMIFLOW_MODE "production"
+setx GEMIFLOW_MEMORY_BACKEND "agentdb"
 
 # Update config path
-$env:CLAUDE_FLOW_CONFIG = "$env:APPDATA\claude-flow\config.json"
+$env:GEMIFLOW_CONFIG = "$env:APPDATA\gemiflow\config.json"
 ```
 
 #### macOS/Linux Configuration
 ```bash
 # Bash/Zsh
-export CLAUDE_FLOW_VERSION=3
-export CLAUDE_FLOW_MODE=production
-export CLAUDE_FLOW_MEMORY_BACKEND=agentdb
+export GEMIFLOW_VERSION=3
+export GEMIFLOW_MODE=production
+export GEMIFLOW_MEMORY_BACKEND=agentdb
 
 # Update config path
-export CLAUDE_FLOW_CONFIG="$HOME/.claude-flow/config.json"
+export GEMIFLOW_CONFIG="$HOME/.gemiflow/config.json"
 
 # Add to ~/.bashrc or ~/.zshrc for persistence
 ```
@@ -312,17 +312,17 @@ export CLAUDE_FLOW_CONFIG="$HOME/.claude-flow/config.json"
 npx agentic-flow@2.x memory export --output ./v2-memory.json
 
 # 2. Initialize v3 memory backend
-npx @claude-flow/memory init --backend agentdb
+npx @gemiflow/memory init --backend agentdb
 
 # 3. Import v2 memory into v3
-npx @claude-flow/memory import ./v2-memory.json --format v2
+npx @gemiflow/memory import ./v2-memory.json --format v2
 
 # 4. Verify migration
-npx @claude-flow/memory stats
+npx @gemiflow/memory stats
 # Should show: "Migrated X patterns from v2"
 
 # 5. Optimize with HNSW indexing
-npx @claude-flow/memory optimize --hnsw
+npx @gemiflow/memory optimize --hnsw
 ```
 
 ### Step 4: Update Code
@@ -339,9 +339,9 @@ import {
 
 // After (v3)
 import { Agent } from 'agentic-flow';
-import { SwarmCoordinator } from '@claude-flow/swarm';
-import { MemoryModule } from '@claude-flow/memory';
-import { SecurityModule } from '@claude-flow/security';
+import { SwarmCoordinator } from '@gemiflow/swarm';
+import { MemoryModule } from '@gemiflow/memory';
+import { SecurityModule } from '@gemiflow/security';
 ```
 
 #### 4b. Update Agent Initialization
@@ -470,29 +470,29 @@ export default defineConfig({
 
 ```bash
 # 1. Run v3 security audit
-npx @claude-flow/security audit --strict
+npx @gemiflow/security audit --strict
 
 # 2. Fix any CVEs automatically
-npx @claude-flow/security fix --auto
+npx @gemiflow/security fix --auto
 
 # 3. Validate credentials
-npx @claude-flow/security validate-credentials
+npx @gemiflow/security validate-credentials
 
 # 4. Check path security
-npx @claude-flow/security check-paths
+npx @gemiflow/security check-paths
 
 # 5. Review security report
-cat ~/.claude-flow/security-report.json
+cat ~/.gemiflow/security-report.json
 ```
 
 ### Step 7: Performance Validation
 
 ```bash
 # 1. Run performance benchmarks
-npx @claude-flow/performance benchmark
+npx @gemiflow/performance benchmark
 
 # 2. Compare with v2 baseline
-npx @claude-flow/performance compare --baseline v2
+npx @gemiflow/performance compare --baseline v2
 
 # 3. Validate targets
 # - Flash Attention: 2.49x-7.47x speedup
@@ -501,17 +501,17 @@ npx @claude-flow/performance compare --baseline v2
 # - CLI Startup: <500ms
 
 # 4. Profile memory usage
-npx @claude-flow/performance profile --memory
+npx @gemiflow/performance profile --memory
 
 # 5. Analyze bottlenecks
-npx @claude-flow/performance analyze
+npx @gemiflow/performance analyze
 ```
 
 ### Step 8: Integration Testing
 
 ```bash
 # 1. Test agentic-flow integration
-npx @claude-flow/integration test --agentic-flow-version alpha
+npx @gemiflow/integration test --agentic-flow-version alpha
 
 # 2. Test all modules
 npm run test:modules
@@ -523,14 +523,14 @@ npm run test:cross-platform
 npx agentic-flow --agent coder --task "Hello v3"
 
 # 5. Test swarm coordination
-npx @claude-flow/swarm test --agents 15
+npx @gemiflow/swarm test --agents 15
 ```
 
 ---
 
 ## Module-by-Module Guide
 
-### @claude-flow/security Migration
+### @gemiflow/security Migration
 
 #### Before (v2)
 ```typescript
@@ -540,7 +540,7 @@ npx @claude-flow/swarm test --agents 15
 
 #### After (v3)
 ```typescript
-import { SecurityModule } from '@claude-flow/security';
+import { SecurityModule } from '@gemiflow/security';
 
 const security = new SecurityModule({
   strict: true,
@@ -564,7 +564,7 @@ const safe = await security.sanitizeOutput(output);
 await security.validateCredentials();
 ```
 
-### @claude-flow/memory Migration
+### @gemiflow/memory Migration
 
 #### Before (v2)
 ```typescript
@@ -577,7 +577,7 @@ const result = await memory.retrieve('key');
 
 #### After (v3)
 ```typescript
-import { MemoryModule } from '@claude-flow/memory';
+import { MemoryModule } from '@gemiflow/memory';
 
 const memory = new MemoryModule({
   backend: 'hybrid', // SQLite + AgentDB
@@ -612,7 +612,7 @@ const enhanced = await memory.gnnEnhancedSearch(embedding, {
 });
 ```
 
-### @claude-flow/swarm Migration
+### @gemiflow/swarm Migration
 
 #### Before (v2)
 ```typescript
@@ -630,7 +630,7 @@ const coordinator = new HierarchicalCoordinator({
 
 #### After (v3)
 ```typescript
-import { SwarmCoordinator } from '@claude-flow/swarm';
+import { SwarmCoordinator } from '@gemiflow/swarm';
 
 // Single unified coordinator
 const swarm = new SwarmCoordinator({
@@ -652,7 +652,7 @@ const status = await swarm.getStatus();
 console.log(`Active: ${status.activeAgents}/${status.totalAgents}`);
 ```
 
-### @claude-flow/performance Migration
+### @gemiflow/performance Migration
 
 #### Before (v2)
 ```typescript
@@ -662,7 +662,7 @@ console.log(`Active: ${status.activeAgents}/${status.totalAgents}`);
 
 #### After (v3)
 ```typescript
-import { PerformanceModule } from '@claude-flow/performance';
+import { PerformanceModule } from '@gemiflow/performance';
 
 const perf = new PerformanceModule({
   targets: {
@@ -778,38 +778,38 @@ console.log(`Peak usage: ${profile.peakMB}MB`);
 
 #### v2 Environment Variables
 ```bash
-CLAUDE_FLOW_VERSION=2
-CLAUDE_FLOW_MEMORY_PATH=./memory
-CLAUDE_FLOW_COORDINATOR=hierarchical
+GEMIFLOW_VERSION=2
+GEMIFLOW_MEMORY_PATH=./memory
+GEMIFLOW_COORDINATOR=hierarchical
 ```
 
 #### v3 Environment Variables
 ```bash
 # Core
-CLAUDE_FLOW_VERSION=3
-CLAUDE_FLOW_MODE=production
-CLAUDE_FLOW_CONFIG=~/.claude-flow/config.json
+GEMIFLOW_VERSION=3
+GEMIFLOW_MODE=production
+GEMIFLOW_CONFIG=~/.gemiflow/config.json
 
 # Memory
-CLAUDE_FLOW_MEMORY_BACKEND=agentdb
-CLAUDE_FLOW_MEMORY_PATH=./data
-CLAUDE_FLOW_AGENTDB_HNSW=true
+GEMIFLOW_MEMORY_BACKEND=agentdb
+GEMIFLOW_MEMORY_PATH=./data
+GEMIFLOW_AGENTDB_HNSW=true
 
 # Security
-CLAUDE_FLOW_SECURITY_STRICT=true
-CLAUDE_FLOW_SECURITY_MODE=strict
+GEMIFLOW_SECURITY_STRICT=true
+GEMIFLOW_SECURITY_MODE=strict
 
 # Performance
-CLAUDE_FLOW_FLASH_ATTENTION=true
-CLAUDE_FLOW_SONA_LEARNING=true
+GEMIFLOW_FLASH_ATTENTION=true
+GEMIFLOW_SONA_LEARNING=true
 
 # Platform-specific (Windows)
 APPDATA=C:\Users\YourName\AppData\Roaming
-CLAUDE_FLOW_CONFIG=%APPDATA%\claude-flow\config.json
+GEMIFLOW_CONFIG=%APPDATA%\gemiflow\config.json
 
 # Platform-specific (macOS/Linux)
 HOME=/home/yourname
-CLAUDE_FLOW_CONFIG=$HOME/.claude-flow/config.json
+GEMIFLOW_CONFIG=$HOME/.gemiflow/config.json
 ```
 
 ---
@@ -830,8 +830,8 @@ const agent = new Agent({
 
 // ✅ v3 Pattern
 import { Agent } from 'agentic-flow';
-import { MemoryModule } from '@claude-flow/memory';
-import { SecurityModule } from '@claude-flow/security';
+import { MemoryModule } from '@gemiflow/memory';
+import { SecurityModule } from '@gemiflow/security';
 
 const agent = new Agent({
   name: 'coder',
@@ -855,8 +855,8 @@ const swarm = new HierarchicalCoordinator({
 const result = await swarm.execute(task);
 
 // ✅ v3 Pattern
-import { SwarmCoordinator } from '@claude-flow/swarm';
-import { AttentionCoordinator } from '@claude-flow/swarm/attention';
+import { SwarmCoordinator } from '@gemiflow/swarm';
+import { AttentionCoordinator } from '@gemiflow/swarm/attention';
 
 const swarm = new SwarmCoordinator({
   topology: 'hierarchical-mesh',
@@ -881,7 +881,7 @@ await memory.store('user-123', userData);
 const user = await memory.retrieve('user-123');
 
 // ✅ v3 Pattern
-import { MemoryModule } from '@claude-flow/memory';
+import { MemoryModule } from '@gemiflow/memory';
 
 const memory = new MemoryModule({
   backend: 'hybrid',
@@ -919,7 +919,7 @@ try {
 }
 
 // ✅ v3 Pattern (Event Sourcing)
-import { SecurityError, MemoryError } from '@claude-flow/shared';
+import { SecurityError, MemoryError } from '@gemiflow/shared';
 
 try {
   const result = await agent.execute(task);
@@ -969,7 +969,7 @@ describe('Agent', () => {
 // ✅ v3 Pattern (Vitest)
 import { describe, it, expect, vi } from 'vitest';
 import { Agent } from 'agentic-flow';
-import { MemoryModule } from '@claude-flow/memory';
+import { MemoryModule } from '@gemiflow/memory';
 
 describe('Agent', () => {
   it('should execute task with memory', async () => {
@@ -1104,7 +1104,7 @@ rm -rf node_modules
 cp -r node_modules.v2.backup node_modules
 
 # 3. Restore configuration
-cp v2-config-backup.json ~/.claude-flow/config.json
+cp v2-config-backup.json ~/.gemiflow/config.json
 
 # 4. Restore memory
 npx agentic-flow@2.x memory import ./v2-memory-backup.json
@@ -1118,17 +1118,17 @@ npx agentic-flow --agent coder --task "Test rollback"
 ```bash
 # 1. Uninstall v3 completely
 npm uninstall agentic-flow
-npm uninstall @claude-flow/security
-npm uninstall @claude-flow/memory
-npm uninstall @claude-flow/swarm
-npm uninstall @claude-flow/integration
-npm uninstall @claude-flow/performance
+npm uninstall @gemiflow/security
+npm uninstall @gemiflow/memory
+npm uninstall @gemiflow/swarm
+npm uninstall @gemiflow/integration
+npm uninstall @gemiflow/performance
 npm uninstall agentdb
 npm uninstall @ruvector/attention
 npm uninstall @ruvector/sona
 
 # 2. Restore entire v2 environment
-cp -r ~/.claude-flow.v2.backup ~/.claude-flow
+cp -r ~/.gemiflow.v2.backup ~/.gemiflow
 rm -rf node_modules
 cp package.json.v2.backup package.json
 cp package-lock.json.v2.backup package-lock.json
@@ -1149,7 +1149,7 @@ npx agentic-flow --list
 
 **Symptoms**:
 ```
-Error: Claude Flow v3 requires Node.js 20.x or higher
+Error: GemiFlow v3 requires Node.js 20.x or higher
 Current version: v18.x.x
 ```
 
@@ -1179,19 +1179,19 @@ AgentDB not initialized
 **Solution**:
 ```bash
 # 1. Initialize AgentDB manually
-npx @claude-flow/memory init --backend agentdb --force
+npx @gemiflow/memory init --backend agentdb --force
 
 # 2. Create data directory
 mkdir -p ./data/agentdb
 
 # 3. Import v2 memory with verbose logging
-npx @claude-flow/memory import ./v2-memory-backup.json \
+npx @gemiflow/memory import ./v2-memory-backup.json \
   --format v2 \
   --verbose \
   --continue-on-error
 
 # 4. Verify
-npx @claude-flow/memory stats
+npx @gemiflow/memory stats
 ```
 
 ### Issue 3: Security Validation Errors
@@ -1205,18 +1205,18 @@ Path traversal detected: ../../../etc/passwd
 **Solution**:
 ```bash
 # 1. Review security configuration
-cat ~/.claude-flow/config.json | grep -A 10 security
+cat ~/.gemiflow/config.json | grep -A 10 security
 
 # 2. Update allowedDirectories
-npx @claude-flow/security configure \
+npx @gemiflow/security configure \
   --allowed-dirs "./src/,./tests/,./data/" \
   --blocked-patterns "../,~/,/etc/,/tmp/"
 
 # 3. Validate paths
-npx @claude-flow/security check-paths --fix
+npx @gemiflow/security check-paths --fix
 
 # 4. Re-run with strict mode disabled (temporary)
-export CLAUDE_FLOW_SECURITY_STRICT=false
+export GEMIFLOW_SECURITY_STRICT=false
 ```
 
 ### Issue 4: Vitest Test Failures
@@ -1253,18 +1253,18 @@ npm test
 
 **Symptoms**:
 ```
-Error: Cannot find module '@claude-flow/security'
+Error: Cannot find module '@gemiflow/security'
 Module not found
 ```
 
 **Solution**:
 ```bash
 # 1. Install all v3 modules
-npm install @claude-flow/security@latest
-npm install @claude-flow/memory@latest
-npm install @claude-flow/swarm@latest
-npm install @claude-flow/integration@latest
-npm install @claude-flow/performance@latest
+npm install @gemiflow/security@latest
+npm install @gemiflow/memory@latest
+npm install @gemiflow/swarm@latest
+npm install @gemiflow/integration@latest
+npm install @gemiflow/performance@latest
 
 # 2. Clear npm cache
 npm cache clean --force
@@ -1274,8 +1274,8 @@ rm -rf node_modules package-lock.json
 npm install
 
 # 4. Verify modules
-npm list @claude-flow/security
-npm list @claude-flow/memory
+npm list @gemiflow/security
+npm list @gemiflow/memory
 ```
 
 ### Issue 6: Platform-Specific Errors
@@ -1296,7 +1296,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 # Solution
 xattr -d com.apple.quarantine /path/to/npx
-spctl --add --label "Claude Flow" /path/to/npx
+spctl --add --label "GemiFlow" /path/to/npx
 ```
 
 #### Linux: Permission Denied
@@ -1314,7 +1314,7 @@ sudo chown -R $USER:$USER ~/.npm
 ## Post-Migration Checklist
 
 - [ ] v3 installed and running (`npx agentic-flow --version` shows 3.0.0-alpha.1)
-- [ ] All 10 @claude-flow modules installed
+- [ ] All 10 @gemiflow modules installed
 - [ ] Configuration migrated to v3 format
 - [ ] Memory data imported into AgentDB
 - [ ] Security audit passed
@@ -1333,8 +1333,8 @@ sudo chown -R $USER:$USER ~/.npm
 ### Resources
 - **Documentation**: https://github.com/ruvnet/agentic-flow/tree/v3/docs
 - **GitHub Issues**: https://github.com/ruvnet/agentic-flow/issues
-- **ADR Reference**: /workspaces/claude-flow/v3/docs/adr/
-- **Examples**: /workspaces/claude-flow/v3/examples/
+- **ADR Reference**: /workspaces/gemiflow/v3/docs/adr/
+- **Examples**: /workspaces/gemiflow/v3/examples/
 
 ### Support Channels
 - **Bug Reports**: Open issue with `migration` label
@@ -1347,7 +1347,7 @@ If you encounter issues not covered in this guide:
 1. **Collect diagnostic information**:
    ```bash
    npx agentic-flow diagnose --output diagnostics.json
-   npx @claude-flow/security audit --report security-report.json
+   npx @gemiflow/security audit --report security-report.json
    ```
 
 2. **Create detailed issue**:
@@ -1359,7 +1359,7 @@ If you encounter issues not covered in this guide:
 
 3. **Try safe mode**:
    ```bash
-   export CLAUDE_FLOW_SAFE_MODE=true
+   export GEMIFLOW_SAFE_MODE=true
    npx agentic-flow --agent coder --task "Test safe mode"
    ```
 
@@ -1398,4 +1398,4 @@ If you encounter issues not covered in this guide:
 
 ---
 
-**Happy Migrating! Welcome to Claude Flow v3!** 🚀
+**Happy Migrating! Welcome to GemiFlow v3!** 🚀

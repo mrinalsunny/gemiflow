@@ -17,14 +17,14 @@ tools:
   - Grep
   - LS
   - TodoWrite
-  - mcp__claude-flow__swarm_init
-  - mcp__claude-flow__agent_spawn
-  - mcp__claude-flow__task_orchestrate
-  - mcp__claude-flow__swarm_status
-  - mcp__claude-flow__memory_usage
-  - mcp__claude-flow__github_pr_manage
-  - mcp__claude-flow__github_code_review
-  - mcp__claude-flow__github_metrics
+  - mcp__gemiflow__swarm_init
+  - mcp__gemiflow__agent_spawn
+  - mcp__gemiflow__task_orchestrate
+  - mcp__gemiflow__swarm_status
+  - mcp__gemiflow__memory_usage
+  - mcp__gemiflow__github_pr_manage
+  - mcp__gemiflow__github_code_review
+  - mcp__gemiflow__github_metrics
 hooks:
   pre:
     - "gh auth status || (echo 'GitHub CLI not authenticated' && exit 1)"
@@ -55,23 +55,23 @@ Comprehensive pull request management with swarm coordination for automated revi
 ### 1. Create and Manage PR with Swarm Coordination
 ```javascript
 // Initialize review swarm
-mcp__claude-flow__swarm_init { topology: "mesh", maxAgents: 4 }
-mcp__claude-flow__agent_spawn { type: "reviewer", name: "Code Quality Reviewer" }
-mcp__claude-flow__agent_spawn { type: "tester", name: "Testing Agent" }
-mcp__claude-flow__agent_spawn { type: "coordinator", name: "PR Coordinator" }
+mcp__gemiflow__swarm_init { topology: "mesh", maxAgents: 4 }
+mcp__gemiflow__agent_spawn { type: "reviewer", name: "Code Quality Reviewer" }
+mcp__gemiflow__agent_spawn { type: "tester", name: "Testing Agent" }
+mcp__gemiflow__agent_spawn { type: "coordinator", name: "PR Coordinator" }
 
 // Create PR and orchestrate review
 mcp__github__create_pull_request {
   owner: "ruvnet",
   repo: "ruv-FANN",
-  title: "Integration: claude-code-flow and ruv-swarm",
-  head: "integration$claude-code-flow-ruv-swarm",
+  title: "Integration: gemiflow and ruv-swarm",
+  head: "integration$gemiflow-ruv-swarm",
   base: "main",
   body: "Comprehensive integration between packages..."
 }
 
 // Orchestrate review process
-mcp__claude-flow__task_orchestrate {
+mcp__gemiflow__task_orchestrate {
   task: "Complete PR review with testing and validation",
   strategy: "parallel",
   priority: "high"
@@ -108,12 +108,12 @@ mcp__github__merge_pull_request {
   repo: "ruv-FANN",
   pull_number: 54,
   merge_method: "squash",
-  commit_title: "feat: Complete claude-code-flow and ruv-swarm integration",
+  commit_title: "feat: Complete gemiflow and ruv-swarm integration",
   commit_message: "Comprehensive integration with swarm coordination"
 }
 
 // Post-merge coordination
-mcp__claude-flow__memory_usage {
+mcp__gemiflow__memory_usage {
   action: "store",
   key: "pr/54$merged",
   value: { timestamp: Date.now(), status: "success" }
@@ -126,10 +126,10 @@ mcp__claude-flow__memory_usage {
 ```javascript
 [Single Message - Complete PR Management]:
   // Initialize coordination
-  mcp__claude-flow__swarm_init { topology: "hierarchical", maxAgents: 5 }
-  mcp__claude-flow__agent_spawn { type: "reviewer", name: "Senior Reviewer" }
-  mcp__claude-flow__agent_spawn { type: "tester", name: "QA Engineer" }
-  mcp__claude-flow__agent_spawn { type: "coordinator", name: "Merge Coordinator" }
+  mcp__gemiflow__swarm_init { topology: "hierarchical", maxAgents: 5 }
+  mcp__gemiflow__agent_spawn { type: "reviewer", name: "Senior Reviewer" }
+  mcp__gemiflow__agent_spawn { type: "tester", name: "QA Engineer" }
+  mcp__gemiflow__agent_spawn { type: "coordinator", name: "Merge Coordinator" }
   
   // Create and manage PR using gh CLI
   Bash("gh pr create --repo :owner/:repo --title '...' --head '...' --base 'main'")

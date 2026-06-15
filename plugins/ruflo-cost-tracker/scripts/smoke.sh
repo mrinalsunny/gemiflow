@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Structural smoke test for ruflo-cost-tracker v0.3.0 (ADR-0001 + ADR-0002).
+# Structural smoke test for gemiflow-cost-tracker v0.3.0 (ADR-0001 + ADR-0002).
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PASS=0
@@ -9,13 +9,13 @@ ok()   { printf "PASS\n"; PASS=$((PASS+1)); }
 bad()  { printf "FAIL: %s\n" "$1"; FAIL=$((FAIL+1)); }
 
 step "1. plugin.json declares 0.16.1 with new keywords"
-v=$(grep -E '"version"' "$ROOT/.claude-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+v=$(grep -E '"version"' "$ROOT/.gemiflow-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
 if [[ "$v" != "0.16.1" ]]; then
   bad "expected 0.16.1, got '$v'"
 else
   miss=""
   for k in namespace-routing mcp agentic-flow agent-booster tier1-routing model-routing benchmarking verified telemetry budget; do
-    grep -q "\"$k\"" "$ROOT/.claude-plugin/plugin.json" || miss="$miss $k"
+    grep -q "\"$k\"" "$ROOT/.gemiflow-plugin/plugin.json" || miss="$miss $k"
   done
   [[ -z "$miss" ]] && ok || bad "missing keywords:$miss"
 fi
@@ -49,12 +49,12 @@ else
   bad "missing dual-path documentation"
 fi
 
-step "5. README pins @claude-flow/cli to v3.6"
-grep -qE "@claude-flow/cli.*v3\.6|v3\.6.*claude-flow/cli" "$ROOT/README.md" \
+step "5. README pins @gemiflow/cli to v3.6"
+grep -qE "@gemiflow/cli.*v3\.6|v3\.6.*gemiflow/cli" "$ROOT/README.md" \
   && ok || bad "v3.6 pin missing"
 
-step "6. README defers to ruflo-agentdb namespace convention"
-grep -q "ruflo-agentdb" "$ROOT/README.md" \
+step "6. README defers to gemiflow-agentdb namespace convention"
+grep -q "gemiflow-agentdb" "$ROOT/README.md" \
   && grep -q "Namespace convention" "$ROOT/README.md" \
   && ok || bad "namespace coordination block incomplete"
 
@@ -100,7 +100,7 @@ grep -q '^allowed-tools:[[:space:]]*\*' "$F" && miss="$miss wildcard"
 step "12. cost-compact-context skill references getTokenOptimizer + tags upstream figures"
 F="$ROOT/skills/cost-compact-context/SKILL.md"
 miss=""
-grep -qE "getTokenOptimizer|@claude-flow/integration" "$F" || miss="$miss bridge-ref"
+grep -qE "getTokenOptimizer|@gemiflow/integration" "$F" || miss="$miss bridge-ref"
 grep -q "claimed upstream, not yet verified" "$F" || miss="$miss upstream-disclaimer"
 grep -qE "agentic-flow.*not (installed|available)|fallback|bridge[- ](unavailable|reported)" "$F" || miss="$miss fallback-doc"
 [[ -z "$miss" ]] && ok || bad "$miss"
@@ -118,11 +118,11 @@ miss=""
 grep -q "Background workers" "$F" || miss="$miss section"
 grep -q "optimize" "$F" || miss="$miss optimize-worker"
 grep -q "benchmark" "$F" || miss="$miss benchmark-worker"
-grep -q "ruflo-loop-workers" "$F" || miss="$miss cross-link"
+grep -q "gemiflow-loop-workers" "$F" || miss="$miss cross-link"
 [[ -z "$miss" ]] && ok || bad "$miss"
 
-step "15. ruflo-cost.md documents 'cost workers' subcommand with hooks_worker-status"
-F="$ROOT/commands/ruflo-cost.md"
+step "15. gemiflow-cost.md documents 'cost workers' subcommand with hooks_worker-status"
+F="$ROOT/commands/gemiflow-cost.md"
 miss=""
 grep -q "cost workers" "$F" || miss="$miss subcommand"
 grep -q "hooks_worker-status" "$F" || miss="$miss tool-ref"
@@ -217,8 +217,8 @@ grep -qE "winRate|win rate" "$F" || miss="$miss win-rate-mention"
 grep -q '^allowed-tools:[[:space:]]*\*' "$F" && miss="$miss wildcard"
 [[ -z "$miss" ]] && ok || bad "$miss"
 
-step "26. ruflo-cost.md documents 'cost benchmark' subcommand"
-F="$ROOT/commands/ruflo-cost.md"
+step "26. gemiflow-cost.md documents 'cost benchmark' subcommand"
+F="$ROOT/commands/gemiflow-cost.md"
 grep -q "cost benchmark" "$F" && grep -q -- "--anthropic" "$F" \
   && ok || bad "missing subcommand or anthropic flag"
 
@@ -231,7 +231,7 @@ step "28. cost-track skill exists, references session jsonl + memory_store"
 F="$ROOT/skills/cost-track/SKILL.md"
 miss=""
 [[ -f "$F" ]] || miss="$miss missing-file"
-grep -qE '\.claude/projects|session.*jsonl|jsonl' "$F" || miss="$miss session-ref"
+grep -qE '\.gemiflow/projects|session.*jsonl|jsonl' "$F" || miss="$miss session-ref"
 grep -qE 'memory_store|memory store' "$F" || miss="$miss memory-store"
 grep -q 'cost-tracking' "$F" || miss="$miss namespace"
 grep -q '^allowed-tools:[[:space:]]*\*' "$F" && miss="$miss wildcard"
@@ -259,8 +259,8 @@ printf '%s\n' "$LOOKED_LINE" | grep -q 'D--project-Subcloudy' || miss="$miss not
 printf '%s\n' "$LOOKED_LINE" | grep -qF 'project\Subcloudy' && miss="$miss corrupt-encoded-path"
 [[ -z "$miss" ]] && ok || bad "$miss"
 
-step "30. ruflo-cost.md documents 'cost track' subcommand"
-F="$ROOT/commands/ruflo-cost.md"
+step "30. gemiflow-cost.md documents 'cost track' subcommand"
+F="$ROOT/commands/gemiflow-cost.md"
 grep -qE "cost track" "$F" && grep -qE "session.*jsonl|track\.mjs" "$F" \
   && ok || bad "missing cost-track subcommand or session-source ref"
 
@@ -283,8 +283,8 @@ grep -qE "HARD_STOP|alertLevel" "$F" || miss="$miss no-alert-impl"
 grep -q "process.exit(1)" "$F" || miss="$miss no-fail-closed"
 [[ -z "$miss" ]] && ok || bad "$miss"
 
-step "33. ruflo-cost.md documents 'cost budget set/get/check' subcommands"
-F="$ROOT/commands/ruflo-cost.md"
+step "33. gemiflow-cost.md documents 'cost budget set/get/check' subcommands"
+F="$ROOT/commands/gemiflow-cost.md"
 miss=""
 grep -q "cost budget set" "$F" || miss="$miss set"
 grep -q "cost budget get" "$F" || miss="$miss get"
@@ -307,8 +307,8 @@ grep -q "hooks.*model-outcome" "$F" || miss="$miss no-hooks-call"
 grep -qE "success.*escalated.*failure|ALLOWED" "$F" || miss="$miss no-validation"
 [[ -z "$miss" ]] && ok || bad "$miss"
 
-step "36. ruflo-cost.md documents 'cost outcome' subcommand"
-grep -q "cost outcome" "$ROOT/commands/ruflo-cost.md" \
+step "36. gemiflow-cost.md documents 'cost outcome' subcommand"
+grep -q "cost outcome" "$ROOT/commands/gemiflow-cost.md" \
   && ok || bad "missing"
 
 step "37. compact.mjs replaces inline Node block in cost-compact-context"
@@ -336,8 +336,8 @@ grep -q "trend\.mjs" "$F2" || miss="$miss skill-no-script-ref"
 grep -q '^allowed-tools:[[:space:]]*\*' "$F2" && miss="$miss wildcard"
 [[ -z "$miss" ]] && ok || bad "$miss"
 
-step "39. ruflo-cost.md documents 'cost trend' subcommand"
-grep -q "cost trend" "$ROOT/commands/ruflo-cost.md" \
+step "39. gemiflow-cost.md documents 'cost trend' subcommand"
+grep -q "cost trend" "$ROOT/commands/gemiflow-cost.md" \
   && ok || bad "missing"
 
 step "39c. cost-summary skill + summary.mjs (programmatic dump)"
@@ -432,7 +432,7 @@ done
 [[ -z "$miss" ]] && ok || bad "syntax errors:$miss"
 
 step "44. plugin.json parses + version sentinel matches step 1"
-node -e "JSON.parse(require('fs').readFileSync('$ROOT/.claude-plugin/plugin.json'))" 2>/dev/null \
+node -e "JSON.parse(require('fs').readFileSync('$ROOT/.gemiflow-plugin/plugin.json'))" 2>/dev/null \
   && ok || bad "plugin.json invalid JSON"
 
 printf "\n%s passed, %s failed\n" "$PASS" "$FAIL"

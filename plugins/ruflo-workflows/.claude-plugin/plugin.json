@@ -1,15 +1,15 @@
 {
-  "name": "ruflo-workflows",
-  "description": "Workflow automation across two surfaces: the 10 workflow_* MCP tools (create/run/execute/status/list/pause/resume/cancel/delete/template) with full state-machine lifecycle (created → running ↔ paused → completed/cancelled), and native Claude Code Workflow JS orchestration (.claude/workflows/*.js — agent/parallel/pipeline/phase fan-out). Includes GAIA benchmark component for Princeton HAL leaderboard submissions.",
+  "name": "gemiflow-workflows",
+  "description": "Workflow automation across two surfaces: the 10 workflow_* MCP tools (create/run/execute/status/list/pause/resume/cancel/delete/template) with full state-machine lifecycle (created → running ↔ paused → completed/cancelled), and native Claude Code Workflow JS orchestration (.gemiflow/workflows/*.js — agent/parallel/pipeline/phase fan-out). Includes GAIA benchmark component for Princeton HAL leaderboard submissions.",
   "version": "0.4.0",
   "author": {
     "name": "ruvnet",
     "url": "https://github.com/ruvnet"
   },
-  "homepage": "https://github.com/ruvnet/ruflo",
+  "homepage": "https://github.com/ruvnet/gemiflow",
   "license": "MIT",
   "keywords": [
-    "ruflo",
+    "gemiflow",
     "workflows",
     "automation",
     "orchestration",
@@ -49,7 +49,7 @@
         "gaia-benchmark-runner",
         "gaia-submission-coordinator"
       ],
-      "cli_backend": "@claude-flow/cli gaia-bench",
+      "cli_backend": "@gemiflow/cli gaia-bench",
       "adrs": ["ADR-133", "ADR-135", "ADR-136"],
       "memory_namespaces": [
         "gaia-runs",
@@ -59,11 +59,11 @@
       ]
     },
     "native_workflows": {
-      "description": "Native Claude Code Workflow JS orchestration — deterministic subagent fan-out via agent/parallel/pipeline/phase, authored as .claude/workflows/*.js named workflows",
-      "location": ".claude/workflows/*.js",
+      "description": "Native Claude Code Workflow JS orchestration — deterministic subagent fan-out via agent/parallel/pipeline/phase, authored as .gemiflow/workflows/*.js named workflows",
+      "location": ".gemiflow/workflows/*.js",
       "api": ["agent", "parallel", "pipeline", "phase", "log"],
       "invocation": "Workflow tool — Workflow({ name }) | Workflow({ scriptPath }) | Workflow({ resumeFromRunId })",
-      "reference_workflow": ".claude/workflows/plugin-contract-audit.js",
+      "reference_workflow": ".gemiflow/workflows/plugin-contract-audit.js",
       "adrs": ["ADR-0002"]
     }
   }

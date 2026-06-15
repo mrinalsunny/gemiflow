@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Regression guard for ruvnet/ruflo#2120 — `ruflo memory stats` and
+ * Regression guard for ruvnet/gemiflow#2120 — `gemiflow memory stats` and
  * `listEntries` returned 0 entries against a populated `.swarm/memory.db`
  * on WSL2 (reporter: @alexandrelealbess, alpha.81).
  *
@@ -84,10 +84,10 @@ try {
   //    bridge DISABLED via env hint — we test the raw sql.js fallback
   //    path because the AgentDB v3 bridge optionally pulls a Xenova
   //    embedding model on init which hangs CI without network.
-  process.env.CLAUDE_FLOW_MEMORY_PATH = swarmDir;
-  process.env.CLAUDE_FLOW_DISABLE_BRIDGE = '1';
+  process.env.GEMIFLOW_MEMORY_PATH = swarmDir;
+  process.env.GEMIFLOW_DISABLE_BRIDGE = '1';
   // Reset getMemoryRoot cache so the env var takes effect.
-  const init = await import(resolve(REPO_ROOT, 'v3/@claude-flow/cli/dist/src/memory/memory-initializer.js'));
+  const init = await import(resolve(REPO_ROOT, 'v3/@gemiflow/cli/dist/src/memory/memory-initializer.js'));
   if (typeof init._resetMemoryRootCache === 'function') init._resetMemoryRootCache();
 
   // Force-route through raw sql.js by passing explicit dbPath

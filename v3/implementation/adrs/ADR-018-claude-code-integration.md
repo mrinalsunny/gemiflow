@@ -7,11 +7,11 @@
 
 ## Context
 
-The `@anthropic-ai/claude-code` package (v2.1.1) provides the official CLI for Claude AI. Deep integration with Claude Code enables enhanced developer experience for claude-flow users. This ADR documents **undocumented integration points** discovered through source code analysis that are not covered in official documentation.
+The `@anthropic-ai/gemini-cli` package (v2.1.1) provides the official CLI for Claude AI. Deep integration with Claude Code enables enhanced developer experience for gemiflow users. This ADR documents **undocumented integration points** discovered through source code analysis that are not covered in official documentation.
 
 ### Analysis Methodology
 
-1. Downloaded and extracted `@anthropic-ai/claude-code@2.1.1` to `/tmp/package/`
+1. Downloaded and extracted `@anthropic-ai/gemini-cli@2.1.1` to `/tmp/package/`
 2. Analyzed `sdk-tools.d.ts` (tool input schemas)
 3. Analyzed `cli.js` (11MB bundled CLI) for patterns
 4. Searched for environment variables, hook patterns, and configuration schemas
@@ -26,7 +26,7 @@ Implement Claude Code integration as an **OPTIONAL peer dependency** with gracef
 
 ### 1. SDK Tool Input Schemas (`sdk-tools.d.ts`)
 
-**Location:** `node_modules/@anthropic-ai/claude-code/sdk-tools.d.ts`
+**Location:** `node_modules/@anthropic-ai/gemini-cli/sdk-tools.d.ts`
 
 Claude Code exports complete TypeScript definitions for all tool inputs. These can be used for:
 - Type-safe tool input validation
@@ -121,22 +121,22 @@ interface PreToolUseOutput {
     "PreToolUse": [
       {
         "matcher": "Bash",
-        "hooks": ["npx claude-flow@v3alpha hooks modify-bash"]
+        "hooks": ["npx gemiflow@v3alpha hooks modify-bash"]
       },
       {
         "matcher": "Write|Edit",
-        "hooks": ["npx claude-flow@v3alpha hooks modify-file"]
+        "hooks": ["npx gemiflow@v3alpha hooks modify-file"]
       }
     ],
     "PostToolUse": [
       {
         "matcher": ".*",
-        "hooks": ["npx claude-flow@v3alpha hooks post-command"]
+        "hooks": ["npx gemiflow@v3alpha hooks post-command"]
       }
     ],
     "UserPromptSubmit": [
       {
-        "hooks": ["npx claude-flow@v3alpha hooks route --task \"$PROMPT\""]
+        "hooks": ["npx gemiflow@v3alpha hooks route --task \"$PROMPT\""]
       }
     ]
   }
@@ -149,7 +149,7 @@ interface PreToolUseOutput {
 
 | Variable | Purpose | Default |
 |----------|---------|---------|
-| `CLAUDE_CODE_CONFIG` | Config file path | `~/.claude/settings.json` |
+| `CLAUDE_CODE_CONFIG` | Config file path | `~/.gemiflow/settings.json` |
 | `CLAUDE_CODE_DEBUG` | Enable debug output | `false` |
 | `CLAUDE_CODE_DISABLE_TELEMETRY` | Disable telemetry | `false` |
 | `CLAUDE_CODE_HEADLESS` | Non-interactive mode | `false` |
@@ -239,9 +239,9 @@ MCP servers can have per-tool access control:
 ```json
 {
   "mcpServers": {
-    "claude-flow": {
+    "gemiflow": {
       "command": "npx",
-      "args": ["claude-flow@v3alpha", "mcp", "start"],
+      "args": ["gemiflow@v3alpha", "mcp", "start"],
       "allowlist": [
         "swarm_init",
         "agent_spawn",
@@ -323,10 +323,10 @@ Project-specific hook configuration
 ```json
 {
   "peerDependencies": {
-    "@anthropic-ai/claude-code": ">=2.0.0"
+    "@anthropic-ai/gemini-cli": ">=2.0.0"
   },
   "peerDependenciesMeta": {
-    "@anthropic-ai/claude-code": {
+    "@anthropic-ai/gemini-cli": {
       "optional": true
     }
   }
@@ -342,7 +342,7 @@ Project-specific hook configuration
 ### Strategy 2: Detection and Integration Module
 
 ```typescript
-// src/claude-code/integration.ts
+// src/gemini-cli/integration.ts
 
 interface ClaudeCodeStatus {
   installed: boolean;
@@ -367,7 +367,7 @@ export async function detectClaudeCode(): Promise<ClaudeCodeStatus> {
 
     // Check config location
     const configPath = process.env.CLAUDE_CODE_CONFIG ||
-      path.join(os.homedir(), '.claude', 'settings.json');
+      path.join(os.homedir(), '.gemiflow', 'settings.json');
 
     return {
       installed: true,
@@ -398,12 +398,12 @@ export async function configureIntegration(options: {
 }): Promise<void> {
   const status = await detectClaudeCode();
   if (!status.installed) {
-    throw new Error('Claude Code not installed. Run: npm install -g @anthropic-ai/claude-code');
+    throw new Error('Claude Code not installed. Run: npm install -g @anthropic-ai/gemini-cli');
   }
 
   // Add MCP server if requested
   if (options.enableMcp && status.configPath) {
-    await exec(`claude mcp add ${options.mcpServerName || 'claude-flow'} npx claude-flow@v3alpha mcp start`);
+    await exec(`claude mcp add ${options.mcpServerName || 'gemiflow'} npx gemiflow@v3alpha mcp start`);
   }
 }
 ```
@@ -411,10 +411,10 @@ export async function configureIntegration(options: {
 ### Strategy 3: Hook Installation
 
 ```typescript
-// src/claude-code/hooks.ts
+// src/gemini-cli/hooks.ts
 
 /**
- * Install claude-flow hooks into Claude Code settings
+ * Install gemiflow hooks into Claude Code settings
  */
 export async function installHooks(): Promise<void> {
   const status = await detectClaudeCode();
@@ -436,7 +436,7 @@ export async function installHooks(): Promise<void> {
   if (!bashHook) {
     settings.hooks.PreToolUse.push({
       matcher: 'Bash',
-      hooks: ['npx claude-flow@v3alpha hooks modify-bash']
+      hooks: ['npx gemiflow@v3alpha hooks modify-bash']
     });
   }
 
@@ -448,24 +448,24 @@ export async function installHooks(): Promise<void> {
 
 ## CLI Integration Commands
 
-### `claude-flow setup claude-code`
+### `gemiflow setup gemini-cli`
 
 ```bash
 # Auto-detect and configure integration
-npx claude-flow@v3alpha setup claude-code
+npx gemiflow@v3alpha setup gemini-cli
 
 # Options:
 #   --hooks         Install hooks into Claude Code settings
-#   --mcp           Register claude-flow MCP server
+#   --mcp           Register gemiflow MCP server
 #   --agents        Install custom agent definitions
 #   --verify        Verify integration status
 ```
 
-### `claude-flow doctor --claude-code`
+### `gemiflow doctor --gemini-cli`
 
 ```bash
 # Check Claude Code integration health
-npx claude-flow@v3alpha doctor --claude-code
+npx gemiflow@v3alpha doctor --gemini-cli
 
 # Output:
 # ✓ Claude Code installed (v2.1.1)
@@ -492,9 +492,9 @@ Hooks execute with user permissions. Recommendations:
 // Recommended MCP server configuration
 {
   "mcpServers": {
-    "claude-flow": {
+    "gemiflow": {
       "command": "npx",
-      "args": ["claude-flow@v3alpha", "mcp", "start"],
+      "args": ["gemiflow@v3alpha", "mcp", "start"],
       // Restrict to safe tools only
       "allowlist": [
         "memory_*",
@@ -542,16 +542,16 @@ Hooks execute with user permissions. Recommendations:
 
 ### Phase 1: Detection Module (Week 1)
 
-1. Create `src/claude-code/integration.ts`
+1. Create `src/gemini-cli/integration.ts`
 2. Implement `detectClaudeCode()`
 3. Add to `doctor` command
 4. Update package.json with peer dependency
 
 ### Phase 2: Hook Installation (Week 2)
 
-1. Create `src/claude-code/hooks.ts`
+1. Create `src/gemini-cli/hooks.ts`
 2. Implement `installHooks()`
-3. Add `setup claude-code` command
+3. Add `setup gemini-cli` command
 4. Update CLAUDE.md template
 
 ### Phase 3: Deep Integration (Week 3)
@@ -587,11 +587,11 @@ Hooks execute with user permissions. Recommendations:
 
 ## References
 
-- Claude Code Package: `@anthropic-ai/claude-code@2.1.1`
+- Claude Code Package: `@anthropic-ai/gemini-cli@2.1.1`
 - SDK Tools Types: `sdk-tools.d.ts`
 - ADR-017: RuVector Integration Architecture
 - ADR-004: Plugin-Based Architecture
-- Official Docs: https://docs.anthropic.com/en/docs/claude-code
+- Official Docs: https://docs.anthropic.com/en/docs/gemini-cli
 
 ---
 
@@ -664,13 +664,13 @@ Added `--start-all` flag to `init` command for complete project initialization:
 
 ```bash
 # Initialize project AND start all services
-npx @claude-flow/cli@latest init --start-all
+npx @gemiflow/cli@latest init --start-all
 
 # Equivalent to running:
-# 1. npx @claude-flow/cli@latest init
-# 2. npx @claude-flow/cli@latest memory init
-# 3. npx @claude-flow/cli@latest daemon start
-# 4. npx @claude-flow/cli@latest swarm init --topology hierarchical
+# 1. npx @gemiflow/cli@latest init
+# 2. npx @gemiflow/cli@latest memory init
+# 3. npx @gemiflow/cli@latest daemon start
+# 4. npx @gemiflow/cli@latest swarm init --topology hierarchical
 ```
 
 **Flags added:**
@@ -679,7 +679,7 @@ npx @claude-flow/cli@latest init --start-all
 
 This simplifies the Claude Code integration setup from multiple commands to a single invocation.
 
-**CLI Version:** `@claude-flow/cli@3.0.0-alpha.56`
+**CLI Version:** `@gemiflow/cli@3.0.0-alpha.56`
 
 ---
 

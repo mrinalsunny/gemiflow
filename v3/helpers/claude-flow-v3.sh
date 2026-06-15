@@ -1,16 +1,16 @@
 #!/bin/bash
-# Claude Flow V3 Master Helper (Linux/macOS)
-# Cross-platform development automation for claude-flow v3
+# GemiFlow V3 Master Helper (Linux/macOS)
+# Cross-platform development automation for gemiflow v3
 
 set -e
 
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-CLAUDE_DIR="${PROJECT_ROOT}/.claude"
+CLAUDE_DIR="${PROJECT_ROOT}/.gemiflow"
 HELPERS_DIR="${CLAUDE_DIR}/helpers"
-METRICS_DIR="${PROJECT_ROOT}/.claude-flow/metrics"
-SECURITY_DIR="${PROJECT_ROOT}/.claude-flow/security"
+METRICS_DIR="${PROJECT_ROOT}/.gemiflow/metrics"
+SECURITY_DIR="${PROJECT_ROOT}/.gemiflow/security"
 
 # Colors (ANSI)
 RED='\033[0;31m'
@@ -62,7 +62,7 @@ setup_directories() {
 
 # Initialize V3 project
 init_v3_project() {
-  log_header "🚀 Initializing Claude Flow V3 Project"
+  log_header "🚀 Initializing GemiFlow V3 Project"
 
   setup_directories
 
@@ -81,9 +81,9 @@ init_v3_project() {
     log_success "V3 project initialized successfully"
     log_info "Platform: $PLATFORM"
     log_info "Project root: $PROJECT_ROOT"
-    log_info "Run 'claude-flow-v3.sh status' to see current progress"
+    log_info "Run 'gemiflow-v3.sh status' to see current progress"
   else
-    log_error "Initialization failed. Run 'claude-flow-v3.sh validate' for details"
+    log_error "Initialization failed. Run 'gemiflow-v3.sh validate' for details"
     exit 1
   fi
 }
@@ -155,7 +155,7 @@ show_status() {
   if [ -f "$HELPERS_DIR/status-display.sh" ]; then
     "$HELPERS_DIR/status-display.sh"
   else
-    log_info "Status display not available. Run 'claude-flow-v3.sh init' to set up helpers."
+    log_info "Status display not available. Run 'gemiflow-v3.sh init' to set up helpers."
   fi
 }
 
@@ -173,7 +173,7 @@ update_progress() {
   if [ -f "$HELPERS_DIR/progress-manager.sh" ]; then
     "$HELPERS_DIR/progress-manager.sh" "$metric" "$value"
   else
-    log_error "Progress manager not available. Run 'claude-flow-v3.sh init' first."
+    log_error "Progress manager not available. Run 'gemiflow-v3.sh init' first."
     exit 1
   fi
 }
@@ -183,7 +183,7 @@ validate_config() {
   if [ -f "$HELPERS_DIR/config-validator.sh" ]; then
     "$HELPERS_DIR/config-validator.sh"
   else
-    log_error "Config validator not available. Run 'claude-flow-v3.sh init' first."
+    log_error "Config validator not available. Run 'gemiflow-v3.sh init' first."
     exit 1
   fi
 }
@@ -281,7 +281,7 @@ case "$1" in
 
   "help"|"--help"|"-h"|"")
     cat << EOF
-Claude Flow V3 Master Helper ($PLATFORM)
+GemiFlow V3 Master Helper ($PLATFORM)
 $(printf '=%.0s' {1..40})
 
 Usage: $0 <command> [options]

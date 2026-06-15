@@ -2,7 +2,7 @@
 name: browser-test
 description: UI test recipe -- composes browser-record (capture) + browser-replay (verify) so every test produces a replayable RVF artifact, not an ephemeral run
 argument-hint: "<url> [--screenshot] [--against <prior-session-id>]"
-allowed-tools: mcp__claude-flow__browser_open mcp__claude-flow__browser_click mcp__claude-flow__browser_fill mcp__claude-flow__browser_type mcp__claude-flow__browser_press mcp__claude-flow__browser_check mcp__claude-flow__browser_uncheck mcp__claude-flow__browser_select mcp__claude-flow__browser_hover mcp__claude-flow__browser_wait mcp__claude-flow__browser_screenshot mcp__claude-flow__browser_snapshot mcp__claude-flow__browser_get-text mcp__claude-flow__browser_get-title mcp__claude-flow__browser_get-url mcp__claude-flow__browser_get-value mcp__claude-flow__browser_eval mcp__claude-flow__browser_close mcp__claude-flow__browser_session-list mcp__claude-flow__aidefence_is_safe Bash Read Write
+allowed-tools: mcp__gemiflow__browser_open mcp__gemiflow__browser_click mcp__gemiflow__browser_fill mcp__gemiflow__browser_type mcp__gemiflow__browser_press mcp__gemiflow__browser_check mcp__gemiflow__browser_uncheck mcp__gemiflow__browser_select mcp__gemiflow__browser_hover mcp__gemiflow__browser_wait mcp__gemiflow__browser_screenshot mcp__gemiflow__browser_snapshot mcp__gemiflow__browser_get-text mcp__gemiflow__browser_get-title mcp__gemiflow__browser_get-url mcp__gemiflow__browser_get-value mcp__gemiflow__browser_eval mcp__gemiflow__browser_close mcp__gemiflow__browser_session-list mcp__gemiflow__aidefence_is_safe Bash Read Write
 ---
 
 # Browser Test
@@ -39,7 +39,7 @@ Automated UI testing. **Now backed by a recorded RVF session container** instead
 - The skill no longer ends with `browser_close` alone — it ends with the session-end protocol.
 - Selectors discovered during the test land in `browser-selectors` (host:intent), so the next test can find them by embedding similarity.
 - Validation outputs pass `aidefence_is_safe` before any LLM-facing summary; injection-flagged content is quarantined to `findings.md`.
-- The same skill, used in CI, now produces an artifact that `/ruflo-browser replay` can re-drive.
+- The same skill, used in CI, now produces an artifact that `/gemiflow-browser replay` can re-drive.
 
 ## Tips
 

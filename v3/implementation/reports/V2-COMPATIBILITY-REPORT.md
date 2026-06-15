@@ -224,12 +224,12 @@ const server = createMCPServer({
 
 ```bash
 # V2 (deprecated but supported)
-npx claude-flow hive-mind init
-npx claude-flow hive-mind status
+npx gemiflow hive-mind init
+npx gemiflow hive-mind status
 
 # V3 (recommended)
-npx @claude-flow/cli swarm init
-npx @claude-flow/cli swarm status
+npx @gemiflow/cli swarm init
+npx @gemiflow/cli swarm status
 ```
 
 #### MCP Tool Migration
@@ -261,12 +261,12 @@ const agent = await mcp.callTool('agent/spawn', {
 
 ```typescript
 // V2 imports
-import { HiveMind } from 'claude-flow/hive-mind';
-import { MemoryManager } from 'claude-flow/memory';
+import { HiveMind } from 'gemiflow/hive-mind';
+import { MemoryManager } from 'gemiflow/memory';
 
 // V3 imports with aliases
-import { UnifiedSwarmCoordinator as HiveMind } from '@claude-flow/swarm';
-import { UnifiedMemoryService as MemoryManager } from '@claude-flow/memory';
+import { UnifiedSwarmCoordinator as HiveMind } from '@gemiflow/swarm';
+import { UnifiedMemoryService as MemoryManager } from '@gemiflow/memory';
 
 // Usage remains the same
 const hive = new HiveMind();
@@ -280,29 +280,29 @@ const agent = await hive.spawn('coder');
 
 ```bash
 # Run the V3 migration tool
-npx @claude-flow/cli migrate --from v2 --to v3
+npx @gemiflow/cli migrate --from v2 --to v3
 
 # Migrate configuration
-npx @claude-flow/cli migrate config --input .claude-flow/config.yaml
+npx @gemiflow/cli migrate config --input .gemiflow/config.yaml
 
 # Migrate memory database
-npx @claude-flow/cli migrate memory --input .claude-flow/memory.db
+npx @gemiflow/cli migrate memory --input .gemiflow/memory.db
 ```
 
 #### Manual Configuration Migration
 
 ```yaml
-# V2 Configuration (.claude-flow/config.yaml)
+# V2 Configuration (.gemiflow/config.yaml)
 orchestrator:
   maxAgents: 10
   defaultStrategy: balanced
 memory:
   backend: sqlite
-  path: ./.claude-flow/memory.db
+  path: ./.gemiflow/memory.db
 coordination:
   topology: hierarchical
 
-# V3 Configuration (.claude-flow/config.yaml)
+# V3 Configuration (.gemiflow/config.yaml)
 swarm:
   topology: hierarchical-mesh
   maxAgents: 15
@@ -312,7 +312,7 @@ swarm:
 memory:
   backend: hybrid
   sqlite:
-    path: ./.claude-flow/memory.db
+    path: ./.gemiflow/memory.db
   agentdb:
     enableHNSW: true
     dimensions: 384
@@ -325,10 +325,10 @@ hooks:
 
 1. Enable V2 compatibility mode in MCP server configuration
 2. Update tool calls to use new naming convention (e.g., agent/spawn)
-3. Update import statements to use @claude-flow/* packages
+3. Update import statements to use @gemiflow/* packages
 4. Use provided import aliases for backward compatibility
 5. Consider using tool name translation layer for gradual migration
-6. Run migration script: npx @claude-flow/cli migrate
+6. Run migration script: npx @gemiflow/cli migrate
 7. Update to Node.js 20+ (Deno support removed)
 
 ## Feature Compatibility Matrix
@@ -374,14 +374,14 @@ hooks:
 
 | V2 Import | V3 Import |
 |-----------|-----------|
-| claude-flow/hive-mind | @claude-flow/swarm |
-| claude-flow/swarm | @claude-flow/swarm |
-| claude-flow/memory | @claude-flow/memory |
-| claude-flow/agents | @claude-flow/agent-lifecycle |
-| claude-flow/tasks | @claude-flow/task-execution |
-| claude-flow/hooks | @claude-flow/hooks |
-| claude-flow/config | @claude-flow/config |
-| claude-flow | @claude-flow/core |
+| gemiflow/hive-mind | @gemiflow/swarm |
+| gemiflow/swarm | @gemiflow/swarm |
+| gemiflow/memory | @gemiflow/memory |
+| gemiflow/agents | @gemiflow/agent-lifecycle |
+| gemiflow/tasks | @gemiflow/task-execution |
+| gemiflow/hooks | @gemiflow/hooks |
+| gemiflow/config | @gemiflow/config |
+| gemiflow | @gemiflow/core |
 
 ### C. V2 to V3 Class Aliases
 

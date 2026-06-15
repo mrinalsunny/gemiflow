@@ -1,5 +1,5 @@
 #!/bin/bash
-# Claude Flow Plugin Installation Script
+# GemiFlow Plugin Installation Script
 # Version: 2.5.0
 
 set -e
@@ -33,7 +33,7 @@ echo -e "${BLUE}"
 cat << "EOF"
 ╔═══════════════════════════════════════════════════════════╗
 ║                                                           ║
-║          Claude Flow Plugin Installer v2.5.0             ║
+║          GemiFlow Plugin Installer v2.5.0             ║
 ║       Enterprise AI Agent Orchestration Plugin           ║
 ║                                                           ║
 ╚═══════════════════════════════════════════════════════════╝
@@ -83,7 +83,7 @@ read -p "Select installation type (1-4) [1]: " INSTALL_TYPE
 INSTALL_TYPE=${INSTALL_TYPE:-1}
 
 # Determine installation directories
-CLAUDE_DIR="${HOME}/.claude"
+CLAUDE_DIR="${HOME}/.gemiflow"
 COMMANDS_DIR="${CLAUDE_DIR}/commands"
 AGENTS_DIR="${CLAUDE_DIR}/agents"
 SETTINGS_FILE="${CLAUDE_DIR}/settings.json"
@@ -135,26 +135,26 @@ if [ "$INSTALL_TYPE" = "1" ] || [ "$INSTALL_TYPE" = "4" ]; then
         cat > "$SETTINGS_FILE" << 'SETTINGS_EOF'
 {
   "mcpServers": {
-    "claude-flow": {
+    "gemiflow": {
       "command": "npx",
-      "args": ["claude-flow@alpha", "mcp", "start"],
-      "description": "Core Claude Flow MCP server with 40+ orchestration tools"
+      "args": ["gemiflow@alpha", "mcp", "start"],
+      "description": "Core GemiFlow MCP server with 40+ orchestration tools"
     }
   }
 }
 SETTINGS_EOF
-        success "Created settings.json with Claude Flow MCP server"
+        success "Created settings.json with GemiFlow MCP server"
     else
         info "Settings file exists. Please manually add MCP servers:"
         echo ""
         cat << 'MCP_INSTRUCTIONS'
-Add to ~/.claude/settings.json:
+Add to ~/.gemiflow/settings.json:
 
 {
   "mcpServers": {
-    "claude-flow": {
+    "gemiflow": {
       "command": "npx",
-      "args": ["claude-flow@alpha", "mcp", "start"]
+      "args": ["gemiflow@alpha", "mcp", "start"]
     },
     "ruv-swarm": {
       "command": "npx",
@@ -175,9 +175,9 @@ MCP_INSTRUCTIONS
     INSTALL_MCP=${INSTALL_MCP:-y}
 
     if [ "$INSTALL_MCP" = "y" ]; then
-        info "Installing claude-flow MCP server..."
-        npx claude-flow@alpha --version 2>/dev/null || npm install -g claude-flow@alpha
-        success "Claude Flow MCP server installed"
+        info "Installing gemiflow MCP server..."
+        npx gemiflow@alpha --version 2>/dev/null || npm install -g gemiflow@alpha
+        success "GemiFlow MCP server installed"
 
         read -p "Install optional ruv-swarm MCP? (y/n) [n]: " INSTALL_RUV
         if [ "$INSTALL_RUV" = "y" ]; then
@@ -218,8 +218,8 @@ echo "     In Claude Code, check available MCP tools"
 echo ""
 
 info "Available Commands:"
-echo "  • 150+ slash commands in ~/.claude/commands/"
-echo "  • 74+ specialized agents in ~/.claude/agents/"
+echo "  • 150+ slash commands in ~/.gemiflow/commands/"
+echo "  • 74+ specialized agents in ~/.gemiflow/agents/"
 echo "  • 3 MCP servers with 110+ tools"
 echo ""
 
@@ -230,5 +230,5 @@ echo "  • User Guide: $PLUGIN_DIR/docs/USER_GUIDE.md"
 echo "  • Examples: $PLUGIN_DIR/docs/EXAMPLES.md"
 echo ""
 
-success "Claude Flow plugin is ready to use!"
+success "GemiFlow plugin is ready to use!"
 echo ""

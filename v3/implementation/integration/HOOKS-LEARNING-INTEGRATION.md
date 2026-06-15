@@ -1,4 +1,4 @@
-# Claude-Flow v3: Hooks & Learning Integration
+# GemiFlow v3: Hooks & Learning Integration
 
 ## Executive Summary
 
@@ -310,7 +310,7 @@ npm install agentic-flow@alpha
 npx agentic-flow@alpha hooks install --all --parallel
 
 # Configure Claude Code hooks
-cat >> ~/.claude/settings.json << 'EOF'
+cat >> ~/.gemiflow/settings.json << 'EOF'
 {
   "hooks": {
     "PreToolUse": [{"matcher": "Bash|Edit", "hooks": [{"type": "command", "command": "npx agentic-flow@alpha hooks pre-task"}]}],
@@ -336,7 +336,7 @@ EOF
 - [x] Speculative embedding for related files
 - [x] AST analysis, complexity metrics, security scanning
 
-### Claude-Flow v3 Needs to Add:
+### GemiFlow v3 Needs to Add:
 - [ ] Claude Code hook configuration adapter
 - [ ] OpenTelemetry metric export wrapper
 - [ ] Cross-session learning persistence
@@ -347,7 +347,7 @@ EOF
 
 ## 9. Recommendation
 
-**Use agentic-flow@alpha as the learning backbone for Claude-Flow v3.**
+**Use agentic-flow@alpha as the learning backbone for GemiFlow v3.**
 
 The package already provides:
 - Complete RL learning system (9 algorithms)
@@ -356,7 +356,7 @@ The package already provides:
 - Parallel processing (7 workers)
 - SQLite persistence (cross-session)
 
-Claude-Flow v3 should focus on:
+GemiFlow v3 should focus on:
 1. **Thin integration layer** - Connect Claude Code hooks to agentic-flow hooks
 2. **Configuration UI** - Let users customize learning parameters
 3. **Swarm coordination** - Use learning to optimize swarm topology selection

@@ -1,4 +1,4 @@
-# Claude-Flow v3: Optimized Implementation Plan
+# GemiFlow v3: Optimized Implementation Plan
 
 ## Core Priorities
 
@@ -56,7 +56,7 @@ export class SecureFoundation {
 // package.json - Updated secure dependencies
 {
   "dependencies": {
-    "@anthropic-ai/claude-code": "^2.0.31",
+    "@anthropic-ai/gemini-cli": "^2.0.31",
     "@modelcontextprotocol/sdk": "^1.24.0",
     "agentic-flow": "^2.0.1-alpha.0",
     "bcrypt": "^5.1.1",
@@ -479,7 +479,7 @@ export class MemoryManager {
 ```typescript
 // src/v3/compatibility/config-migration.ts
 export async function autoMigrateConfig(): Promise<void> {
-  const configPath = '.claude/config.json';
+  const configPath = '.gemiflow/config.json';
 
   if (!await fileExists(configPath)) {
     // Fresh install - create v3 config
@@ -594,7 +594,7 @@ export class InitController {
     await this.security.validateEnvironment();
 
     // Check for secure token
-    if (!process.env.CLAUDE_FLOW_TOKEN) {
+    if (!process.env.GEMIFLOW_TOKEN) {
       const token = this.security.generateSecureToken();
       console.log('Generated secure token - add to environment');
     }
@@ -604,14 +604,14 @@ export class InitController {
 
   private async initDirectories(): Promise<InitStepResult> {
     const dirs = [
-      '.claude',
-      '.claude/agents',
-      '.claude/commands',
-      '.claude/skills',
-      '.claude/checkpoints/active',
-      '.claude-flow/coordination',
-      '.claude-flow/training',
-      '.claude-flow/metrics'
+      '.gemiflow',
+      '.gemiflow/agents',
+      '.gemiflow/commands',
+      '.gemiflow/skills',
+      '.gemiflow/checkpoints/active',
+      '.gemiflow/coordination',
+      '.gemiflow/training',
+      '.gemiflow/metrics'
     ];
 
     for (const dir of dirs) {
@@ -846,14 +846,14 @@ import { InitController } from '../init/init-controller';
 
 export function createInitCommand(): Command {
   return new Command('init')
-    .description('Initialize Claude-Flow v3 with enhanced capabilities')
+    .description('Initialize GemiFlow v3 with enhanced capabilities')
     .option('-m, --mode <mode>', 'Initialization mode', 'standard')
     .option('--sona <profile>', 'SONA learning profile', 'balanced')
     .option('--no-learning', 'Disable self-learning')
     .option('--attention <type>', 'Attention mechanism', 'flash')
     .option('--migrate', 'Auto-migrate from v2')
     .action(async (options) => {
-      console.log('🚀 Initializing Claude-Flow v3...\n');
+      console.log('🚀 Initializing GemiFlow v3...\n');
 
       const controller = new InitController({
         mode: options.mode,
@@ -891,7 +891,7 @@ export function createInitCommand(): Command {
 
 ```bash
 # Day 1-2: Security fixes
-npm update @anthropic-ai/claude-code@^2.0.31
+npm update @anthropic-ai/gemini-cli@^2.0.31
 npm update @modelcontextprotocol/sdk@^1.24.0
 npm install bcrypt zod
 
@@ -956,21 +956,21 @@ npm run test:compatibility
 
 ```bash
 # Fresh v3 installation
-npx claude-flow init --mode sparc --sona research
+npx gemiflow init --mode sparc --sona research
 
 # With all features
-npx claude-flow init --mode enterprise --sona research --attention flash
+npx gemiflow init --mode enterprise --sona research --attention flash
 
 # Minimal (fast startup)
-npx claude-flow init --mode standard --sona real-time
+npx gemiflow init --mode standard --sona real-time
 
 # Migrate from v2
-npx claude-flow init --migrate
+npx gemiflow init --migrate
 ```
 
 ```typescript
 // v3 API usage
-import { InitController, SwarmCoordinator, SONAManager } from 'claude-flow/v3';
+import { InitController, SwarmCoordinator, SONAManager } from 'gemiflow/v3';
 
 // Initialize with learning
 const init = new InitController({

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
- * Regression guard for ruvnet/ruflo#2017.
+ * Regression guard for ruvnet/gemiflow#2017.
  *
- * The `pre-bash` PreToolUse hook in `.claude/helpers/hook-handler.cjs` reads
+ * The `pre-bash` PreToolUse hook in `.gemiflow/helpers/hook-handler.cjs` reads
  * the command Claude Code is about to execute and refuses to run dangerous
  * ones (`rm -rf /`, `format c:`, etc.). In 3.6.30 the handler read the wrong
  * field — `toolInput` (the object) instead of `toolInput.command` (the
@@ -19,8 +19,8 @@
  *   - non-string command field → exit 0 (defensive String() wrap holds)
  *
  * Runs against BOTH copies of the handler in the repo:
- *   1. v3/@claude-flow/cli/.claude/helpers/hook-handler.cjs  (the published template)
- *   2. .claude/helpers/hook-handler.cjs                       (the dogfood copy)
+ *   1. v3/@gemiflow/cli/.gemiflow/helpers/hook-handler.cjs  (the published template)
+ *   2. .gemiflow/helpers/hook-handler.cjs                       (the dogfood copy)
  *
  * Failure of either fails the build.
  */
@@ -31,8 +31,8 @@ import { join } from 'node:path';
 
 const REPO_ROOT = process.cwd();
 const HANDLERS = [
-  join(REPO_ROOT, 'v3', '@claude-flow', 'cli', '.claude', 'helpers', 'hook-handler.cjs'),
-  join(REPO_ROOT, '.claude', 'helpers', 'hook-handler.cjs'),
+  join(REPO_ROOT, 'v3', '@gemiflow', 'cli', '.gemiflow', 'helpers', 'hook-handler.cjs'),
+  join(REPO_ROOT, '.gemiflow', 'helpers', 'hook-handler.cjs'),
 ];
 
 const cases = [

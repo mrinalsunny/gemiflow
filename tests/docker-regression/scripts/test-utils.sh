@@ -1,5 +1,5 @@
 #!/bin/bash
-# Claude-Flow Test Utilities
+# GemiFlow Test Utilities
 # Shared functions for test scripts
 
 # Colors

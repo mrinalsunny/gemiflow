@@ -11,7 +11,7 @@ The V3 hooks system integrates with background daemons and statusline displays t
 │                        Claude Code Session                               │
 ├─────────────────────────────────────────────────────────────────────────┤
 │  SessionStart Hook                                                       │
-│  └─> .claude/helpers/daemon-manager.sh start                            │
+│  └─> .gemiflow/helpers/daemon-manager.sh start                            │
 │       ├─> swarm-monitor.sh     (process detection, 3s interval)         │
 │       ├─> metrics-db.mjs       (SQLite sync, 30s interval)              │
 │       └─> hooks-daemon.mjs     (learning sync, 60s interval)            │
@@ -24,12 +24,12 @@ The V3 hooks system integrates with background daemons and statusline displays t
 ├─────────────────────────────────────────────────────────────────────────┤
 │  statusline.sh (on-demand, <200ms)                                       │
 │  └─> Reads from:                                                         │
-│       ├─ .claude-flow/metrics.db      (SQLite, primary)                 │
-│       ├─ .claude-flow/hooks.db        (ReasoningBank patterns)          │
-│       └─ .claude-flow/metrics/*.json  (exported, legacy compat)         │
+│       ├─ .gemiflow/metrics.db      (SQLite, primary)                 │
+│       ├─ .gemiflow/hooks.db        (ReasoningBank patterns)          │
+│       └─ .gemiflow/metrics/*.json  (exported, legacy compat)         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │  SessionEnd Hook                                                         │
-│  └─> .claude/helpers/daemon-manager.sh stop                             │
+│  └─> .gemiflow/helpers/daemon-manager.sh stop                             │
 │       └─> Final metrics export, pattern consolidation                   │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -42,24 +42,24 @@ Central control for all background processes with hooks integration.
 
 ```bash
 # Start all daemons (called by SessionStart hook)
-.claude/helpers/daemon-manager.sh start [swarm_interval] [metrics_interval] [hooks_interval]
+.gemiflow/helpers/daemon-manager.sh start [swarm_interval] [metrics_interval] [hooks_interval]
 
 # Default intervals: swarm=3s, metrics=30s, hooks=60s
-.claude/helpers/daemon-manager.sh start 3 30 60
+.gemiflow/helpers/daemon-manager.sh start 3 30 60
 
 # Stop all daemons (called by SessionEnd hook)
-.claude/helpers/daemon-manager.sh stop
+.gemiflow/helpers/daemon-manager.sh stop
 
 # Restart with new configuration
-.claude/helpers/daemon-manager.sh restart
+.gemiflow/helpers/daemon-manager.sh restart
 
 # Check daemon status
-.claude/helpers/daemon-manager.sh status
+.gemiflow/helpers/daemon-manager.sh status
 ```
 
 **PID Management:**
 ```
-.claude-flow/pids/
+.gemiflow/pids/
 ├── swarm-monitor.pid      # Swarm monitoring daemon
 ├── metrics-daemon.pid     # Metrics collection daemon
 └── hooks-daemon.pid       # Hooks learning daemon
@@ -67,7 +67,7 @@ Central control for all background processes with hooks integration.
 
 **Log Files:**
 ```
-.claude-flow/logs/
+.gemiflow/logs/
 ├── daemon.log             # Daemon manager operations
 ├── swarm-monitor.log      # Process detection logs
 ├── metrics-daemon.log     # Metrics sync logs
@@ -80,16 +80,16 @@ SQLite-based metrics storage with hooks integration.
 
 ```bash
 # Sync metrics from implementation
-node .claude/helpers/metrics-db.mjs sync
+node .gemiflow/helpers/metrics-db.mjs sync
 
 # Export to JSON (statusline compatibility)
-node .claude/helpers/metrics-db.mjs export
+node .gemiflow/helpers/metrics-db.mjs export
 
 # Run as daemon
-node .claude/helpers/metrics-db.mjs daemon [interval_seconds]
+node .gemiflow/helpers/metrics-db.mjs daemon [interval_seconds]
 
 # Query specific metrics
-node .claude/helpers/metrics-db.mjs query "SELECT * FROM hooks_metrics"
+node .gemiflow/helpers/metrics-db.mjs query "SELECT * FROM hooks_metrics"
 ```
 
 **Extended Schema for Hooks:**
@@ -142,13 +142,13 @@ Real-time process detection with hooks event emission.
 
 ```bash
 # Single check (returns JSON)
-.claude/helpers/swarm-monitor.sh check
+.gemiflow/helpers/swarm-monitor.sh check
 
 # Continuous monitoring with hooks notification
-.claude/helpers/swarm-monitor.sh monitor [interval]
+.gemiflow/helpers/swarm-monitor.sh monitor [interval]
 
 # Status with hooks metrics
-.claude/helpers/swarm-monitor.sh status --include-hooks
+.gemiflow/helpers/swarm-monitor.sh status --include-hooks
 ```
 
 **Output:**
@@ -176,13 +176,13 @@ Background process for ReasoningBank consolidation.
 
 ```bash
 # Run consolidation cycle
-node .claude/helpers/hooks-daemon.mjs consolidate
+node .gemiflow/helpers/hooks-daemon.mjs consolidate
 
 # Run as daemon
-node .claude/helpers/hooks-daemon.mjs daemon [interval_seconds]
+node .gemiflow/helpers/hooks-daemon.mjs daemon [interval_seconds]
 
 # Export patterns
-node .claude/helpers/hooks-daemon.mjs export --format json
+node .gemiflow/helpers/hooks-daemon.mjs export --format json
 ```
 
 **Operations:**
@@ -196,7 +196,7 @@ node .claude/helpers/hooks-daemon.mjs export --format json
 ### Format
 
 ```
-▊ Claude Flow V3 ● agentic-flow@alpha  │  ⎇ v3
+▊ GemiFlow V3 ● agentic-flow@alpha  │  ⎇ v3
 ─────────────────────────────────────────────────────
 🏗️  DDD Domains    [●●●●●]  5/5    ⚡ 1.0x → 2.49x-7.47x
 🤖 Swarm Agents    ◉ [ 5/15]      🟢 CVE 3/3    💾 156 patterns
@@ -209,12 +209,12 @@ node .claude/helpers/hooks-daemon.mjs export --format json
 
 ```bash
 #!/bin/bash
-# .claude/statusline.sh - V3 with Hooks Integration
+# .gemiflow/statusline.sh - V3 with Hooks Integration
 
 # Read from SQLite if available
-if [ -f ".claude-flow/metrics.db" ]; then
+if [ -f ".gemiflow/metrics.db" ]; then
   METRICS=$(node -e "
-    const db = require('.claude/helpers/metrics-db.mjs');
+    const db = require('.gemiflow/helpers/metrics-db.mjs');
     console.log(JSON.stringify(db.getStatuslineData()));
   " 2>/dev/null)
 
@@ -228,7 +228,7 @@ if [ -f ".claude-flow/metrics.db" ]; then
 fi
 
 # Format output
-printf "▊ Claude Flow V3 ● agentic-flow@alpha  │  ⎇ v3\n"
+printf "▊ GemiFlow V3 ● agentic-flow@alpha  │  ⎇ v3\n"
 printf "─────────────────────────────────────────────────────\n"
 printf "🏗️  DDD Domains    %s  │  ⚡ Performance targets active\n" "$DDD_PROGRESS"
 printf "🤖 Swarm Agents    ◉ [%2d/15]      🟢 CVE %s    💾 %d patterns\n" "$ACTIVE_AGENTS" "$CVE_STATUS" "$PATTERNS"
@@ -247,7 +247,7 @@ printf "────────────────────────
 
 ## Hook Configuration
 
-### Claude Settings (`~/.claude/settings.json`)
+### Claude Settings (`~/.gemiflow/settings.json`)
 
 ```json
 {
@@ -258,7 +258,7 @@ printf "────────────────────────
           {
             "type": "command",
             "timeout": 5000,
-            "command": "/workspaces/claude-flow/.claude/helpers/daemon-manager.sh start 3 30 60"
+            "command": "/workspaces/gemiflow/.gemiflow/helpers/daemon-manager.sh start 3 30 60"
           }
         ]
       }
@@ -269,7 +269,7 @@ printf "────────────────────────
           {
             "type": "command",
             "timeout": 3000,
-            "command": "/workspaces/claude-flow/.claude/helpers/daemon-manager.sh stop"
+            "command": "/workspaces/gemiflow/.gemiflow/helpers/daemon-manager.sh stop"
           }
         ]
       }
@@ -280,7 +280,7 @@ printf "────────────────────────
           {
             "type": "command",
             "timeout": 100,
-            "command": "node .claude/helpers/hooks-daemon.mjs notify-activity"
+            "command": "node .gemiflow/helpers/hooks-daemon.mjs notify-activity"
           }
         ]
       }
@@ -288,12 +288,12 @@ printf "────────────────────────
   },
   "statusLine": {
     "type": "command",
-    "command": "/workspaces/claude-flow/.claude/statusline.sh"
+    "command": "/workspaces/gemiflow/.gemiflow/statusline.sh"
   }
 }
 ```
 
-### V3 Project Settings (`.claude-flow/config.json`)
+### V3 Project Settings (`.gemiflow/config.json`)
 
 ```json
 {
@@ -306,12 +306,12 @@ printf "────────────────────────
     "metricsSync": {
       "enabled": true,
       "interval": 30000,
-      "database": ".claude-flow/metrics.db"
+      "database": ".gemiflow/metrics.db"
     },
     "hooksLearning": {
       "enabled": true,
       "interval": 60000,
-      "database": ".claude-flow/hooks.db"
+      "database": ".gemiflow/hooks.db"
     }
   },
   "statusline": {
@@ -336,7 +336,7 @@ SessionStart Hook Triggered
     │   └─> Start hooks-daemon.mjs (every 60s)
     │
     ├─> Initialize ReasoningBank
-    │   ├─> Load patterns from .claude-flow/hooks.db
+    │   ├─> Load patterns from .gemiflow/hooks.db
     │   └─> Warm HNSW index for retrieval
     │
     └─> First statusline render
@@ -444,59 +444,59 @@ SessionEnd Hook Triggered
 
 ```bash
 # Check daemon status
-.claude/helpers/daemon-manager.sh status
+.gemiflow/helpers/daemon-manager.sh status
 
 # View logs
-tail -f .claude-flow/logs/daemon.log
+tail -f .gemiflow/logs/daemon.log
 
 # Check for stale PID files
-ls -la .claude-flow/pids/
+ls -la .gemiflow/pids/
 
 # Manual cleanup and restart
-rm .claude-flow/pids/*.pid
-.claude/helpers/daemon-manager.sh start
+rm .gemiflow/pids/*.pid
+.gemiflow/helpers/daemon-manager.sh start
 ```
 
 ### Statusline Not Updating
 
 ```bash
 # Force metrics sync
-node .claude/helpers/metrics-db.mjs sync
+node .gemiflow/helpers/metrics-db.mjs sync
 
 # Check SQLite database
-sqlite3 .claude-flow/metrics.db "SELECT * FROM hooks_metrics"
+sqlite3 .gemiflow/metrics.db "SELECT * FROM hooks_metrics"
 
 # Verify statusline script
-bash -x .claude/statusline.sh
+bash -x .gemiflow/statusline.sh
 ```
 
 ### ReasoningBank Issues
 
 ```bash
 # Check hooks database
-node .claude/helpers/hooks-daemon.mjs status
+node .gemiflow/helpers/hooks-daemon.mjs status
 
 # Force consolidation
-node .claude/helpers/hooks-daemon.mjs consolidate --force
+node .gemiflow/helpers/hooks-daemon.mjs consolidate --force
 
 # Rebuild patterns
-node .claude/helpers/hooks-daemon.mjs rebuild-index
+node .gemiflow/helpers/hooks-daemon.mjs rebuild-index
 ```
 
 ### High CPU from Daemons
 
 ```bash
 # Increase daemon intervals
-.claude/helpers/daemon-manager.sh restart 10 60 120
+.gemiflow/helpers/daemon-manager.sh restart 10 60 120
 
 # Disable non-essential daemons
-.claude/helpers/daemon-manager.sh start --no-hooks-daemon
+.gemiflow/helpers/daemon-manager.sh start --no-hooks-daemon
 ```
 
 ## Files Reference
 
 ```
-.claude/
+.gemiflow/
 ├── statusline.sh                    # Main statusline script
 ├── settings.json                    # Claude settings with hooks
 └── helpers/
@@ -505,7 +505,7 @@ node .claude/helpers/hooks-daemon.mjs rebuild-index
     ├── swarm-monitor.sh             # Process detection
     └── hooks-daemon.mjs             # Learning background process
 
-.claude-flow/
+.gemiflow/
 ├── metrics.db                       # Main metrics database
 ├── hooks.db                         # ReasoningBank storage
 ├── config.json                      # V3 configuration

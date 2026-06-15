@@ -1,4 +1,4 @@
-# ruflo-sparc
+# gemiflow-sparc
 
 SPARC methodology -- Specification, Pseudocode, Architecture, Refinement, Completion phases with quality gates between each phase.
 
@@ -9,7 +9,7 @@ Drives features through a rigorous five-phase development lifecycle. Each phase 
 ## Installation
 
 ```bash
-claude --plugin-dir plugins/ruflo-sparc
+claude --plugin-dir plugins/gemiflow-sparc
 ```
 
 ## Agents
@@ -57,8 +57,8 @@ sparc report                 # Generate full SPARC methodology report with trace
 
 ## Compatibility
 
-- **CLI:** pinned to `@claude-flow/cli` v3.6 major+minor.
-- **Verification:** `bash plugins/ruflo-sparc/scripts/smoke.sh` is the contract.
+- **CLI:** pinned to `@gemiflow/cli` v3.6 major+minor.
+- **Verification:** `bash plugins/gemiflow-sparc/scripts/smoke.sh` is the contract.
 
 ## Phase-to-plugin alignment
 
@@ -66,17 +66,17 @@ Each SPARC phase has a canonical handoff plugin that owns its deeper tooling:
 
 | Phase | Owner | What it provides |
 |-------|-------|-----------------|
-| **Specification** | [ruflo-goals](../ruflo-goals/docs/adrs/0001-goals-contract.md) (deep-research) | Multi-source research orchestration to gather requirements |
-| **Pseudocode** | `ruflo-sparc` (this plugin) | Pseudocode generation + complexity annotation |
-| **Architecture** | [ruflo-adr](../ruflo-adr/docs/adrs/0001-adr-plugin-pattern.md) + [ruflo-ddd](../ruflo-ddd/docs/adrs/0001-ddd-contract.md) | ADR creation + bounded-context modeling |
-| **Refinement** | [ruflo-jujutsu](../ruflo-jujutsu/docs/adrs/0001-jujutsu-contract.md) + ruflo-testgen | Diff-aware refactor + test gap analysis |
-| **Completion** | [ruflo-docs](../ruflo-docs/docs/adrs/0001-docs-contract.md) | Auto-generated documentation |
+| **Specification** | [gemiflow-goals](../gemiflow-goals/docs/adrs/0001-goals-contract.md) (deep-research) | Multi-source research orchestration to gather requirements |
+| **Pseudocode** | `gemiflow-sparc` (this plugin) | Pseudocode generation + complexity annotation |
+| **Architecture** | [gemiflow-adr](../gemiflow-adr/docs/adrs/0001-adr-plugin-pattern.md) + [gemiflow-ddd](../gemiflow-ddd/docs/adrs/0001-ddd-contract.md) | ADR creation + bounded-context modeling |
+| **Refinement** | [gemiflow-jujutsu](../gemiflow-jujutsu/docs/adrs/0001-jujutsu-contract.md) + gemiflow-testgen | Diff-aware refactor + test gap analysis |
+| **Completion** | [gemiflow-docs](../gemiflow-docs/docs/adrs/0001-docs-contract.md) | Auto-generated documentation |
 
 This plugin orchestrates the lifecycle; sibling plugins do the deep work per phase.
 
 ## Namespace coordination
 
-This plugin owns four AgentDB namespaces, all kebab-case compliant per [ruflo-agentdb ADR-0001 §"Namespace convention"](../ruflo-agentdb/docs/adrs/0001-agentdb-optimization.md):
+This plugin owns four AgentDB namespaces, all kebab-case compliant per [gemiflow-agentdb ADR-0001 §"Namespace convention"](../gemiflow-agentdb/docs/adrs/0001-agentdb-optimization.md):
 
 | Namespace | Purpose |
 |-----------|---------|
@@ -89,22 +89,22 @@ The reserved `patterns` (plural) namespace is consumed for cross-feature SPARC p
 ## Verification
 
 ```bash
-bash plugins/ruflo-sparc/scripts/smoke.sh
+bash plugins/gemiflow-sparc/scripts/smoke.sh
 # Expected: "11 passed, 0 failed"
 ```
 
 ## Architecture Decisions
 
-- [`ADR-0001` — ruflo-sparc plugin contract (phase-to-plugin alignment, namespace coordination, smoke as contract)](./docs/adrs/0001-sparc-contract.md)
+- [`ADR-0001` — gemiflow-sparc plugin contract (phase-to-plugin alignment, namespace coordination, smoke as contract)](./docs/adrs/0001-sparc-contract.md)
 
 ## Related Plugins
 
-- `ruflo-agentdb` — namespace convention owner; backing store for sparc-state/-phases/-gates
-- `ruflo-goals` — Specification phase deep-research
-- `ruflo-adr` -- Architecture decisions recorded as ADRs in Phase 3
-- `ruflo-ddd` -- Architecture phase uses DDD bounded context patterns
-- `ruflo-jujutsu` -- Refinement phase diff analysis
-- `ruflo-docs` -- Completion phase documentation generation
+- `gemiflow-agentdb` — namespace convention owner; backing store for sparc-state/-phases/-gates
+- `gemiflow-goals` — Specification phase deep-research
+- `gemiflow-adr` -- Architecture decisions recorded as ADRs in Phase 3
+- `gemiflow-ddd` -- Architecture phase uses DDD bounded context patterns
+- `gemiflow-jujutsu` -- Refinement phase diff analysis
+- `gemiflow-docs` -- Completion phase documentation generation
 
 ## License
 

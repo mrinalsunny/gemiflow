@@ -18,7 +18,7 @@ Create an **Advanced Code Intelligence Plugin** that leverages RuVector WASM pac
 
 ## Plugin Name
 
-`@claude-flow/plugin-code-intelligence`
+`@gemiflow/plugin-code-intelligence`
 
 ## Description
 

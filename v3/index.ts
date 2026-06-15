@@ -1,17 +1,17 @@
 /**
- * Claude Flow V3 - Modular AI Agent Coordination System
+ * GemiFlow V3 - Modular AI Agent Coordination System
  *
- * This is the main entry point that re-exports all @claude-flow modules.
+ * This is the main entry point that re-exports all @gemiflow modules.
  * Each module can also be imported directly for tree-shaking.
  *
  * @example
  * // Import everything
- * import * as claudeFlow from '@claude-flow/v3';
+ * import * as gemiflow from '@gemiflow/v3';
  *
  * // Or import specific modules
- * import { UnifiedSwarmCoordinator } from '@claude-flow/swarm';
- * import { PasswordHasher } from '@claude-flow/security';
- * import { HNSWIndex } from '@claude-flow/memory';
+ * import { UnifiedSwarmCoordinator } from '@gemiflow/swarm';
+ * import { PasswordHasher } from '@gemiflow/security';
+ * import { HNSWIndex } from '@gemiflow/memory';
  *
  * Complete reimagining based on 10 ADRs:
  * - ADR-001: Adopt agentic-flow as core foundation
@@ -32,89 +32,89 @@
  * - Code Reduction: <5,000 lines (vs 15,000+)
  * - Startup Time: <500ms
  *
- * @module @claude-flow/v3
+ * @module @gemiflow/v3
  * @version 3.0.0-alpha.1
  */
 
 // =============================================================================
-// @claude-flow Module Exports (New Modular Architecture)
+// @gemiflow Module Exports (New Modular Architecture)
 // =============================================================================
 
 /**
  * Security module - CVE fixes, input validation, credential management
- * @see {@link @claude-flow/security}
+ * @see {@link @gemiflow/security}
  */
-export * as security from './@claude-flow/security/src/index.js';
+export * as security from './@gemiflow/security/src/index.js';
 
 /**
  * Memory module - AgentDB, HNSW indexing, vector search
- * @see {@link @claude-flow/memory}
+ * @see {@link @gemiflow/memory}
  */
-export * as memory from './@claude-flow/memory/src/index.js';
+export * as memory from './@gemiflow/memory/src/index.js';
 
 /**
  * Swarm module - 15-agent coordination, hierarchical mesh, consensus
- * @see {@link @claude-flow/swarm}
+ * @see {@link @gemiflow/swarm}
  */
-export * as swarm from './@claude-flow/swarm/src/index.js';
+export * as swarm from './@gemiflow/swarm/src/index.js';
 
 /**
  * Integration module - agentic-flow@alpha integration, ADR-001 compliance
- * @see {@link @claude-flow/integration}
+ * @see {@link @gemiflow/integration}
  */
-export * as integration from './@claude-flow/integration/src/index.js';
+export * as integration from './@gemiflow/integration/src/index.js';
 
 /**
  * Shared module - common types, events, utilities, core interfaces
- * @see {@link @claude-flow/shared}
+ * @see {@link @gemiflow/shared}
  */
-export * as shared from './@claude-flow/shared/src/index.js';
+export * as shared from './@gemiflow/shared/src/index.js';
 
 /**
  * CLI module - Command parsing, prompts, output formatting
- * @see {@link @claude-flow/cli}
+ * @see {@link @gemiflow/cli}
  */
-export * as cli from './@claude-flow/cli/src/index.js';
+export * as cli from './@gemiflow/cli/src/index.js';
 
 /**
  * Neural module - SONA learning, neural modes
- * @see {@link @claude-flow/neural}
+ * @see {@link @gemiflow/neural}
  */
-export * as neural from './@claude-flow/neural/src/index.js';
+export * as neural from './@gemiflow/neural/src/index.js';
 
 /**
  * Performance module - Benchmarking, Flash Attention validation
- * @see {@link @claude-flow/performance}
+ * @see {@link @gemiflow/performance}
  */
-export * as performance from './@claude-flow/performance/src/index.js';
+export * as performance from './@gemiflow/performance/src/index.js';
 
 /**
  * Testing module - TDD London School framework, test utilities
- * @see {@link @claude-flow/testing}
+ * @see {@link @gemiflow/testing}
  */
-export * as testing from './@claude-flow/testing/src/index.js';
+export * as testing from './@gemiflow/testing/src/index.js';
 
 /**
  * Deployment module - Release management, CI/CD
- * @see {@link @claude-flow/deployment}
+ * @see {@link @gemiflow/deployment}
  */
-export * as deployment from './@claude-flow/deployment/src/index.js';
+export * as deployment from './@gemiflow/deployment/src/index.js';
 
 // =============================================================================
 // Module List for Dynamic Loading
 // =============================================================================
 
 export const MODULES = [
-  '@claude-flow/shared',
-  '@claude-flow/security',
-  '@claude-flow/memory',
-  '@claude-flow/swarm',
-  '@claude-flow/integration',
-  '@claude-flow/cli',
-  '@claude-flow/neural',
-  '@claude-flow/performance',
-  '@claude-flow/testing',
-  '@claude-flow/deployment',
+  '@gemiflow/shared',
+  '@gemiflow/security',
+  '@gemiflow/memory',
+  '@gemiflow/swarm',
+  '@gemiflow/integration',
+  '@gemiflow/cli',
+  '@gemiflow/neural',
+  '@gemiflow/performance',
+  '@gemiflow/testing',
+  '@gemiflow/deployment',
 ] as const;
 
 export type ModuleName = (typeof MODULES)[number];
@@ -177,9 +177,9 @@ export type {
   IHealthStatus,
   IComponentHealth,
   IOrchestratorMetrics,
-} from './core/interfaces/index.js';
+} from './@gemiflow/shared/src/core/index.js';
 
-export { SystemEventTypes } from './core/interfaces/event.interface.js';
+export { SystemEventTypes } from './@gemiflow/shared/src/core/index.js';
 
 // Orchestrator Components
 export {
@@ -211,10 +211,10 @@ export {
   defaultOrchestratorConfig,
   type OrchestratorConfig,
   type OrchestratorComponents,
-} from './core/orchestrator/index.js';
+} from './@gemiflow/shared/src/core/index.js';
 
 // Event Bus
-export { EventBus as EventBusCore, createEventBus } from './core/event-bus.js';
+export { EventBus as EventBusCore, createEventBus } from './@gemiflow/shared/src/core/index.js';
 
 // Configuration
 export {
@@ -254,7 +254,7 @@ export {
   loadConfig,
   type LoadedConfig,
   type ConfigSource,
-} from './core/config/index.js';
+} from './@gemiflow/shared/src/core/index.js';
 
 // V3 Extended Types
 export type {
@@ -329,127 +329,51 @@ export type {
   MCPError,
   MCPEventPayloads,
   MCPServerStatus,
-} from './types/index.js';
+} from './@gemiflow/shared/src/types/index.js';
 
 export {
   priorityToNumber,
   numberToPriority,
   TopologyPresets,
-} from './types/index.js';
+} from './@gemiflow/shared/src/types/index.js';
 
 // =============================================================================
 // Legacy/Shared Exports (Preserved for Backward Compatibility)
 // =============================================================================
 
-// Shared Types
-export type {
-  AgentId,
-  AgentRole,
-  AgentDomain,
-  AgentStatus,
-  AgentDefinition,
-  AgentState,
-  AgentCapability,
-  AgentMetrics,
-  TaskId,
-  TaskType,
-  TaskStatus,
-  TaskPriority,
-  TaskDefinition,
-  TaskMetadata,
-  TaskResult,
-  TaskResultMetrics,
-  PhaseId,
-  PhaseDefinition,
-  MilestoneDefinition,
-  MilestoneStatus,
-  MilestoneCriteria,
-  TopologyType,
-  SwarmConfig,
-  SwarmState,
-  SwarmMetrics,
-  EventType,
-  SwarmEvent,
-  EventHandler,
-  MessageType,
-  SwarmMessage,
-  MessageHandler,
-  PerformanceTargets,
-  DeepPartial,
-  AsyncCallback,
-  Result
-} from './shared/types';
-
-export {
-  V3_PERFORMANCE_TARGETS,
-  success,
-  failure
-} from './shared/types';
-
-// Event System
-export type {
-  IEventBus,
-  IEventStore,
-  EventFilter,
-  EventStoreSnapshot
-} from './shared/events';
-
-export {
-  EventBus,
-  InMemoryEventStore,
-  createEvent,
-  agentSpawnedEvent,
-  agentStatusChangedEvent,
-  agentTaskAssignedEvent,
-  agentTaskCompletedEvent,
-  agentErrorEvent,
-  taskCreatedEvent,
-  taskQueuedEvent,
-  taskAssignedEvent,
-  taskStartedEvent,
-  taskCompletedEvent,
-  taskFailedEvent,
-  taskBlockedEvent,
-  swarmInitializedEvent,
-  swarmPhaseChangedEvent,
-  swarmMilestoneReachedEvent,
-  swarmErrorEvent
-} from './shared/events';
-
 // Agent Registry
 export type {
-  IAgentRegistry,
   HealthStatus
-} from './coordination/agent-registry';
+} from './@gemiflow/swarm/src/coordination/agent-registry.js';
 
 export {
   AgentRegistry,
   createAgentRegistry
-} from './coordination/agent-registry';
+} from './@gemiflow/swarm/src/coordination/agent-registry.js';
 
 // Task Orchestrator
 export type {
   ITaskOrchestrator,
   TaskSpec,
   TaskOrchestratorMetrics
-} from './coordination/task-orchestrator';
+} from './@gemiflow/swarm/src/coordination/task-orchestrator.js';
 
 export {
   TaskOrchestrator,
   createTaskOrchestrator
-} from './coordination/task-orchestrator';
+} from './@gemiflow/swarm/src/coordination/task-orchestrator.js';
 
 // Swarm Hub
 export type {
   ISwarmHub
-} from './coordination/swarm-hub';
+} from './@gemiflow/swarm/src/coordination/swarm-hub.js';
 
 export {
   SwarmHub,
   createSwarmHub,
   getSwarmHub,
   resetSwarmHub
-} from './coordination/swarm-hub';
+} from './@gemiflow/swarm/src/coordination/swarm-hub.js';
 
 // Configuration
 export type {
@@ -499,9 +423,9 @@ export {
  * ```
  */
 export async function initializeV3Swarm(config?: Partial<SwarmConfig>): Promise<ISwarmHub> {
-  const { createSwarmHub } = await import('./coordination/swarm-hub');
+  const { createSwarmHub } = await import('./@gemiflow/swarm/src/coordination/swarm-hub.js');
   const swarm = createSwarmHub();
-  await swarm.initialize(config);
+  await swarm.initialize(config as any);
   return swarm;
 }
 
@@ -510,7 +434,7 @@ export async function initializeV3Swarm(config?: Partial<SwarmConfig>): Promise<
  * Creates a new one if none exists
  */
 export async function getOrCreateSwarm(): Promise<ISwarmHub> {
-  const { getSwarmHub } = await import('./coordination/swarm-hub');
+  const { getSwarmHub } = await import('./@gemiflow/swarm/src/coordination/swarm-hub.js');
   const swarm = getSwarmHub();
 
   if (!swarm.isInitialized()) {
@@ -534,10 +458,10 @@ export const V3_VERSION = {
 };
 
 export const V3_INFO = {
-  name: 'claude-flow',
+  name: 'gemiflow',
   version: V3_VERSION.full,
-  description: 'Complete reimagining of Claude-Flow with 15-agent hierarchical mesh swarm',
-  repository: 'https://github.com/ruvnet/claude-flow',
+  description: 'Complete reimagining of GemiFlow with 15-agent hierarchical mesh swarm',
+  repository: 'https://github.com/ruvnet/gemiflow',
   license: 'MIT',
   engines: {
     node: '>=20.0.0'
@@ -572,9 +496,9 @@ export const V3_INFO = {
 // Default Export
 // =============================================================================
 
-import type { ISwarmHub } from './coordination/swarm-hub';
-import type { SwarmConfig } from './shared/types';
-import { V3_PERFORMANCE_TARGETS as PERF_TARGETS } from './shared/types';
+import type { ISwarmHub } from './@gemiflow/swarm/src/coordination/swarm-hub.js';
+import type { ISwarmConfig as SwarmConfig } from './@gemiflow/shared/src/core/index.js';
+const PERF_TARGETS = V3_INFO.performanceTargets;
 
 export default {
   // Quick start

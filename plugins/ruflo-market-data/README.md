@@ -1,4 +1,4 @@
-# ruflo-market-data
+# gemiflow-market-data
 
 Market data ingestion -- feed normalization, OHLCV vectorization, and HNSW-indexed pattern matching.
 
@@ -9,7 +9,7 @@ Ingests market data from REST APIs and WebSocket feeds, normalizes to OHLCV vect
 ## Installation
 
 ```bash
-claude --plugin-dir plugins/ruflo-market-data
+claude --plugin-dir plugins/gemiflow-market-data
 ```
 
 ## Agents
@@ -61,12 +61,12 @@ Each pattern is encoded as a 64-dimension padded vector for HNSW indexing.
 
 ## Compatibility
 
-- **CLI:** pinned to `@claude-flow/cli` v3.6 major+minor.
-- **Verification:** `bash plugins/ruflo-market-data/scripts/smoke.sh` is the contract.
+- **CLI:** pinned to `@gemiflow/cli` v3.6 major+minor.
+- **Verification:** `bash plugins/gemiflow-market-data/scripts/smoke.sh` is the contract.
 
 ## Namespace coordination
 
-This plugin owns two AgentDB namespaces (kebab-case, follows the convention from [ruflo-agentdb ADR-0001 §"Namespace convention"](../ruflo-agentdb/docs/adrs/0001-agentdb-optimization.md)):
+This plugin owns two AgentDB namespaces (kebab-case, follows the convention from [gemiflow-agentdb ADR-0001 §"Namespace convention"](../gemiflow-agentdb/docs/adrs/0001-agentdb-optimization.md)):
 
 - `market-data` — normalized OHLCV vectors per symbol+date
 - `market-patterns` — detected candlestick patterns with reliability scores
@@ -78,20 +78,20 @@ Both accessed via `memory_*` (namespace-routed). Reserved namespaces (`pattern`,
 ## Verification
 
 ```bash
-bash plugins/ruflo-market-data/scripts/smoke.sh
+bash plugins/gemiflow-market-data/scripts/smoke.sh
 # Expected: "11 passed, 0 failed"
 ```
 
 ## Architecture Decisions
 
-- [`ADR-0001` — ruflo-market-data plugin contract (3 functional bug fixes + namespace coordination + smoke as contract)](./docs/adrs/0001-market-data-contract.md)
+- [`ADR-0001` — gemiflow-market-data plugin contract (3 functional bug fixes + namespace coordination + smoke as contract)](./docs/adrs/0001-market-data-contract.md)
 
 ## Related Plugins
 
-- `ruflo-agentdb` — namespace convention owner; defines the routing rules ADR-0001 fixes violations of
-- `ruflo-neural-trader` -- Consumes market patterns as strategy signals
-- `ruflo-ruvector` -- HNSW indexing engine for pattern similarity search
-- `ruflo-observability` -- Data feed health and ingestion latency dashboards
+- `gemiflow-agentdb` — namespace convention owner; defines the routing rules ADR-0001 fixes violations of
+- `gemiflow-neural-trader` -- Consumes market patterns as strategy signals
+- `gemiflow-ruvector` -- HNSW indexing engine for pattern similarity search
+- `gemiflow-observability` -- Data feed health and ingestion latency dashboards
 
 ## License
 

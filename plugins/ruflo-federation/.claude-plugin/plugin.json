@@ -1,15 +1,15 @@
 {
-  "name": "ruflo-federation",
+  "name": "gemiflow-federation",
   "description": "Cross-installation agent federation with zero-trust security, peer discovery, consensus-based task routing, and per-call budget circuit breaker (ADR-097)",
   "version": "0.2.0",
   "author": {
     "name": "ruvnet",
     "url": "https://github.com/ruvnet"
   },
-  "homepage": "https://github.com/ruvnet/ruflo",
+  "homepage": "https://github.com/ruvnet/gemiflow",
   "license": "MIT",
   "keywords": [
-    "ruflo",
+    "gemiflow",
     "federation",
     "zero-trust",
     "peer-discovery",

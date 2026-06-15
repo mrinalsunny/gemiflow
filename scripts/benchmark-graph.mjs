@@ -29,12 +29,12 @@ import * as os from 'os';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
-const distBase = path.join(projectRoot, 'v3/@claude-flow/cli/dist/src');
+const distBase = path.join(projectRoot, 'v3/@gemiflow/cli/dist/src');
 const jsonMode = process.argv.includes('--json');
 
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'adr130-bench-'));
 const dbPath = path.join(tmpDir, 'memory.db');
-process.env.CLAUDE_FLOW_MEMORY_PATH = tmpDir;
+process.env.GEMIFLOW_MEMORY_PATH = tmpDir;
 
 function percentile(sorted, p) {
   const idx = Math.ceil((p / 100) * sorted.length) - 1;

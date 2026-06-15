@@ -1,6 +1,6 @@
 ---
 id: ADR-0001
-title: ruflo-testgen plugin contract — pinning, namespace coordination, testgaps-worker contract, smoke as contract
+title: gemiflow-testgen plugin contract — pinning, namespace coordination, testgaps-worker contract, smoke as contract
 status: Accepted
 date: 2026-05-04
 updated: 2026-05-09
@@ -11,11 +11,11 @@ tags: [plugin, testgen, tdd, coverage, namespace, smoke-test]
 
 ## Context
 
-`ruflo-testgen` (v0.1.0) — test gap detection + TDD London School workflow + automated test generation. 1 agent (`tester`), 2 skills (`tdd-workflow`, `test-gaps`), 1 command (`/testgen`).
+`gemiflow-testgen` (v0.1.0) — test gap detection + TDD London School workflow + automated test generation. 1 agent (`tester`), 2 skills (`tdd-workflow`, `test-gaps`), 1 command (`/testgen`).
 
-Drives the `testgaps` background worker (one of 12 documented in [ruflo-loop-workers ADR-0001](../../ruflo-loop-workers/docs/adrs/0001-loop-workers-contract.md)) via `hooks_worker-dispatch`. Also uses three coverage CLI commands: `hooks coverage-gaps`, `hooks coverage-route`, `hooks coverage-suggest`.
+Drives the `testgaps` background worker (one of 12 documented in [gemiflow-loop-workers ADR-0001](../../gemiflow-loop-workers/docs/adrs/0001-loop-workers-contract.md)) via `hooks_worker-dispatch`. Also uses three coverage CLI commands: `hooks coverage-gaps`, `hooks coverage-route`, `hooks coverage-suggest`.
 
-This plugin is the canonical owner of the **Refinement phase** in the SPARC methodology per [ruflo-sparc ADR-0001](../../ruflo-sparc/docs/adrs/0001-sparc-contract.md) §"Phase-to-plugin alignment".
+This plugin is the canonical owner of the **Refinement phase** in the SPARC methodology per [gemiflow-sparc ADR-0001](../../gemiflow-sparc/docs/adrs/0001-sparc-contract.md) §"Phase-to-plugin alignment".
 
 ## Decision
 
@@ -33,17 +33,17 @@ This plugin is the canonical owner of the **Refinement phase** in the SPARC meth
 ## Verification
 
 ```bash
-bash plugins/ruflo-testgen/scripts/smoke.sh
+bash plugins/gemiflow-testgen/scripts/smoke.sh
 # Expected: "10 passed, 0 failed"
 ```
 
 ## Related
 
-- `plugins/ruflo-loop-workers/docs/adrs/0001-loop-workers-contract.md` — defines the `testgaps` worker
-- `plugins/ruflo-sparc/docs/adrs/0001-sparc-contract.md` — Refinement phase ownership
-- `plugins/ruflo-jujutsu/docs/adrs/0001-jujutsu-contract.md` — diff analysis for PR-time coverage gating
-- `plugins/ruflo-agentdb/docs/adrs/0001-agentdb-optimization.md` — namespace convention
+- `plugins/gemiflow-loop-workers/docs/adrs/0001-loop-workers-contract.md` — defines the `testgaps` worker
+- `plugins/gemiflow-sparc/docs/adrs/0001-sparc-contract.md` — Refinement phase ownership
+- `plugins/gemiflow-jujutsu/docs/adrs/0001-jujutsu-contract.md` — diff analysis for PR-time coverage gating
+- `plugins/gemiflow-agentdb/docs/adrs/0001-agentdb-optimization.md` — namespace convention
 
 ## Implementation status
 
-Plugin version v0.2.0 shipped and listed in marketplace.json. Source exists at `plugins/ruflo-testgen/`. Contract elements implemented: `testgaps` background worker dispatch via `hooks_worker-dispatch` documented; `hooks coverage-gaps|coverage-route|coverage-suggest` CLI coverage commands covered; SPARC Refinement-phase ownership cross-linked; namespace `testgen-gaps` claimed; smoke-as-contract gate defined in `scripts/smoke.sh`.
+Plugin version v0.2.0 shipped and listed in marketplace.json. Source exists at `plugins/gemiflow-testgen/`. Contract elements implemented: `testgaps` background worker dispatch via `hooks_worker-dispatch` documented; `hooks coverage-gaps|coverage-route|coverage-suggest` CLI coverage commands covered; SPARC Refinement-phase ownership cross-linked; namespace `testgen-gaps` claimed; smoke-as-contract gate defined in `scripts/smoke.sh`.

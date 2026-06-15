@@ -1,7 +1,7 @@
 {
-  "name": "@claude-flow/teammate-plugin",
+  "name": "@gemiflow/teammate-plugin",
   "version": "1.0.0-alpha.1",
-  "description": "Native TeammateTool integration plugin for Claude Flow - bridges Claude Code v2.1.19+ multi-agent capabilities",
+  "description": "Native TeammateTool integration plugin for GemiFlow - bridges Claude Code v2.1.19+ multi-agent capabilities",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -42,8 +42,8 @@
   },
   "keywords": [
     "claude",
-    "claude-code",
-    "claude-flow",
+    "gemini-cli",
+    "gemiflow",
     "teammate",
     "multi-agent",
     "swarm",
@@ -54,21 +54,21 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ruvnet/claude-flow.git",
+    "url": "https://github.com/ruvnet/gemiflow.git",
     "directory": "v3/plugins/teammate-plugin"
   },
   "bugs": {
-    "url": "https://github.com/ruvnet/claude-flow/issues"
+    "url": "https://github.com/ruvnet/gemiflow/issues"
   },
-  "homepage": "https://github.com/ruvnet/claude-flow#readme",
+  "homepage": "https://github.com/ruvnet/gemiflow#readme",
   "engines": {
     "node": ">=18.0.0"
   },
   "peerDependencies": {
-    "@anthropic-ai/claude-code": ">=2.1.19"
+    "@anthropic-ai/gemini-cli": ">=2.1.19"
   },
   "peerDependenciesMeta": {
-    "@anthropic-ai/claude-code": {
+    "@anthropic-ai/gemini-cli": {
       "optional": true
     }
   },
@@ -85,7 +85,7 @@
     "@typescript-eslint/eslint-plugin": "^6.13.0",
     "@typescript-eslint/parser": "^6.13.0"
   },
-  "claude-code": {
+  "gemini-cli": {
     "minimumVersion": "2.1.19",
     "requiredFeatures": [
       "TeammateTool",

@@ -1,0 +1,275 @@
+[
+  {
+    "id": "task-task-with-lineage",
+    "key": "task-with-lineage",
+    "content": "Task completed: task-with-lineage (agent: coder)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "coder",
+      "success": true,
+      "quality": 0.9
+    },
+    "createdAt": 1781518660063
+  },
+  {
+    "id": "task-task-no-lineage",
+    "key": "task-no-lineage",
+    "content": "Task completed: task-no-lineage (agent: coder)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "coder",
+      "success": true,
+      "quality": 0.9
+    },
+    "createdAt": 1781518660074
+  },
+  {
+    "id": "task-task-lead",
+    "key": "task-lead",
+    "content": "Task completed: task-lead (agent: lead)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "lead",
+      "success": true,
+      "quality": 1
+    },
+    "createdAt": 1781518660075
+  },
+  {
+    "id": "task-task-with-lineage",
+    "key": "task-with-lineage",
+    "content": "Task completed: task-with-lineage (agent: coder)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "coder",
+      "success": true,
+      "quality": 0.9
+    },
+    "createdAt": 1781518985665
+  },
+  {
+    "id": "task-task-no-lineage",
+    "key": "task-no-lineage",
+    "content": "Task completed: task-no-lineage (agent: coder)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "coder",
+      "success": true,
+      "quality": 0.9
+    },
+    "createdAt": 1781518985675
+  },
+  {
+    "id": "task-task-lead",
+    "key": "task-lead",
+    "content": "Task completed: task-lead (agent: lead)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "lead",
+      "success": true,
+      "quality": 1
+    },
+    "createdAt": 1781518985676
+  },
+  {
+    "id": "task-task-with-lineage",
+    "key": "task-with-lineage",
+    "content": "Task completed: task-with-lineage (agent: coder)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "coder",
+      "success": true,
+      "quality": 0.9
+    },
+    "createdAt": 1781519597173
+  },
+  {
+    "id": "task-task-no-lineage",
+    "key": "task-no-lineage",
+    "content": "Task completed: task-no-lineage (agent: coder)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "coder",
+      "success": true,
+      "quality": 0.9
+    },
+    "createdAt": 1781519597180
+  },
+  {
+    "id": "task-task-lead",
+    "key": "task-lead",
+    "content": "Task completed: task-lead (agent: lead)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "lead",
+      "success": true,
+      "quality": 1
+    },
+    "createdAt": 1781519597181
+  },
+  {
+    "id": "task-task-with-lineage",
+    "key": "task-with-lineage",
+    "content": "Task completed: task-with-lineage (agent: coder)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "coder",
+      "success": true,
+      "quality": 0.9
+    },
+    "createdAt": 1781519929817
+  },
+  {
+    "id": "task-task-no-lineage",
+    "key": "task-no-lineage",
+    "content": "Task completed: task-no-lineage (agent: coder)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "coder",
+      "success": true,
+      "quality": 0.9
+    },
+    "createdAt": 1781519929822
+  },
+  {
+    "id": "task-task-lead",
+    "key": "task-lead",
+    "content": "Task completed: task-lead (agent: lead)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "lead",
+      "success": true,
+      "quality": 1
+    },
+    "createdAt": 1781519929823
+  },
+  {
+    "id": "task-task-with-lineage",
+    "key": "task-with-lineage",
+    "content": "Task completed: task-with-lineage (agent: coder)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "coder",
+      "success": true,
+      "quality": 0.9
+    },
+    "createdAt": 1781531926654
+  },
+  {
+    "id": "task-task-no-lineage",
+    "key": "task-no-lineage",
+    "content": "Task completed: task-no-lineage (agent: coder)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "coder",
+      "success": true,
+      "quality": 0.9
+    },
+    "createdAt": 1781531926658
+  },
+  {
+    "id": "task-task-lead",
+    "key": "task-lead",
+    "content": "Task completed: task-lead (agent: lead)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "lead",
+      "success": true,
+      "quality": 1
+    },
+    "createdAt": 1781531926660
+  },
+  {
+    "id": "task-task-with-lineage",
+    "key": "task-with-lineage",
+    "content": "Task completed: task-with-lineage (agent: coder)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "coder",
+      "success": true,
+      "quality": 0.9
+    },
+    "createdAt": 1781532131777
+  },
+  {
+    "id": "task-task-no-lineage",
+    "key": "task-no-lineage",
+    "content": "Task completed: task-no-lineage (agent: coder)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "coder",
+      "success": true,
+      "quality": 0.9
+    },
+    "createdAt": 1781532131782
+  },
+  {
+    "id": "task-task-lead",
+    "key": "task-lead",
+    "content": "Task completed: task-lead (agent: lead)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "lead",
+      "success": true,
+      "quality": 1
+    },
+    "createdAt": 1781532131783
+  },
+  {
+    "id": "task-task-with-lineage",
+    "key": "task-with-lineage",
+    "content": "Task completed: task-with-lineage (agent: coder)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "coder",
+      "success": true,
+      "quality": 0.9
+    },
+    "createdAt": 1781535098510
+  },
+  {
+    "id": "task-task-no-lineage",
+    "key": "task-no-lineage",
+    "content": "Task completed: task-no-lineage (agent: coder)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "coder",
+      "success": true,
+      "quality": 0.9
+    },
+    "createdAt": 1781535098513
+  },
+  {
+    "id": "task-task-lead",
+    "key": "task-lead",
+    "content": "Task completed: task-lead (agent: lead)",
+    "namespace": "tasks",
+    "type": "task-outcome",
+    "metadata": {
+      "agent": "lead",
+      "success": true,
+      "quality": 1
+    },
+    "createdAt": 1781535098514
+  }
+]

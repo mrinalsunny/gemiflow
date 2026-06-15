@@ -1,5 +1,5 @@
 #!/bin/bash
-# Claude Flow Plugin Verification Script
+# GemiFlow Plugin Verification Script
 # Verifies installation and configuration
 
 set -e
@@ -17,7 +17,7 @@ warning() { echo -e "${YELLOW}⚠${NC} $1"; }
 error() { echo -e "${RED}✗${NC} $1"; }
 
 echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-echo -e "${BLUE}    Claude Flow Plugin Verification${NC}"
+echo -e "${BLUE}    GemiFlow Plugin Verification${NC}"
 echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
 echo ""
 
@@ -35,16 +35,16 @@ fi
 
 # Check directories
 info "Checking installation directories..."
-if [ -d "$HOME/.claude/commands" ]; then
-    CMD_COUNT=$(find "$HOME/.claude/commands" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
+if [ -d "$HOME/.gemiflow/commands" ]; then
+    CMD_COUNT=$(find "$HOME/.gemiflow/commands" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
     success "Commands directory exists ($CMD_COUNT commands)"
 else
     error "Commands directory not found"
     ((ERRORS++))
 fi
 
-if [ -d "$HOME/.claude/agents" ]; then
-    AGENT_COUNT=$(find "$HOME/.claude/agents" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
+if [ -d "$HOME/.gemiflow/agents" ]; then
+    AGENT_COUNT=$(find "$HOME/.gemiflow/agents" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
     success "Agents directory exists ($AGENT_COUNT agents)"
 else
     error "Agents directory not found"
@@ -53,13 +53,13 @@ fi
 
 # Check settings
 info "Checking Claude Code settings..."
-if [ -f "$HOME/.claude/settings.json" ]; then
+if [ -f "$HOME/.gemiflow/settings.json" ]; then
     success "Settings file exists"
 
-    if grep -q "claude-flow" "$HOME/.claude/settings.json"; then
-        success "Claude Flow MCP server configured"
+    if grep -q "gemiflow" "$HOME/.gemiflow/settings.json"; then
+        success "GemiFlow MCP server configured"
     else
-        warning "Claude Flow MCP server not configured"
+        warning "GemiFlow MCP server not configured"
         ((WARNINGS++))
     fi
 else
@@ -69,11 +69,11 @@ fi
 
 # Check MCP packages
 info "Checking MCP packages..."
-if npx claude-flow@alpha --version &> /dev/null; then
-    VERSION=$(npx claude-flow@alpha --version 2>/dev/null || echo "unknown")
-    success "claude-flow MCP: $VERSION"
+if npx gemiflow@alpha --version &> /dev/null; then
+    VERSION=$(npx gemiflow@alpha --version 2>/dev/null || echo "unknown")
+    success "gemiflow MCP: $VERSION"
 else
-    warning "claude-flow MCP not installed"
+    warning "gemiflow MCP not installed"
     ((WARNINGS++))
 fi
 

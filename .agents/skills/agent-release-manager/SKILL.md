@@ -22,10 +22,10 @@ tools:
   - mcp__github__create_branch
   - mcp__github__push_files
   - mcp__github__create_issue
-  - mcp__claude-flow__swarm_init
-  - mcp__claude-flow__agent_spawn
-  - mcp__claude-flow__task_orchestrate
-  - mcp__claude-flow__memory_usage
+  - mcp__gemiflow__swarm_init
+  - mcp__gemiflow__agent_spawn
+  - mcp__gemiflow__task_orchestrate
+  - mcp__gemiflow__memory_usage
 hooks:
   pre_task: |
     echo "🚀 Initializing release management pipeline..."
@@ -58,12 +58,12 @@ Automated release coordination and deployment with ruv-swarm orchestration for s
 ### 1. Coordinated Release Preparation
 ```javascript
 // Initialize release management swarm
-mcp__claude-flow__swarm_init { topology: "hierarchical", maxAgents: 6 }
-mcp__claude-flow__agent_spawn { type: "coordinator", name: "Release Coordinator" }
-mcp__claude-flow__agent_spawn { type: "tester", name: "QA Engineer" }
-mcp__claude-flow__agent_spawn { type: "reviewer", name: "Release Reviewer" }
-mcp__claude-flow__agent_spawn { type: "coder", name: "Version Manager" }
-mcp__claude-flow__agent_spawn { type: "analyst", name: "Deployment Analyst" }
+mcp__gemiflow__swarm_init { topology: "hierarchical", maxAgents: 6 }
+mcp__gemiflow__agent_spawn { type: "coordinator", name: "Release Coordinator" }
+mcp__gemiflow__agent_spawn { type: "tester", name: "QA Engineer" }
+mcp__gemiflow__agent_spawn { type: "reviewer", name: "Release Reviewer" }
+mcp__gemiflow__agent_spawn { type: "coder", name: "Version Manager" }
+mcp__gemiflow__agent_spawn { type: "analyst", name: "Deployment Analyst" }
 
 // Create release preparation branch
 mcp__github__create_branch {
@@ -74,7 +74,7 @@ mcp__github__create_branch {
 }
 
 // Orchestrate release preparation
-mcp__claude-flow__task_orchestrate {
+mcp__gemiflow__task_orchestrate {
   task: "Prepare release v1.0.72 with comprehensive testing and validation",
   strategy: "sequential",
   priority: "critical"
@@ -90,9 +90,9 @@ mcp__github__push_files {
   branch: "release$v1.0.72",
   files: [
     {
-      path: "claude-code-flow$claude-code-flow$package.json",
+      path: "gemiflow$gemiflow$package.json",
       content: JSON.stringify({
-        name: "claude-flow",
+        name: "gemiflow",
         version: "1.0.72",
         // ... rest of package.json
       }, null, 2)
@@ -134,10 +134,10 @@ mcp__github__push_files {
 ### 3. Automated Release Validation
 ```javascript
 // Comprehensive release testing
-Bash("cd $workspaces$ruv-FANN$claude-code-flow$claude-code-flow && npm install")
-Bash("cd $workspaces$ruv-FANN$claude-code-flow$claude-code-flow && npm run test")
-Bash("cd $workspaces$ruv-FANN$claude-code-flow$claude-code-flow && npm run lint")
-Bash("cd $workspaces$ruv-FANN$claude-code-flow$claude-code-flow && npm run build")
+Bash("cd $workspaces$ruv-FANN$gemiflow$gemiflow && npm install")
+Bash("cd $workspaces$ruv-FANN$gemiflow$gemiflow && npm run test")
+Bash("cd $workspaces$ruv-FANN$gemiflow$gemiflow && npm run lint")
+Bash("cd $workspaces$ruv-FANN$gemiflow$gemiflow && npm run build")
 
 Bash("cd $workspaces$ruv-FANN$ruv-swarm$npm && npm install")
 Bash("cd $workspaces$ruv-FANN$ruv-swarm$npm && npm run test:all")
@@ -159,7 +159,7 @@ mcp__github__create_pull_request {
 - **Improved Testing**: Comprehensive integration test suite with 89% success rate
 
 ### 📦 Package Updates
-- **claude-flow**: v1.0.71 → v1.0.72
+- **gemiflow**: v1.0.71 → v1.0.72
 - **ruv-swarm**: v1.0.11 → v1.0.12
 
 ### 🔧 Changes
@@ -211,13 +211,13 @@ This release is production-ready with comprehensive validation and testing.
 ```javascript
 [Single Message - Complete Release Management]:
   // Initialize comprehensive release swarm
-  mcp__claude-flow__swarm_init { topology: "star", maxAgents: 8 }
-  mcp__claude-flow__agent_spawn { type: "coordinator", name: "Release Director" }
-  mcp__claude-flow__agent_spawn { type: "tester", name: "QA Lead" }
-  mcp__claude-flow__agent_spawn { type: "reviewer", name: "Senior Reviewer" }
-  mcp__claude-flow__agent_spawn { type: "coder", name: "Version Controller" }
-  mcp__claude-flow__agent_spawn { type: "analyst", name: "Performance Analyst" }
-  mcp__claude-flow__agent_spawn { type: "researcher", name: "Compatibility Checker" }
+  mcp__gemiflow__swarm_init { topology: "star", maxAgents: 8 }
+  mcp__gemiflow__agent_spawn { type: "coordinator", name: "Release Director" }
+  mcp__gemiflow__agent_spawn { type: "tester", name: "QA Lead" }
+  mcp__gemiflow__agent_spawn { type: "reviewer", name: "Senior Reviewer" }
+  mcp__gemiflow__agent_spawn { type: "coder", name: "Version Controller" }
+  mcp__gemiflow__agent_spawn { type: "analyst", name: "Performance Analyst" }
+  mcp__gemiflow__agent_spawn { type: "researcher", name: "Compatibility Checker" }
   
   // Create release branch and prepare files using gh CLI
   Bash("gh api repos/:owner/:repo$git$refs --method POST -f ref='refs$heads$release$v1.0.72' -f sha=$(gh api repos/:owner/:repo$git$refs$heads$main --jq '.object.sha')")
@@ -226,7 +226,7 @@ This release is production-ready with comprehensive validation and testing.
   Bash("gh repo clone :owner/:repo $tmp$release-v1.0.72 -- --branch release$v1.0.72 --depth=1")
   
   // Update all release-related files
-  Write("$tmp$release-v1.0.72$claude-code-flow$claude-code-flow$package.json", "[updated package.json]")
+  Write("$tmp$release-v1.0.72$gemiflow$gemiflow$package.json", "[updated package.json]")
   Write("$tmp$release-v1.0.72$ruv-swarm$npm$package.json", "[updated package.json]")
   Write("$tmp$release-v1.0.72/CHANGELOG.md", "[release changelog]")
   Write("$tmp$release-v1.0.72/RELEASE_NOTES.md", "[detailed release notes]")
@@ -234,7 +234,7 @@ This release is production-ready with comprehensive validation and testing.
   Bash("cd $tmp$release-v1.0.72 && git add -A && git commit -m 'release: Prepare v1.0.72 with comprehensive updates' && git push")
   
   // Run comprehensive validation
-  Bash("cd $workspaces$ruv-FANN$claude-code-flow$claude-code-flow && npm install && npm test && npm run lint && npm run build")
+  Bash("cd $workspaces$ruv-FANN$gemiflow$gemiflow && npm install && npm test && npm run lint && npm run build")
   Bash("cd $workspaces$ruv-FANN$ruv-swarm$npm && npm install && npm run test:all && npm run lint")
   
   // Create release PR using gh CLI
@@ -256,14 +256,14 @@ This release is production-ready with comprehensive validation and testing.
   ]}
   
   // Store release state
-  mcp__claude-flow__memory_usage {
+  mcp__gemiflow__memory_usage {
     action: "store", 
     key: "release$v1.0.72$status",
     value: {
       timestamp: Date.now(),
       version: "1.0.72",
       stage: "validation_complete",
-      packages: ["claude-flow", "ruv-swarm"],
+      packages: ["gemiflow", "ruv-swarm"],
       validation_passed: true,
       ready_for_review: true
     }
@@ -351,10 +351,10 @@ jobs:
           node-version: '20'
       - name: Install and Test
         run: |
-          cd claude-code-flow$claude-code-flow && npm install && npm test
+          cd gemiflow$gemiflow && npm install && npm test
           cd ../..$ruv-swarm$npm && npm install && npm test:all
       - name: Validate Release
-        run: npx claude-flow release validate
+        run: npx gemiflow release validate
 ```
 
 ## Monitoring and Metrics

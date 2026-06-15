@@ -6,7 +6,7 @@ description: Agent skill for issue-tracker - invoke with $agent-issue-tracker
 ---
 name: issue-tracker
 description: Intelligent issue management and project coordination with automated tracking, progress monitoring, and team coordination
-tools: mcp__claude-flow__swarm_init, mcp__claude-flow__agent_spawn, mcp__claude-flow__task_orchestrate, mcp__claude-flow__memory_usage, Bash, TodoWrite, Read, Write
+tools: mcp__gemiflow__swarm_init, mcp__gemiflow__agent_spawn, mcp__gemiflow__task_orchestrate, mcp__gemiflow__memory_usage, Bash, TodoWrite, Read, Write
 color: green
 type: development
 capabilities:
@@ -49,7 +49,7 @@ Intelligent issue management and project coordination with ruv-swarm integration
 - `mcp__github__update_issue`
 - `mcp__github__add_issue_comment`
 - `mcp__github__search_issues`
-- `mcp__claude-flow__*` (all swarm coordination tools)
+- `mcp__gemiflow__*` (all swarm coordination tools)
 - `TodoWrite`, `TodoRead`, `Task`, `Bash`, `Read`, `Write`
 
 ## Usage Patterns
@@ -57,16 +57,16 @@ Intelligent issue management and project coordination with ruv-swarm integration
 ### 1. Create Coordinated Issue with Swarm Tracking
 ```javascript
 // Initialize issue management swarm
-mcp__claude-flow__swarm_init { topology: "star", maxAgents: 3 }
-mcp__claude-flow__agent_spawn { type: "coordinator", name: "Issue Coordinator" }
-mcp__claude-flow__agent_spawn { type: "researcher", name: "Requirements Analyst" }
-mcp__claude-flow__agent_spawn { type: "coder", name: "Implementation Planner" }
+mcp__gemiflow__swarm_init { topology: "star", maxAgents: 3 }
+mcp__gemiflow__agent_spawn { type: "coordinator", name: "Issue Coordinator" }
+mcp__gemiflow__agent_spawn { type: "researcher", name: "Requirements Analyst" }
+mcp__gemiflow__agent_spawn { type: "coder", name: "Implementation Planner" }
 
 // Create comprehensive issue
 mcp__github__create_issue {
   owner: "ruvnet",
   repo: "ruv-FANN",
-  title: "Integration Review: claude-code-flow and ruv-swarm complete integration",
+  title: "Integration Review: gemiflow and ruv-swarm complete integration",
   body: `## 🔄 Integration Review
   
   ### Overview
@@ -85,7 +85,7 @@ mcp__github__create_issue {
 }
 
 // Set up automated tracking
-mcp__claude-flow__task_orchestrate {
+mcp__gemiflow__task_orchestrate {
   task: "Monitor and coordinate issue progress with automated updates",
   strategy: "adaptive",
   priority: "medium"
@@ -95,7 +95,7 @@ mcp__claude-flow__task_orchestrate {
 ### 2. Automated Progress Updates
 ```javascript
 // Update issue with progress from swarm memory
-mcp__claude-flow__memory_usage {
+mcp__gemiflow__memory_usage {
   action: "retrieve",
   key: "issue/54$progress"
 }
@@ -124,7 +124,7 @@ mcp__github__add_issue_comment {
 }
 
 // Store progress in swarm memory
-mcp__claude-flow__memory_usage {
+mcp__gemiflow__memory_usage {
   action: "store",
   key: "issue/54$latest_update",
   value: { timestamp: Date.now(), progress: "89%", status: "near_completion" }
@@ -157,10 +157,10 @@ mcp__github__update_issue {
 ```javascript
 [Single Message - Issue Lifecycle Management]:
   // Initialize issue coordination swarm
-  mcp__claude-flow__swarm_init { topology: "mesh", maxAgents: 4 }
-  mcp__claude-flow__agent_spawn { type: "coordinator", name: "Issue Manager" }
-  mcp__claude-flow__agent_spawn { type: "analyst", name: "Progress Tracker" }
-  mcp__claude-flow__agent_spawn { type: "researcher", name: "Context Gatherer" }
+  mcp__gemiflow__swarm_init { topology: "mesh", maxAgents: 4 }
+  mcp__gemiflow__agent_spawn { type: "coordinator", name: "Issue Manager" }
+  mcp__gemiflow__agent_spawn { type: "analyst", name: "Progress Tracker" }
+  mcp__gemiflow__agent_spawn { type: "researcher", name: "Context Gatherer" }
   
   // Create multiple related issues using gh CLI
   Bash(`gh issue create \
@@ -172,7 +172,7 @@ mcp__github__update_issue {
   Bash(`gh issue create \
     --repo :owner/:repo \
     --title "Bug: PR merge conflicts in integration branch" \
-    --body "Resolve merge conflicts in integration$claude-code-flow-ruv-swarm..." \
+    --body "Resolve merge conflicts in integration$gemiflow-ruv-swarm..." \
     --label "bug,integration,urgent"`)
     
   Bash(`gh issue create \
@@ -190,7 +190,7 @@ mcp__github__update_issue {
   ]}
   
   // Store initial coordination state
-  mcp__claude-flow__memory_usage {
+  mcp__gemiflow__memory_usage {
     action: "store",
     key: "project$github_integration$issues",
     value: { created: Date.now(), total_issues: 3, status: "initialized" }

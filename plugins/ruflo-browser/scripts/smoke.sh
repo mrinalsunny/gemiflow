@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Structural smoke test for ruflo-browser plugin v0.2.0.
+# Structural smoke test for gemiflow-browser plugin v0.2.0.
 # Verifies the file inventory, frontmatter, ADR cross-references, and
 # AgentDB-namespace coverage that ADR-0001 contracts. Does NOT exercise
 # the live MCP browser tools — the full Verification §1-§7 contract
@@ -16,13 +16,13 @@ bad()  { printf "FAIL: %s\n" "$1"; FAIL=$((FAIL+1)); }
 
 # 1. plugin.json version + keywords
 step "plugin.json declares version 0.2.0 with new keywords"
-v=$(grep -E '"version"[[:space:]]*:' "$ROOT/.claude-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+v=$(grep -E '"version"[[:space:]]*:' "$ROOT/.gemiflow-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
 if [[ "$v" != "0.2.0" ]]; then
   bad "expected 0.2.0, got '$v'"
 else
   missing=""
   for kw in rvf replay trajectory agentdb aidefence; do
-    grep -q "\"$kw\"" "$ROOT/.claude-plugin/plugin.json" || missing="$missing $kw"
+    grep -q "\"$kw\"" "$ROOT/.gemiflow-plugin/plugin.json" || missing="$missing $kw"
   done
   [[ -z "$missing" ]] && ok || bad "missing keywords:$missing"
 fi
@@ -55,10 +55,10 @@ else
 fi
 
 # 5. Verb-dispatcher command covers all 7 verbs
-step "/ruflo-browser command covers ls/show/replay/export/fork/purge/doctor"
+step "/gemiflow-browser command covers ls/show/replay/export/fork/purge/doctor"
 missing=""
 for v in 'ls' 'show' 'replay' 'export' 'fork' 'purge' 'doctor'; do
-  grep -qE "\\*\\*$v\b" "$ROOT/commands/ruflo-browser.md" || missing="$missing $v"
+  grep -qE "\\*\\*$v\b" "$ROOT/commands/gemiflow-browser.md" || missing="$missing $v"
 done
 [[ -z "$missing" ]] && ok || bad "missing verbs:$missing"
 
@@ -113,7 +113,7 @@ done
 
 # 12. The 5 browser_session_* lifecycle tools are present in the CLI source
 step "5 browser_session_* lifecycle tools registered in mcp-tools"
-TOOLS_FILE="$ROOT/../../v3/@claude-flow/cli/src/mcp-tools/browser-session-tools.ts"
+TOOLS_FILE="$ROOT/../../v3/@gemiflow/cli/src/mcp-tools/browser-session-tools.ts"
 if [[ ! -f "$TOOLS_FILE" ]]; then
   bad "browser-session-tools.ts not found at $TOOLS_FILE"
 else
@@ -124,7 +124,7 @@ else
   if [[ -n "$missing" ]]; then
     bad "missing tool definitions:$missing"
   else
-    grep -q 'browserSessionTools' "$ROOT/../../v3/@claude-flow/cli/src/mcp-client.ts" \
+    grep -q 'browserSessionTools' "$ROOT/../../v3/@gemiflow/cli/src/mcp-client.ts" \
       && ok || bad "browserSessionTools not imported in mcp-client.ts"
   fi
 fi

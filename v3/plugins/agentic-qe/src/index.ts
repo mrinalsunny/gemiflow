@@ -1,6 +1,6 @@
 /**
  * Agentic-QE Plugin Entry Point
- * Plugin exports for claude-flow V3 integration
+ * Plugin exports for gemiflow V3 integration
  *
  * @module v3/plugins/agentic-qe
  * @version 3.5.59
@@ -309,13 +309,13 @@ export const PLUGIN_METADATA = {
   ],
   dependencies: {
     required: [
-      '@claude-flow/plugins',
-      '@claude-flow/memory',
-      '@claude-flow/security',
-      '@claude-flow/embeddings',
+      '@gemiflow/plugins',
+      '@gemiflow/memory',
+      '@gemiflow/security',
+      '@gemiflow/embeddings',
     ],
     optional: [
-      '@claude-flow/browser',
+      '@gemiflow/browser',
       '@ruvector/attention',
       '@ruvector/gnn',
       '@ruvector/sona',

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Static guard for ruvnet/ruflo#2132 — plugin `hooks.json` commands must be
+ * Static guard for ruvnet/gemiflow#2132 — plugin `hooks.json` commands must be
  * cross-platform (work on Windows without WSL / Git Bash).
  *
  * The reporter ran the plugin hooks on native Windows and every `PostToolUse`
@@ -11,11 +11,11 @@
  *   - POSIX-only pipelines: `jq`, `xargs -0`, `tr '\n' '\0'`, `sed`, `awk`
  *   - `.sh` scripts with `#!/usr/bin/env bash` shebang
  *
- * The fix pattern (used by `.claude/settings.json` and `hook-handler.cjs` —
+ * The fix pattern (used by `.gemiflow/settings.json` and `hook-handler.cjs` —
  * which already works on Windows) is to invoke `node` directly with a `.cjs`
  * or `.mjs` script:
  *
- *   "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/helpers/hook-handler.cjs\" post-edit"
+ *   "command": "node \"${CLAUDE_PROJECT_DIR}/.gemiflow/helpers/hook-handler.cjs\" post-edit"
  *
  * ## POSIX-only exemption (added in #2132 fix PR)
  *
@@ -24,15 +24,15 @@
  * cross-platform patterns audit. The exemption exists because the 3 plugin
  * hooks.json files in this repo use POSIX bash pipelines that are
  * battle-tested on Mac/Linux; the Windows path is provided via init-time
- * settings.json override (see v3/@claude-flow/cli/src/init/settings-generator.ts).
+ * settings.json override (see v3/@gemiflow/cli/src/init/settings-generator.ts).
  *
  * Audit logic:
  *  1. Files with "_platform": "posix" - skip pattern scan, check Windows path exists
  *  2. All other files - strict cross-platform scan (original behaviour)
  *
  * Windows path check: for every POSIX-exempt file in a plugins/<name>/hooks/ dir,
- * verify that plugins/<name>/scripts/ruflo-hook.cjs exists (the Node shim that
- * init copies to `.claude/helpers/` on Windows). This proves the Windows path
+ * verify that plugins/<name>/scripts/gemiflow-hook.cjs exists (the Node shim that
+ * init copies to `.gemiflow/helpers/` on Windows). This proves the Windows path
  * is covered without requiring platform detection at audit time.
  *
  * This audit walks every plugin `hooks.json` in the tree (skipping
@@ -54,10 +54,10 @@ const REPO_ROOT = resolve(__dirname, '..');
 // Directories to skip when walking
 const SKIP_DIRS = new Set(['node_modules', '.git', 'dist', 'build', 'coverage']);
 
-// Skip everything under .claude/worktrees — those are scratch copies
+// Skip everything under .gemiflow/worktrees — those are scratch copies
 function isSkippedPath(absPath) {
   const rel = relative(REPO_ROOT, absPath);
-  if (rel.startsWith('.claude/worktrees/')) return true;
+  if (rel.startsWith('.gemiflow/worktrees/')) return true;
   return false;
 }
 
@@ -79,8 +79,8 @@ function* walkForHooksJson(dir) {
 // Patterns that break native Windows. Each rule has a label + a regex
 // applied to the `command` string (not the surrounding JSON).
 const BAD_PATTERNS = [
-  { label: '/bin/bash literal',  regex: /\/bin\/bash\b/,                hint: 'replace with `node "..../hook-handler.cjs" <subcommand>` — same pattern as .claude/settings.json' },
-  { label: '/bin/sh literal',    regex: /\/bin\/sh\b/,                  hint: 'replace with `node ...` like .claude/settings.json' },
+  { label: '/bin/bash literal',  regex: /\/bin\/bash\b/,                hint: 'replace with `node "..../hook-handler.cjs" <subcommand>` — same pattern as .gemiflow/settings.json' },
+  { label: '/bin/sh literal',    regex: /\/bin\/sh\b/,                  hint: 'replace with `node ...` like .gemiflow/settings.json' },
   { label: 'pipe to jq',         regex: /\|\s*jq\b/,                    hint: 'parse JSON inside a node helper (the cli-side hook script can read stdin via process.stdin)' },
   { label: 'xargs -0',           regex: /\bxargs\s+-0\b/,               hint: 'do argument passing inside the node helper, not via shell' },
   { label: 'tr to NUL byte',     regex: /\btr\s+['"]\\n['"]\s+['"]\\0['"]/, hint: 'unnecessary if you stop piping through xargs' },
@@ -107,16 +107,16 @@ for (const file of walkForHooksJson(REPO_ROOT)) {
 
     // Verify the Windows path (Node shim) exists alongside this hooks.json.
     // Convention: hooks.json lives in <plugin>/hooks/hooks.json
-    //             shim lives in <plugin>/scripts/ruflo-hook.cjs
+    //             shim lives in <plugin>/scripts/gemiflow-hook.cjs
     const pluginDir = resolve(join(file, '..', '..'));
-    const shimPath = join(pluginDir, 'scripts', 'ruflo-hook.cjs');
+    const shimPath = join(pluginDir, 'scripts', 'gemiflow-hook.cjs');
     if (!existsSync(shimPath)) {
       violations.push({
         file: relFile,
         line: 0,
         label: 'POSIX-exempt but Windows shim missing',
         cmd: `Expected ${relative(REPO_ROOT, shimPath)}`,
-        hint: 'Create plugins/<name>/scripts/ruflo-hook.cjs (cross-platform Node port of ruflo-hook.sh). See #2132.',
+        hint: 'Create plugins/<name>/scripts/gemiflow-hook.cjs (cross-platform Node port of gemiflow-hook.sh). See #2132.',
       });
       posixWindowsPathMissing = true;
     }
@@ -182,7 +182,7 @@ for (const v of violations) {
   console.error(`     cmd: ${v.cmd}`);
   console.error(`     fix: ${v.hint}`);
 }
-console.error('\nReference: ruvnet/ruflo#2132 (plugin hooks broken on Windows).');
-console.error('Cross-platform pattern: .claude/settings.json + .claude/helpers/hook-handler.cjs (node, no bash).');
-console.error('POSIX-exempt pattern: add "_platform": "posix" to hooks.json + create scripts/ruflo-hook.cjs sibling.');
+console.error('\nReference: ruvnet/gemiflow#2132 (plugin hooks broken on Windows).');
+console.error('Cross-platform pattern: .gemiflow/settings.json + .gemiflow/helpers/hook-handler.cjs (node, no bash).');
+console.error('POSIX-exempt pattern: add "_platform": "posix" to hooks.json + create scripts/gemiflow-hook.cjs sibling.');
 process.exit(1);

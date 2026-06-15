@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# smoke-gaia.sh — validate the GAIA benchmark component of ruflo-workflows
+# smoke-gaia.sh — validate the GAIA benchmark component of gemiflow-workflows
 # Tests structure, frontmatter, and end-to-end /gaia validate invocation.
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -12,11 +12,11 @@ bad()  { printf "FAIL: %s\n" "$1"; FAIL=$((FAIL+1)); }
 # ── plugin.json ──────────────────────────────────────────────────────────────
 
 step "1. plugin.json at 0.4.0 with gaia keywords"
-v=$(grep -E '"version"' "$ROOT/.claude-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+v=$(grep -E '"version"' "$ROOT/.gemiflow-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
 if [[ "$v" != "0.4.0" ]]; then bad "expected 0.4.0, got '$v'"; else
   miss=""
   for k in gaia benchmark hal-leaderboard evaluation; do
-    grep -q "\"$k\"" "$ROOT/.claude-plugin/plugin.json" || miss="$miss $k"
+    grep -q "\"$k\"" "$ROOT/.gemiflow-plugin/plugin.json" || miss="$miss $k"
   done
   [[ -z "$miss" ]] && ok || bad "missing keywords:$miss"
 fi
@@ -24,7 +24,7 @@ fi
 step "2. plugin.json has gaia component block with correct keys"
 miss=""
 for k in gaia-run gaia-submit gaia-validate gaia-history gaia-cost gaia-leaderboard; do
-  grep -q "\"$k\"" "$ROOT/.claude-plugin/plugin.json" || miss="$miss $k"
+  grep -q "\"$k\"" "$ROOT/.gemiflow-plugin/plugin.json" || miss="$miss $k"
 done
 [[ -z "$miss" ]] && ok || bad "missing component entries:$miss"
 

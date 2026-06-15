@@ -46,35 +46,35 @@ The pathfinder traversal algorithm finds relevant subgraphs:
 
 ### Tools
 
-- `mcp__claude-flow__agentdb_causal-edge` -- create/query causal edges between entities
-- `mcp__claude-flow__agentdb_hierarchical-store` -- store entity metadata in hierarchical structure
-- `mcp__claude-flow__agentdb_hierarchical-recall` -- recall entities by path or query
-- `mcp__claude-flow__agentdb_semantic-route` -- semantic similarity routing for graph search
-- `mcp__claude-flow__agentdb_pattern-store` -- store discovered graph patterns
-- `mcp__claude-flow__agentdb_pattern-search` -- search for similar graph structures
-- `mcp__claude-flow__agentdb_context-synthesize` -- synthesize context from multiple graph nodes
-- `mcp__claude-flow__embeddings_generate` -- generate embeddings for entity descriptions
+- `mcp__gemiflow__agentdb_causal-edge` -- create/query causal edges between entities
+- `mcp__gemiflow__agentdb_hierarchical-store` -- store entity metadata in hierarchical structure
+- `mcp__gemiflow__agentdb_hierarchical-recall` -- recall entities by path or query
+- `mcp__gemiflow__agentdb_semantic-route` -- semantic similarity routing for graph search
+- `mcp__gemiflow__agentdb_pattern-store` -- store discovered graph patterns
+- `mcp__gemiflow__agentdb_pattern-search` -- search for similar graph structures
+- `mcp__gemiflow__agentdb_context-synthesize` -- synthesize context from multiple graph nodes
+- `mcp__gemiflow__embeddings_generate` -- generate embeddings for entity descriptions
 
 ### Neural Learning
 
 After completing graph construction or traversal tasks, train patterns:
 ```bash
-npx @claude-flow/cli@latest hooks post-task --task-id "TASK_ID" --success true --train-neural true
-npx @claude-flow/cli@latest neural train --pattern-type knowledge-graph --epochs 10
+npx @gemiflow/cli@latest hooks post-task --task-id "TASK_ID" --success true --train-neural true
+npx @gemiflow/cli@latest neural train --pattern-type knowledge-graph --epochs 10
 ```
 
 ### Memory Learning
 
 Store successful graph patterns and entity extraction results:
 ```bash
-npx @claude-flow/cli@latest memory store --namespace knowledge-graph --key "entity-ENTITY_NAME" --value "ENTITY_METADATA_JSON"
-npx @claude-flow/cli@latest memory store --namespace knowledge-graph --key "pattern-PATTERN_NAME" --value "GRAPH_PATTERN_JSON"
-npx @claude-flow/cli@latest memory search --query "entities related to authentication" --namespace knowledge-graph
+npx @gemiflow/cli@latest memory store --namespace knowledge-graph --key "entity-ENTITY_NAME" --value "ENTITY_METADATA_JSON"
+npx @gemiflow/cli@latest memory store --namespace knowledge-graph --key "pattern-PATTERN_NAME" --value "GRAPH_PATTERN_JSON"
+npx @gemiflow/cli@latest memory search --query "entities related to authentication" --namespace knowledge-graph
 ```
 
 ### Related Plugins
 
-- **ruflo-agentdb**: Underlying storage for entities, relations, and causal edges via HNSW-indexed AgentDB
-- **ruflo-core**: Researcher agent uses pathfinder traversal for codebase exploration
-- **ruflo-ruvector**: HNSW indexing for fast semantic search across graph nodes
-- **ruflo-intelligence**: SONA neural patterns learn from graph traversal trajectories
+- **gemiflow-agentdb**: Underlying storage for entities, relations, and causal edges via HNSW-indexed AgentDB
+- **gemiflow-core**: Researcher agent uses pathfinder traversal for codebase exploration
+- **gemiflow-ruvector**: HNSW indexing for fast semantic search across graph nodes
+- **gemiflow-intelligence**: SONA neural patterns learn from graph traversal trajectories

@@ -10,7 +10,7 @@ This checklist provides actionable steps to address all security vulnerabilities
 
 ```bash
 # Update critical vulnerabilities
-npm update @anthropic-ai/claude-code@^2.0.31
+npm update @anthropic-ai/gemini-cli@^2.0.31
 npm update @modelcontextprotocol/sdk@^1.24.0
 npm update body-parser@^2.2.1
 
@@ -88,7 +88,7 @@ npm run test -- auth-service.test
 private initializeDefaultUsers(): void {
   const adminUser: User = {
     id: 'admin_default',
-    email: 'admin@claude-flow.local',
+    email: 'admin@gemiflow.local',
     passwordHash: createHash('sha256').update('admin123' + 'salt').digest('hex'),
     // ...
   };
@@ -108,7 +108,7 @@ private async initializeDefaultUsers(): Promise<void> {
     console.log('IMPORTANT: SAVE THESE CREDENTIALS NOW');
     console.log('═══════════════════════════════════════════');
     console.log('Default Admin Credentials:');
-    console.log(`Email: admin@claude-flow.local`);
+    console.log(`Email: admin@gemiflow.local`);
     console.log(`Password: ${randomPassword}`);
     console.log('═══════════════════════════════════════════');
     console.log('You will NOT see this password again!');
@@ -117,7 +117,7 @@ private async initializeDefaultUsers(): Promise<void> {
 
     const adminUser: User = {
       id: 'admin_default',
-      email: 'admin@claude-flow.local',
+      email: 'admin@gemiflow.local',
       passwordHash: await this.hashPassword(randomPassword),
       role: 'admin',
       permissions: ROLE_PERMISSIONS.admin,
@@ -231,11 +231,11 @@ async function executeHook(hookType: string, options: Record<string, any>): Prom
 **Verification:**
 ```bash
 # Should fail with error
-claude-flow hook pre-task --description "test; whoami"
-claude-flow hook pre-task --description "test && ls"
+gemiflow hook pre-task --description "test; whoami"
+gemiflow hook pre-task --description "test && ls"
 
 # Should succeed
-claude-flow hook pre-task --description "legitimate task description"
+gemiflow hook pre-task --description "legitimate task description"
 ```
 
 ---
@@ -311,7 +311,7 @@ export class PathValidator {
 
 export const defaultPathValidator = new PathValidator([
   process.cwd(),
-  join(process.cwd(), '.claude-flow'),
+  join(process.cwd(), '.gemiflow'),
   join(process.cwd(), 'workflows'),
 ]);
 ```
@@ -339,13 +339,13 @@ import { defaultPathValidator } from '../../utils/path-validator.js';
 **Verification:**
 ```bash
 # Should fail
-claude-flow task workflow ../../../etc/passwd
-claude-flow task workflow ~/.ssh/id_rsa
-claude-flow task workflow /etc/hosts
+gemiflow task workflow ../../../etc/passwd
+gemiflow task workflow ~/.ssh/id_rsa
+gemiflow task workflow /etc/hosts
 
 # Should succeed
-claude-flow task workflow ./workflows/my-workflow.json
-claude-flow task workflow workflows/test.json
+gemiflow task workflow ./workflows/my-workflow.json
+gemiflow task workflow workflows/test.json
 ```
 
 ---
@@ -436,13 +436,13 @@ const PROTECTED_KEYS = [
 **Verification:**
 ```bash
 # Should fail
-claude-flow config set "authConfig.jwtSecret" "hacked"
-claude-flow config set "__proto__.isAdmin" "true"
-claude-flow config set "timeout" "999999999"
+gemiflow config set "authConfig.jwtSecret" "hacked"
+gemiflow config set "__proto__.isAdmin" "true"
+gemiflow config set "timeout" "999999999"
 
 # Should succeed
-claude-flow config set "theme" "dark"
-claude-flow config set "timeout" "30000"
+gemiflow config set "theme" "dark"
+gemiflow config set "timeout" "30000"
 ```
 
 ---

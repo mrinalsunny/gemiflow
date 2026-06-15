@@ -1,16 +1,16 @@
 {
-  "schema": "ruflo-clone-tracker-ledger/v1",
+  "schema": "gemiflow-clone-tracker-ledger/v1",
   "created_at": "2026-05-19T23:17:49.428Z",
   "repos": [
-    "ruvnet/ruflo",
+    "ruvnet/gemiflow",
     "ruvnet/agentdb",
     "ruvnet/agentic-flow",
     "ruvnet/ruvector",
     "ruvnet/ruv-FANN"
   ],
   "vector_layout": [
-    "ruflo_clones",
-    "ruflo_uniques",
+    "gemiflow_clones",
+    "gemiflow_uniques",
     "agentdb_clones",
     "agentdb_uniques",
     "agentic_flow_clones",
@@ -41,7 +41,7 @@
         "uniques": 25490
       },
       "repos": {
-        "ruvnet/ruflo": {
+        "ruvnet/gemiflow": {
           "count": 89536,
           "uniques": 22752,
           "days": [
@@ -424,10 +424,10 @@
       },
       "npm_headline_total": 4255420,
       "npm": {
-        "claude-flow": 765750,
-        "ruflo": 298601,
-        "@claude-flow/cli": 537029,
-        "@claude-flow/memory": 272833,
+        "gemiflow": 765750,
+        "gemiflow": 298601,
+        "@gemiflow/cli": 537029,
+        "@gemiflow/memory": 272833,
         "agentdb": 1457393,
         "agentic-flow": 923814
       }
@@ -452,7 +452,7 @@
         "uniques": 0
       },
       "repos": {
-        "ruvnet/ruflo": {
+        "ruvnet/gemiflow": {
           "count": 0,
           "uniques": 0,
           "days": [],
@@ -485,10 +485,10 @@
       },
       "npm_headline_total": 4255420,
       "npm": {
-        "claude-flow": 765750,
-        "ruflo": 298601,
-        "@claude-flow/cli": 537029,
-        "@claude-flow/memory": 272833,
+        "gemiflow": 765750,
+        "gemiflow": 298601,
+        "@gemiflow/cli": 537029,
+        "@gemiflow/memory": 272833,
         "agentdb": 1457393,
         "agentic-flow": 923814
       }
@@ -513,7 +513,7 @@
         "uniques": 0
       },
       "repos": {
-        "ruvnet/ruflo": {
+        "ruvnet/gemiflow": {
           "count": 0,
           "uniques": 0,
           "days": [],
@@ -546,10 +546,10 @@
       },
       "npm_headline_total": 4595811,
       "npm": {
-        "claude-flow": 785214,
-        "ruflo": 341975,
-        "@claude-flow/cli": 589175,
-        "@claude-flow/memory": 318622,
+        "gemiflow": 785214,
+        "gemiflow": 341975,
+        "@gemiflow/cli": 589175,
+        "@gemiflow/memory": 318622,
         "agentdb": 1571065,
         "agentic-flow": 989760
       }
@@ -574,7 +574,7 @@
         "uniques": 0
       },
       "repos": {
-        "ruvnet/ruflo": {
+        "ruvnet/gemiflow": {
           "count": 0,
           "uniques": 0,
           "days": [],
@@ -607,10 +607,10 @@
       },
       "npm_headline_total": 4831624,
       "npm": {
-        "claude-flow": 795590,
-        "ruflo": 370919,
-        "@claude-flow/cli": 624020,
-        "@claude-flow/memory": 351840,
+        "gemiflow": 795590,
+        "gemiflow": 370919,
+        "@gemiflow/cli": 624020,
+        "@gemiflow/memory": 351840,
         "agentdb": 1651215,
         "agentic-flow": 1038040
       }
@@ -635,7 +635,7 @@
         "uniques": 0
       },
       "repos": {
-        "ruvnet/ruflo": {
+        "ruvnet/gemiflow": {
           "count": 0,
           "uniques": 0,
           "days": [],
@@ -668,10 +668,10 @@
       },
       "npm_headline_total": 5298606,
       "npm": {
-        "claude-flow": 827832,
-        "ruflo": 445603,
-        "@claude-flow/cli": 700351,
-        "@claude-flow/memory": 405476,
+        "gemiflow": 827832,
+        "gemiflow": 445603,
+        "@gemiflow/cli": 700351,
+        "@gemiflow/memory": 405476,
         "agentdb": 1806449,
         "agentic-flow": 1112895
       }
@@ -696,7 +696,7 @@
         "uniques": 0
       },
       "repos": {
-        "ruvnet/ruflo": {
+        "ruvnet/gemiflow": {
           "count": 0,
           "uniques": 0,
           "days": [],
@@ -729,10 +729,10 @@
       },
       "npm_headline_total": 6156712,
       "npm": {
-        "claude-flow": 883014,
-        "ruflo": 548443,
-        "@claude-flow/cli": 797305,
-        "@claude-flow/memory": 523555,
+        "gemiflow": 883014,
+        "gemiflow": 548443,
+        "@gemiflow/cli": 797305,
+        "@gemiflow/memory": 523555,
         "agentdb": 2120329,
         "agentic-flow": 1284066
       }

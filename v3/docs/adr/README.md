@@ -1,4 +1,4 @@
-# Claude Flow V3 - Architecture Decision Records
+# GemiFlow V3 - Architecture Decision Records
 
 All ADRs are located in [`/v3/implementation/adrs/`](../../implementation/adrs/).
 
@@ -23,10 +23,10 @@ All ADRs are located in [`/v3/implementation/adrs/`](../../implementation/adrs/)
 | [ADR-015](../../implementation/adrs/ADR-015-unified-plugin-system.md) | Unified Plugin System | Complete |
 | [ADR-016](../../implementation/adrs/ADR-016-collaborative-issue-claims.md) | Collaborative Issue Claims | Complete |
 | [ADR-017](../../implementation/adrs/ADR-017-ruvector-integration.md) | RuVector Integration | Complete |
-| [ADR-018](../../implementation/adrs/ADR-018-claude-code-integration.md) | Claude Code Integration | Complete |
+| [ADR-018](../../implementation/adrs/ADR-018-gemini-cli-integration.md) | Claude Code Integration | Complete |
 | [ADR-019](../../implementation/adrs/ADR-019-headless-runtime-package.md) | Headless Runtime Package | Complete |
 | [ADR-020](../../implementation/adrs/ADR-020-headless-worker-integration.md) | Headless Worker Integration | Complete |
-| [ADR-046](../../implementation/adrs/ADR-046-ruflo-rebrand.md) | Dual Umbrella: claude-flow + ruflo | Accepted |
+| [ADR-046](../../implementation/adrs/ADR-046-gemiflow-rebrand.md) | Dual Umbrella: gemiflow + gemiflow | Accepted |
 | [ADR-047](../../implementation/adrs/ADR-047-fast-mode-integration.md) | Fast Mode Integration | Proposed |
 
 ## Summary Documents
@@ -71,4 +71,4 @@ All ADRs are located in [`/v3/implementation/adrs/`](../../implementation/adrs/)
 ---
 
 **Last Updated:** 2026-01-14
-**CLI Version:** @claude-flow/cli@3.0.0-alpha.104
+**CLI Version:** @gemiflow/cli@3.0.0-alpha.104

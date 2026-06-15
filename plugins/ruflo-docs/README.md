@@ -1,12 +1,12 @@
-# ruflo-docs
+# gemiflow-docs
 
 Documentation generation, drift detection, and API docs automation.
 
 ## Install
 
 ```
-/plugin marketplace add ruvnet/ruflo
-/plugin install ruflo-docs@ruflo
+/plugin marketplace add ruvnet/gemiflow
+/plugin install gemiflow-docs@gemiflow
 ```
 
 ## What's Included
@@ -20,13 +20,13 @@ Documentation generation, drift detection, and API docs automation.
 
 ## Requires
 
-- `ruflo-core` plugin (provides MCP server)
+- `gemiflow-core` plugin (provides MCP server)
 
 ## Compatibility
 
-- **CLI:** pinned to `@claude-flow/cli` v3.6 major+minor.
+- **CLI:** pinned to `@gemiflow/cli` v3.6 major+minor.
 - **Agent model:** Haiku (cost-efficient for docs work).
-- **Verification:** `bash plugins/ruflo-docs/scripts/smoke.sh` is the contract.
+- **Verification:** `bash plugins/gemiflow-docs/scripts/smoke.sh` is the contract.
 
 ## Document-worker contract
 
@@ -34,8 +34,8 @@ Drives the `document` background worker (one of 12 workers in CLAUDE.md). Two in
 
 ```bash
 # CLI
-npx @claude-flow/cli@latest hooks worker dispatch --trigger document
-npx @claude-flow/cli@latest hooks worker dispatch --trigger document --scope api
+npx @gemiflow/cli@latest hooks worker dispatch --trigger document
+npx @gemiflow/cli@latest hooks worker dispatch --trigger document --scope api
 
 # MCP
 mcp tool call hooks_worker-dispatch --json -- '{"trigger": "document", "scope": "api"}'
@@ -49,24 +49,24 @@ mcp tool call hooks_worker-dispatch --json -- '{"trigger": "document", "scope": 
 
 ## Namespace coordination
 
-This plugin owns the `docs-drift` AgentDB namespace (kebab-case, follows the convention from [ruflo-agentdb ADR-0001 §"Namespace convention"](../ruflo-agentdb/docs/adrs/0001-agentdb-optimization.md)). Used for drift-detection state (last-seen export hash per file). Reserved namespaces (`pattern`, `claude-memories`, `default`) MUST NOT be shadowed.
+This plugin owns the `docs-drift` AgentDB namespace (kebab-case, follows the convention from [gemiflow-agentdb ADR-0001 §"Namespace convention"](../gemiflow-agentdb/docs/adrs/0001-agentdb-optimization.md)). Used for drift-detection state (last-seen export hash per file). Reserved namespaces (`pattern`, `claude-memories`, `default`) MUST NOT be shadowed.
 
 `docs-drift` is accessed via `memory_*` tools (namespace-routed).
 
 ## Verification
 
 ```bash
-bash plugins/ruflo-docs/scripts/smoke.sh
+bash plugins/gemiflow-docs/scripts/smoke.sh
 # Expected: "10 passed, 0 failed"
 ```
 
 ## Architecture Decisions
 
-- [`ADR-0001` — ruflo-docs plugin contract (document-worker integration, namespace coordination, smoke as contract)](./docs/adrs/0001-docs-contract.md)
+- [`ADR-0001` — gemiflow-docs plugin contract (document-worker integration, namespace coordination, smoke as contract)](./docs/adrs/0001-docs-contract.md)
 
 ## Related Plugins
 
-- `ruflo-agentdb` — namespace convention owner
-- `ruflo-loop-workers` — defines the `document` background worker
-- `ruflo-adr` — ADRs trigger doc generation when status changes
-- `ruflo-sparc` — Documenter mode (Phase 5 Refinement) consumes this plugin
+- `gemiflow-agentdb` — namespace convention owner
+- `gemiflow-loop-workers` — defines the `document` background worker
+- `gemiflow-adr` — ADRs trigger doc generation when status changes
+- `gemiflow-sparc` — Documenter mode (Phase 5 Refinement) consumes this plugin

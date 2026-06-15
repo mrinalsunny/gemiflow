@@ -2,7 +2,7 @@
 name: agentdb-query
 description: Query AgentDB through the controller bridge -- semantic routing, hierarchical recall, causal graphs, context synthesis, pattern store/search
 argument-hint: "<query>"
-allowed-tools: mcp__claude-flow__agentdb_semantic-route mcp__claude-flow__agentdb_hierarchical-recall mcp__claude-flow__agentdb_hierarchical-store mcp__claude-flow__agentdb_context-synthesize mcp__claude-flow__agentdb_causal-edge mcp__claude-flow__agentdb_pattern-search mcp__claude-flow__agentdb_pattern-store mcp__claude-flow__agentdb_controllers mcp__claude-flow__agentdb_health mcp__claude-flow__agentdb_batch mcp__claude-flow__agentdb_feedback mcp__claude-flow__agentdb_consolidate mcp__claude-flow__agentdb_session-start mcp__claude-flow__agentdb_session-end Bash
+allowed-tools: mcp__gemiflow__agentdb_semantic-route mcp__gemiflow__agentdb_hierarchical-recall mcp__gemiflow__agentdb_hierarchical-store mcp__gemiflow__agentdb_context-synthesize mcp__gemiflow__agentdb_causal-edge mcp__gemiflow__agentdb_pattern-search mcp__gemiflow__agentdb_pattern-store mcp__gemiflow__agentdb_controllers mcp__gemiflow__agentdb_health mcp__gemiflow__agentdb_batch mcp__gemiflow__agentdb_feedback mcp__gemiflow__agentdb_consolidate mcp__gemiflow__agentdb_session-start mcp__gemiflow__agentdb_session-end Bash
 ---
 
 # AgentDB Query
@@ -15,17 +15,17 @@ When you need to store, retrieve, or search knowledge across agent sessions. Age
 
 ## Steps
 
-1. **Check health** — `mcp__claude-flow__agentdb_health`. Sanity-check `available: true`.
-2. **Start session** — `mcp__claude-flow__agentdb_session-start` if not already active.
-3. **Store knowledge** — `mcp__claude-flow__agentdb_hierarchical-store` for structured tier-keyed data (tiers: `working|episodic|semantic`).
-4. **Recall knowledge** — `mcp__claude-flow__agentdb_hierarchical-recall` with a query.
-5. **Search patterns** — `mcp__claude-flow__agentdb_pattern-search` for learned patterns (ReasoningBank-routed).
-6. **Synthesize context** — `mcp__claude-flow__agentdb_context-synthesize` to combine multiple memories.
-7. **Build causal graph** — `mcp__claude-flow__agentdb_causal-edge` to link related knowledge.
+1. **Check health** — `mcp__gemiflow__agentdb_health`. Sanity-check `available: true`.
+2. **Start session** — `mcp__gemiflow__agentdb_session-start` if not already active.
+3. **Store knowledge** — `mcp__gemiflow__agentdb_hierarchical-store` for structured tier-keyed data (tiers: `working|episodic|semantic`).
+4. **Recall knowledge** — `mcp__gemiflow__agentdb_hierarchical-recall` with a query.
+5. **Search patterns** — `mcp__gemiflow__agentdb_pattern-search` for learned patterns (ReasoningBank-routed).
+6. **Synthesize context** — `mcp__gemiflow__agentdb_context-synthesize` to combine multiple memories.
+7. **Build causal graph** — `mcp__gemiflow__agentdb_causal-edge` to link related knowledge.
 
 ## Available controller groups
 
-Call `mcp__claude-flow__agentdb_controllers` to list the runtime registry. Functional categories surfaced via the 15 MCP tools:
+Call `mcp__gemiflow__agentdb_controllers` to list the runtime registry. Functional categories surfaced via the 15 MCP tools:
 
 - **Hierarchical** — `agentdb_hierarchical-store`, `_recall` (tier-routed)
 - **Pattern** — `agentdb_pattern-store`, `_search` (ReasoningBank-routed)
@@ -48,7 +48,7 @@ Namespace strings apply to `memory_*` and `embeddings_search` only. The `agentdb
 ## CLI alternative
 
 ```bash
-npx @claude-flow/cli@latest memory search --query "your query" --namespace patterns
-npx @claude-flow/cli@latest memory store --key "key" --value "value" --namespace patterns
-npx @claude-flow/cli@latest memory list --namespace patterns
+npx @gemiflow/cli@latest memory search --query "your query" --namespace patterns
+npx @gemiflow/cli@latest memory store --key "key" --value "value" --namespace patterns
+npx @gemiflow/cli@latest memory list --namespace patterns
 ```

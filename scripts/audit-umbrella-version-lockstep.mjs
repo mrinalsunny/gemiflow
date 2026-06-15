@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 /**
- * Static guard for ruvnet/ruflo#2151 — enforce three-way version lockstep
+ * Static guard for ruvnet/gemiflow#2151 — enforce three-way version lockstep
  * across the umbrella packages that ship together:
  *
- *   - @claude-flow/cli  (v3/@claude-flow/cli/package.json)
- *   - claude-flow       (root package.json — umbrella)
- *   - ruflo             (ruflo/package.json — thin user-facing wrapper)
+ *   - @gemiflow/cli  (v3/@gemiflow/cli/package.json)
+ *   - gemiflow       (root package.json — umbrella)
+ *   - gemiflow             (gemiflow/package.json — thin user-facing wrapper)
  *
- * Why: when these drift (e.g. ruflo@3.10.2 but cli@3.10.1, observed in
- * #2151), `npx ruflo --version` prints the bundled CLI's version (3.10.1),
+ * Why: when these drift (e.g. gemiflow@3.10.2 but cli@3.10.1, observed in
+ * #2151), `npx gemiflow --version` prints the bundled CLI's version (3.10.1),
  * not the wrapper's package.json version (3.10.2). Users see the "wrong"
  * version and reasonably assume the install is broken.
  *
@@ -16,7 +16,7 @@
  * version. This audit enforces that locally so a drift can't reach a
  * release. Wired into v3-ci.yml as `umbrella-version-lockstep-audit`.
  *
- * Also asserts ruflo's @claude-flow/cli dep range INCLUDES the cli's
+ * Also asserts gemiflow's @gemiflow/cli dep range INCLUDES the cli's
  * actual version (overlap with audit-wrapper-dep-ranges.mjs is intentional;
  * this audit is about identity, that one is about inclusion).
  *
@@ -34,9 +34,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, '..');
 
 const TARGETS = [
-  { label: '@claude-flow/cli', path: 'v3/@claude-flow/cli/package.json' },
-  { label: 'claude-flow',       path: 'package.json' },
-  { label: 'ruflo',             path: 'ruflo/package.json' },
+  { label: '@gemiflow/cli', path: 'v3/@gemiflow/cli/package.json' },
+  { label: 'gemiflow',       path: 'package.json' },
+  { label: 'gemiflow',             path: 'gemiflow/package.json' },
 ];
 
 function readPkg(rel) {
@@ -68,36 +68,36 @@ if (unique.size > 1) {
   violations.push(
     `version drift across umbrella packages: ${[...unique].join(' / ')}.\n` +
     `    Bump all three to the same version per CLAUDE.md "Publishing Rules" before shipping:\n` +
-    `      v3/@claude-flow/cli/package.json   ← ${versions['@claude-flow/cli'] ?? '?'}\n` +
-    `      package.json (claude-flow)         ← ${versions['claude-flow'] ?? '?'}\n` +
-    `      ruflo/package.json                 ← ${versions['ruflo'] ?? '?'}`
+    `      v3/@gemiflow/cli/package.json   ← ${versions['@gemiflow/cli'] ?? '?'}\n` +
+    `      package.json (gemiflow)         ← ${versions['gemiflow'] ?? '?'}\n` +
+    `      gemiflow/package.json                 ← ${versions['gemiflow'] ?? '?'}`
   );
 }
 
-// Cross-check: ruflo's dep range must include cli's actual version.
-const rufloPkg = readPkg('ruflo/package.json');
-const cliVersion = versions['@claude-flow/cli'];
-if (rufloPkg && cliVersion) {
-  const range = rufloPkg.dependencies?.['@claude-flow/cli'];
+// Cross-check: gemiflow's dep range must include cli's actual version.
+const gemiflowPkg = readPkg('gemiflow/package.json');
+const cliVersion = versions['@gemiflow/cli'];
+if (gemiflowPkg && cliVersion) {
+  const range = gemiflowPkg.dependencies?.['@gemiflow/cli'];
   if (range) {
     if (!semver.satisfies(cliVersion, range, { includePrerelease: true })) {
       violations.push(
-        `ruflo "@claude-flow/cli": "${range}" does NOT include cli's actual version ${cliVersion}.\n` +
-        `    Update ruflo/package.json dependencies to "^${cliVersion}".`
+        `gemiflow "@gemiflow/cli": "${range}" does NOT include cli's actual version ${cliVersion}.\n` +
+        `    Update gemiflow/package.json dependencies to "^${cliVersion}".`
       );
     } else {
-      console.log(`  ruflo dep "@claude-flow/cli": "${range}" covers ${cliVersion} ✓`);
+      console.log(`  gemiflow dep "@gemiflow/cli": "${range}" covers ${cliVersion} ✓`);
     }
   }
 }
 
 if (violations.length === 0) {
-  console.log('\n  ok: all three umbrella packages at identical version, ruflo dep covers cli');
+  console.log('\n  ok: all three umbrella packages at identical version, gemiflow dep covers cli');
   process.exit(0);
 }
 
 console.error('\nviolations:');
 for (const v of violations) console.error(`  ✗ ${v}`);
 console.error(`\n${violations.length} violation(s).`);
-console.error('Reference: ruvnet/ruflo#2151 (version mismatch — ruflo@3.10.2 + cli@3.10.1).');
+console.error('Reference: ruvnet/gemiflow#2151 (version mismatch — gemiflow@3.10.2 + cli@3.10.1).');
 process.exit(1);

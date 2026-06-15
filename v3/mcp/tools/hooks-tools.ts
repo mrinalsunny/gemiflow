@@ -25,7 +25,7 @@ import {
   createReasoningBank,
   type Trajectory,
   type TrajectoryStep,
-} from '../../@claude-flow/neural/src/index.js';
+} from '../../@gemiflow/neural/src/index.js';
 
 // ============================================================================
 // Singleton ReasoningBank Instance

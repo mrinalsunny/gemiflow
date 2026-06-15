@@ -85,33 +85,33 @@ Span hierarchy for swarm operations:
 
 ### Tools
 
-- `mcp__claude-flow__agentdb_hierarchical-store` -- store trace spans and log entries
-- `mcp__claude-flow__agentdb_hierarchical-recall` -- recall traces by traceId or correlationId
-- `mcp__claude-flow__agentdb_pattern-store` -- store anomaly patterns for future detection
-- `mcp__claude-flow__agentdb_pattern-search` -- search for similar anomaly patterns
-- `mcp__claude-flow__agentdb_semantic-route` -- route observability queries to relevant data
-- `mcp__claude-flow__agentdb_context-synthesize` -- synthesize context from multiple trace spans
+- `mcp__gemiflow__agentdb_hierarchical-store` -- store trace spans and log entries
+- `mcp__gemiflow__agentdb_hierarchical-recall` -- recall traces by traceId or correlationId
+- `mcp__gemiflow__agentdb_pattern-store` -- store anomaly patterns for future detection
+- `mcp__gemiflow__agentdb_pattern-search` -- search for similar anomaly patterns
+- `mcp__gemiflow__agentdb_semantic-route` -- route observability queries to relevant data
+- `mcp__gemiflow__agentdb_context-synthesize` -- synthesize context from multiple trace spans
 
 ### Neural Learning
 
 After completing observability tasks, train patterns:
 ```bash
-npx @claude-flow/cli@latest hooks post-task --task-id "TASK_ID" --success true --train-neural true
-npx @claude-flow/cli@latest neural train --pattern-type observability --epochs 10
+npx @gemiflow/cli@latest hooks post-task --task-id "TASK_ID" --success true --train-neural true
+npx @gemiflow/cli@latest neural train --pattern-type observability --epochs 10
 ```
 
 ### Memory Learning
 
 Store telemetry patterns and anomaly signatures:
 ```bash
-npx @claude-flow/cli@latest memory store --namespace observability --key "trace-TRACE_ID" --value "TRACE_SUMMARY_JSON"
-npx @claude-flow/cli@latest memory store --namespace observability-patterns --key "anomaly-ANOMALY_TYPE" --value "ANOMALY_SIGNATURE_JSON"
-npx @claude-flow/cli@latest memory search --query "latency spikes in authentication flow" --namespace observability
+npx @gemiflow/cli@latest memory store --namespace observability --key "trace-TRACE_ID" --value "TRACE_SUMMARY_JSON"
+npx @gemiflow/cli@latest memory store --namespace observability-patterns --key "anomaly-ANOMALY_TYPE" --value "ANOMALY_SIGNATURE_JSON"
+npx @gemiflow/cli@latest memory search --query "latency spikes in authentication flow" --namespace observability
 ```
 
 ### Related Plugins
 
-- **ruflo-iot-cognitum**: Reuses Z-score anomaly detection for telemetry pattern analysis
-- **ruflo-loop-workers**: Background workers produce telemetry that this plugin correlates
-- **ruflo-swarm**: Agent swarm activity generates the traces and metrics this plugin collects
-- **ruflo-cost-tracker**: Token usage metrics feed into cost attribution and budget monitoring
+- **gemiflow-iot-cognitum**: Reuses Z-score anomaly detection for telemetry pattern analysis
+- **gemiflow-loop-workers**: Background workers produce telemetry that this plugin correlates
+- **gemiflow-swarm**: Agent swarm activity generates the traces and metrics this plugin collects
+- **gemiflow-cost-tracker**: Token usage metrics feed into cost attribution and budget monitoring

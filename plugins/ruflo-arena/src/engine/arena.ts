@@ -1,4 +1,4 @@
-// Arena — a single deterministic, replayable match between two strategies (Ruflo ADR-147).
+// Arena — a single deterministic, replayable match between two strategies (GemiFlow ADR-147).
 
 import { mulberry32, derive } from './rng.js';
 import { instantiate } from '../domain/strategies.js';

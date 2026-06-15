@@ -1,9 +1,9 @@
-# ADR-027: Native TeammateTool Integration for Claude Flow
+# ADR-027: Native TeammateTool Integration for GemiFlow
 
 **Status:** Implemented ✅
 **Date:** 2026-01-25
 **Updated:** 2026-01-25
-**Author:** Claude Flow Architecture Team
+**Author:** GemiFlow Architecture Team
 **Version:** 1.0.0
 **Requires:** Claude Code >= 2.1.19
 
@@ -11,7 +11,7 @@
 
 ## Implementation Summary
 
-The `@claude-flow/teammate-plugin` package has been fully implemented with:
+The `@gemiflow/teammate-plugin` package has been fully implemented with:
 
 | Component | Lines | Features |
 |-----------|-------|----------|
@@ -44,7 +44,7 @@ The `@claude-flow/teammate-plugin` package has been fully implemented with:
 ### Package Structure
 
 ```
-v3/@claude-flow/teammate-plugin/
+v3/@gemiflow/teammate-plugin/
 ├── package.json           # npm package (requires Claude Code >= 2.1.19)
 ├── tsconfig.json          # TypeScript configuration
 ├── README.md              # Full documentation
@@ -59,7 +59,7 @@ v3/@claude-flow/teammate-plugin/
 
 ## Executive Summary
 
-This ADR defines the architecture for deep integration between Claude Flow and Claude Code's native **TeammateTool** multi-agent orchestration system. By leveraging TeammateTool's built-in capabilities for team management, inter-agent communication, and plan approval workflows, Claude Flow can eliminate redundant coordination code and provide seamless native multi-agent experiences.
+This ADR defines the architecture for deep integration between GemiFlow and Claude Code's native **TeammateTool** multi-agent orchestration system. By leveraging TeammateTool's built-in capabilities for team management, inter-agent communication, and plan approval workflows, GemiFlow can eliminate redundant coordination code and provide seamless native multi-agent experiences.
 
 ---
 
@@ -124,7 +124,7 @@ CLAUDE_CODE_TEAMMATE_COMMAND   # Spawn command override
 
 ### 1.3 Problem Statement
 
-Claude Flow currently implements its own multi-agent orchestration via:
+GemiFlow currently implements its own multi-agent orchestration via:
 - MCP-based swarm coordination
 - Custom message bus implementation
 - Hierarchical/mesh topology management
@@ -140,12 +140,12 @@ This creates **redundancy** with Claude Code's native TeammateTool, which provid
 
 ## 2. Decision
 
-**Implement a Claude Flow plugin that acts as a bridge to TeammateTool**, providing:
+**Implement a GemiFlow plugin that acts as a bridge to TeammateTool**, providing:
 
 1. **Native Team Management** - Use TeammateTool for spawning instead of MCP
-2. **Mailbox Integration** - Bridge teammate_mailbox to Claude Flow's memory system
+2. **Mailbox Integration** - Bridge teammate_mailbox to GemiFlow's memory system
 3. **Plan Mode Orchestration** - Leverage launchSwarm for coordinated execution
-4. **Hybrid Topology** - Combine Claude Flow's advanced topologies with native spawning
+4. **Hybrid Topology** - Combine GemiFlow's advanced topologies with native spawning
 
 ### 2.1 Architecture Principles
 
@@ -153,7 +153,7 @@ This creates **redundancy** with Claude Code's native TeammateTool, which provid
 |-----------|----------------|
 | **Native First** | Use TeammateTool when available, fallback to MCP |
 | **Zero Duplication** | Delegate spawning to Claude Code entirely |
-| **Transparent Bridge** | Claude Flow APIs unchanged, backend swapped |
+| **Transparent Bridge** | GemiFlow APIs unchanged, backend swapped |
 | **Version Adaptive** | Detect Claude Code version, enable features accordingly |
 
 ---
@@ -163,7 +163,7 @@ This creates **redundancy** with Claude Code's native TeammateTool, which provid
 ### 3.1 Plugin Structure
 
 ```
-v3/@claude-flow/teammate-plugin/
+v3/@gemiflow/teammate-plugin/
 ├── src/
 │   ├── index.ts                 # Plugin entry point
 │   ├── teammate-bridge.ts       # Core TeammateTool bridge
@@ -312,7 +312,7 @@ import type {
 } from './types.js';
 
 /**
- * Bridge between Claude Flow and Claude Code's TeammateTool
+ * Bridge between GemiFlow and Claude Code's TeammateTool
  *
  * Provides unified API for multi-agent orchestration using
  * native TeammateTool capabilities when available.
@@ -419,8 +419,8 @@ export class TeammateBridge extends EventEmitter {
   async discoverTeams(): Promise<string[]> {
     this.ensureAvailable();
 
-    // Teams are stored in ~/.claude/teams/
-    const teamsDir = `${process.env.HOME}/.claude/teams`;
+    // Teams are stored in ~/.gemiflow/teams/
+    const teamsDir = `${process.env.HOME}/.gemiflow/teams`;
 
     try {
       const { readdirSync } = await import('fs');
@@ -910,7 +910,7 @@ export class TeammateBridge extends EventEmitter {
   }
 
   private getMailboxPath(teamName: string, teammateId: string): string {
-    return `${process.env.HOME}/.claude/teams/${teamName}/mailbox/${teammateId}.json`;
+    return `${process.env.HOME}/.gemiflow/teams/${teamName}/mailbox/${teammateId}.json`;
   }
 
   private async writeToMailbox(
@@ -920,7 +920,7 @@ export class TeammateBridge extends EventEmitter {
   ): Promise<void> {
     const { mkdirSync, readFileSync, writeFileSync, existsSync } = await import('fs');
 
-    const mailboxDir = `${process.env.HOME}/.claude/teams/${teamName}/mailbox`;
+    const mailboxDir = `${process.env.HOME}/.gemiflow/teams/${teamName}/mailbox`;
     const mailboxPath = `${mailboxDir}/${teammateId}.json`;
 
     // Ensure directory exists
@@ -983,16 +983,16 @@ export async function createTeammateBridge(
 }
 ```
 
-### 3.4 Claude Flow Integration Layer
+### 3.4 GemiFlow Integration Layer
 
 ```typescript
-// claude-flow-integration.ts
+// gemiflow-integration.ts
 
 import { TeammateBridge, createTeammateBridge } from './teammate-bridge.js';
 import type { TeamConfig, TeammateSpawnConfig, TeamState } from './types.js';
 
 /**
- * Integration layer between Claude Flow's swarm system
+ * Integration layer between GemiFlow's swarm system
  * and Claude Code's native TeammateTool
  */
 export class ClaudeFlowTeammateIntegration {
@@ -1018,7 +1018,7 @@ export class ClaudeFlowTeammateIntegration {
   }
 
   /**
-   * Map Claude Flow topology to team configuration
+   * Map GemiFlow topology to team configuration
    */
   mapTopologyToTeamConfig(
     topology: 'hierarchical' | 'mesh' | 'adaptive',
@@ -1039,7 +1039,7 @@ export class ClaudeFlowTeammateIntegration {
   }
 
   /**
-   * Map Claude Flow agent type to teammate spawn config
+   * Map GemiFlow agent type to teammate spawn config
    */
   mapAgentToTeammateConfig(
     agentType: string,
@@ -1049,7 +1049,7 @@ export class ClaudeFlowTeammateIntegration {
       allowedTools?: string[];
     }
   ): TeammateSpawnConfig {
-    // Map common Claude Flow agent types to roles
+    // Map common GemiFlow agent types to roles
     const roleMap: Record<string, { role: string; defaultTools: string[] }> = {
       'coder': { role: 'coder', defaultTools: ['Edit', 'Write', 'Read', 'Bash'] },
       'tester': { role: 'tester', defaultTools: ['Read', 'Bash', 'Glob'] },
@@ -1147,9 +1147,9 @@ The plugin provides **16 MCP tools** for complete TeammateTool integration:
 | `teammate_cleanup` | Clean up resources | Utility |
 
 ```typescript
-// mcp-tools.ts - Complete implementation in v3/@claude-flow/teammate-plugin/src/mcp-tools.ts
+// mcp-tools.ts - Complete implementation in v3/@gemiflow/teammate-plugin/src/mcp-tools.ts
 
-import { TEAMMATE_MCP_TOOLS, handleMCPTool } from '@claude-flow/teammate-plugin';
+import { TEAMMATE_MCP_TOOLS, handleMCPTool } from '@gemiflow/teammate-plugin';
 
 // List all tools
 console.log(TEAMMATE_MCP_TOOLS.map(t => t.name));
@@ -1173,7 +1173,7 @@ const result = await handleMCPTool(bridge, 'teammate_spawn_team', {
 // In Claude Code conversation:
 
 // 1. Initialize team via MCP
-mcp__claude-flow__teammate_spawn_team({
+mcp__gemiflow__teammate_spawn_team({
   name: "feature-dev-team",
   topology: "hierarchical",
   maxTeammates: 6,
@@ -1268,7 +1268,7 @@ const teammateConfig: TeammateSpawnConfig = {
 - [x] Team spawn/cleanup
 - [x] Mailbox read/write
 
-### Phase 2: Claude Flow Integration ✅ COMPLETE
+### Phase 2: GemiFlow Integration ✅ COMPLETE
 - [x] Topology mapping (`flat`, `hierarchical`, `mesh`)
 - [x] Agent type mapping (8 role presets)
 - [x] MCP tool registration (16 tools)
@@ -1300,11 +1300,11 @@ const teammateConfig: TeammateSpawnConfig = {
 
 ## 7. Migration Path
 
-### From Claude Flow MCP-only to Hybrid
+### From GemiFlow MCP-only to Hybrid
 
 ```typescript
 // Before: Pure MCP coordination
-mcp__claude-flow__swarm_init({ topology: 'hierarchical' })
+mcp__gemiflow__swarm_init({ topology: 'hierarchical' })
 
 // After: Native when available, MCP fallback
 const integration = new ClaudeFlowTeammateIntegration();
@@ -1316,7 +1316,7 @@ if (mode === 'native') {
   // Pass agentInputs to Task tool
 } else {
   // Fallback to MCP
-  mcp__claude-flow__swarm_init({ topology: 'hierarchical' })
+  mcp__gemiflow__swarm_init({ topology: 'hierarchical' })
 }
 ```
 
@@ -1354,13 +1354,13 @@ if (mode === 'native') {
 ---
 
 **Status:** Implemented ✅
-**Package:** `@claude-flow/teammate-plugin` (v1.0.0-alpha.1)
-**Location:** `v3/@claude-flow/teammate-plugin/`
+**Package:** `@gemiflow/teammate-plugin` (v1.0.0-alpha.1)
+**Location:** `v3/@gemiflow/teammate-plugin/`
 
 ## Next Steps
 
 1. **Publish to npm** - Run `npm publish --tag alpha` from package directory
 2. **Test with Claude Code 2.1.19+** - Verify native TeammateTool integration
 3. **Monitor feedback** - Track issues and feature requests
-4. **Phase 6: Memory Bridge** - Integrate with Claude Flow's HNSW memory system
-5. **Phase 7: Consensus Integration** - Bridge TeammateTool approval with Claude Flow consensus protocols
+4. **Phase 6: Memory Bridge** - Integrate with GemiFlow's HNSW memory system
+5. **Phase 7: Consensus Integration** - Bridge TeammateTool approval with GemiFlow consensus protocols

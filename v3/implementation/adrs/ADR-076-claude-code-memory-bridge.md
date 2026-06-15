@@ -2,12 +2,12 @@
 
 **Status**: Implemented (Phase 1: helper hook) / Proposed (Phase 2: MCP tools)
 **Date**: 2026-04-07
-**Branch**: `feat/claude-code-memory-bridge`
+**Branch**: `feat/gemini-cli-memory-bridge`
 **Related**: ADR-048 (AutoMemoryBridge), ADR-075 (learning pipeline), ruDevolution
 
 ## Context
 
-Claude Code's auto-memory system stores project knowledge in `~/.claude/projects/*/memory/MEMORY.md` files with YAML frontmatter. Ruflo's AgentDB stores data in sql.js with ONNX embeddings (all-MiniLM-L6-v2, 384d) for semantic vector search. These two systems were disconnected.
+Claude Code's auto-memory system stores project knowledge in `~/.gemiflow/projects/*/memory/MEMORY.md` files with YAML frontmatter. GemiFlow's AgentDB stores data in sql.js with ONNX embeddings (all-MiniLM-L6-v2, 384d) for semantic vector search. These two systems were disconnected.
 
 [ruDevolution](https://github.com/ruvnet/rudevolution) research (`07-context-and-session-management.md`) documents Claude Code's memory internals: auto-memory paths, env vars (`autoMemoryEnabled`, `CLAUDE_CODE_DISABLE_AUTO_MEMORY`), session persistence, dream mode, and compaction system.
 
@@ -40,18 +40,18 @@ Move bridge logic into proper MCP tools for real-time access:
 
 CLI equivalents:
 ```bash
-ruflo memory import-claude          # Import current project memories
-ruflo memory import-claude --all    # Import all projects
-ruflo memory bridge-status          # Show bridge status
-ruflo memory bridge-sync            # Sync back to MEMORY.md
-ruflo memory search --unified       # Search both stores
+gemiflow memory import-claude          # Import current project memories
+gemiflow memory import-claude --all    # Import all projects
+gemiflow memory bridge-status          # Show bridge status
+gemiflow memory bridge-sync            # Sync back to MEMORY.md
+gemiflow memory search --unified       # Search both stores
 ```
 
 **Why MCP over helpers:**
 - Accessible during sessions (not just start/end)
 - Discoverable via ToolSearch
 - Testable via CLI
-- Works via `npx ruflo` without file path dependencies
+- Works via `npx gemiflow` without file path dependencies
 - Composable with other MCP tools (swarm, hooks, hive-mind)
 - Claude Code can call them directly through the MCP server
 
@@ -102,11 +102,11 @@ Not available mid-session              MCP Tool: memory_search_unified
 ## Files
 
 ### Phase 1 (Implemented)
-- `.claude/helpers/auto-memory-hook.mjs` — vectorization bridge + import-all + pattern flush
+- `.gemiflow/helpers/auto-memory-hook.mjs` — vectorization bridge + import-all + pattern flush
 
 ### Phase 2 (Proposed)
-- `v3/@claude-flow/cli/src/mcp-tools/memory-tools.ts` — add MCP tool handlers
-- `v3/@claude-flow/cli/src/commands/memory.ts` — add CLI subcommands
+- `v3/@gemiflow/cli/src/mcp-tools/memory-tools.ts` — add MCP tool handlers
+- `v3/@gemiflow/cli/src/commands/memory.ts` — add CLI subcommands
 
 ## References
 

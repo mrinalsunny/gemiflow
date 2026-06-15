@@ -1,12 +1,12 @@
-# ruflo-goals
+# gemiflow-goals
 
 Long-horizon goal planning, deep research orchestration, and adaptive replanning.
 
 ## Install
 
 ```
-/plugin marketplace add ruvnet/ruflo
-/plugin install ruflo-goals@ruflo
+/plugin marketplace add ruvnet/gemiflow
+/plugin install gemiflow-goals@gemiflow
 ```
 
 ## Features
@@ -15,7 +15,7 @@ Long-horizon goal planning, deep research orchestration, and adaptive replanning
 - **Deep research**: Multi-source research orchestration (web, memory, codebase, patterns)
 - **Horizon tracking**: Persistent objectives across sessions with milestone checkpoints
 - **Research synthesis**: Evidence-graded reports with contradiction resolution
-- **Dossier investigation**: Recursive parallel fan-out across all ruflo sources for seed-driven investigation (ADR-099)
+- **Dossier investigation**: Recursive parallel fan-out across all gemiflow sources for seed-driven investigation (ADR-099)
 
 ## Commands
 
@@ -47,16 +47,16 @@ Long-horizon goal planning, deep research orchestration, and adaptive replanning
 
 ## Compatibility
 
-- **CLI:** pinned to `@claude-flow/cli` v3.6 major+minor.
-- **Verification:** `bash plugins/ruflo-goals/scripts/smoke.sh` is the contract.
+- **CLI:** pinned to `@gemiflow/cli` v3.6 major+minor.
+- **Verification:** `bash plugins/gemiflow-goals/scripts/smoke.sh` is the contract.
 
 ## Namespace coordination
 
-This plugin uses six AgentDB namespaces. They predate the namespace convention from [ruflo-agentdb ADR-0001](../ruflo-agentdb/docs/adrs/0001-agentdb-optimization.md). [ADR-0001](./docs/adrs/0001-goals-contract.md) documents the legacy-vs-canonical mapping and the forward path:
+This plugin uses six AgentDB namespaces. They predate the namespace convention from [gemiflow-agentdb ADR-0001](../gemiflow-agentdb/docs/adrs/0001-agentdb-optimization.md). [ADR-0001](./docs/adrs/0001-goals-contract.md) documents the legacy-vs-canonical mapping and the forward path:
 
 | Legacy (current) | Canonical (forward) | Status |
 |------------------|---------------------|--------|
-| `adr` | `adr-patterns` (owned by ruflo-adr) | Defer to canonical owner — don't write here from this plugin |
+| `adr` | `adr-patterns` (owned by gemiflow-adr) | Defer to canonical owner — don't write here from this plugin |
 | `dossier` | `dossier` | Documented base-name exception (cf. `federation`) |
 | `research` | `goals-research` | Legacy reads + new writes pending data-portability ADR |
 | `research-sources` | `goals-research-sources` | Legacy reads + new writes pending |
@@ -80,10 +80,10 @@ Key invariants per ADR-099:
 ## Verification
 
 ```bash
-bash plugins/ruflo-goals/scripts/smoke.sh
+bash plugins/gemiflow-goals/scripts/smoke.sh
 # Expected: "10 passed, 0 failed"
 ```
 
 ## Architecture Decisions
 
-- [`ADR-0001` — ruflo-goals plugin contract (legacy-vs-canonical namespaces, GOAP/dossier workflow contract)](./docs/adrs/0001-goals-contract.md)
+- [`ADR-0001` — gemiflow-goals plugin contract (legacy-vs-canonical namespaces, GOAP/dossier workflow contract)](./docs/adrs/0001-goals-contract.md)

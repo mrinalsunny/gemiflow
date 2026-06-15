@@ -3,32 +3,32 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@claude-flow/security": ["./@claude-flow/security/src"],
-      "@claude-flow/memory": ["./@claude-flow/memory/src"],
-      "@claude-flow/integration": ["./@claude-flow/integration/src"],
-      "@claude-flow/swarm": ["./@claude-flow/swarm/src"],
-      "@claude-flow/performance": ["./@claude-flow/performance/src"],
-      "@claude-flow/cli": ["./@claude-flow/cli/src"],
-      "@claude-flow/neural": ["./@claude-flow/neural/src"],
-      "@claude-flow/testing": ["./@claude-flow/testing/src"],
-      "@claude-flow/deployment": ["./@claude-flow/deployment/src"],
-      "@claude-flow/shared": ["./@claude-flow/shared/src"],
-      "@claude-flow/hooks": ["./@claude-flow/hooks/src"]
+      "@gemiflow/security": ["./@gemiflow/security/src"],
+      "@gemiflow/memory": ["./@gemiflow/memory/src"],
+      "@gemiflow/integration": ["./@gemiflow/integration/src"],
+      "@gemiflow/swarm": ["./@gemiflow/swarm/src"],
+      "@gemiflow/performance": ["./@gemiflow/performance/src"],
+      "@gemiflow/cli": ["./@gemiflow/cli/src"],
+      "@gemiflow/neural": ["./@gemiflow/neural/src"],
+      "@gemiflow/testing": ["./@gemiflow/testing/src"],
+      "@gemiflow/deployment": ["./@gemiflow/deployment/src"],
+      "@gemiflow/shared": ["./@gemiflow/shared/src"],
+      "@gemiflow/hooks": ["./@gemiflow/hooks/src"]
     }
   },
   "references": [
-    { "path": "./@claude-flow/shared" },
-    { "path": "./@claude-flow/security" },
-    { "path": "./@claude-flow/memory" },
-    { "path": "./@claude-flow/integration" },
-    { "path": "./@claude-flow/swarm" },
-    { "path": "./@claude-flow/performance" },
-    { "path": "./@claude-flow/cli" },
-    { "path": "./@claude-flow/neural" },
-    { "path": "./@claude-flow/testing" },
-    { "path": "./@claude-flow/deployment" },
-    { "path": "./@claude-flow/hooks" }
+    { "path": "./@gemiflow/shared" },
+    { "path": "./@gemiflow/security" },
+    { "path": "./@gemiflow/memory" },
+    { "path": "./@gemiflow/integration" },
+    { "path": "./@gemiflow/swarm" },
+    { "path": "./@gemiflow/performance" },
+    { "path": "./@gemiflow/cli" },
+    { "path": "./@gemiflow/neural" },
+    { "path": "./@gemiflow/testing" },
+    { "path": "./@gemiflow/deployment" },
+    { "path": "./@gemiflow/hooks" }
   ],
   "include": [],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", "**/dist"]
 }

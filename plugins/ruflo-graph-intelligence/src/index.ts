@@ -1,10 +1,10 @@
 /**
- * ruflo-graph-intelligence — RuFlo Graph Intelligence Engine (ADR-123)
+ * gemiflow-graph-intelligence — GemiFlow Graph Intelligence Engine (ADR-123)
  *
  * Real-time relationship intelligence with complexity-aware execution.
  *
  * Three-layer architecture:
- *   Neural Layer        — adaptive learning (existing — @claude-flow/neural)
+ *   Neural Layer        — adaptive learning (existing — @gemiflow/neural)
  *   Graph Intelligence  — relationship reasoning (this plugin)
  *   Complexity Layer    — runtime governance (this plugin)
  *

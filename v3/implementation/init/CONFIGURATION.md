@@ -27,14 +27,14 @@ interface InitOptions {
 
 ```typescript
 interface InitComponents {
-  settings: boolean;    // .claude/settings.json
-  skills: boolean;      // .claude/skills/
-  commands: boolean;    // .claude/commands/
-  agents: boolean;      // .claude/agents/
-  helpers: boolean;     // .claude/helpers/
+  settings: boolean;    // .gemiflow/settings.json
+  skills: boolean;      // .gemiflow/skills/
+  commands: boolean;    // .gemiflow/commands/
+  agents: boolean;      // .gemiflow/agents/
+  helpers: boolean;     // .gemiflow/helpers/
   statusline: boolean;  // statusline scripts
   mcp: boolean;         // .mcp.json
-  runtime: boolean;     // .claude-flow/
+  runtime: boolean;     // .gemiflow/
 }
 ```
 
@@ -138,7 +138,7 @@ interface AgentsConfig {
 
 ```typescript
 interface MCPConfig {
-  claudeFlow: boolean;    // claude-flow MCP server
+  gemiflow: boolean;    // gemiflow MCP server
   agenticFlow: boolean;   // agentic-flow integration
   memory: boolean;        // Memory MCP tools
   neural: boolean;        // Neural MCP tools
@@ -150,11 +150,11 @@ interface MCPConfig {
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `CLAUDE_FLOW_MODE` | `v3` | Operation mode |
-| `CLAUDE_FLOW_HOOKS_ENABLED` | `true` | Enable hooks |
-| `CLAUDE_FLOW_TOPOLOGY` | `hierarchical-mesh` | Swarm topology |
-| `CLAUDE_FLOW_MAX_AGENTS` | `15` | Maximum agents |
-| `CLAUDE_FLOW_MEMORY_BACKEND` | `hybrid` | Memory backend |
+| `GEMIFLOW_MODE` | `v3` | Operation mode |
+| `GEMIFLOW_HOOKS_ENABLED` | `true` | Enable hooks |
+| `GEMIFLOW_TOPOLOGY` | `hierarchical-mesh` | Swarm topology |
+| `GEMIFLOW_MAX_AGENTS` | `15` | Maximum agents |
+| `GEMIFLOW_MEMORY_BACKEND` | `hybrid` | Memory backend |
 
 ## Runtime Configuration
 

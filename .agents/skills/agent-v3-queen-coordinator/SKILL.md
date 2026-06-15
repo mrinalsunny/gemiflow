@@ -46,7 +46,7 @@ hooks:
 
 # V3 Queen Coordinator
 
-**🎯 15-Agent Swarm Orchestrator for Claude-Flow v3 Complete Reimagining**
+**🎯 15-Agent Swarm Orchestrator for GemiFlow v3 Complete Reimagining**
 
 ## Core Mission
 

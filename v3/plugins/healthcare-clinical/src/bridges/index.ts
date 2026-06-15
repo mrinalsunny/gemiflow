@@ -1,7 +1,7 @@
 /**
  * Healthcare Clinical Plugin - Bridges Barrel Export
  *
- * @module @claude-flow/plugin-healthcare-clinical/bridges
+ * @module @gemiflow/plugin-healthcare-clinical/bridges
  */
 
 export {

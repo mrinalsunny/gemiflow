@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Regression guard for ruvnet/ruflo#2015.
+ * Regression guard for ruvnet/gemiflow#2015.
  *
  * `ruvector@0.2.25 rvf create` accepts only:
  *   -d, --dimension <n>    (required)
@@ -28,12 +28,12 @@ const REPO_ROOT = resolve(process.cwd());
 // the original anchor (`--kind browser-session`) is gone post-fix, so
 // we have to identify call sites by path, not by content.
 const PATHS_IN_SCOPE = [
-  'v3/@claude-flow/cli/src/mcp-tools/browser-session-tools.ts',
-  'v3/@claude-flow/cli/dist/src/mcp-tools/browser-session-tools.js',
-  'plugins/ruflo-browser/scripts/replay-spike.sh',
-  'plugins/ruflo-browser/agents/browser-agent.md',
-  'plugins/ruflo-browser/skills/browser-record/SKILL.md',
-  'plugins/ruflo-browser/docs/adrs/0001-browser-skills-architecture.md',
+  'v3/@gemiflow/cli/src/mcp-tools/browser-session-tools.ts',
+  'v3/@gemiflow/cli/dist/src/mcp-tools/browser-session-tools.js',
+  'plugins/gemiflow-browser/scripts/replay-spike.sh',
+  'plugins/gemiflow-browser/agents/browser-agent.md',
+  'plugins/gemiflow-browser/skills/browser-record/SKILL.md',
+  'plugins/gemiflow-browser/docs/adrs/0001-browser-skills-architecture.md',
 ];
 const failures = [];
 const checked = [];
@@ -106,7 +106,7 @@ if (failures.length > 0) {
   console.error(`\n${failures.length} call site(s) missing --dimension:`);
   for (const f of failures) console.error(`  ${f}`);
   console.error(`\nFix: append "--dimension 384" (or your project's vector dim)`);
-  console.error(`to the rvf create invocation. See ruvnet/ruflo#2015.`);
+  console.error(`to the rvf create invocation. See ruvnet/gemiflow#2015.`);
   process.exit(1);
 }
 

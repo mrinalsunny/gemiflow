@@ -321,7 +321,7 @@ export const HEADLESS_WORKERS: HeadlessWorkerConfig[] = [
       sandbox: 'strict',
       model: 'haiku',
       outputFormat: 'json',
-      contextPatterns: ['.claude-flow/metrics/*.json'],
+      contextPatterns: ['.gemiflow/metrics/*.json'],
     },
   },
 ];
@@ -611,16 +611,16 @@ export class WorkerDaemon extends EventEmitter {
 
 ```bash
 # Start daemon with headless workers
-npx claude-flow@v3alpha daemon start --headless
+npx gemiflow@v3alpha daemon start --headless
 
 # Start with specific sandbox mode for all workers
-npx claude-flow@v3alpha daemon start --sandbox strict
+npx gemiflow@v3alpha daemon start --sandbox strict
 
 # Trigger headless worker manually
-npx claude-flow@v3alpha daemon trigger -w audit --headless
+npx gemiflow@v3alpha daemon trigger -w audit --headless
 
 # Show worker modes
-npx claude-flow@v3alpha daemon status --show-modes
+npx gemiflow@v3alpha daemon status --show-modes
 ```
 
 ### Output Example
@@ -676,7 +676,7 @@ export class ContainerWorkerPool {
     try {
       // Mount workspace and execute
       const result = await container.exec([
-        'npx', 'claude-flow@v3alpha', 'daemon', 'trigger',
+        'npx', 'gemiflow@v3alpha', 'daemon', 'trigger',
         '-w', worker.type,
         '--headless',
         '--sandbox', worker.headless?.sandbox || 'strict',
@@ -706,7 +706,7 @@ version: '3.8'
 
 services:
   worker-pool:
-    image: ghcr.io/ruvnet/claude-flow-headless:latest
+    image: ghcr.io/ruvnet/gemiflow-headless:latest
     deploy:
       replicas: 3
       resources:
@@ -719,11 +719,11 @@ services:
       - CLAUDE_CODE_SANDBOX_MODE=strict
     volumes:
       - workspace:/workspace:ro
-      - claude-flow-state:/root/.claude-flow
+      - gemiflow-state:/root/.gemiflow
     command: daemon start --foreground --workers audit,optimize,testgaps
 
   queue-manager:
-    image: ghcr.io/ruvnet/claude-flow-headless:latest
+    image: ghcr.io/ruvnet/gemiflow-headless:latest
     environment:
       - REDIS_URL=redis://redis:6379
     depends_on:
@@ -737,7 +737,7 @@ services:
 
 volumes:
   workspace:
-  claude-flow-state:
+  gemiflow-state:
   redis-data:
 ```
 
@@ -820,7 +820,7 @@ volumes:
 
 ## References
 
-- ADR-019: @claude-flow/headless Runtime Package
+- ADR-019: @gemiflow/headless Runtime Package
 - ADR-014: Workers System
 - V3 Worker Daemon: `src/services/worker-daemon.ts`
 - Claude Code Environment Variables

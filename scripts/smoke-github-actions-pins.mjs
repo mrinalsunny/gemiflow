@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * Static scan guard for ruvnet/ruflo#2089 — ADR-127 Phase 1.
+ * Static scan guard for ruvnet/gemiflow#2089 — ADR-127 Phase 1.
  *
  * Scans every `uses:` line in:
- *   - .claude/agents/github/*.md
- *   - .claude/skills/github-[name]/SKILL.md
- *   - v3/@claude-flow/cli/.claude/commands/github/[name].md
+ *   - .gemiflow/agents/github/*.md
+ *   - .gemiflow/skills/github-[name]/SKILL.md
+ *   - v3/@gemiflow/cli/.gemiflow/commands/github/[name].md
  *
  * For each ref, asserts it is either:
  *   (a) SHA-pinned  — `owner/repo@<40-hex-chars>`
@@ -28,9 +28,9 @@ const REPO_ROOT = process.cwd();
 
 // Paths to scan (globs resolved manually to avoid deps).
 const SCAN_TREES = [
-  join(REPO_ROOT, '.claude', 'agents', 'github'),
-  join(REPO_ROOT, '.claude', 'skills'),
-  join(REPO_ROOT, 'v3', '@claude-flow', 'cli', '.claude', 'commands', 'github'),
+  join(REPO_ROOT, '.gemiflow', 'agents', 'github'),
+  join(REPO_ROOT, '.gemiflow', 'skills'),
+  join(REPO_ROOT, 'v3', '@gemiflow', 'cli', '.gemiflow', 'commands', 'github'),
 ];
 
 const ALLOWED_DEPS_PATH = join(REPO_ROOT, '.github', 'supply-chain', 'allowed-deps.json');
@@ -70,8 +70,8 @@ function collectFiles(dir, recursive = false) {
 }
 
 const filesToScan = [
-  ...collectFiles(SCAN_TREES[0]),          // .claude/agents/github/*.md
-  ...collectFiles(SCAN_TREES[1], true),    // .claude/skills/github-*/SKILL.md
+  ...collectFiles(SCAN_TREES[0]),          // .gemiflow/agents/github/*.md
+  ...collectFiles(SCAN_TREES[1], true),    // .gemiflow/skills/github-*/SKILL.md
   ...collectFiles(SCAN_TREES[2]),          // v3/.../commands/github/*.md
 ];
 

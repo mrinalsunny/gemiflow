@@ -1,14 +1,14 @@
-# ADR-099: Dossier-Investigator — Recursive Parallel Multi-Source Research for `ruflo-goals`
+# ADR-099: Dossier-Investigator — Recursive Parallel Multi-Source Research for `gemiflow-goals`
 
 **Status**: Accepted — Implemented
 **Date**: 2026-05-03 · **Updated**: 2026-05-09
-**Version**: shipped in `plugins/ruflo-goals` (0.1.0 → 0.2.0)
+**Version**: shipped in `plugins/gemiflow-goals` (0.1.0 → 0.2.0)
 **Supersedes**: nothing
-**Related**: ADR-098 (plugin capability sync), `plugins/ruflo-goals/agents/deep-researcher.md`, `plugins/ruflo-knowledge-graph`, `plugins/ruflo-rag-memory`
+**Related**: ADR-098 (plugin capability sync), `plugins/gemiflow-goals/agents/deep-researcher.md`, `plugins/gemiflow-knowledge-graph`, `plugins/gemiflow-rag-memory`
 
 ## Context
 
-The `ruflo-goals` plugin currently ships three agents:
+The `gemiflow-goals` plugin currently ships three agents:
 
 | Agent | Pattern | Output |
 |---|---|---|
@@ -24,24 +24,24 @@ Inspired by [maigret](https://github.com/soxoj/maigret) (3,000+ source parallel 
 
 `deep-researcher` does evidence-graded synthesis but expects a human-curated source list and runs essentially linearly. It has no recursive seeding loop and no parallel fan-out primitive.
 
-Ruflo already ships every primitive needed to assemble a maigret-style investigator without adding new external dependencies:
+GemiFlow already ships every primitive needed to assemble a maigret-style investigator without adding new external dependencies:
 
 | Capability | Existing tool |
 |---|---|
-| Hybrid sparse+dense semantic search | `mcp__claude-flow__memory_search_unified`, `ruflo-rag-memory:memory-search` |
-| Vector search (HNSW, RaBitQ) | `mcp__claude-flow__embeddings_search`, `embeddings_rabitq_search` |
-| Pattern recall | `mcp__claude-flow__agentdb_pattern-search`, `agentdb_hierarchical-recall` |
-| Knowledge-graph traversal + extraction | `ruflo-knowledge-graph:kg-traverse`, `kg-extract` |
+| Hybrid sparse+dense semantic search | `mcp__gemiflow__memory_search_unified`, `gemiflow-rag-memory:memory-search` |
+| Vector search (HNSW, RaBitQ) | `mcp__gemiflow__embeddings_search`, `embeddings_rabitq_search` |
+| Pattern recall | `mcp__gemiflow__agentdb_pattern-search`, `agentdb_hierarchical-recall` |
+| Knowledge-graph traversal + extraction | `gemiflow-knowledge-graph:kg-traverse`, `kg-extract` |
 | Web search & fetch | `WebSearch`, `WebFetch` |
 | Codebase queries | `Grep`, `Glob`, `Read` |
-| ADR index lookup | `ruflo-adr:adr-index` |
-| Git intelligence | `ruflo-jujutsu:diff-analyze` |
-| Parallel agent fan-out | `ruflo-swarm:swarm-init` (mesh topology) |
-| Trajectory recording | `mcp__claude-flow__hooks_intelligence_trajectory-*` |
+| ADR index lookup | `gemiflow-adr:adr-index` |
+| Git intelligence | `gemiflow-jujutsu:diff-analyze` |
+| Parallel agent fan-out | `gemiflow-swarm:swarm-init` (mesh topology) |
+| Trajectory recording | `mcp__gemiflow__hooks_intelligence_trajectory-*` |
 
 ## Decision
 
-Add a new agent `dossier-investigator` and a companion skill `dossier-collect` to `plugins/ruflo-goals`.
+Add a new agent `dossier-investigator` and a companion skill `dossier-collect` to `plugins/gemiflow-goals`.
 
 ### Agent: `dossier-investigator`
 
@@ -57,7 +57,7 @@ User-facing slash skill that drives the agent. Steps:
 1. **Seed validation** — normalize seed (entity type detection: file path / symbol / username / URL / ADR-id / concept).
 2. **Source plan** — pick which of the available tools apply to the seed type; user can override via `--sources`.
 3. **Round 0 fan-out** — issue all source queries in parallel via a single batched message (one Task call per source where useful, otherwise direct MCP calls).
-4. **Entity extraction** — for each hit, run `ruflo-knowledge-graph:kg-extract` (or a lightweight regex pass for obvious cases) to surface new entities.
+4. **Entity extraction** — for each hit, run `gemiflow-knowledge-graph:kg-extract` (or a lightweight regex pass for obvious cases) to surface new entities.
 5. **Recursive expansion** — for each new entity not already in the dossier, schedule round *k+1* until `maxDepth` or `budget` is hit. Apply de-duplication via embedding similarity (threshold 0.92).
 6. **Aggregation** — collapse hits into a graph: nodes = entities, edges = "discovered-via" with source provenance.
 7. **Reporting** — render markdown + JSON; optionally export to KG via `kg-extract` ingest.
@@ -69,7 +69,7 @@ User-facing slash skill that drives the agent. Steps:
 |---|---|
 | **Extend `deep-researcher`** | Would couple two structurally different loops (linear-graded vs parallel-recursive) into one prompt; would push the prompt past the 80-line guideline flagged in ADR-098. |
 | **Bundle Python `maigret` as an MCP wrapper** | Adds a Python runtime dependency, network egress to 3,000+ sites, and a privacy/abuse posture that's out of scope for a developer-research tool. We want maigret's *pattern*, not its target list. |
-| **Build into `ruflo-knowledge-graph`** | KG plugin is about graph operations on already-extracted data; investigator is about *acquisition*. Keeping it in `ruflo-goals` puts it next to its peers (`deep-researcher`, `goal-planner`). |
+| **Build into `gemiflow-knowledge-graph`** | KG plugin is about graph operations on already-extracted data; investigator is about *acquisition*. Keeping it in `gemiflow-goals` puts it next to its peers (`deep-researcher`, `goal-planner`). |
 
 ### Tradeoff: ~40% overlap with `deep-researcher`
 
@@ -86,7 +86,7 @@ If the overlap proves excessive after first usage, we can refactor a shared `mul
 ### Positive
 
 - Fills a real gap (recursive parallel investigation) without external deps.
-- Reuses the full ruflo tool surface — no new MCP servers.
+- Reuses the full gemiflow tool surface — no new MCP servers.
 - Unblocks a class of tasks (`investigate this symbol / module / dependency / ADR`) that today require manual fan-out.
 - Trajectory recording feeds the SONA pattern store, so future investigations get faster routing.
 
@@ -98,19 +98,19 @@ If the overlap proves excessive after first usage, we can refactor a shared `mul
 
 ### Neutral
 
-- No CLI surface change (`/ruflo-goals:dossier-collect` is the only new entry point).
+- No CLI surface change (`/gemiflow-goals:dossier-collect` is the only new entry point).
 - No persistence schema change — uses existing `dossier` namespace under AgentDB memory.
 
 ## Implementation plan
 
 | Step | File | Owner |
 |---|---|---|
-| 1. Agent prompt | `plugins/ruflo-goals/agents/dossier-investigator.md` | coder |
-| 2. Skill markdown | `plugins/ruflo-goals/skills/dossier-collect/SKILL.md` | coder |
-| 3. Slash command | `plugins/ruflo-goals/commands/goals.md` (add `dossier` subcommand) | coder |
-| 4. Plugin manifest bump | `plugins/ruflo-goals/.claude-plugin/plugin.json` (0.1.0 → 0.2.0) | coder |
-| 5. README update | `plugins/ruflo-goals/README.md` | coder |
-| 6. Smoke test | `tests/plugins/ruflo-goals/dossier.spec.ts` | tester |
+| 1. Agent prompt | `plugins/gemiflow-goals/agents/dossier-investigator.md` | coder |
+| 2. Skill markdown | `plugins/gemiflow-goals/skills/dossier-collect/SKILL.md` | coder |
+| 3. Slash command | `plugins/gemiflow-goals/commands/goals.md` (add `dossier` subcommand) | coder |
+| 4. Plugin manifest bump | `plugins/gemiflow-goals/.gemiflow-plugin/plugin.json` (0.1.0 → 0.2.0) | coder |
+| 5. README update | `plugins/gemiflow-goals/README.md` | coder |
+| 6. Smoke test | `tests/plugins/gemiflow-goals/dossier.spec.ts` | tester |
 | 7. Ship behind a flag | `dossierInvestigator.enabled` defaulting `true` for first release | coder |
 
 Acceptance criteria:
@@ -127,15 +127,15 @@ All implementation plan steps are complete on `main`.
 
 | Step | File | Status | Commit(s) |
 |---|---|---|---|
-| 1. Agent prompt | `plugins/ruflo-goals/agents/dossier-investigator.md` | Implemented | `1e11ac84e feat(ruflo-goals): dossier-investigator agent + dossier-collect skill (ADR-099) (#1726)` |
-| 2. Skill markdown | `plugins/ruflo-goals/skills/dossier-collect/SKILL.md` | Implemented | same |
-| 3. Slash command | `plugins/ruflo-goals/commands/goals.md` (dossier subcommand) | Implemented | same |
-| 4. Plugin manifest bump | `plugins/ruflo-goals/.claude-plugin/plugin.json` (0.1.0 → 0.2.0) | Implemented | same |
-| 5. README update | `plugins/ruflo-goals/README.md` | Implemented | same |
-| 6. Smoke test | `tests/plugins/ruflo-goals/dossier.spec.ts` | Implemented | same |
+| 1. Agent prompt | `plugins/gemiflow-goals/agents/dossier-investigator.md` | Implemented | `1e11ac84e feat(gemiflow-goals): dossier-investigator agent + dossier-collect skill (ADR-099) (#1726)` |
+| 2. Skill markdown | `plugins/gemiflow-goals/skills/dossier-collect/SKILL.md` | Implemented | same |
+| 3. Slash command | `plugins/gemiflow-goals/commands/goals.md` (dossier subcommand) | Implemented | same |
+| 4. Plugin manifest bump | `plugins/gemiflow-goals/.gemiflow-plugin/plugin.json` (0.1.0 → 0.2.0) | Implemented | same |
+| 5. README update | `plugins/gemiflow-goals/README.md` | Implemented | same |
+| 6. Smoke test | `tests/plugins/gemiflow-goals/dossier.spec.ts` | Implemented | same |
 | 7. Feature flag | `dossierInvestigator.enabled` (default `true`) | Implemented | same |
-| Plugin contract adoption | `plugins/ruflo-goals/` — legacy-vs-canonical namespace mapping + ADR-099 anchor | Implemented | `714cd534c feat(ruflo-goals): adopt plugin contract — legacy-vs-canonical namespace mapping + ADR-099 anchor (ADR-0001)` |
-| Dossier examples | `docs/examples/` — 3 examples (ruvnet, ADR-088, ruflo-goals) | Implemented | `ba0479612 docs(examples): add 3 dossier examples` |
+| Plugin contract adoption | `plugins/gemiflow-goals/` — legacy-vs-canonical namespace mapping + ADR-099 anchor | Implemented | `714cd534c feat(gemiflow-goals): adopt plugin contract — legacy-vs-canonical namespace mapping + ADR-099 anchor (ADR-0001)` |
+| Dossier examples | `docs/examples/` — 3 examples (ruvnet, ADR-088, gemiflow-goals) | Implemented | `ba0479612 docs(examples): add 3 dossier examples` |
 
 ### Open questions resolved during implementation
 
@@ -153,6 +153,6 @@ All implementation plan steps are complete on `main`.
 ## References
 
 - maigret — https://github.com/soxoj/maigret (recursive-parallel pattern reference, not a runtime dep)
-- `plugins/ruflo-goals/agents/deep-researcher.md` (sibling agent)
+- `plugins/gemiflow-goals/agents/deep-researcher.md` (sibling agent)
 - ADR-098 (plugin token-cost guidelines)
 - ADR-026 (3-tier model routing — sonnet justified for orchestration)

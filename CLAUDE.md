@@ -1,8 +1,8 @@
-# Claude Code Configuration - Ruflo v3.5
+# Claude Code Configuration - GemiFlow v3.5
 
-> **Ruflo v3.6** (2026-04-29) — Stable release with agent federation and comms-first coordination.
+> **GemiFlow v3.6** (2026-04-29) — Stable release with agent federation and comms-first coordination.
 > 6,000+ commits, 314 MCP tools, 16 agent roles + custom types, 19 AgentDB controllers, 21 native plugins.
-> Packages: `@claude-flow/cli@3.6.10`, `claude-flow@3.6.10`, `ruflo@3.6.10`
+> Packages: `@gemiflow/cli@3.6.10`, `gemiflow@3.6.10`, `gemiflow@3.6.10`
 
 ## Behavioral Rules (Always Enforced)
 
@@ -38,12 +38,12 @@
 
 | Package | Path | Purpose |
 |---------|------|---------|
-| `@claude-flow/cli` | `v3/@claude-flow/cli/` | CLI entry point (26 commands) |
-| `@claude-flow/codex` | `v3/@claude-flow/codex/` | Dual-mode Claude + Codex collaboration |
-| `@claude-flow/guidance` | `v3/@claude-flow/guidance/` | Governance control plane |
-| `@claude-flow/hooks` | `v3/@claude-flow/hooks/` | 17 hooks + 12 workers |
-| `@claude-flow/memory` | `v3/@claude-flow/memory/` | AgentDB + HNSW search |
-| `@claude-flow/security` | `v3/@claude-flow/security/` | Input validation, CVE remediation |
+| `@gemiflow/cli` | `v3/@gemiflow/cli/` | CLI entry point (26 commands) |
+| `@gemiflow/codex` | `v3/@gemiflow/codex/` | Dual-mode Claude + Codex collaboration |
+| `@gemiflow/guidance` | `v3/@gemiflow/guidance/` | Governance control plane |
+| `@gemiflow/hooks` | `v3/@gemiflow/hooks/` | 17 hooks + 12 workers |
+| `@gemiflow/memory` | `v3/@gemiflow/memory/` | AgentDB + HNSW search |
+| `@gemiflow/security` | `v3/@gemiflow/security/` | Input validation, CVE remediation |
 
 ## Concurrency: 1 MESSAGE = ALL RELATED OPERATIONS
 
@@ -136,11 +136,11 @@ Task("Reviewer", "Review code quality and security. Store findings in 'collabora
 
 // 🟢 Codex workers (implementation, optimization)
 // Spawn via CLI for Codex platform
-Bash("npx claude-flow-codex dual run --worker 'codex:coder:Implement the solution based on architect design' --namespace collaboration")
-Bash("npx claude-flow-codex dual run --worker 'codex:optimizer:Optimize performance based on implementation' --namespace collaboration")
+Bash("npx gemiflow-codex dual run --worker 'codex:coder:Implement the solution based on architect design' --namespace collaboration")
+Bash("npx gemiflow-codex dual run --worker 'codex:optimizer:Optimize performance based on implementation' --namespace collaboration")
 
 // STEP 3: Coordinate via shared memory
-Bash("npx claude-flow@v3alpha memory store --namespace collaboration --key 'task-context' --value '[task description]'")
+Bash("npx gemiflow@v3alpha memory store --namespace collaboration --key 'task-context' --value '[task description]'")
 ```
 
 ### Collaboration Templates (Pre-Built Pipelines)
@@ -156,12 +156,12 @@ Bash("npx claude-flow@v3alpha memory store --namespace collaboration --key 'task
 
 ```bash
 # Run a collaboration template
-npx claude-flow-codex dual run feature --task "Add user authentication with OAuth"
-npx claude-flow-codex dual run security --target "./src"
-npx claude-flow-codex dual run refactor --target "./src/legacy"
+npx gemiflow-codex dual run feature --task "Add user authentication with OAuth"
+npx gemiflow-codex dual run security --target "./src"
+npx gemiflow-codex dual run refactor --target "./src/legacy"
 
 # Custom multi-platform swarm
-npx claude-flow-codex dual run \
+npx gemiflow-codex dual run \
   --worker "claude:architect:Design the API structure" \
   --worker "codex:coder:Implement REST endpoints" \
   --worker "claude:tester:Write integration tests" \
@@ -169,10 +169,10 @@ npx claude-flow-codex dual run \
   --namespace "api-feature"
 
 # Check collaboration status
-npx claude-flow-codex dual status
+npx gemiflow-codex dual status
 
 # List available templates
-npx claude-flow-codex dual templates
+npx gemiflow-codex dual templates
 ```
 
 ### Shared Memory Coordination
@@ -181,13 +181,13 @@ All workers share state via the `collaboration` namespace:
 
 ```bash
 # Store context for cross-platform sharing
-npx claude-flow@v3alpha memory store --namespace collaboration --key "design-decisions" --value "..."
+npx gemiflow@v3alpha memory store --namespace collaboration --key "design-decisions" --value "..."
 
 # Search for patterns across all workers
-npx claude-flow@v3alpha memory search --namespace collaboration --query "authentication patterns"
+npx gemiflow@v3alpha memory search --namespace collaboration --query "authentication patterns"
 
 # Retrieve specific findings
-npx claude-flow@v3alpha memory retrieve --namespace collaboration --key "security-findings"
+npx gemiflow@v3alpha memory retrieve --namespace collaboration --key "security-findings"
 ```
 
 ### Cross-Platform Learning
@@ -196,13 +196,13 @@ Both platforms learn from each other's outputs:
 
 ```bash
 # After successful collaboration, train patterns
-npx claude-flow@v3alpha hooks post-task --task-id "dual-[id]" --success true --train-neural true
+npx gemiflow@v3alpha hooks post-task --task-id "dual-[id]" --success true --train-neural true
 
 # Store successful collaboration patterns
-npx claude-flow@v3alpha memory store --namespace patterns --key "dual-mode-[pattern]" --value "[what worked]"
+npx gemiflow@v3alpha memory store --namespace patterns --key "dual-mode-[pattern]" --value "[what worked]"
 
 # Transfer learnings to both platforms
-npx claude-flow@v3alpha hooks transfer store --pattern "dual-collab-success"
+npx gemiflow@v3alpha hooks transfer store --pattern "dual-collab-success"
 ```
 
 ### Worker Dependency Levels
@@ -230,7 +230,7 @@ Level 3: [🟢 Optimizer]           # Depends on Reviewer approval
 ### Programmatic API
 
 ```typescript
-import { DualModeOrchestrator, CollaborationTemplates } from '@claude-flow/codex';
+import { DualModeOrchestrator, CollaborationTemplates } from '@gemiflow/codex';
 
 const orchestrator = new DualModeOrchestrator({
   namespace: 'my-feature',
@@ -336,7 +336,7 @@ TodoWrite({ todos: [
 
 ## Project Configuration
 
-This project is configured with Claude Flow V3 (Anti-Drift Defaults):
+This project is configured with GemiFlow V3 (Anti-Drift Defaults):
 - **Topology**: hierarchical (prevents drift via central coordination)
 - **Max Agents**: 8 (smaller team = less drift)
 - **Strategy**: specialized (clear roles, no overlap)
@@ -387,28 +387,28 @@ This project is configured with Claude Flow V3 (Anti-Drift Defaults):
 
 ```bash
 # Initialize project
-npx claude-flow@v3alpha init --wizard
+npx gemiflow@v3alpha init --wizard
 
 # Start daemon with background workers
-npx claude-flow@v3alpha daemon start
+npx gemiflow@v3alpha daemon start
 
 # Spawn an agent
-npx claude-flow@v3alpha agent spawn -t coder --name my-coder
+npx gemiflow@v3alpha agent spawn -t coder --name my-coder
 
 # Initialize swarm
-npx claude-flow@v3alpha swarm init --v3-mode
+npx gemiflow@v3alpha swarm init --v3-mode
 
 # Search memory (HNSW-indexed)
-npx claude-flow@v3alpha memory search -q "authentication patterns"
+npx gemiflow@v3alpha memory search -q "authentication patterns"
 
 # System diagnostics
-npx claude-flow@v3alpha doctor --fix
+npx gemiflow@v3alpha doctor --fix
 
 # Security scan
-npx claude-flow@v3alpha security scan --depth full
+npx gemiflow@v3alpha security scan --depth full
 
 # Performance benchmark
-npx claude-flow@v3alpha performance benchmark --suite all
+npx gemiflow@v3alpha performance benchmark --suite all
 ```
 
 ## Headless Background Instances (claude -p)
@@ -492,7 +492,7 @@ claude -p --resume "abc-123" --fork-session "Try approach B: CQRS pattern"
 ### V3 Specialized Agents
 `security-architect`, `security-auditor`, `memory-specialist`, `performance-engineer`
 
-### @claude-flow/security Module
+### @gemiflow/security Module
 CVE remediation, input validation, path security:
 - `InputValidator` — Zod-based validation at boundaries
 - `PathValidator` — Path traversal prevention
@@ -503,7 +503,7 @@ CVE remediation, input validation, path security:
 ### Token Optimizer (Agent Booster)
 Integrates agentic-flow optimizations for 30-50% token reduction:
 ```typescript
-import { getTokenOptimizer } from '@claude-flow/integration';
+import { getTokenOptimizer } from '@gemiflow/integration';
 const optimizer = await getTokenOptimizer();
 
 // Compact context (32% fewer tokens)
@@ -689,8 +689,8 @@ Task({
 | `TaskCompleted` | Task marked complete | Train patterns, notify lead via SendMessage |
 
 ```bash
-npx claude-flow@v3alpha hooks teammate-idle --auto-assign true
-npx claude-flow@v3alpha hooks task-completed -i task-123 --train-patterns true
+npx gemiflow@v3alpha hooks teammate-idle --auto-assign true
+npx gemiflow@v3alpha hooks task-completed -i task-123 --train-patterns true
 ```
 
 ### Rules
@@ -736,27 +736,27 @@ npx claude-flow@v3alpha hooks task-completed -i task-123 --train-patterns true
 
 ```bash
 # Core hooks
-npx claude-flow@v3alpha hooks pre-task --description "[task]"
-npx claude-flow@v3alpha hooks post-task --task-id "[id]" --success true
-npx claude-flow@v3alpha hooks post-edit --file "[file]" --train-patterns
+npx gemiflow@v3alpha hooks pre-task --description "[task]"
+npx gemiflow@v3alpha hooks post-task --task-id "[id]" --success true
+npx gemiflow@v3alpha hooks post-edit --file "[file]" --train-patterns
 
 # Session management
-npx claude-flow@v3alpha hooks session-start --session-id "[id]"
-npx claude-flow@v3alpha hooks session-end --export-metrics true
-npx claude-flow@v3alpha hooks session-restore --session-id "[id]"
+npx gemiflow@v3alpha hooks session-start --session-id "[id]"
+npx gemiflow@v3alpha hooks session-end --export-metrics true
+npx gemiflow@v3alpha hooks session-restore --session-id "[id]"
 
 # Intelligence routing
-npx claude-flow@v3alpha hooks route --task "[task]"
-npx claude-flow@v3alpha hooks explain --topic "[topic]"
+npx gemiflow@v3alpha hooks route --task "[task]"
+npx gemiflow@v3alpha hooks explain --topic "[topic]"
 
 # Neural learning
-npx claude-flow@v3alpha hooks pretrain --model-type moe --epochs 10
-npx claude-flow@v3alpha hooks build-agents --agent-types coder,tester
+npx gemiflow@v3alpha hooks pretrain --model-type moe --epochs 10
+npx gemiflow@v3alpha hooks build-agents --agent-types coder,tester
 
 # Background workers
-npx claude-flow@v3alpha hooks worker list
-npx claude-flow@v3alpha hooks worker dispatch --trigger audit
-npx claude-flow@v3alpha hooks worker status
+npx gemiflow@v3alpha hooks worker list
+npx gemiflow@v3alpha hooks worker dispatch --trigger audit
+npx gemiflow@v3alpha hooks worker status
 ```
 
 ## Intelligence System (RuVector)
@@ -818,8 +818,8 @@ Features:
 
 ```bash
 # Configuration
-CLAUDE_FLOW_CONFIG=./claude-flow.config.json
-CLAUDE_FLOW_LOG_LEVEL=info
+GEMIFLOW_CONFIG=./gemiflow.config.json
+GEMIFLOW_LOG_LEVEL=info
 
 # Provider API Keys
 ANTHROPIC_API_KEY=sk-ant-...
@@ -827,18 +827,18 @@ OPENAI_API_KEY=sk-...
 GOOGLE_API_KEY=...
 
 # MCP Server
-CLAUDE_FLOW_MCP_PORT=3000
-CLAUDE_FLOW_MCP_HOST=localhost
-CLAUDE_FLOW_MCP_TRANSPORT=stdio
+GEMIFLOW_MCP_PORT=3000
+GEMIFLOW_MCP_HOST=localhost
+GEMIFLOW_MCP_TRANSPORT=stdio
 
 # Memory
-CLAUDE_FLOW_MEMORY_BACKEND=hybrid
-CLAUDE_FLOW_MEMORY_PATH=./data/memory
+GEMIFLOW_MEMORY_BACKEND=hybrid
+GEMIFLOW_MEMORY_PATH=./data/memory
 ```
 
 ## Doctor Health Checks
 
-Run `npx claude-flow@v3alpha doctor` to check:
+Run `npx gemiflow@v3alpha doctor` to check:
 - Node.js version (20+)
 - npm version (9+)
 - Git installation
@@ -854,15 +854,15 @@ Run `npx claude-flow@v3alpha doctor` to check:
 
 ```bash
 # Add MCP servers
-claude mcp add claude-flow npx claude-flow@v3alpha mcp start
+claude mcp add gemiflow npx gemiflow@v3alpha mcp start
 claude mcp add ruv-swarm npx ruv-swarm mcp start  # Optional
 claude mcp add flow-nexus npx flow-nexus@latest mcp start  # Optional
 
 # Start daemon
-npx claude-flow@v3alpha daemon start
+npx gemiflow@v3alpha daemon start
 
 # Run doctor
-npx claude-flow@v3alpha doctor --fix
+npx gemiflow@v3alpha doctor --fix
 ```
 
 ## Claude Code vs MCP Tools
@@ -887,7 +887,7 @@ npx claude-flow@v3alpha doctor --fix
 
 ## Claude Code ↔ AgentDB Memory Bridge
 
-Claude Code's auto-memory (`~/.claude/projects/*/memory/*.md`) is bridged to AgentDB with ONNX vector embeddings for semantic search.
+Claude Code's auto-memory (`~/.gemiflow/projects/*/memory/*.md`) is bridged to AgentDB with ONNX vector embeddings for semantic search.
 
 ### MCP Tools
 
@@ -906,7 +906,7 @@ The `SessionStart` hook automatically imports current project's memories into Ag
 memory_import_claude({ allProjects: true })
 
 # Via helper hook (from terminal)
-node .claude/helpers/auto-memory-hook.mjs import-all
+node .gemiflow/helpers/auto-memory-hook.mjs import-all
 ```
 
 ### Unified Search
@@ -917,7 +917,7 @@ Search across both Claude Code memories and AgentDB entries:
 # Via MCP tool
 memory_search_unified({ query: "authentication security", limit: 5 })
 
-# Results include source attribution: claude-code, auto-memory, or agentdb
+# Results include source attribution: gemini-cli, auto-memory, or agentdb
 ```
 
 ### Intelligence Pipeline
@@ -943,41 +943,41 @@ memory_search_unified({ query: "authentication security", limit: 5 })
 
 ### Publishing Rules
 
-- MUST publish ALL THREE packages when publishing CLI changes: `@claude-flow/cli`, `claude-flow`, AND `ruflo`
+- MUST publish ALL THREE packages when publishing CLI changes: `@gemiflow/cli`, `gemiflow`, AND `gemiflow`
 - MUST update ALL dist-tags for ALL THREE packages after publishing (latest + alpha + v3alpha all point to the same version)
-- Publish order: `@claude-flow/cli` first, then `claude-flow` (umbrella), then `ruflo` (alias umbrella)
+- Publish order: `@gemiflow/cli` first, then `gemiflow` (umbrella), then `gemiflow` (alias umbrella)
 - MUST run verification for ALL THREE before telling user publishing is complete
 
 ```bash
 # Replace 3.7.1 below with your chosen stable version (patch/minor/major per the rules above)
 
-# STEP 1: Build and publish @claude-flow/cli
-cd v3/@claude-flow/cli
+# STEP 1: Build and publish @gemiflow/cli
+cd v3/@gemiflow/cli
 npm version 3.7.1 --no-git-tag-version
 npm run build
 npm publish                              # default tag is `latest` — no --tag flag
-npm dist-tag add @claude-flow/cli@3.7.1 alpha     # historical compat
-npm dist-tag add @claude-flow/cli@3.7.1 v3alpha   # historical compat
+npm dist-tag add @gemiflow/cli@3.7.1 alpha     # historical compat
+npm dist-tag add @gemiflow/cli@3.7.1 v3alpha   # historical compat
 
-# STEP 2: Publish claude-flow umbrella
-cd /Users/cohen/Projects/ruflo                    # or your repo root
+# STEP 2: Publish gemiflow umbrella
+cd /Users/cohen/Projects/gemiflow                    # or your repo root
 npm version 3.7.1 --no-git-tag-version
 npm publish
-npm dist-tag add claude-flow@3.7.1 alpha
-npm dist-tag add claude-flow@3.7.1 v3alpha
+npm dist-tag add gemiflow@3.7.1 alpha
+npm dist-tag add gemiflow@3.7.1 v3alpha
 
-# STEP 3: Publish ruflo wrapper (CRITICAL — DON'T FORGET — this is what users run)
-cd ruflo
+# STEP 3: Publish gemiflow wrapper (CRITICAL — DON'T FORGET — this is what users run)
+cd gemiflow
 npm version 3.7.1 --no-git-tag-version
 npm publish
-npm dist-tag add ruflo@3.7.1 alpha
-npm dist-tag add ruflo@3.7.1 v3alpha
+npm dist-tag add gemiflow@3.7.1 alpha
+npm dist-tag add gemiflow@3.7.1 v3alpha
 ```
 
 **Verification (run before telling user publishing is complete):**
 
 ```bash
-for pkg in @claude-flow/cli claude-flow ruflo; do
+for pkg in @gemiflow/cli gemiflow gemiflow; do
   echo "$pkg: $(npm view $pkg@latest version)"
   npm view $pkg dist-tags --json
 done
@@ -988,20 +988,20 @@ done
 
 | Package | Tag | Command Users Run |
 |---------|-----|-------------------|
-| `@claude-flow/cli` | `latest` | `npx @claude-flow/cli@latest` |
-| `@claude-flow/cli` | `alpha` | `npx @claude-flow/cli@alpha` (legacy compat) |
-| `@claude-flow/cli` | `v3alpha` | `npx @claude-flow/cli@v3alpha` (legacy compat) |
-| `claude-flow` | `latest` | `npx claude-flow@latest` |
-| `claude-flow` | `alpha` | `npx claude-flow@alpha` (legacy compat) |
-| `claude-flow` | `v3alpha` | `npx claude-flow@v3alpha` (legacy compat) |
-| `ruflo` | `latest` | `npx ruflo@latest` |
-| `ruflo` | `alpha` | `npx ruflo@alpha` (legacy compat) |
-| `ruflo` | `v3alpha` | `npx ruflo@v3alpha` (legacy compat) |
+| `@gemiflow/cli` | `latest` | `npx @gemiflow/cli@latest` |
+| `@gemiflow/cli` | `alpha` | `npx @gemiflow/cli@alpha` (legacy compat) |
+| `@gemiflow/cli` | `v3alpha` | `npx @gemiflow/cli@v3alpha` (legacy compat) |
+| `gemiflow` | `latest` | `npx gemiflow@latest` |
+| `gemiflow` | `alpha` | `npx gemiflow@alpha` (legacy compat) |
+| `gemiflow` | `v3alpha` | `npx gemiflow@v3alpha` (legacy compat) |
+| `gemiflow` | `latest` | `npx gemiflow@latest` |
+| `gemiflow` | `alpha` | `npx gemiflow@alpha` (legacy compat) |
+| `gemiflow` | `v3alpha` | `npx gemiflow@v3alpha` (legacy compat) |
 
-- Never forget the `ruflo` package — it's the thin wrapper users actually run via `npx ruflo`
+- Never forget the `gemiflow` package — it's the thin wrapper users actually run via `npx gemiflow`
 - The legacy `alpha` and `v3alpha` tags MUST stay pointed at the latest stable so old install commands keep working
-- `ruflo` source is in `/ruflo/` — it depends on `@claude-flow/cli`
-- Also remember to update `ruflo/package.json` overrides when adding new pinned transitives (see #2112 lesson — root overrides do NOT propagate to the published `ruflo` wrapper)
+- `gemiflow` source is in `/gemiflow/` — it depends on `@gemiflow/cli`
+- Also remember to update `gemiflow/package.json` overrides when adding new pinned transitives (see #2112 lesson — root overrides do NOT propagate to the published `gemiflow` wrapper)
 
 ### GitHub Release after publish
 
@@ -1019,7 +1019,7 @@ gh release create v3.7.1 --title "v3.7.1 — <one-line headline>" \
 The plugin registry is stored on IPFS via Pinata for decentralized, immutable distribution.
 
 ### Registry Location
-- **Current CID**: Stored in `v3/@claude-flow/cli/src/plugins/store/discovery.ts`
+- **Current CID**: Stored in `v3/@gemiflow/cli/src/plugins/store/discovery.ts`
 - **Gateway**: `https://gateway.pinata.cloud/ipfs/{CID}`
 - **Format**: JSON with plugin metadata, categories, featured/trending lists
 
@@ -1037,20 +1037,20 @@ PINATA_API_JWT=your-jwt-token
 
 1. **Fetch current registry**:
 ```bash
-curl -s "https://gateway.pinata.cloud/ipfs/$(grep LIVE_REGISTRY_CID v3/@claude-flow/cli/src/plugins/store/discovery.ts | cut -d"'" -f2)" > /tmp/registry.json
+curl -s "https://gateway.pinata.cloud/ipfs/$(grep LIVE_REGISTRY_CID v3/@gemiflow/cli/src/plugins/store/discovery.ts | cut -d"'" -f2)" > /tmp/registry.json
 ```
 
 2. **Add plugin entry** to the `plugins` array:
 ```json
 {
-  "id": "@claude-flow/your-plugin",
-  "name": "@claude-flow/your-plugin",
+  "id": "@gemiflow/your-plugin",
+  "name": "@gemiflow/your-plugin",
   "displayName": "Your Plugin",
   "description": "Plugin description",
   "version": "1.0.0-alpha.1",
   "size": 100000,
   "checksum": "sha256:abc123",
-  "author": {"id": "claude-flow-team", "displayName": "Claude Flow Team", "verified": true},
+  "author": {"id": "gemiflow-team", "displayName": "GemiFlow Team", "verified": true},
   "license": "MIT",
   "categories": ["official"],
   "tags": ["your", "tags"],
@@ -1111,71 +1111,71 @@ Plugins are distributed via IPFS and can be installed with the CLI. Browse and i
 
 ```bash
 # List all available plugins
-npx claude-flow@v3alpha plugins list
+npx gemiflow@v3alpha plugins list
 
 # Install a plugin
-npx claude-flow@v3alpha plugins install @claude-flow/plugin-name
+npx gemiflow@v3alpha plugins install @gemiflow/plugin-name
 
 # Enable/disable
-npx claude-flow@v3alpha plugins enable @claude-flow/plugin-name
-npx claude-flow@v3alpha plugins disable @claude-flow/plugin-name
+npx gemiflow@v3alpha plugins enable @gemiflow/plugin-name
+npx gemiflow@v3alpha plugins disable @gemiflow/plugin-name
 ```
 
 ### Core Plugins
 
 | Plugin | Version | Description |
 |--------|---------|-------------|
-| `@claude-flow/embeddings` | 3.0.0-alpha.1 | Vector embeddings with sql.js, HNSW, hyperbolic support |
-| `@claude-flow/security` | 3.0.0-alpha.1 | Input validation, path security, CVE remediation |
-| `@claude-flow/claims` | 3.0.0-alpha.8 | Claims-based authorization (check, grant, revoke, list) |
-| `@claude-flow/neural` | 3.0.0-alpha.7 | Neural pattern training (SONA, MoE, EWC++) |
-| `@claude-flow/plugins` | 3.0.0-alpha.1 | Plugin system core (manager, discovery, store) |
-| `@claude-flow/performance` | 3.0.0-alpha.1 | Performance profiling and benchmarking |
+| `@gemiflow/embeddings` | 3.0.0-alpha.1 | Vector embeddings with sql.js, HNSW, hyperbolic support |
+| `@gemiflow/security` | 3.0.0-alpha.1 | Input validation, path security, CVE remediation |
+| `@gemiflow/claims` | 3.0.0-alpha.8 | Claims-based authorization (check, grant, revoke, list) |
+| `@gemiflow/neural` | 3.0.0-alpha.7 | Neural pattern training (SONA, MoE, EWC++) |
+| `@gemiflow/plugins` | 3.0.0-alpha.1 | Plugin system core (manager, discovery, store) |
+| `@gemiflow/performance` | 3.0.0-alpha.1 | Performance profiling and benchmarking |
 
 ### Integration Plugins
 
 | Plugin | Version | Description |
 |--------|---------|-------------|
-| `@claude-flow/plugin-agentic-qe` | 3.0.0-alpha.4 | Agentic quality engineering integration |
-| `@claude-flow/plugin-prime-radiant` | 0.1.5 | Prime Radiant intelligence integration |
-| `@claude-flow/plugin-gastown-bridge` | 3.0.0-alpha.1 | Gastown bridge protocol integration |
-| `@claude-flow/teammate-plugin` | 1.0.0-alpha.1 | Multi-agent teammate coordination |
-| `@claude-flow/plugin-code-intelligence` | 0.1.0 | Advanced code analysis and intelligence |
-| `@claude-flow/plugin-test-intelligence` | 0.1.0 | Intelligent test generation and gap analysis |
-| `@claude-flow/plugin-perf-optimizer` | 0.1.0 | Performance optimization automation |
-| `@claude-flow/plugin-neural-coordinator` | 0.1.0 | Neural network coordination across agents |
-| `@claude-flow/plugin-cognitive-kernel` | 0.1.0 | Core cognitive processing kernel |
-| `@claude-flow/plugin-quantum-optimizer` | 0.1.0 | Quantum-inspired optimization algorithms |
-| `@claude-flow/plugin-hyperbolic-reasoning` | 0.1.0 | Hyperbolic space reasoning for hierarchical data |
+| `@gemiflow/plugin-agentic-qe` | 3.0.0-alpha.4 | Agentic quality engineering integration |
+| `@gemiflow/plugin-prime-radiant` | 0.1.5 | Prime Radiant intelligence integration |
+| `@gemiflow/plugin-gastown-bridge` | 3.0.0-alpha.1 | Gastown bridge protocol integration |
+| `@gemiflow/teammate-plugin` | 1.0.0-alpha.1 | Multi-agent teammate coordination |
+| `@gemiflow/plugin-code-intelligence` | 0.1.0 | Advanced code analysis and intelligence |
+| `@gemiflow/plugin-test-intelligence` | 0.1.0 | Intelligent test generation and gap analysis |
+| `@gemiflow/plugin-perf-optimizer` | 0.1.0 | Performance optimization automation |
+| `@gemiflow/plugin-neural-coordinator` | 0.1.0 | Neural network coordination across agents |
+| `@gemiflow/plugin-cognitive-kernel` | 0.1.0 | Core cognitive processing kernel |
+| `@gemiflow/plugin-quantum-optimizer` | 0.1.0 | Quantum-inspired optimization algorithms |
+| `@gemiflow/plugin-hyperbolic-reasoning` | 0.1.0 | Hyperbolic space reasoning for hierarchical data |
 
 ### Domain-Specific Plugins
 
 | Plugin | Version | Description |
 |--------|---------|-------------|
-| `@claude-flow/plugin-healthcare-clinical` | 0.1.0 | Healthcare clinical workflow automation |
-| `@claude-flow/plugin-financial-risk` | 0.1.0 | Financial risk assessment and modeling |
-| `@claude-flow/plugin-legal-contracts` | 0.1.0 | Legal contract analysis and generation |
+| `@gemiflow/plugin-healthcare-clinical` | 0.1.0 | Healthcare clinical workflow automation |
+| `@gemiflow/plugin-financial-risk` | 0.1.0 | Financial risk assessment and modeling |
+| `@gemiflow/plugin-legal-contracts` | 0.1.0 | Legal contract analysis and generation |
 
 ### Plugin Development
 
 ```bash
 # Create a new plugin from template
-npx claude-flow@v3alpha plugins create my-plugin
+npx gemiflow@v3alpha plugins create my-plugin
 
 # Test locally
-npx claude-flow@v3alpha plugins install ./path/to/my-plugin
+npx gemiflow@v3alpha plugins install ./path/to/my-plugin
 
 # Publish to registry (requires Pinata credentials)
-npx claude-flow@v3alpha plugins publish
+npx gemiflow@v3alpha plugins publish
 ```
 
 Registry source: IPFS via Pinata (`QmXbfEAaR7D2Ujm4GAkbwcGZQMHqAMpwDoje4583uNP834`)
 
 ## Support
 
-- Documentation: https://github.com/ruvnet/claude-flow
-- Issues: https://github.com/ruvnet/claude-flow/issues
+- Documentation: https://github.com/ruvnet/gemiflow
+- Issues: https://github.com/ruvnet/gemiflow/issues
 
 ---
 
-Remember: **Claude Flow coordinates, Claude Code creates!**
+Remember: **GemiFlow coordinates, Claude Code creates!**

@@ -3,7 +3,7 @@
 // and persist a structured record to the `cost-tracking` AgentDB namespace.
 //
 // Resolution: by default reads the most-recently-modified session jsonl in
-// ~/.claude/projects/<encoded-cwd>/. Override with TRACK_CWD or TRACK_SESSION.
+// ~/.gemiflow/projects/<encoded-cwd>/. Override with TRACK_CWD or TRACK_SESSION.
 //
 // Optional env:
 //   TRACK_CWD=<path>          override which project's sessions to scan
@@ -18,7 +18,7 @@ import { join } from 'node:path';
 import { homedir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 
-const PROJECTS_DIR = join(homedir(), '.claude', 'projects');
+const PROJECTS_DIR = join(homedir(), '.gemiflow', 'projects');
 
 // USD per 1M tokens — kept in sync with REFERENCE.md "Model pricing" table.
 const PRICING = {
@@ -122,10 +122,10 @@ function persistToMemory(summary) {
   // Cold-cache wall-time drops from ~25s to ~2s. JSON backend instead of
   // SQLite/HNSW; semantic search degrades to substring (fine for cost-track
   // which never invokes search — only store/list/retrieve). See
-  // v3/@claude-flow/cli-core/MIGRATION.md.
+  // v3/@gemiflow/cli-core/MIGRATION.md.
   const cliPkg = process.env.CLI_CORE === '1'
-    ? '@claude-flow/cli-core@alpha'
-    : '@claude-flow/cli@latest';
+    ? '@gemiflow/cli-core@alpha'
+    : '@gemiflow/cli@latest';
   // spawnSync with explicit args avoids shell-escape pitfalls for the JSON value.
   const r = spawnSync('npx', [
     cliPkg, 'memory', 'store',

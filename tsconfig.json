@@ -26,11 +26,19 @@
     "baseUrl": "."
   },
   "include": [
-    "v3/**/*.ts"
+    "v3/@gemiflow/**/*.ts",
+    "v3/index.ts",
+    "v3/swarm.config.ts"
   ],
   "exclude": [
     "node_modules",
     "dist",
+    "**/dist",
+    "**/examples",
+    "**/benchmarks",
+    "v3/plugins",
+    "v3/goal_ui",
+    "**/__tests__/**",
     "**/*.test.ts",
     "**/*.bench.ts",
     "v3/__tests__/**/*.ts"

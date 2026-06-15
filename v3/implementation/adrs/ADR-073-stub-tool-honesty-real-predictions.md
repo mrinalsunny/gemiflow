@@ -9,7 +9,7 @@
 
 ### 1. Remove fabricated metrics from token-optimizer
 
-The `TokenOptimizer` class (`@claude-flow/integration`) contained hardcoded savings numbers:
+The `TokenOptimizer` class (`@gemiflow/integration`) contained hardcoded savings numbers:
 
 | Before | After |
 |--------|-------|

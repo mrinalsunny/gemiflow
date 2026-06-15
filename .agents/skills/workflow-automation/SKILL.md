@@ -21,27 +21,27 @@ Create and execute automated workflows for complex multi-step processes.
 
 ### Create Workflow
 ```bash
-npx claude-flow workflow create --name "deploy-flow" --template ci
+npx gemiflow workflow create --name "deploy-flow" --template ci
 ```
 
 ### Execute Workflow
 ```bash
-npx claude-flow workflow execute --name "deploy-flow" --env production
+npx gemiflow workflow execute --name "deploy-flow" --env production
 ```
 
 ### List Workflows
 ```bash
-npx claude-flow workflow list
+npx gemiflow workflow list
 ```
 
 ### Export Template
 ```bash
-npx claude-flow workflow export --name "deploy-flow" --format yaml
+npx gemiflow workflow export --name "deploy-flow" --format yaml
 ```
 
 ### View Status
 ```bash
-npx claude-flow workflow status --name "deploy-flow"
+npx gemiflow workflow status --name "deploy-flow"
 ```
 
 ## Built-in Templates

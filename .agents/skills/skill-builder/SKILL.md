@@ -21,10 +21,10 @@ Creates production-ready Claude Code Skills with proper YAML frontmatter, progre
 
 ```bash
 # 1. Create skill directory (MUST be at top level, NOT in subdirectories!)
-mkdir -p ~/.claude$skills$my-first-skill
+mkdir -p ~/.gemiflow$skills$my-first-skill
 
 # 2. Create SKILL.md with proper format
-cat > ~/.claude$skills$my-first-skill/SKILL.md << 'EOF'
+cat > ~/.gemiflow$skills$my-first-skill/SKILL.md << 'EOF'
 ---
 name: "My First Skill"
 description: "Brief description of what this skill does and when Claude should use it. Maximum 1024 characters."
@@ -125,17 +125,17 @@ tags: ["dev", "api"]   # NOT part of spec
 
 #### Minimal Skill (Required)
 ```
-~/.claude$skills/                    # Personal skills location
+~/.gemiflow$skills/                    # Personal skills location
 └── my-skill/                        # Skill directory (MUST be at top level!)
     └── SKILL.md                     # REQUIRED: Main skill file
 ```
 
-**IMPORTANT**: Skills MUST be directly under `~/.claude$skills/[skill-name]/`.
+**IMPORTANT**: Skills MUST be directly under `~/.gemiflow$skills/[skill-name]/`.
 Claude Code does NOT support nested subdirectories or namespaces!
 
 #### Full-Featured Skill (Recommended)
 ```
-~/.claude$skills/
+~/.gemiflow$skills/
 └── my-skill/                        # Top-level skill directory
         ├── SKILL.md                 # REQUIRED: Main skill file
         ├── README.md                # Optional: Human-readable docs
@@ -161,17 +161,17 @@ Claude Code does NOT support nested subdirectories or namespaces!
 
 **Personal Skills** (available across all projects):
 ```
-~/.claude$skills/
+~/.gemiflow$skills/
 └── [your-skills]/
 ```
-- **Path**: `~/.claude$skills/` or `$HOME/.claude$skills/`
+- **Path**: `~/.gemiflow$skills/` or `$HOME/.gemiflow$skills/`
 - **Scope**: Available in all projects for this user
 - **Version Control**: NOT committed to git (outside repo)
 - **Use Case**: Personal productivity tools, custom workflows
 
 **Project Skills** (team-shared, version controlled):
 ```
-<project-root>/.claude$skills/
+<project-root>/.gemiflow$skills/
 └── [team-skills]/
 ```
 - **Path**: `.claude$skills/` in project root
@@ -528,7 +528,7 @@ Before publishing a skill, verify:
 
 **File Structure**:
 - [ ] SKILL.md exists in skill directory
-- [ ] Directory is DIRECTLY in `~/.claude$skills/[skill-name]/` or `.claude$skills/[skill-name]/`
+- [ ] Directory is DIRECTLY in `~/.gemiflow$skills/[skill-name]/` or `.claude$skills/[skill-name]/`
 - [ ] Uses clear, descriptive directory name
 - [ ] **NO nested subdirectories** (Claude Code requires top-level structure)
 
@@ -890,7 +890,7 @@ See `resources$templates/` for available component templates.
 ### Official Resources
 - [Anthropic Agent Skills Documentation](https:/$docs.claude.com$en$docs$agents-and-tools$agent-skills)
 - [GitHub Skills Repository](https:/$github.com$anthropics$skills)
-- [Claude Code Documentation](https:/$docs.claude.com$en$docs$claude-code)
+- [Claude Code Documentation](https:/$docs.claude.com$en$docs$gemini-cli)
 
 ### Community
 - [Skills Marketplace](https:/$github.com$anthropics$skills) - Browse community skills

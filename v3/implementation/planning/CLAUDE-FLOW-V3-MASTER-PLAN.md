@@ -1,8 +1,8 @@
-# Claude-Flow v3: Complete Reimagining with agentic-flow@alpha Foundation
+# GemiFlow v3: Complete Reimagining with agentic-flow@alpha Foundation
 
 ## Executive Summary
 
-Claude-Flow v3 represents a complete architectural overhaul that builds on **agentic-flow@alpha** as its core foundation while maintaining full backward compatibility with v2.x. This plan consolidates findings from concurrent swarm analysis covering architecture, security, dead code, Windows compatibility, repository cleanup, and .claude/ optimization.
+GemiFlow v3 represents a complete architectural overhaul that builds on **agentic-flow@alpha** as its core foundation while maintaining full backward compatibility with v2.x. This plan consolidates findings from concurrent swarm analysis covering architecture, security, dead code, Windows compatibility, repository cleanup, and .gemiflow/ optimization.
 
 ### Key Objectives
 
@@ -46,7 +46,7 @@ Claude-Flow v3 represents a complete architectural overhaul that builds on **age
 ### 1.1 Codebase Overview
 
 ```
-Claude-Flow v2.7.47
+GemiFlow v2.7.47
 ├── Source Files: 376 TypeScript files (~130,000 lines)
 ├── Dependencies: agentic-flow (^1.9.4), ruv-swarm, flow-nexus
 ├── Architecture: Multi-layered (CLI, Core, MCP, Swarm, Hive-Mind)
@@ -100,7 +100,7 @@ Claude-Flow v2.7.47
 #### CVE-1: Vulnerable Dependencies
 ```bash
 # Immediate fix required
-npm update @anthropic-ai/claude-code@^2.0.31
+npm update @anthropic-ai/gemini-cli@^2.0.31
 npm update @modelcontextprotocol/sdk@^1.24.0
 npm audit fix --force
 ```
@@ -127,7 +127,7 @@ const hash = await bcrypt.hash(password, SALT_ROUNDS);
 
 ```typescript
 // REMOVE these hardcoded credentials
-email: 'admin@claude-flow.local'
+email: 'admin@gemiflow.local'
 password: 'admin123'  // CRITICAL RISK
 
 // v3: Generate random on installation
@@ -172,7 +172,7 @@ const adminPassword = crypto.randomBytes(32).toString('hex');
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     Claude-Flow v3                          │
+│                     GemiFlow v3                          │
 ├─────────────────────────────────────────────────────────────┤
 │  ┌─────────────────────────────────────────────────────┐   │
 │  │              Compatibility Layer (v2 API)            │   │
@@ -402,7 +402,7 @@ export class SqlJsBackend implements DatabaseBackend {
 |------|------|--------|
 | `dist-cjs/` | 22MB | Remove from git, add to .gitignore |
 | Duplicate lock file | 0.6MB | Keep one (npm or pnpm) |
-| `claude-flow-wiki/` | 0 | Remove empty directory |
+| `gemiflow-wiki/` | 0 | Remove empty directory |
 
 #### Medium Priority (26.6MB)
 
@@ -435,7 +435,7 @@ rm -f package-lock.json  # If using pnpm
 rm -f pnpm-lock.yaml     # If using npm
 
 # 4. Remove empty directory
-rmdir claude-flow-wiki/
+rmdir gemiflow-wiki/
 
 # 5. Clean up .gitignore duplicates
 # (manual edit to remove 8 duplicate "hive-mind-prompt-*.txt" entries)
@@ -457,7 +457,7 @@ dist-cjs/
 # Runtime databases (shouldn't be tracked)
 .swarm/memory.db
 .hive-mind/memory.db
-.claude-flow/**/*.db
+.gemiflow/**/*.db
 ```
 
 ---
@@ -468,8 +468,8 @@ dist-cjs/
 
 | Directory | Size | Issues |
 |-----------|------|--------|
-| `.claude/` | 11MB | 9 settings variants, 3,720 checkpoints |
-| `.claude-flow/` | 2.5MB | Stale training data |
+| `.gemiflow/` | 11MB | 9 settings variants, 3,720 checkpoints |
+| `.gemiflow/` | 2.5MB | Stale training data |
 | `.claude-plugin/` | 81KB | Hook duplication |
 | `.hive-mind/` | 20KB | Separate database |
 | `.swarm/` | 272KB | Separate database |
@@ -479,7 +479,7 @@ dist-cjs/
 ### 6.2 v3 Optimized Structure (3.5MB target)
 
 ```
-.claude/
+.gemiflow/
 ├── config.json                    # Single source of truth
 ├── settings.prod.json             # Production (from settings-enhanced)
 ├── settings.dev.json              # Development with debug
@@ -518,7 +518,7 @@ dist-cjs/
     ├── MIGRATION_LOG.md
     └── OPTIMIZATION_STATUS.md
 
-.claude-flow/
+.gemiflow/
 ├── swarm-config.json              # Includes agent profiles
 ├── coordination/                  # NEW: Unified runtime
 │   ├── memory.db                  # Merged swarm + hive-mind
@@ -532,8 +532,8 @@ dist-cjs/
     └── latest-validation.json     # Single file
 
 # REMOVE these directories
-.swarm/                            # → .claude-flow/coordination/
-.hive-mind/                        # → .claude-flow/coordination/
+.swarm/                            # → .gemiflow/coordination/
+.hive-mind/                        # → .gemiflow/coordination/
 .ruv-swarm/                        # Archive or remove
 ```
 
@@ -577,7 +577,7 @@ dist-cjs/
 
 ```bash
 # Archive old checkpoints (keep last 20)
-cd .claude/checkpoints
+cd .gemiflow/checkpoints
 
 # Count current
 ls -1 | wc -l  # 3,720 files!
@@ -616,7 +616,7 @@ agents/
 #### Agent Template Enhancement
 
 ```typescript
-// .claude/agents/core/coder.md (v3 enhanced)
+// .gemiflow/agents/core/coder.md (v3 enhanced)
 ---
 name: coder
 version: 3.0.0
@@ -650,7 +650,7 @@ Implementation specialist leveraging agentic-flow@alpha for enhanced code genera
 #### v3: 28 skills in 5 domain groups
 
 ```yaml
-# .claude/skills/ai-coordination/swarm-orchestration/SKILL.md
+# .gemiflow/skills/ai-coordination/swarm-orchestration/SKILL.md
 ---
 name: swarm-orchestration
 domain: ai-coordination
@@ -684,37 +684,37 @@ commands/
 ### 7.4 Hooks Consolidation
 
 **Problem**: Hooks defined in 3 places
-- `.claude/settings-enhanced.json`
-- `.claude/settings-complete.json`
+- `.gemiflow/settings-enhanced.json`
+- `.gemiflow/settings-complete.json`
 - `.claude-plugin/hooks/hooks.json`
 
 **v3 Solution**: Single source in `config.json`
 
 ```typescript
-// .claude/config.json (v3)
+// .gemiflow/config.json (v3)
 {
   "version": "3.0.0",
   "hooks": {
     "PreToolUse": [
       {
         "matcher": "Bash",
-        "commands": ["npx claude-flow hooks pre-tool --tool=$TOOL_NAME"]
+        "commands": ["npx gemiflow hooks pre-tool --tool=$TOOL_NAME"]
       }
     ],
     "PostToolUse": [
       {
         "matcher": "*",
-        "commands": ["npx claude-flow hooks post-tool --tool=$TOOL_NAME"]
+        "commands": ["npx gemiflow hooks post-tool --tool=$TOOL_NAME"]
       }
     ],
     "PreCompact": [
       {
-        "commands": ["npx claude-flow hooks pre-compact --session=$SESSION_ID"]
+        "commands": ["npx gemiflow hooks pre-compact --session=$SESSION_ID"]
       }
     ],
     "Stop": [
       {
-        "commands": ["npx claude-flow hooks session-end --export-metrics true"]
+        "commands": ["npx gemiflow hooks session-end --export-metrics true"]
       }
     ]
   },
@@ -829,7 +829,7 @@ export async function migrateConfig(v2Config: V2Config): Promise<V3Config> {
 
 // Auto-migration on first run
 export async function autoMigrate(): Promise<void> {
-  const configPath = '.claude/config.json';
+  const configPath = '.gemiflow/config.json';
   const config = await loadConfig(configPath);
 
   if (!config.version || config.version < '3.0.0') {
@@ -1073,7 +1073,7 @@ src/v3/
     └── neural/
 
 docs/v3/
-├── CLAUDE-FLOW-V3-MASTER-PLAN.md (this file)
+├── GEMIFLOW-V3-MASTER-PLAN.md (this file)
 ├── MIGRATION-GUIDE.md
 ├── API-REFERENCE.md
 └── ARCHITECTURE.md
@@ -1096,14 +1096,14 @@ docs/reasoningbank/models/*/memory.db.backup
 dist-cjs/ (remove from git)
 
 # Empty
-claude-flow-wiki/
+gemiflow-wiki/
 
 # Duplicate settings
-.claude/settings-complete.json
-.claude/settings-enhanced.json (merge into settings.prod.json)
-.claude/settings-checkpoint-*.json
-.claude/settings.reasoningbank-*.json
-.claude/settings-npx-hooks.json
+.gemiflow/settings-complete.json
+.gemiflow/settings-enhanced.json (merge into settings.prod.json)
+.gemiflow/settings-checkpoint-*.json
+.gemiflow/settings.reasoningbank-*.json
+.gemiflow/settings-npx-hooks.json
 ```
 
 ### Files to Modify
@@ -1111,7 +1111,7 @@ claude-flow-wiki/
 ```
 package.json                    # Add sql.js, update agentic-flow
 .gitignore                      # Add dist-cjs, cleanup duplicates
-.claude/config.json             # Add v3 structure, unified hooks
+.gemiflow/config.json             # Add v3 structure, unified hooks
 tsconfig.json                   # Add v3 paths
 ```
 
@@ -1132,7 +1132,7 @@ npm audit fix --force
 ./scripts/cleanup-v3.sh
 
 # Run migration
-npx claude-flow migrate --to v3
+npx gemiflow migrate --to v3
 
 # Verify backward compatibility
 npm run test:compatibility
@@ -1144,7 +1144,7 @@ npm run build:v3
 ### Configuration Quick Start
 
 ```json
-// .claude/config.json (minimal v3)
+// .gemiflow/config.json (minimal v3)
 {
   "version": "3.0.0",
   "agenticFlow": {
@@ -1160,10 +1160,10 @@ npm run build:v3
 
 ```typescript
 // v3 with backward compatibility
-import { SwarmCoordinator } from 'claude-flow';  // v2 API still works
+import { SwarmCoordinator } from 'gemiflow';  // v2 API still works
 
 // v3 native
-import { AgenticFlowAdapter } from 'claude-flow/v3';
+import { AgenticFlowAdapter } from 'gemiflow/v3';
 const adapter = new AgenticFlowAdapter({ sona: 'research' });
 await adapter.initialize();
 ```
