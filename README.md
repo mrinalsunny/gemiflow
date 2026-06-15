@@ -32,7 +32,7 @@ Orchestrate 100+ specialized AI agents across machines, teams, and trust boundar
 
 ### Why GemiFlow?
 
-> GemiFlow — named by [`rUv`](https://ruv.io), who loves Rust, flow states, and building things that feel inevitable. The "Ru" is the rUv. The "flo" is working until 3am. Underneath, powered by [`Cognitum.One`](https://cognitum.one/?GemiFlow) agentic architecture, running a supercharged Rust based AI engine, embeddings, memory, and plugin system.
+> GemiFlow — named by [`rUv`](https://ruv.io), who loves Rust, flow states, and building things that feel inevitable. The "Gemi" represents the native Gemini CLI integrations. The "Flow" represents the fluid orchestration of multi-agent swarms. Underneath, powered by [`Cognitum.One`](https://cognitum.one/?GemiFlow) agentic architecture, running a supercharged Rust based AI engine, embeddings, memory, and plugin system.
 
 
 ### What GemiFlow Does
