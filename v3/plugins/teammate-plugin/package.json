@@ -1,7 +1,7 @@
 {
   "name": "@gemiflow/teammate-plugin",
   "version": "1.0.0-alpha.1",
-  "description": "Native TeammateTool integration plugin for GemiFlow - bridges Claude Code v2.1.19+ multi-agent capabilities",
+  "description": "Native TeammateTool integration plugin for GemiFlow - bridges Gemini CLI v2.1.19+ multi-agent capabilities",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -41,7 +41,7 @@
     "prepublishOnly": "npm run clean && npm run build && npm run test"
   },
   "keywords": [
-    "claude",
+    "gemini",
     "gemini-cli",
     "gemiflow",
     "teammate",

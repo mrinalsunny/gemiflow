@@ -31,7 +31,7 @@
     "gemiflow",
     "llm",
     "provider",
-    "anthropic",
+    "google",
     "openai",
     "google",
     "cohere",

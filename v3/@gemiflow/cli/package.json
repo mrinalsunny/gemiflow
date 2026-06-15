@@ -2,7 +2,7 @@
   "name": "@gemiflow/cli",
   "version": "3.10.46",
   "type": "module",
-  "description": "GemiFlow CLI - Enterprise AI agent orchestration with 60+ specialized agents, swarm coordination, MCP server, self-learning hooks, and vector memory for Claude Code",
+  "description": "GemiFlow CLI - Enterprise AI agent orchestration with 60+ specialized agents, swarm coordination, MCP server, self-learning hooks, and vector memory for Gemini CLI",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "sideEffects": false,
@@ -21,9 +21,9 @@
     "directory": "v3/@gemiflow/cli"
   },
   "keywords": [
-    "claude",
+    "gemini",
     "gemini-cli",
-    "anthropic",
+    "google",
     "ai-agents",
     "multi-agent",
     "swarm",

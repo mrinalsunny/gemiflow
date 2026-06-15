@@ -1,7 +1,7 @@
 {
   "name": "@gemiflow/guidance",
   "version": "3.0.0-alpha.4",
-  "description": "Guidance Control Plane - Compiles, retrieves, enforces, and evolves guidance rules for Claude Code sessions",
+  "description": "Guidance Control Plane - Compiles, retrieves, enforces, and evolves guidance rules for Gemini CLI sessions",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -155,8 +155,8 @@
   "keywords": [
     "gemiflow",
     "gemini-cli",
-    "claude",
-    "anthropic",
+    "gemini",
+    "google",
     "ai-agent",
     "ai-governance",
     "agent-governance",
