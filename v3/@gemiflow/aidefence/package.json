@@ -59,13 +59,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ruvnet/gemiflow.git",
+    "url": "git+https://github.com/mrinalsunny/gemiflow.git",
     "directory": "v3/@gemiflow/aidefence"
   },
   "bugs": {
-    "url": "https://github.com/ruvnet/gemiflow/issues"
+    "url": "https://github.com/mrinalsunny/gemiflow/issues"
   },
-  "homepage": "https://github.com/ruvnet/gemiflow/tree/main/v3/@gemiflow/aidefence#readme",
+  "homepage": "https://github.com/mrinalsunny/gemiflow/tree/main/v3/@gemiflow/aidefence#readme",
   "publishConfig": {
     "access": "public",
     "tag": "alpha"

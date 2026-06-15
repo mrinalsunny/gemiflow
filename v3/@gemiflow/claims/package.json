@@ -49,13 +49,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ruvnet/gemiflow.git",
+    "url": "https://github.com/mrinalsunny/gemiflow.git",
     "directory": "v3/@gemiflow/claims"
   },
   "bugs": {
-    "url": "https://github.com/ruvnet/gemiflow/issues"
+    "url": "https://github.com/mrinalsunny/gemiflow/issues"
   },
-  "homepage": "https://github.com/ruvnet/gemiflow#readme",
+  "homepage": "https://github.com/mrinalsunny/gemiflow#readme",
   "dependencies": {
     "zod": "^3.22.4"
   },

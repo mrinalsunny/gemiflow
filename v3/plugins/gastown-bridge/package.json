@@ -68,13 +68,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ruvnet/gemiflow.git",
+    "url": "https://github.com/mrinalsunny/gemiflow.git",
     "directory": "v3/plugins/gastown-bridge"
   },
   "bugs": {
-    "url": "https://github.com/ruvnet/gemiflow/issues"
+    "url": "https://github.com/mrinalsunny/gemiflow/issues"
   },
-  "homepage": "https://github.com/ruvnet/gemiflow/tree/main/v3/plugins/gastown-bridge#readme",
+  "homepage": "https://github.com/mrinalsunny/gemiflow/tree/main/v3/plugins/gastown-bridge#readme",
   "engines": {
     "node": ">=20.0.0"
   },
