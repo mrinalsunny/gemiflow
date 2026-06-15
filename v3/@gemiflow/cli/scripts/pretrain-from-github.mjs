@@ -20,7 +20,7 @@
 //   BENCH_NO_WRITE=1 node scripts/pretrain-from-github.mjs  # don't write a run JSON
 //
 // Repro from a fresh checkout:
-//   git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+//   git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 //   npm install && ( cd v3/@gemiflow/cli && npx tsc -b )
 //   node v3/@gemiflow/cli/scripts/pretrain-from-github.mjs
 
@@ -39,7 +39,7 @@ const RUNS_DIR = join(GEMIFLOW_ROOT, 'docs', 'benchmarks', 'runs');
 // same script can pretrain on agentdb / agentic-flow / any other repo for
 // generalisation testing. Defaults preserve gemiflow behaviour.
 const REPO_ROOT = process.env.REPO_ROOT ? resolve(process.env.REPO_ROOT) : GEMIFLOW_ROOT;
-const GH_REPO   = process.env.GH_REPO   || 'ruvnet/gemiflow';
+const GH_REPO   = process.env.GH_REPO   || 'mrinalsunny/gemiflow';
 
 const COMMITS = Number(process.env.COMMITS) || 50;
 const ISSUES  = Number(process.env.ISSUES)  || 30;

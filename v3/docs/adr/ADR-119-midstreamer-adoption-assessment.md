@@ -3,13 +3,13 @@
 **Status**: Accepted (2026-05-14) — **Decision: Wait. Partial adoption gated on specific upstream work.**
 **Date**: 2026-05-14
 **Authors**: claude (via `gemiflow-goals:deep-researcher` investigation, drafted with rUv)
-**Related**: ADR-097 (federation budget breaker) · ADR-104 (federation transport — WebSocket today + clean QUIC upgrade path) · ADR-108 (`agentic-flow` native QUIC binding plan) · ADR-111 (federation WireGuard mesh) · ADR-118 (`aidefence@2.3.0` — sibling package in `ruvnet/midstream`) · upstream [`ruvnet/midstream`](https://github.com/ruvnet/midstream) · npm [`midstreamer@0.2.5`](https://www.npmjs.com/package/midstreamer)
+**Related**: ADR-097 (federation budget breaker) · ADR-104 (federation transport — WebSocket today + clean QUIC upgrade path) · ADR-108 (`agentic-flow` native QUIC binding plan) · ADR-111 (federation WireGuard mesh) · ADR-118 (`aidefence@2.3.0` — sibling package in `mrinalsunny/midstream`) · upstream [`mrinalsunny/midstream`](https://github.com/mrinalsunny/midstream) · npm [`midstreamer@0.2.5`](https://www.npmjs.com/package/midstreamer)
 **Supersedes**: nothing
 **Investigation:** deep-researcher session `a70c6ee07aeab17bf` (88k tokens, 34 tool uses, ~4 min)
 
 ## Context
 
-`midstreamer` is an npm package from `ruvnet` (same author as gemiflow and the AIMDS / `aidefence` line covered in ADR-118). The package name suggests it could provide pieces of two stated federation problems — **QUIC networking** (ADR-108) and **Tailscale-style mesh** (ADR-111) — plus a third theme the project keeps returning to: **in-flight agentics** (agent traffic flowing through inline gates). This ADR records what `midstreamer` actually provides, what it does not, and where (if anywhere) gemiflow should pick it up.
+`midstreamer` is an npm package from `mrinalsunny` (same author as gemiflow and the AIMDS / `aidefence` line covered in ADR-118). The package name suggests it could provide pieces of two stated federation problems — **QUIC networking** (ADR-108) and **Tailscale-style mesh** (ADR-111) — plus a third theme the project keeps returning to: **in-flight agentics** (agent traffic flowing through inline gates). This ADR records what `midstreamer` actually provides, what it does not, and where (if anywhere) gemiflow should pick it up.
 
 The investigation was carried out by the `gemiflow-goals:deep-researcher` agent. Evidence is graded inline: claims tied to file inspection, tarball contents, or `npm view` output are verified; anything else is marked inferred.
 
@@ -28,7 +28,7 @@ The investigation was carried out by the `gemiflow-goals:deep-researcher` agent.
 
 The package's name (`midstreamer`), its README's name (`@midstream/wasm`), and its inner `pkg-node/package.json` (`midstream-wasm`, version `1.0.0`) are three different identifiers for the same code — a publish-pipeline desync that integrators have to be aware of.
 
-The **upstream `ruvnet/midstream` repo** is a Rust workspace with six crates (`midstreamer-temporal-compare`, `midstreamer-scheduler`, `midstreamer-attractor`, `midstreamer-neural-solver`, `midstreamer-strange-loop`, `midstreamer-quic`) plus the AIMDS subdirectory. The native `midstreamer-quic` crate does use `quinn` (the canonical Rust QUIC impl) and would provide real QUIC — but **it is not part of the npm package** and would require an N-API binding that doesn't exist yet.
+The **upstream `mrinalsunny/midstream` repo** is a Rust workspace with six crates (`midstreamer-temporal-compare`, `midstreamer-scheduler`, `midstreamer-attractor`, `midstreamer-neural-solver`, `midstreamer-strange-loop`, `midstreamer-quic`) plus the AIMDS subdirectory. The native `midstreamer-quic` crate does use `quinn` (the canonical Rust QUIC impl) and would provide real QUIC — but **it is not part of the npm package** and would require an N-API binding that doesn't exist yet.
 
 ## Per-question findings
 
@@ -61,7 +61,7 @@ The **AIMDS sibling component** (same upstream repo, exposed via the `aidefence`
 | `QuicMultistream` | Nothing — it is a stub | — | — |
 | `NanoScheduler` | Nothing in Node.js server contexts — requires browser `window` | — | — |
 
-A naming coincidence: `ruvector@0.2.25` once mentioned a removed `midstream` subcommand. That is unrelated to `ruvnet/midstream` — different project, same word.
+A naming coincidence: `ruvector@0.2.25` once mentioned a removed `midstream` subcommand. That is unrelated to `mrinalsunny/midstream` — different project, same word.
 
 ### Risks and gaps
 
@@ -107,13 +107,13 @@ Reopen this decision if **any** of these become true:
 
 1. `midstreamer-quic` (the native Rust crate with `quinn`) gets an N-API binding published on npm.
 2. A gemiflow plugin (likely `gemiflow-agentdb` or `gemiflow-intelligence`) lands a stated requirement for sequence-level trajectory comparison (DTW / LCS / edit distance).
-3. The upstream `ruvnet/midstream` repo publishes a Node-compatible scheduler (replacing `NanoScheduler`'s `window`-only design) that fits gemiflow's hook scheduling model.
+3. The upstream `mrinalsunny/midstream` repo publishes a Node-compatible scheduler (replacing `NanoScheduler`'s `window`-only design) that fits gemiflow's hook scheduling model.
 4. The `aimds-response@0.1.1` meta-learning layer proves insufficient in practice and a second meta-learning system is needed — at which point `StrangeLoop` is a plausible candidate, but the reconciliation protocol has to be designed first.
 
 ## Links
 
 - npm: [`midstreamer@0.2.5`](https://www.npmjs.com/package/midstreamer)
-- Upstream: [`ruvnet/midstream`](https://github.com/ruvnet/midstream) (Rust workspace + npm-wasm/ + AIMDS/)
+- Upstream: [`mrinalsunny/midstream`](https://github.com/mrinalsunny/midstream) (Rust workspace + npm-wasm/ + AIMDS/)
 - Sibling package adopted via ADR-118: [`aidefence@2.3.0`](https://www.npmjs.com/package/aidefence) — wider injection detection + accurate audit counters
 - ADRs: [ADR-097](./ADR-097-federation-budget-breaker.md) · [ADR-104](./ADR-104-federation-transport.md) · [ADR-108](./ADR-108-native-quic-binding.md) · [ADR-111](./ADR-111-federation-wg-mesh.md) · [ADR-118](./ADR-118-aidefence-2.3.0-upgrade.md)
 - Investigation transcript: deep-researcher agent `a70c6ee07aeab17bf`

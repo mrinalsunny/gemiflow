@@ -2,7 +2,7 @@
 
 **Status**: Accepted — Implemented in gemiflow 3.10.29
 **Date**: 2026-05-30
-**Tracking**: continuation of BEIR climb (ADR-085, 086, 087, 088) + #2246 + ruvnet/ruvector#523-524
+**Tracking**: continuation of BEIR climb (ADR-085, 086, 087, 088) + #2246 + mrinalsunny/ruvector#523-524
 
 ## What this release bundles
 
@@ -11,7 +11,7 @@ Per the user's "no constant releases" guidance, 3.10.29 is a batched ship combin
 1. **3rd BEIR dataset (ArguAna)** — strengthens the 2-dataset story to a 3-dataset story.
 2. **BGE-large NFCorpus ceiling test** — answered: no lift on this hardware.
 3. **ruvector@0.2.27 Tier-0 wiring** — kills the silent-fallback bug (ADR-086) at source.
-4. **4 user-reported bugs from #2246** — 3 fixed in gemiflow, 1 forwarded to ruvnet/agentdb#7.
+4. **4 user-reported bugs from #2246** — 3 fixed in gemiflow, 1 forwarded to mrinalsunny/agentdb#7.
 
 ADR-090 (separate) covers the BGE query-prefix experiment.
 
@@ -91,7 +91,7 @@ Measured parallel-embedder throughput on this CPU: **6.2× per-doc speedup** (cl
 |---|---|---|
 | **#1** memory_search_unified hardcoded 6 namespaces (silently misses ~95% of an 8789-entry store) | **FIXED** | New `namespaces: string[]` param + `GEMIFLOW_MEMORY_SEARCH_NAMESPACES` env + dynamic enumeration via `listEntries({})` as the new default + `namespaceSource` audit field. 9 regression tests covering all 5 priority paths. |
 | **#2** `npm install -g gemiflow` silently overwrites `dist/` patches | **acknowledged** | Tracked for a separate release (postinstall checksum + warning). |
-| **#3** agentdb `addCausalEdge()` silently orphans edges when `NodeIdMapper.getNodeId()` returns undefined | **forwarded** | Filed as [ruvnet/agentdb#7](https://github.com/ruvnet/agentdb/issues/7). Will pull when agentdb pin bumps. |
+| **#3** agentdb `addCausalEdge()` silently orphans edges when `NodeIdMapper.getNodeId()` returns undefined | **forwarded** | Filed as [mrinalsunny/agentdb#7](https://github.com/mrinalsunny/agentdb/issues/7). Will pull when agentdb pin bumps. |
 | **#4** `graph_edges DB unavailable` on fresh env | **FIXED** | `getBridgeDb({createIfMissing: true})` lazy-creates empty memory.db + graph_edges schema; pathfinder call sites updated; error message gains a `hint` field. |
 
 ## What ships in code
@@ -122,13 +122,13 @@ Measured parallel-embedder throughput on this CPU: **6.2× per-doc speedup** (cl
 - **Tailscale GPU setup** — gates the 5 remaining BEIR datasets and any fine-tuning. Blocked on access.
 - **Fine-tuning BGE-base on NFCorpus train** (110k pairs, ~3 GPU-hours expected). Blocked on GPU.
 - **bge-reranker-v2-m3** (568M, 2.27GB) as an opt-in heavyweight reranker — would likely lift NFCorpus + SciFact further.
-- **ruvector BGE bundling** ([ruvnet/ruvector#524](https://github.com/ruvnet/ruvector/issues/524)) — kills the @xenova/transformers dependency entirely.
+- **ruvector BGE bundling** ([mrinalsunny/ruvector#524](https://github.com/mrinalsunny/ruvector/issues/524)) — kills the @xenova/transformers dependency entirely.
 - **#2246 finding #2** (postinstall patch-durability checksum) — separate release.
 
 ## Verification
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 npm install && ( cd v3/@gemiflow/cli && npx tsc )
 
 # 3 BEIR datasets — each ingests once, caches, then evals fast on subsequent runs

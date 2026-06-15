@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Static guard for ruvnet/gemiflow#2127 (and the family of #1147 / #2018).
+ * Static guard for mrinalsunny/gemiflow#2127 (and the family of #1147 / #2018).
  *
  * The reporter hit `TypeError: Invalid Version: (empty)` inside arborist's
  * `canDedupe` while installing `gemiflow@3.8.0`. Two reviewers could not
@@ -131,5 +131,5 @@ if (violations.length === 0) {
 console.error('\nviolations:');
 for (const v of violations) console.error(`  ✗ ${v}`);
 console.error(`\n${violations.length} violation(s) — see remediation hints above.`);
-console.error('Reference: ruvnet/gemiflow#2127 (Invalid Version dedupe crash).');
+console.error('Reference: mrinalsunny/gemiflow#2127 (Invalid Version dedupe crash).');
 process.exit(1);

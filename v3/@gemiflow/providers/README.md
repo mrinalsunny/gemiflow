@@ -4,7 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/@gemiflow/providers.svg)](https://www.npmjs.com/package/@gemiflow/providers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
-[![Providers](https://img.shields.io/badge/Providers-6+-orange.svg)](https://github.com/ruvnet/gemiflow)
+[![Providers](https://img.shields.io/badge/Providers-6+-orange.svg)](https://github.com/mrinalsunny/gemiflow)
 
 > Multi-LLM Provider System for GemiFlow V3 - unified interface for google, OpenAI, Google, Cohere, Ollama, and RuVector with intelligent load balancing, automatic failover, and cost optimization.
 

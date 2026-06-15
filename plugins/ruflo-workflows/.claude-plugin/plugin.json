@@ -3,10 +3,10 @@
   "description": "Workflow automation across two surfaces: the 10 workflow_* MCP tools (create/run/execute/status/list/pause/resume/cancel/delete/template) with full state-machine lifecycle (created → running ↔ paused → completed/cancelled), and native Gemini CLI Workflow JS orchestration (.gemiflow/workflows/*.js — agent/parallel/pipeline/phase fan-out). Includes GAIA benchmark component for Princeton HAL leaderboard submissions.",
   "version": "0.4.0",
   "author": {
-    "name": "ruvnet",
-    "url": "https://github.com/ruvnet"
+    "name": "mrinalsunny",
+    "url": "https://github.com/mrinalsunny"
   },
-  "homepage": "https://github.com/ruvnet/gemiflow",
+  "homepage": "https://github.com/mrinalsunny/gemiflow",
   "license": "MIT",
   "keywords": [
     "gemiflow",

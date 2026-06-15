@@ -3,11 +3,11 @@
   "description": "Multi-agent swarm coordination, memory management, SPARC methodology, and intelligent hooks for Gemini CLI. Provides 60+ skills, 100+ commands, and 80+ specialized agents.",
   "version": "3.0.0",
   "author": {
-    "name": "ruvnet",
-    "url": "https://github.com/ruvnet"
+    "name": "mrinalsunny",
+    "url": "https://github.com/mrinalsunny"
   },
-  "homepage": "https://github.com/ruvnet/gemiflow",
-  "repository": "https://github.com/ruvnet/gemiflow",
+  "homepage": "https://github.com/mrinalsunny/gemiflow",
+  "repository": "https://github.com/mrinalsunny/gemiflow",
   "license": "MIT",
   "keywords": [
     "swarm",

@@ -1,7 +1,7 @@
 # @gemiflow/plugin-cognitive-kernel
 
 [![npm version](https://img.shields.io/npm/v/@gemiflow/plugin-cognitive-kernel.svg)](https://www.npmjs.com/package/@gemiflow/plugin-cognitive-kernel)
-[![license](https://img.shields.io/npm/l/@gemiflow/plugin-cognitive-kernel.svg)](https://github.com/ruvnet/gemiflow/blob/main/LICENSE)
+[![license](https://img.shields.io/npm/l/@gemiflow/plugin-cognitive-kernel.svg)](https://github.com/mrinalsunny/gemiflow/blob/main/LICENSE)
 [![downloads](https://img.shields.io/npm/dm/@gemiflow/plugin-cognitive-kernel.svg)](https://www.npmjs.com/package/@gemiflow/plugin-cognitive-kernel)
 
 A cutting-edge cognitive augmentation plugin combining the Cognitum Gate Kernel with SONA self-optimizing architecture to provide LLMs with enhanced cognitive capabilities. The plugin enables dynamic working memory, attention control mechanisms, meta-cognitive self-monitoring, and cognitive scaffolding while maintaining low latency through WASM acceleration.

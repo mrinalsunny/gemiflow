@@ -437,4 +437,4 @@ Add to your Claude settings (`~/.gemiflow/settings.json`):
 
 ## License
 
-MIT © [GemiFlow Team](https://github.com/ruvnet/gemiflow)
+MIT © [GemiFlow Team](https://github.com/mrinalsunny/gemiflow)

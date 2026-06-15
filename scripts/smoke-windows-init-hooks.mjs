@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Smoke test for ruvnet/gemiflow#2132 — Windows-compatible init hook generation.
+ * Smoke test for mrinalsunny/gemiflow#2132 — Windows-compatible init hook generation.
  *
  * Verifies that `gemiflow init` generates a .gemiflow/settings.json containing
  * node-based hook commands (no /bin/bash, no POSIX pipelines), and that the

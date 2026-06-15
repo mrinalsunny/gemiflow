@@ -19,7 +19,7 @@ import * as path from 'path';
  * Docker Compose template for RuVector PostgreSQL
  */
 const DOCKER_COMPOSE_TEMPLATE = `# RuVector PostgreSQL Testing Environment
-# Official RuVector extension from ruvnet/ruvector-postgres
+# Official RuVector extension from mrinalsunny/ruvector-postgres
 #
 # Features:
 # - 77+ SQL functions for vector operations
@@ -32,7 +32,7 @@ const DOCKER_COMPOSE_TEMPLATE = `# RuVector PostgreSQL Testing Environment
 
 services:
   postgres:
-    image: ruvnet/ruvector-postgres:latest
+    image: mrinalsunny/ruvector-postgres:latest
     container_name: ruvector-postgres
     environment:
       POSTGRES_USER: claude
@@ -81,7 +81,7 @@ const INIT_SQL_TEMPLATE = `-- ============================================
 -- ============================================
 --
 -- This script initializes RuVector PostgreSQL extension
--- from ruvnet/ruvector-postgres with GemiFlow V3 integration.
+-- from mrinalsunny/ruvector-postgres with GemiFlow V3 integration.
 --
 -- RuVector provides 77+ SQL functions including:
 -- - Vector similarity search (HNSW with SIMD)
@@ -650,8 +650,8 @@ docker-compose up -d
 \`\`\`
 
 ## Learn More
-- [RuVector Docker Hub](https://hub.docker.com/r/ruvnet/ruvector-postgres)
-- [GemiFlow Documentation](https://github.com/ruvnet/gemiflow)
+- [RuVector Docker Hub](https://hub.docker.com/r/mrinalsunny/ruvector-postgres)
+- [GemiFlow Documentation](https://github.com/mrinalsunny/gemiflow)
 `;
 
 /**

@@ -113,7 +113,7 @@
         },
         {
           "id": "pattern-1780161324694-3b-h7wi",
-          "name": "Merge pull request #2071 from ruvnet/feat/adr-126-phase-4-5-trust-pipeline",
+          "name": "Merge pull request #2071 from mrinalsunny/feat/adr-126-phase-4-5-trust-pipeline",
           "type": "history-commit",
           "score": 0.5497170195764974,
           "cosineScore": 0.12879817434673874,
@@ -158,7 +158,7 @@
         },
         {
           "id": "pattern-1780161324695-3k-3187",
-          "name": "Merge pull request #2067 from ruvnet/docs/trim-redundant-badges",
+          "name": "Merge pull request #2067 from mrinalsunny/docs/trim-redundant-badges",
           "type": "history-commit",
           "score": 0.6,
           "cosineScore": 0.11852022008519922,
@@ -311,7 +311,7 @@
         },
         {
           "id": "pattern-1780161324689-22-p22q",
-          "name": "Merge pull request #2101 from ruvnet/fix/2078-claudemd-coauthor-rule",
+          "name": "Merge pull request #2101 from mrinalsunny/fix/2078-claudemd-coauthor-rule",
           "type": "history-commit",
           "score": 0.6,
           "cosineScore": 0.11741462257643585,
@@ -365,7 +365,7 @@
         },
         {
           "id": "pattern-1780161324691-2i-tm1b",
-          "name": "Merge pull request #2090 from ruvnet/docs/adr-127-github-stack-modernization",
+          "name": "Merge pull request #2090 from mrinalsunny/docs/adr-127-github-stack-modernization",
           "type": "history-commit",
           "score": 0.6,
           "cosineScore": 0.15794464752821977,
@@ -536,7 +536,7 @@
         },
         {
           "id": "pattern-1780161324700-4b-ieca",
-          "name": "Merge pull request #2050 from ruvnet/feat/ci-supply-chain-hardening",
+          "name": "Merge pull request #2050 from mrinalsunny/feat/ci-supply-chain-hardening",
           "type": "history-commit",
           "score": 0.592484117643453,
           "cosineScore": 0.052350663373743465,

@@ -2,7 +2,7 @@
 
 > Last revised: 2026-06-09 against `gemiflow@3.10.40`
 > Source: <https://socket.dev/npm/package/gemiflow/alerts/3.10.40>
-> Tracking issue: ruvnet/gemiflow#2339
+> Tracking issue: mrinalsunny/gemiflow#2339
 
 ## TL;DR
 

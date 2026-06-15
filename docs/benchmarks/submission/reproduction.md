@@ -27,7 +27,7 @@ export HF_TOKEN=<your-token>
 ## Clone and Checkout
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow
+git clone https://github.com/mrinalsunny/gemiflow
 cd gemiflow
 git checkout 3ef6e175ddeb867135f00e843247aba2324d3c6d
 ```

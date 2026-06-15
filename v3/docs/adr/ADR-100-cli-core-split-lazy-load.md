@@ -4,7 +4,7 @@
 **Date**: 2026-05-05 · **Updated**: 2026-05-09
 **Version**: `@gemiflow/cli-core@3.7.0-alpha.5` published; `@gemiflow/cli@3.7.0-alpha.1` metapackage released
 **Supersedes**: nothing
-**Related**: ADR-098 (plugin capability sync and optimization), issue [#1748](https://github.com/ruvnet/gemiflow/issues/1748) Issue 3 (cold-cache 30s MCP-startup race), [#1747](https://github.com/ruvnet/gemiflow/issues/1747) (hooks shell injection — fixed in 3.6.28; orthogonal to this ADR)
+**Related**: ADR-098 (plugin capability sync and optimization), issue [#1748](https://github.com/mrinalsunny/gemiflow/issues/1748) Issue 3 (cold-cache 30s MCP-startup race), [#1747](https://github.com/mrinalsunny/gemiflow/issues/1747) (hooks shell injection — fixed in 3.6.28; orthogonal to this ADR)
 
 ## Context
 

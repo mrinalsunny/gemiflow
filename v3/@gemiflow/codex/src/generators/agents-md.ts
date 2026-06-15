@@ -85,7 +85,7 @@ ${testCommand}
 
 ## Links
 
-- Documentation: https://github.com/ruvnet/gemiflow
+- Documentation: https://github.com/mrinalsunny/gemiflow
 `;
 }
 
@@ -279,8 +279,8 @@ npx @gemiflow/cli hooks pre-task --description "task summary"
 
 ## Links
 
-- Documentation: https://github.com/ruvnet/gemiflow
-- Issues: https://github.com/ruvnet/gemiflow/issues
+- Documentation: https://github.com/mrinalsunny/gemiflow
+- Issues: https://github.com/mrinalsunny/gemiflow/issues
 `;
 }
 

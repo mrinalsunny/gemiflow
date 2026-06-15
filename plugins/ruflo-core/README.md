@@ -5,7 +5,7 @@ Foundation plugin. Registers the `gemiflow` MCP server (300+ tools), provides th
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-core@gemiflow
 ```
 

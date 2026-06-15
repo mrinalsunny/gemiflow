@@ -121,7 +121,7 @@ export const pluginMetadata = {
   category: 'exotic',
   author: 'rUv',
   license: 'MIT',
-  repository: 'https://github.com/ruvnet/gemiflow',
+  repository: 'https://github.com/mrinalsunny/gemiflow',
   tools: [
     'hyperbolic_embed_hierarchy',
     'hyperbolic_taxonomic_reason',

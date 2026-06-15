@@ -5,7 +5,7 @@ RuVLLM local inference with chat formatting, model configuration, MicroLoRA fine
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-ruvllm@gemiflow
 ```
 

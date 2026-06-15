@@ -1,5 +1,5 @@
 /**
- * Tests for ToolOutputGuardrail (ADR-131, ruvnet/gemiflow#2149).
+ * Tests for ToolOutputGuardrail (ADR-131, mrinalsunny/gemiflow#2149).
  *
  * Covers:
  *  - Safe content passes unchanged

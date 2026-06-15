@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Static guard for ruvnet/gemiflow#2151 — enforce three-way version lockstep
+ * Static guard for mrinalsunny/gemiflow#2151 — enforce three-way version lockstep
  * across the umbrella packages that ship together:
  *
  *   - @gemiflow/cli  (v3/@gemiflow/cli/package.json)
@@ -99,5 +99,5 @@ if (violations.length === 0) {
 console.error('\nviolations:');
 for (const v of violations) console.error(`  ✗ ${v}`);
 console.error(`\n${violations.length} violation(s).`);
-console.error('Reference: ruvnet/gemiflow#2151 (version mismatch — gemiflow@3.10.2 + cli@3.10.1).');
+console.error('Reference: mrinalsunny/gemiflow#2151 (version mismatch — gemiflow@3.10.2 + cli@3.10.1).');
 process.exit(1);

@@ -104,7 +104,7 @@ Rerank's trade-off: top-1/MRR/P3 up, nDCG@3/top-3 marginally down. Net: positive
 ## Verification
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 npm install && ( cd v3/@gemiflow/cli && npx tsc )
 
 # Pretrain

@@ -1090,7 +1090,7 @@ const installSupervisorCommand: Command = {
 
     if (platform === 'win32') {
       output.printError('Windows scheduled-task installer is not yet implemented.');
-      output.printInfo('Use Task Scheduler manually, or follow this issue: https://github.com/ruvnet/gemiflow/issues/1565');
+      output.printInfo('Use Task Scheduler manually, or follow this issue: https://github.com/mrinalsunny/gemiflow/issues/1565');
       return { success: false, exitCode: 1 };
     }
     if (platform !== 'darwin' && platform !== 'linux') {

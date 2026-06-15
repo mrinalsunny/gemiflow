@@ -1197,7 +1197,7 @@ await plugin.attentionQuery({ query: 'complex reasoning', mechanism: 'multi_head
 - **ADR-015-v2**: Unified Plugin System
 - **ADR-017**: RuVector Integration Architecture
 - **ADR-006**: Unified Memory Service
-- **@ruvector/postgres-cli**: https://github.com/ruvnet/ruvector-postgres
+- **@ruvector/postgres-cli**: https://github.com/mrinalsunny/ruvector-postgres
 - **pgvector**: https://github.com/pgvector/pgvector
 - **PostgreSQL**: https://www.postgresql.org/docs/
 

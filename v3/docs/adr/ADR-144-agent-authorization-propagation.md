@@ -2,7 +2,7 @@
 
 **Status**: Proposed
 **Date**: 2026-06-02
-**Issue**: [ruvnet/gemiflow#2248](https://github.com/ruvnet/gemiflow/issues/2248)
+**Issue**: [mrinalsunny/gemiflow#2248](https://github.com/mrinalsunny/gemiflow/issues/2248)
 **Related**: ADR-012 (MCP Security Features), ADR-013 (Core Security Module), ADR-131 (ToolOutputGuardrail — content layer), ADR-145 (Plugin supply-chain — install layer)
 
 ## Context

@@ -35,4 +35,4 @@ Skills are invoked using `$skill-name` syntax. Each skill has:
 
 - Main instructions: `AGENTS.md` (project root)
 - Local overrides: `.gemini/AGENTS.override.md` (gitignored)
-- GemiFlow: https://github.com/ruvnet/gemiflow
+- GemiFlow: https://github.com/mrinalsunny/gemiflow

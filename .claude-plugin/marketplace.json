@@ -2,8 +2,8 @@
   "name": "gemiflow",
   "description": "GemiFlow Marketplace: Gemini CLI native agents, swarms, workers, and MCP tools for continuous software engineering",
   "owner": {
-    "name": "ruvnet",
-    "url": "https://github.com/ruvnet"
+    "name": "mrinalsunny",
+    "url": "https://github.com/mrinalsunny"
   },
   "plugins": [
     {

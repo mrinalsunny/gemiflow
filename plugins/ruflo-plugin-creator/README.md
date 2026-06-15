@@ -5,7 +5,7 @@ Scaffold, validate, and publish new Gemini CLI plugins with proper structure, MC
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-plugin-creator@gemiflow
 ```
 

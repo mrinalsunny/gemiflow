@@ -974,7 +974,7 @@ export class GasTownBridgePlugin extends EventEmitter implements IPlugin {
       description: this.description,
       author: 'rUv',
       license: 'MIT',
-      repository: 'https://github.com/ruvnet/gemiflow',
+      repository: 'https://github.com/mrinalsunny/gemiflow',
       keywords: [
         'gemiflow',
         'plugin',

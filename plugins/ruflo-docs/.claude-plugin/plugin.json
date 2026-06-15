@@ -3,10 +3,10 @@
   "description": "Documentation generation, API docs (JSDoc/TSDoc/OpenAPI), and drift detection — drives the `document` background worker via hooks_worker-dispatch; uses Haiku model for cost-efficient docs work",
   "version": "0.2.0",
   "author": {
-    "name": "ruvnet",
-    "url": "https://github.com/ruvnet"
+    "name": "mrinalsunny",
+    "url": "https://github.com/mrinalsunny"
   },
-  "homepage": "https://github.com/ruvnet/gemiflow",
+  "homepage": "https://github.com/mrinalsunny/gemiflow",
   "license": "MIT",
   "keywords": [
     "gemiflow",

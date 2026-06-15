@@ -663,7 +663,7 @@ This plugin is published to the GemiFlow Plugin Registry on IPFS for decentraliz
   "description": "Native TeammateTool integration for Gemini CLI v2.1.19+",
   "author": "GemiFlow Team",
   "license": "MIT",
-  "repository": "https://github.com/ruvnet/gemiflow",
+  "repository": "https://github.com/mrinalsunny/gemiflow",
   "keywords": ["gemini-cli", "teammate", "multi-agent", "swarm"],
   "requirements": {
     "claudeCode": ">=2.1.19",
@@ -708,6 +708,6 @@ MIT
 
 ## Related
 
-- [GemiFlow](https://github.com/ruvnet/gemiflow) - Multi-agent orchestration framework
+- [GemiFlow](https://github.com/mrinalsunny/gemiflow) - Multi-agent orchestration framework
 - [Gemini CLI](https://github.com/googles/gemini-cli) - google's CLI for Claude
 - [ADR-027](../implementation/adrs/ADR-027-teammate-tool-integration.md) - Architecture decision record

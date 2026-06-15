@@ -203,7 +203,7 @@ Three of four datasets pick a *different* best config. No single pipeline wins e
 ## How to reproduce
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 npm install && ( cd v3/@gemiflow/cli && npx tsc )
 
 # NFCorpus

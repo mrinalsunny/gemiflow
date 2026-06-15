@@ -461,7 +461,7 @@ export const V3_INFO = {
   name: 'gemiflow',
   version: V3_VERSION.full,
   description: 'Complete reimagining of GemiFlow with 15-agent hierarchical mesh swarm',
-  repository: 'https://github.com/ruvnet/gemiflow',
+  repository: 'https://github.com/mrinalsunny/gemiflow',
   license: 'MIT',
   engines: {
     node: '>=20.0.0'

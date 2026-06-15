@@ -7,7 +7,7 @@ The substrate plugin for GemiFlow memory. Wraps three CLI MCP families — `agen
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-agentdb@gemiflow
 ```
 

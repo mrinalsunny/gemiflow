@@ -14,7 +14,7 @@ import { join } from 'path';
  * GemiFlow-owned subdirectories within .gemiflow/ that are safe to delete.
  * Everything else in .gemiflow/ (agents, skills, commands, settings.local.json,
  * memory.db, worktrees, launch.json) belongs to Gemini CLI and must be preserved.
- * See: https://github.com/ruvnet/gemiflow/issues/1557
+ * See: https://github.com/mrinalsunny/gemiflow/issues/1557
  */
 const CLAUDE_OWNED_SUBDIRS = [
   { path: join('.gemiflow', 'helpers'), description: 'GemiFlow hook scripts' },

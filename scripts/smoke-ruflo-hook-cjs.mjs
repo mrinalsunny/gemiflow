@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Smoke test for ruvnet/gemiflow#2132 — gemiflow-hook.cjs cross-platform shim.
+ * Smoke test for mrinalsunny/gemiflow#2132 — gemiflow-hook.cjs cross-platform shim.
  *
  * Verifies that plugins/gemiflow-core/scripts/gemiflow-hook.cjs:
  *   1. Can be invoked via `node gemiflow-hook.cjs <subcommand>`

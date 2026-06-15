@@ -2,7 +2,7 @@
 
 **Status**: Accepted — Implemented in gemiflow 3.10.17
 **Date**: 2026-05-30
-**Tracking**: continuation of [#2245](https://github.com/ruvnet/gemiflow/issues/2245) self-learning hardening cluster
+**Tracking**: continuation of [#2245](https://github.com/mrinalsunny/gemiflow/issues/2245) self-learning hardening cluster
 **Related**: ADR-074 (wiring), ADR-075 (unified stats), ADR-076 (Structured Distillation)
 
 ## Context
@@ -70,7 +70,7 @@ Every query returns a non-empty top-K. Semantic alignment is mixed (small corpus
 
 ```bash
 # Repro from a fresh checkout
-git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 npm install && ( cd v3/@gemiflow/cli && npx tsc -b )
 
 # Pretrain on this repo's history (default 50 commits + 30 issues)

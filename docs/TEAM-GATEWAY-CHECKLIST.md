@@ -2,7 +2,7 @@
 
 This checklist covers governance and safety gates for teams running Gemini CLI / gemini-style agent workflows through a shared gateway or proxy. It supersedes ad-hoc runbooks and is enforced by the before-merge CI gates listed below.
 
-Related: [#2058](https://github.com/ruvnet/gemiflow/issues/2058)
+Related: [#2058](https://github.com/mrinalsunny/gemiflow/issues/2058)
 
 ---
 

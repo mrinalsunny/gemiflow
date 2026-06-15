@@ -6,13 +6,13 @@
     "name": "rUv",
     "email": "mrinalsunny@gmail.com"
   },
-  "homepage": "https://github.com/ruvnet/gemiflow",
+  "homepage": "https://github.com/mrinalsunny/gemiflow",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ruvnet/gemiflow.git"
+    "url": "https://github.com/mrinalsunny/gemiflow.git"
   },
   "bugs": {
-    "url": "https://github.com/ruvnet/gemiflow/issues"
+    "url": "https://github.com/mrinalsunny/gemiflow/issues"
   },
   "license": "MIT",
   "keywords": [

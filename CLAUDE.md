@@ -1173,8 +1173,8 @@ Registry source: IPFS via Pinata (`QmXbfEAaR7D2Ujm4GAkbwcGZQMHqAMpwDoje4583uNP83
 
 ## Support
 
-- Documentation: https://github.com/ruvnet/gemiflow
-- Issues: https://github.com/ruvnet/gemiflow/issues
+- Documentation: https://github.com/mrinalsunny/gemiflow
+- Issues: https://github.com/mrinalsunny/gemiflow/issues
 
 ---
 

@@ -5,7 +5,7 @@ AI safety scanning, PII detection, prompt injection defense, and adaptive threat
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-aidefence@gemiflow
 ```
 

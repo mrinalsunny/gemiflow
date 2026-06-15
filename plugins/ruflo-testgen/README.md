@@ -5,7 +5,7 @@ Test gap detection, coverage analysis, and automated test generation. SPARC Refi
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-testgen@gemiflow
 ```
 

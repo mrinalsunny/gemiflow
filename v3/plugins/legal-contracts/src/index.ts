@@ -57,8 +57,8 @@ export const pluginMetadata = {
   author: 'GemiFlow Team',
   category: 'legal',
   keywords: ['legal', 'contracts', 'clause', 'risk', 'compliance'],
-  homepage: 'https://github.com/ruvnet/gemiflow',
-  repository: 'https://github.com/ruvnet/gemiflow.git',
+  homepage: 'https://github.com/mrinalsunny/gemiflow',
+  repository: 'https://github.com/mrinalsunny/gemiflow.git',
 };
 
 /**

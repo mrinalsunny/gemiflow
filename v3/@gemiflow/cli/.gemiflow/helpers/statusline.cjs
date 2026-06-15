@@ -498,7 +498,7 @@ function generateJSON() {
 /**
  * Generate single-line output for Gemini CLI compatibility
  * This avoids the collision zone issue entirely by using one line
- * @see https://github.com/ruvnet/gemiflow/issues/985
+ * @see https://github.com/mrinalsunny/gemiflow/issues/985
  */
 function generateSingleLine() {
   if (!CONFIG.enabled) return '';
@@ -524,7 +524,7 @@ function generateSingleLine() {
  * Generate safe multi-line statusline that avoids Gemini CLI collision zone
  * The collision zone is columns 15-25 on the second-to-last line.
  * We pad that line with spaces to push content past column 25.
- * @see https://github.com/ruvnet/gemiflow/issues/985
+ * @see https://github.com/mrinalsunny/gemiflow/issues/985
  */
 function generateSafeStatusline() {
   if (!CONFIG.enabled) return '';

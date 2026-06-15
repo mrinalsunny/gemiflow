@@ -3,10 +3,10 @@
   "description": "SPARC methodology — Specification, Pseudocode, Architecture, Refinement, Completion phases with gate checks",
   "version": "0.2.0",
   "author": {
-    "name": "ruvnet",
-    "url": "https://github.com/ruvnet"
+    "name": "mrinalsunny",
+    "url": "https://github.com/mrinalsunny"
   },
-  "homepage": "https://github.com/ruvnet/gemiflow",
+  "homepage": "https://github.com/mrinalsunny/gemiflow",
   "license": "MIT",
   "keywords": [
     "gemiflow",

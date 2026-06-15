@@ -5,7 +5,7 @@ Security review, dependency scanning, policy gates, and CVE monitoring.
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-security-audit@gemiflow
 ```
 

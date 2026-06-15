@@ -5,7 +5,7 @@ RVF format for portable agent memory, session persistence, and cross-platform tr
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-rvf@gemiflow
 ```
 

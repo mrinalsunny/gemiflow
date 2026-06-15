@@ -135,7 +135,7 @@ All implementation plan steps are complete on `main`.
 | 6. Smoke test | `tests/plugins/gemiflow-goals/dossier.spec.ts` | Implemented | same |
 | 7. Feature flag | `dossierInvestigator.enabled` (default `true`) | Implemented | same |
 | Plugin contract adoption | `plugins/gemiflow-goals/` — legacy-vs-canonical namespace mapping + ADR-099 anchor | Implemented | `714cd534c feat(gemiflow-goals): adopt plugin contract — legacy-vs-canonical namespace mapping + ADR-099 anchor (ADR-0001)` |
-| Dossier examples | `docs/examples/` — 3 examples (ruvnet, ADR-088, gemiflow-goals) | Implemented | `ba0479612 docs(examples): add 3 dossier examples` |
+| Dossier examples | `docs/examples/` — 3 examples (mrinalsunny, ADR-088, gemiflow-goals) | Implemented | `ba0479612 docs(examples): add 3 dossier examples` |
 
 ### Open questions resolved during implementation
 

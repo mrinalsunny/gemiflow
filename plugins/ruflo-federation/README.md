@@ -5,7 +5,7 @@ The comms layer for multi-agent AI. Cross-installation agent federation with zer
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-federation@gemiflow
 ```
 

@@ -5,7 +5,7 @@
 **Version**: 2.5.0
 **License**: MIT
 **Author**: rUv
-**Repository**: https://github.com/ruvnet/gemiflow
+**Repository**: https://github.com/mrinalsunny/gemiflow
 
 ---
 
@@ -45,7 +45,7 @@ gemiflow/
 
 ```
 # Install plugin
-/plugin add ruvnet/gemiflow
+/plugin add mrinalsunny/gemiflow
 
 # Restart Gemini CLI
 /restart
@@ -222,7 +222,7 @@ All documentation follows official Gemini CLI plugin guidelines.
 
 ### Install
 ```
-/plugin add ruvnet/gemiflow
+/plugin add mrinalsunny/gemiflow
 ```
 
 ### Update
@@ -292,9 +292,9 @@ Should show `gemiflow` as active.
 
 ## 🤝 Support & Community
 
-- **Repository**: https://github.com/ruvnet/gemiflow
-- **Issues**: https://github.com/ruvnet/gemiflow/issues
-- **Discussions**: https://github.com/ruvnet/gemiflow/discussions
+- **Repository**: https://github.com/mrinalsunny/gemiflow
+- **Issues**: https://github.com/mrinalsunny/gemiflow/issues
+- **Discussions**: https://github.com/mrinalsunny/gemiflow/discussions
 - **Website**: https://flow-nexus.ruv.io
 
 ---
@@ -335,7 +335,7 @@ The plugin is configured via `.claude-plugin/plugin.json`:
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ruvnet/gemiflow.git"
+    "url": "https://github.com/mrinalsunny/gemiflow.git"
   },
   "mcpServers": {
     "gemiflow": {
@@ -350,7 +350,7 @@ Commands and agents are automatically discovered from `commands/` and `agents/` 
 
 Users install with:
 ```
-/plugin add ruvnet/gemiflow
+/plugin add mrinalsunny/gemiflow
 ```
 
 ---

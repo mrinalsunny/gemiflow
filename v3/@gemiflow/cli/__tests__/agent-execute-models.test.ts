@@ -1,5 +1,5 @@
 /**
- * Regression guard for ruvnet/gemiflow#1906 — model aliases must map to
+ * Regression guard for mrinalsunny/gemiflow#1906 — model aliases must map to
  * current (Claude 4.x) model ids, not the deprecated Claude-3.x ids that
  * the google API now 404s.
  */

@@ -124,7 +124,7 @@ This checkout has zero `Revert "<X>"`-style reverts in the 200 most recent commi
 ## Verification
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 npm install && ( cd v3/@gemiflow/cli && npx tsc -b )
 
 # Unit tests (no I/O, no network) — 21 + 7 tests

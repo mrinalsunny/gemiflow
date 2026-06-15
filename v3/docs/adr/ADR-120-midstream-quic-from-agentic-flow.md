@@ -27,7 +27,7 @@ This ADR proposes a three-step plan to close it.
 
 ## Decision
 
-**Step 1 — Cross-port the agentic-flow QUIC bridge into midstream and republish `midstreamer-quic` with the production WASM build (upstream work in `ruvnet/midstream`).** Step 2 — Update gemiflow's ADR-108 loader to detect the new midstream WASM build. Step 3 — Compose `midstreamer-quic` + `aimds-*` into a single gemiflow Rust transport that runs the federation hops *and* the in-flight gate in one process.
+**Step 1 — Cross-port the agentic-flow QUIC bridge into midstream and republish `midstreamer-quic` with the production WASM build (upstream work in `mrinalsunny/midstream`).** Step 2 — Update gemiflow's ADR-108 loader to detect the new midstream WASM build. Step 3 — Compose `midstreamer-quic` + `aimds-*` into a single gemiflow Rust transport that runs the federation hops *and* the in-flight gate in one process.
 
 ### Step 1 — Upstream: `midstream` adopts agentic-flow's bridge pattern
 
@@ -139,7 +139,7 @@ This is the "Rust-based in-flight agentics" the question is really asking about.
 
 ## Migration path
 
-1. **Upstream PR to `ruvnet/midstream`** — cross-port the agentic-flow bridge into `npm-wasm/`. Republish `midstreamer@0.3.0`. (External to gemiflow; this ADR proposes the design and links to ADR-108 as the consumer.)
+1. **Upstream PR to `mrinalsunny/midstream`** — cross-port the agentic-flow bridge into `npm-wasm/`. Republish `midstreamer@0.3.0`. (External to gemiflow; this ADR proposes the design and links to ADR-108 as the consumer.)
 2. **GemiFlow: loader update** — one-module change in `agentic-flow/src/transport/quic-loader.ts` to detect `midstreamer` first when `MIDSTREAMER_QUIC_NATIVE=1`. Behind the env flag — no behavior change for default callers.
 3. **GemiFlow: `v3/crates/gemiflow-federation-peer/`** — new crate composing `midstreamer-quic` + `aimds-*` + a stdio dispatcher. Ships as an optional native binary; launcher in `plugins/gemiflow-federation/scripts/` prefers it.
 4. **Smoke parity** — `plugins/gemiflow-federation/scripts/smoke.sh` runs against both transports (native peer + WebSocket fallback) and asserts identical 3-gate verdicts on a fixture set.
@@ -156,7 +156,7 @@ This is the "Rust-based in-flight agentics" the question is really asking about.
 
 ### Negative
 
-- **Depends on upstream work.** Step 1 is upstream-only (`ruvnet/midstream`). GemiFlow can't ship the integration until midstream republishes. We can write the loader (Step 2) and the peer crate (Step 3) behind feature flags so they're ready, but they don't activate until upstream lands.
+- **Depends on upstream work.** Step 1 is upstream-only (`mrinalsunny/midstream`). GemiFlow can't ship the integration until midstream republishes. We can write the loader (Step 2) and the peer crate (Step 3) behind feature flags so they're ready, but they don't activate until upstream lands.
 - **New native dependency surface.** A Rust binary per federation peer is a stricter deployment surface than the existing Node-only path. Consumers running federation in pure-JS environments (some k8s setups) need the WebSocket fallback to stay first-class. ADR-104 already guarantees that, but operators must understand the choice.
 - **`midstreamer@0.3.0` is breaking-ish.** The `QuicMultistream` class' actual behavior changes from "counter stub" to "real QUIC." Any caller that depended on the stub semantics (none in gemiflow today; verified via `grep`) would break.
 

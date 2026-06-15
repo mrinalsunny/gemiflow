@@ -1029,7 +1029,7 @@ mcp__flow-nexus__challenge_submit({
 - **API Reference**: https://api.flow-nexus.ruv.io/docs
 - **Status Page**: https://status.flow-nexus.ruv.io
 - **Community Forum**: https://community.flow-nexus.ruv.io
-- **GitHub Issues**: https://github.com/ruvnet/flow-nexus/issues
+- **GitHub Issues**: https://github.com/mrinalsunny/flow-nexus/issues
 - **Discord**: https://discord.gg/flow-nexus
 - **Email Support**: support@flow-nexus.ruv.io (Pro/Enterprise only)
 

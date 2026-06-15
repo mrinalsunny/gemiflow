@@ -7,13 +7,13 @@
 [![Live Agents — goal.ruv.io/agents](https://img.shields.io/badge/_Live_Agents-goal.ruv.io%2Fagents-10b981?style=for-the-badge&logoColor=white&logo=react)](https://goal.ruv.io/agents)
 
 [![npm version (gemiflow)](https://img.shields.io/npm/v/gemiflow?label=gemiflow&style=for-the-badge&logo=npm&color=cb3837)](https://www.npmjs.com/package/gemiflow)
-[![Ecosystem downloads](https://img.shields.io/badge/ecosystem%20downloads-22.2M%2B-blue?style=for-the-badge&logo=npm)](https://github.com/ruvnet/gemiflow/blob/main/data/clone-data.proof.json)
-[![Git clones (14d)](https://img.shields.io/badge/git%20clones%2014d-115k-blueviolet?style=for-the-badge&logo=github)](https://github.com/ruvnet/gemiflow/blob/main/data/clone-data.ledger.json)
+[![Ecosystem downloads](https://img.shields.io/badge/ecosystem%20downloads-22.2M%2B-blue?style=for-the-badge&logo=npm)](https://github.com/mrinalsunny/gemiflow/blob/main/data/clone-data.proof.json)
+[![Git clones (14d)](https://img.shields.io/badge/git%20clones%2014d-115k-blueviolet?style=for-the-badge&logo=github)](https://github.com/mrinalsunny/gemiflow/blob/main/data/clone-data.ledger.json)
 
-[![Star on GitHub](https://img.shields.io/github/stars/ruvnet/gemiflow?style=for-the-badge&logo=github&color=gold)](https://github.com/ruvnet/gemiflow)
+[![Star on GitHub](https://img.shields.io/github/stars/mrinalsunny/gemiflow?style=for-the-badge&logo=github&color=gold)](https://github.com/mrinalsunny/gemiflow)
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![Gemini CLI](https://img.shields.io/badge/Gemini%20CLI-Plugin-8E75C2?style=for-the-badge&logoColor=white&logo=google)](https://github.com/ruvnet/gemiflow)
-[![🕸️ RuVector Graph Ai](https://img.shields.io/badge/RuVector_Agentic-DB-06b6d4?style=for-the-badge&logoColor=white&logo=graphql)](https://github.com/ruvnet/ruvector)
+[![Gemini CLI](https://img.shields.io/badge/Gemini%20CLI-Plugin-8E75C2?style=for-the-badge&logoColor=white&logo=google)](https://github.com/mrinalsunny/gemiflow)
+[![🕸️ RuVector Graph Ai](https://img.shields.io/badge/RuVector_Agentic-DB-06b6d4?style=for-the-badge&logoColor=white&logo=graphql)](https://github.com/mrinalsunny/ruvector)
 
 # GemiFlow
 
@@ -69,7 +69,7 @@ There are **two different install paths** with very different surface areas. Pic
 
 ```bash
 # Add the marketplace
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 
 # Install core + any plugins you need
 /plugin install gemiflow-core@gemiflow
@@ -169,7 +169,7 @@ This adds slash commands and agent definitions only. The GemiFlow MCP server is 
 
 ```bash
 # One-line install (POSIX shells only — see Windows note below)
-curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/gemiflow@main/scripts/install.sh | bash
+curl -fsSL https://cdn.jsdelivr.net/gh/mrinalsunny/gemiflow@main/scripts/install.sh | bash
 ```
 
 **All platforms (including native Windows PowerShell / cmd):**
@@ -226,7 +226,7 @@ gemini mcp add gemiflow -- npx gemiflow@latest mcp start
 | | What it is | Why it matters |
 |---|------------|----------------|
 | 🧠 | **Any model, local or remote** | 6 curated frontier models out-of-the-box — Qwen 3.6 Max (default), Gemini 2.5 Pro, Gemini 1.5 Pro, Gemini 2.5 Flash, Gemini 2.5 Flash, OpenAI — via OpenRouter. Add your own: any OpenAI-compatible endpoint (vLLM, Ollama, LM Studio, Together, Groq, self-hosted). |
-| 🦾 | **ruvLLM self-learning AI** | Native support for [ruvLLM](https://github.com/ruvnet/RuVector/tree/main/examples/ruvLLM) (lives in `ruvnet/RuVector/examples/ruvLLM`) — GemiFlow's self-improving local model layer. Routes to MicroLoRA adapters, learns from your trajectories via SONA, and stays on your machine. Pair with the cloud models or run fully offline. |
+| 🦾 | **ruvLLM self-learning AI** | Native support for [ruvLLM](https://github.com/mrinalsunny/RuVector/tree/main/examples/ruvLLM) (lives in `mrinalsunny/RuVector/examples/ruvLLM`) — GemiFlow's self-improving local model layer. Routes to MicroLoRA adapters, learns from your trajectories via SONA, and stays on your machine. Pair with the cloud models or run fully offline. |
 | 🛠️ | **~210 tools, ready to call** | 5 server groups (Core, Intelligence, Agents, Memory, DevTools) plus an 18-tool gallery that runs entirely in your browser — works offline. |
 | 🔌 | **Bring your own MCP servers** | Click the **MCP (n)** pill in the chat input → *Add Server* and paste any MCP endpoint (HTTP, SSE, or stdio). Your tools join GemiFlow's native ones in the same parallel-execution flow. Run a local MCP server on `localhost:3000` and it just works. |
 | ⚡ | **Tools run in parallel** | One model response can fire 4–6+ tools at the same time. The UI shows them as cards with a *Step 1 — 2 tools completed* badge so you can see exactly what ran. |
@@ -235,7 +235,7 @@ gemini mcp add gemiflow -- npx gemiflow@latest mcp start
 | 🏠 | **Self-hostable** | Web UI is shipped as Docker (`gemiflow/src/ruvocal/Dockerfile`) with embedded Mongo. Deploy to your own Cloud Run / Fly / Kubernetes / docker-compose. The hosted [flo.ruv.io](https://flo.ruv.io/) demo is one option; running your own is fully supported. |
 | 🚀 | **Zero install to try** | Open the hosted URL, pick a model, type a question. That's the whole onboarding. |
 
-**Try the hosted demo:** [https://flo.ruv.io/](https://flo.ruv.io/) — no account, no API key. **Run your own:** the source lives in [`gemiflow/src/ruvocal/`](gemiflow/src/ruvocal/) with a multi-stage Dockerfile (`INCLUDE_DB=true` builds in MongoDB) and a `cloudbuild.yaml` for Google Cloud Run. See [ADR-033](gemiflow/docs/adr/ADR-033-RUVOCAL-WASM-MCP-INTEGRATION.md) for the architecture and [issue #1689](https://github.com/ruvnet/gemiflow/issues/1689) for the roadmap.
+**Try the hosted demo:** [https://flo.ruv.io/](https://flo.ruv.io/) — no account, no API key. **Run your own:** the source lives in [`gemiflow/src/ruvocal/`](gemiflow/src/ruvocal/) with a multi-stage Dockerfile (`INCLUDE_DB=true` builds in MongoDB) and a `cloudbuild.yaml` for Google Cloud Run. See [ADR-033](gemiflow/docs/adr/ADR-033-RUVOCAL-WASM-MCP-INTEGRATION.md) for the architecture and [issue #1689](https://github.com/mrinalsunny/gemiflow/issues/1689) for the roadmap.
 
 <p align="center">
   <a href="https://goal.ruv.io/agents">
@@ -278,7 +278,7 @@ Their Agent <-- [ Block attacks ] <-- [ Check identity ] <------+
 
 Slack gave teams channels. Federation gives agents the same thing — **shared workspaces across trust boundaries**, where agents on different machines, orgs, or cloud regions can discover each other, prove who they are, and collaborate on tasks.
 
-The difference: some channels are trusted, some aren't. [`@gemiflow/plugin-agent-federation`](https://github.com/ruvnet/gemiflow/issues/1669) handles that automatically. Your agents join a federation, get verified via mTLS + ed25519, and start exchanging work — with PII stripped before anything leaves your node and every message auditable. Untrusted agents can still participate at lower privilege: they see discovery info, not your memory. As they prove reliable, trust upgrades. If they misbehave, they get downgraded instantly — no human in the loop required.
+The difference: some channels are trusted, some aren't. [`@gemiflow/plugin-agent-federation`](https://github.com/mrinalsunny/gemiflow/issues/1669) handles that automatically. Your agents join a federation, get verified via mTLS + ed25519, and start exchanging work — with PII stripped before anything leaves your node and every message auditable. Untrusted agents can still participate at lower privilege: they see discovery info, not your memory. As they prove reliable, trust upgrades. If they misbehave, they get downgraded instantly — no human in the loop required.
 
 You don't configure handshakes or manage certificates. You `federation init`, `federation join`, and your agents start talking. The protocol handles identity, the PII pipeline handles data safety, and the audit trail handles compliance.
 
@@ -317,7 +317,7 @@ npx gemiflow@latest federation status
 
 </details>
 
-See [issue #1669](https://github.com/ruvnet/gemiflow/issues/1669) for the complete architecture, trust model, and implementation roadmap.
+See [issue #1669](https://github.com/mrinalsunny/gemiflow/issues/1669) for the complete architecture, trust model, and implementation roadmap.
 
 ```bash
 # Gemini CLI plugin
@@ -382,11 +382,11 @@ Four docs for four audiences:
 |-----|-----------------|
 | **[Status](docs/STATUS.md)** | See what currently works — capability counts, test baselines, recent fixes, what's next. The *is-it-ready* doc. |
 | **[User Guide](docs/USERGUIDE.md)** | Daily reference — every command, every config flag, every plugin. The *how-do-I* doc. |
-| **[Benchmarks](https://gist.github.com/ruvnet/298f8c668c8859b369f91734a0e9cbbe)** | v3.8.0 SOTA matrix vs LangGraph / AutoGen / CrewAI on darwin-arm64 + linux-x64. gemiflow wins cold start, single turn, RSS by 1.3×–1953×. The *is-it-fast* doc. |
+| **[Benchmarks](https://gist.github.com/mrinalsunny/298f8c668c8859b369f91734a0e9cbbe)** | v3.8.0 SOTA matrix vs LangGraph / AutoGen / CrewAI on darwin-arm64 + linux-x64. gemiflow wins cold start, single turn, RSS by 1.3×–1953×. The *is-it-fast* doc. |
 | **[Verification](verification.md)** | Cryptographically prove your installed bytes match the signed witness — `gemiflow verify`. The *trust-but-verify* doc. |
 | **[Team Gateway Checklist](docs/TEAM-GATEWAY-CHECKLIST.md)** | Before-merge gates, dual-mode handoff, memory namespace sharing, and witness manifest entry per merge. The *safer-team-workflows* doc. |
 
-Benchmark internals (for reproduction): [`sota-workload-spec.md`](https://github.com/ruvnet/gemiflow/blob/perf/sota-comparator-benchmarks/docs/benchmarks/sota-workload-spec.md) · [`SOTA-PROGRESS.md`](https://github.com/ruvnet/gemiflow/blob/perf/sota-comparator-benchmarks/docs/benchmarks/SOTA-PROGRESS.md) · [raw matrix JSON: darwin](https://github.com/ruvnet/gemiflow/blob/perf/sota-comparator-benchmarks/docs/benchmarks/sota-matrix.json) · [linux](https://github.com/ruvnet/gemiflow/blob/perf/sota-comparator-benchmarks/docs/benchmarks/sota-matrix-linux.json)
+Benchmark internals (for reproduction): [`sota-workload-spec.md`](https://github.com/mrinalsunny/gemiflow/blob/perf/sota-comparator-benchmarks/docs/benchmarks/sota-workload-spec.md) · [`SOTA-PROGRESS.md`](https://github.com/mrinalsunny/gemiflow/blob/perf/sota-comparator-benchmarks/docs/benchmarks/SOTA-PROGRESS.md) · [raw matrix JSON: darwin](https://github.com/mrinalsunny/gemiflow/blob/perf/sota-comparator-benchmarks/docs/benchmarks/sota-matrix.json) · [linux](https://github.com/mrinalsunny/gemiflow/blob/perf/sota-comparator-benchmarks/docs/benchmarks/sota-matrix-linux.json)
 
 User Guide section index:
 
@@ -399,7 +399,7 @@ User Guide section index:
 | [Security](docs/USERGUIDE.md#%EF%B8%8F-security) | AIDefence, CVE remediation, validation |
 | [Ecosystem](docs/USERGUIDE.md#-ecosystem--integrations) | RuVector, agentic-flow, Flow Nexus |
 | [Configuration](docs/USERGUIDE.md#%EF%B8%8F-configuration--reference) | Environment variables, config schema |
-| [Plugin Marketplace](https://ruvnet.github.io/gemiflow) | Browse and install plugins |
+| [Plugin Marketplace](https://mrinalsunny.github.io/gemiflow) | Browse and install plugins |
 
 ---
 
@@ -408,11 +408,11 @@ User Guide section index:
 | Resource | Link |
 |----------|------|
 | Documentation | [User Guide](docs/USERGUIDE.md) |
-| Issues & Bugs | [GitHub Issues](https://github.com/ruvnet/gemiflow/issues) |
+| Issues & Bugs | [GitHub Issues](https://github.com/mrinalsunny/gemiflow/issues) |
 | Enterprise | [ruv.io](https://ruv.io) |
 | Community | [Agentics Foundation Discord](https://discord.com/invite/dfxmpwkG2D) |
 | Powered by | [Cognitum.one](https://cognitum.one) |
 
 ## License
 
-MIT - [RuvNet](https://github.com/ruvnet)
+MIT - [mrinalsunny](https://github.com/mrinalsunny)

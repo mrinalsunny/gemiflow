@@ -114,6 +114,6 @@ When starting a new project, exploring gemiflow capabilities, or wondering which
 ## Install any plugin
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install <plugin-name>@gemiflow
 ```

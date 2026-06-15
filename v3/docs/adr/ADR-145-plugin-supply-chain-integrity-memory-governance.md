@@ -2,7 +2,7 @@
 
 **Status**: Proposed
 **Date**: 2026-06-02
-**Issue**: [ruvnet/gemiflow#2254](https://github.com/ruvnet/gemiflow/issues/2254)
+**Issue**: [mrinalsunny/gemiflow#2254](https://github.com/mrinalsunny/gemiflow/issues/2254)
 **Related**: ADR-004 (Plugin Architecture), ADR-006 (Unified Memory), ADR-015 (Unified Plugin System), ADR-131 (ToolOutputGuardrail — content layer), ADR-144 (Authorization Propagation — runtime layer)
 
 ## Context

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Static guard for ruvnet/gemiflow ADR-125 / ADR-130 env-var precedence pattern.
+ * Static guard for mrinalsunny/gemiflow ADR-125 / ADR-130 env-var precedence pattern.
  *
  * Context
  * -------

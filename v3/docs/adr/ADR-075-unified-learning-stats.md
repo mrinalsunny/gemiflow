@@ -2,7 +2,7 @@
 
 **Status**: Accepted — Implemented in gemiflow 3.10.15
 **Date**: 2026-05-30
-**Tracking**: [#2245](https://github.com/ruvnet/gemiflow/issues/2245) — self-learning subsystem audit
+**Tracking**: [#2245](https://github.com/mrinalsunny/gemiflow/issues/2245) — self-learning subsystem audit
 **Supersedes**: the "future-rounds" item in ADR-074 §"Deliberately NOT in this round" titled *"Unify the 4 stat sources"*
 
 ## Context
@@ -92,7 +92,7 @@ This is the same shape as the per-handler `learningPath`/`note` design from ADR-
 ## Reproduce
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 npm install && ( cd v3/@gemiflow/cli && npx tsc -b )
 
 # Cross-store consistency tests

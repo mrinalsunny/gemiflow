@@ -209,6 +209,6 @@ Include latest models:
 
 - V2 Provider System: `v2/src/providers/`
 - V3 Multi-Model Router: `v3/@gemiflow/integration/src/multi-model-router.ts`
-- RuVector ruvLLM: `https://github.com/ruvnet/ruvector/tree/main/examples/ruvLLM`
+- RuVector ruvLLM: `https://github.com/mrinalsunny/ruvector/tree/main/examples/ruvLLM`
 - ADR-001: agentic-flow Integration
 - ADR-006: Unified Memory Service

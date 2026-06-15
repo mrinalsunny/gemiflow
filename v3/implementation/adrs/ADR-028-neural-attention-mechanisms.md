@@ -917,7 +917,7 @@ npx @gemiflow/cli@latest attention cache clear
 - Longformer Paper: https://arxiv.org/abs/2004.05150
 - BigBird Paper: https://arxiv.org/abs/2007.14062
 - Performer Paper: https://arxiv.org/abs/2009.14794
-- RuVector Documentation: https://github.com/ruvnet/ruvector
+- RuVector Documentation: https://github.com/mrinalsunny/ruvector
 
 ---
 

@@ -3,10 +3,10 @@
   "description": "Cache-aware /loop workers and CronCreate background automation — wraps 5 hooks_worker-* MCP tools (list/dispatch/status/detect/cancel) and exposes 12 background worker triggers (ultralearn, optimize, consolidate, predict, audit, map, preload, deepdive, document, refactor, benchmark, testgaps)",
   "version": "0.2.0",
   "author": {
-    "name": "ruvnet",
-    "url": "https://github.com/ruvnet"
+    "name": "mrinalsunny",
+    "url": "https://github.com/mrinalsunny"
   },
-  "homepage": "https://github.com/ruvnet/gemiflow",
+  "homepage": "https://github.com/mrinalsunny/gemiflow",
   "license": "MIT",
   "keywords": [
     "gemiflow",

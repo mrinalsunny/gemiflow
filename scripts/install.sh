@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 #
 # GemiFlow Installer (formerly GemiFlow)
-# https://github.com/ruvnet/gemiflow
+# https://github.com/mrinalsunny/gemiflow
 #
 # Usage:
-#   curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/gemiflow@main/scripts/install.sh | bash
-#   curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/gemiflow@main/scripts/install.sh | bash -s -- --full
-#   curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/gemiflow@main/scripts/install.sh | bash -s -- --global
-#   curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/gemiflow@main/scripts/install.sh | bash -s -- --minimal
+#   curl -fsSL https://cdn.jsdelivr.net/gh/mrinalsunny/gemiflow@main/scripts/install.sh | bash
+#   curl -fsSL https://cdn.jsdelivr.net/gh/mrinalsunny/gemiflow@main/scripts/install.sh | bash -s -- --full
+#   curl -fsSL https://cdn.jsdelivr.net/gh/mrinalsunny/gemiflow@main/scripts/install.sh | bash -s -- --global
+#   curl -fsSL https://cdn.jsdelivr.net/gh/mrinalsunny/gemiflow@main/scripts/install.sh | bash -s -- --minimal
 #
 # Options (via arguments):
 #   --global              Global install (npm install -g)
@@ -304,8 +304,8 @@ show_quickstart() {
     fi
 
     echo ""
-    echo -e "${DIM}Documentation: https://github.com/ruvnet/gemiflow${NC}"
-    echo -e "${DIM}Issues: https://github.com/ruvnet/gemiflow/issues${NC}"
+    echo -e "${DIM}Documentation: https://github.com/mrinalsunny/gemiflow${NC}"
+    echo -e "${DIM}Issues: https://github.com/mrinalsunny/gemiflow/issues${NC}"
     echo ""
 }
 

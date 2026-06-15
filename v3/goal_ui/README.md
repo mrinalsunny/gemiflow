@@ -1,6 +1,6 @@
 # GemiFlow Research
 
-> Goal-Oriented Action Planning UI for autonomous AI research workflows. Part of the [GemiFlow](https://github.com/ruvnet/gemiflow) platform.
+> Goal-Oriented Action Planning UI for autonomous AI research workflows. Part of the [GemiFlow](https://github.com/mrinalsunny/gemiflow) platform.
 > Live: [goal.ruv.io](https://goal.ruv.io/) · Agents dashboard: [goal.ruv.io/agents](https://goal.ruv.io/agents)
 
 Turn plain-English research goals into executable agent plans. GemiFlow Research applies classic Goal-Oriented Action Planning (GOAP) — A* search through a state space of actions with preconditions and effects — to autonomous AI research, then dispatches the work to live agents you can inspect in real time.
@@ -83,4 +83,4 @@ VITE_SUPABASE_PUBLISHABLE_KEY=...
 
 ## License
 
-MIT — same as the parent [GemiFlow](https://github.com/ruvnet/gemiflow) project.
+MIT — same as the parent [GemiFlow](https://github.com/mrinalsunny/gemiflow) project.

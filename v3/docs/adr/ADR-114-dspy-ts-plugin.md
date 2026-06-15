@@ -3,14 +3,14 @@
 **Status**: Proposed (2026-05-11)
 **Date**: 2026-05-11
 **Authors**: claude (drafted with rUv)
-**Related**: ADR-026 (3-tier model routing) · ADR-112 (MCP tool discoverability) · ADR-098 (plugin capability sync + token/performance/intelligence optimization) · ADR-G008 (optimizer promotion rule — "win twice to promote") · ADR-G009 (headless testing harness — Gemini CLI as evaluator) · RuVector / ReasoningBank intelligence pipeline (RETRIEVE → JUDGE → DISTILL → CONSOLIDATE) · [`dspy.ts`](https://github.com/ruvnet/dspy.ts) ([npm](https://www.npmjs.com/package/dspy.ts))
+**Related**: ADR-026 (3-tier model routing) · ADR-112 (MCP tool discoverability) · ADR-098 (plugin capability sync + token/performance/intelligence optimization) · ADR-G008 (optimizer promotion rule — "win twice to promote") · ADR-G009 (headless testing harness — Gemini CLI as evaluator) · RuVector / ReasoningBank intelligence pipeline (RETRIEVE → JUDGE → DISTILL → CONSOLIDATE) · [`dspy.ts`](https://github.com/mrinalsunny/dspy.ts) ([npm](https://www.npmjs.com/package/dspy.ts))
 **Supersedes**: nothing
 
 ## Context
 
 GemiFlow today learns *between* tasks: the RuVector / ReasoningBank pipeline retrieves prior patterns, judges outcomes, distills learnings via LoRA, and consolidates with EWC++. Agent definitions, hook routing tables, and the model-routing tiers (ADR-026) are largely static — the *prompts* an agent runs with are hand-authored markdown, and there is no mechanism to *optimize a prompt against a measurable objective*.
 
-`dspy.ts` ("DS.js — Declarative Self-learning JavaScript", `ruvnet/dspy.ts`, 248★, MIT, TypeScript) is the TypeScript port of Stanford's [DSPy](https://github.com/stanfordnlp/dspy). Its model:
+`dspy.ts` ("DS.js — Declarative Self-learning JavaScript", `mrinalsunny/dspy.ts`, 248★, MIT, TypeScript) is the TypeScript port of Stanford's [DSPy](https://github.com/stanfordnlp/dspy). Its model:
 
 - **Signatures** — typed `input → output` contracts (e.g. `{ question: string } → { answer: string }`).
 - **Modules / Pipelines** — `Predict`, `ChainOfThought`, `ReAct` (with reflexion), `Retrieve`, composed into pipelines.
@@ -101,7 +101,7 @@ A DSPy-compiled module can *write into* ReasoningBank (its trials are patterns),
 
 ## Links
 
-- `dspy.ts` — https://github.com/ruvnet/dspy.ts · https://www.npmjs.com/package/dspy.ts
+- `dspy.ts` — https://github.com/mrinalsunny/dspy.ts · https://www.npmjs.com/package/dspy.ts
 - Stanford DSPy — https://github.com/stanfordnlp/dspy
 - ADR-026 — 3-tier model routing (the routing layer DSPy modules would call through)
 - ADR-098 — plugin capability sync + token/performance/intelligence optimization (how a `dspy` plugin advertises its capabilities; complements rather than overlaps the intelligence optimizer)

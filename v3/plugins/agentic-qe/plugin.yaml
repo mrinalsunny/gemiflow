@@ -11,8 +11,8 @@ description: |
 
 author: rUv
 license: MIT
-homepage: https://github.com/ruvnet/gemiflow/tree/main/v3/plugins/agentic-qe
-repository: https://github.com/ruvnet/gemiflow
+homepage: https://github.com/mrinalsunny/gemiflow/tree/main/v3/plugins/agentic-qe
+repository: https://github.com/mrinalsunny/gemiflow
 
 # Plugin metadata
 metadata:

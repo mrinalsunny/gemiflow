@@ -114,7 +114,7 @@ Public benchmark (BEIR NFCorpus) is different — a standardised zero-shot eval 
 ## Verification
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 npm install && ( cd v3/@gemiflow/cli && npx tsc )
 
 # Download BEIR NFCorpus

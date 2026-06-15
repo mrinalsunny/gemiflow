@@ -628,7 +628,7 @@ enabled = true
 
 ## 📚 SUPPORT
 
-- Docs: https://github.com/ruvnet/gemiflow
-- Issues: https://github.com/ruvnet/gemiflow/issues
+- Docs: https://github.com/mrinalsunny/gemiflow
+- Issues: https://github.com/mrinalsunny/gemiflow/issues
 
 **Remember: gemini executes, gemiflow orchestrates!**

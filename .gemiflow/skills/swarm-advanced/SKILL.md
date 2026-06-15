@@ -957,10 +957,10 @@ mcp__gemiflow4gemini__swarm_init({ topology: "mesh", maxAgents: 4 })
 
 ## References
 
-- [GemiFlow4Gemini Documentation](https://github.com/ruvnet/gemiflow4gemini)
-- [Swarm Orchestration Guide](https://github.com/ruvnet/gemiflow4gemini/wiki/swarm)
-- [MCP Tools Reference](https://github.com/ruvnet/gemiflow4gemini/wiki/mcp)
-- [Performance Optimization](https://github.com/ruvnet/gemiflow4gemini/wiki/performance)
+- [GemiFlow4Gemini Documentation](https://github.com/mrinalsunny/gemiflow4gemini)
+- [Swarm Orchestration Guide](https://github.com/mrinalsunny/gemiflow4gemini/wiki/swarm)
+- [MCP Tools Reference](https://github.com/mrinalsunny/gemiflow4gemini/wiki/mcp)
+- [Performance Optimization](https://github.com/mrinalsunny/gemiflow4gemini/wiki/performance)
 
 ---
 

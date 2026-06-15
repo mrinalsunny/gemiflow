@@ -81,7 +81,7 @@ This is a real finding from running 4 datasets, not a guess. Worth a separate ex
 ## Verification
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 npm install && ( cd v3/@gemiflow/cli && npx tsc )
 
 mkdir -p /tmp/beir-scidocs && cd /tmp/beir-scidocs

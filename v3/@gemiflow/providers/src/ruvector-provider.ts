@@ -531,7 +531,7 @@ export class RuVectorProvider extends BaseProvider {
 
   /**
    * Build ruvLLM native API query format
-   * See: https://github.com/ruvnet/ruvector/tree/main/examples/ruvLLM
+   * See: https://github.com/mrinalsunny/ruvector/tree/main/examples/ruvLLM
    */
   private buildRuvectorQuery(request: LLMRequest): { query: string; session_id?: string } {
     // ruvLLM uses simple query format, not OpenAI-compatible

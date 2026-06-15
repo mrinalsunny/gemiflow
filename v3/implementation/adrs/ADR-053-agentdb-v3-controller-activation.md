@@ -3,7 +3,7 @@
 **Status:** Implemented
 **Date:** 2026-02-25
 **Updated:** 2026-02-25
-**Authors:** RuvNet, GemiFlow Team
+**Authors:** mrinalsunny, GemiFlow Team
 **Version:** 1.3.0
 **Published:** v3.1.0-alpha.51
 **Related:** ADR-006 (Unified Memory), ADR-049 (Self-Learning Memory GNN), ADR-050 (Intelligence Loop), ADR-009 (Hybrid Memory Backend), ADR-060 (Proof-Gated Mutations)
@@ -28,7 +28,7 @@ The following capabilities are fully wired **inside AgentDB** and available to c
 
 **1. Proof-Gated Mutations (ADR-060)**
 - `MutationGuard` validates all inserts, searches, batch inserts, removes, saves, and loads
-- 4-tier proof engine fallback: `@ruvector/graph-transformer` (native NAPI-RS) → `ruvector-graph-transformer-wasm` → `@ruvnet/ruvector-verified-wasm` (legacy) → pure JS validation
+- 4-tier proof engine fallback: `@ruvector/graph-transformer` (native NAPI-RS) → `ruvector-graph-transformer-wasm` → `@mrinalsunny/ruvector-verified-wasm` (legacy) → pure JS validation
 - 82-byte cryptographic attestations with `proveDimension()` + `createAttestation()` when native available
 - `AttestationLog`: append-only SQLite audit table (`mutation_attestations`) with proof/denial tracking, pattern aggregation, and pruning
 - Security: SHA-256 structural hashes, token-based auth with TTL, path traversal prevention, parameterized SQL queries
@@ -433,7 +433,7 @@ If the entire guarded backend creation fails, `AgentDB.ts` catches the error and
 MutationGuard.initialize()
   → try: import('@ruvector/graph-transformer')      // Native NAPI-RS (sub-ms proofs)
   → try: import('ruvector-graph-transformer-wasm')   // Browser WASM
-  → try: import('@ruvnet/ruvector-verified-wasm')    // Legacy WASM
+  → try: import('@mrinalsunny/ruvector-verified-wasm')    // Legacy WASM
   → fallback: pure JS validation (no attestations, but validates dimensions/inputs)
 ```
 

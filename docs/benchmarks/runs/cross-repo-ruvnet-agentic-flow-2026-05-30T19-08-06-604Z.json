@@ -49,7 +49,7 @@
           "score": "0.523"
         },
         {
-          "name": "Merge pull request #152 from ruvnet/refactor/agentdb-submodule",
+          "name": "Merge pull request #152 from mrinalsunny/refactor/agentdb-submodule",
           "relevant": false,
           "score": "0.500"
         }
@@ -194,7 +194,7 @@
           "score": "0.446"
         },
         {
-          "name": "Merge pull request #148 from ruvnet/release/merge-adr-071-wasm",
+          "name": "Merge pull request #148 from mrinalsunny/release/merge-adr-071-wasm",
           "relevant": true,
           "score": "0.418"
         },
@@ -308,12 +308,12 @@
       "top1": true,
       "topK": [
         {
-          "name": "refactor: extract packages/agentdb to dedicated ruvnet/agentdb repo",
+          "name": "refactor: extract packages/agentdb to dedicated mrinalsunny/agentdb repo",
           "relevant": true,
           "score": "0.854"
         },
         {
-          "name": "Merge pull request #152 from ruvnet/refactor/agentdb-submodule",
+          "name": "Merge pull request #152 from mrinalsunny/refactor/agentdb-submodule",
           "relevant": true,
           "score": "0.642"
         },

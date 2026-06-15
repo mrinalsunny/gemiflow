@@ -230,7 +230,7 @@ npx ts-node -e "
 
 ## Links
 
-- **GitHub**: [github.com/ruvnet/gemiflow](https://github.com/ruvnet/gemiflow)
+- **GitHub**: [github.com/mrinalsunny/gemiflow](https://github.com/mrinalsunny/gemiflow)
 - **npm**: [@gemiflow/guidance](https://www.npmjs.com/package/@gemiflow/guidance)
 - **npm**: [gemiflow](https://www.npmjs.com/package/gemiflow)
 - **npm**: [ruvbot](https://www.npmjs.com/package/ruvbot)

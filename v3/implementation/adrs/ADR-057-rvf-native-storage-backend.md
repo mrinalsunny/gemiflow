@@ -1497,8 +1497,8 @@ The progressive download approach replaces npm's `optionalDependencies`:
 
 ## 11. References
 
-- [RuVector Format Specification](https://github.com/ruvnet/ruvector/blob/main/crates/rvf/README.md)
-- [ruvLLM Self-Learning LLM Engine](https://github.com/ruvnet/ruvector/blob/main/crates/ruvllm/README.md)
+- [RuVector Format Specification](https://github.com/mrinalsunny/ruvector/blob/main/crates/rvf/README.md)
+- [ruvLLM Self-Learning LLM Engine](https://github.com/mrinalsunny/ruvector/blob/main/crates/ruvllm/README.md)
 - [@ruvector/rvf npm SDK](https://www.npmjs.com/package/@ruvector/rvf)
 - [@ruvector/ruvllm npm SDK](https://www.npmjs.com/package/@ruvector/ruvllm)
 - [ruvector npm package](https://www.npmjs.com/package/ruvector)

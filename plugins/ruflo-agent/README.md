@@ -17,7 +17,7 @@ Design: [ADR-115](../../v3/docs/adr/ADR-115-managed-agents-rvagent-backend.md) (
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-agent@gemiflow
 ```
 

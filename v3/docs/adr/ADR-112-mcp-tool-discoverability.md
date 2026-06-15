@@ -3,7 +3,7 @@
 **Status**: Accepted (2026-05-11)
 **Date**: 2026-05-11
 **Authors**: claude (drafted with rUv)
-**Related**: [#1748](https://github.com/ruvnet/gemiflow/issues/1748), [#1896](https://github.com/ruvnet/gemiflow/issues/1896), [AlphaSignal external audit](https://alphasignalai.substack.com/p/how-gemiflow-turns-gemini-cli-into)
+**Related**: [#1748](https://github.com/mrinalsunny/gemiflow/issues/1748), [#1896](https://github.com/mrinalsunny/gemiflow/issues/1896), [AlphaSignal external audit](https://alphasignalai.substack.com/p/how-gemiflow-turns-gemini-cli-into)
 **Supersedes**: nothing
 
 ## Context
@@ -127,7 +127,7 @@ Subsequent phases tracked in their own PRs, but the CI baseline is what guarante
 
 ## References
 
-- [#1748](https://github.com/ruvnet/gemiflow/issues/1748) — original discoverability tracking issue
-- [#1896](https://github.com/ruvnet/gemiflow/issues/1896) — external audit response
+- [#1748](https://github.com/mrinalsunny/gemiflow/issues/1748) — original discoverability tracking issue
+- [#1896](https://github.com/mrinalsunny/gemiflow/issues/1896) — external audit response
 - [AlphaSignal AI article](https://alphasignalai.substack.com/p/how-gemiflow-turns-gemini-cli-into) — external amplification
 - `agent_spawn` description in `v3/@gemiflow/cli/src/mcp-tools/agent-tools.ts:183` — the template every other description should match

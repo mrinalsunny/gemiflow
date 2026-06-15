@@ -1,7 +1,7 @@
 /**
  * Tests for statusline collision zone avoidance
  *
- * @see https://github.com/ruvnet/gemiflow/issues/985
+ * @see https://github.com/mrinalsunny/gemiflow/issues/985
  *
  * The collision zone is columns 15-25 on the second-to-last line of output.
  * Gemini CLI writes its internal status (e.g., "7s • 1p") at these absolute

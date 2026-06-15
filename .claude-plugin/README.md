@@ -1,6 +1,6 @@
 # 🚀 GemiFlow Plugin - Complete Enterprise AI Agent Orchestration
 
-[![Version](https://img.shields.io/badge/version-2.5.0-blue.svg)](https://github.com/ruvnet/gemiflow)
+[![Version](https://img.shields.io/badge/version-2.5.0-blue.svg)](https://github.com/mrinalsunny/gemiflow)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Gemini CLI](https://img.shields.io/badge/Claude%20Code-%3E%3D2.0.0-purple.svg)](https://claude.com/code)
 
@@ -282,13 +282,13 @@ GemiFlow is the most comprehensive Gemini CLI plugin for enterprise AI agent orc
 In Gemini CLI:
 
 ```
-/plugin add ruvnet/gemiflow
+/plugin add mrinalsunny/gemiflow
 ```
 
 Or from local directory:
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow.git
+git clone https://github.com/mrinalsunny/gemiflow.git
 cd gemiflow
 ```
 
@@ -338,7 +338,7 @@ claude plugin list
 
 In Gemini CLI:
 ```
-/plugin add ruvnet/gemiflow
+/plugin add mrinalsunny/gemiflow
 /restart
 ```
 
@@ -346,7 +346,7 @@ In Gemini CLI:
 
 ```bash
 # Clone the repository
-git clone https://github.com/ruvnet/gemiflow.git
+git clone https://github.com/mrinalsunny/gemiflow.git
 cd gemiflow/claude-plugin
 
 # Run installation script
@@ -645,9 +645,9 @@ GemiFlow integrates with 3 MCP servers providing 110+ tools:
 
 ## 🤝 Support
 
-- **Documentation**: [GitHub Wiki](https://github.com/ruvnet/gemiflow/wiki)
-- **Issues**: [GitHub Issues](https://github.com/ruvnet/gemiflow/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/ruvnet/gemiflow/discussions)
+- **Documentation**: [GitHub Wiki](https://github.com/mrinalsunny/gemiflow/wiki)
+- **Issues**: [GitHub Issues](https://github.com/mrinalsunny/gemiflow/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/mrinalsunny/gemiflow/discussions)
 - **Website**: [Flow Nexus](https://flow-nexus.ruv.io)
 
 ---
@@ -711,7 +711,7 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 ## 🌟 Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=ruvnet/gemiflow&type=Date)](https://star-history.com/#ruvnet/gemiflow&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=mrinalsunny/gemiflow&type=Date)](https://star-history.com/#mrinalsunny/gemiflow&Date)
 
 ---
 

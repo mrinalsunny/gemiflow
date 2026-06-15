@@ -5,7 +5,7 @@ Agent teams, swarm coordination, Monitor streams, and worktree isolation.
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-swarm@gemiflow
 ```
 

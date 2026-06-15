@@ -8,7 +8,7 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/@gemiflow/gemini"><img src="https://img.shields.io/npm/v/@gemiflow/gemini?label=npm&color=blue" alt="npm version"></a>
   <a href="https://www.npmjs.com/package/@gemiflow/gemini"><img src="https://img.shields.io/npm/dm/@gemiflow/gemini?label=downloads&color=cb3837" alt="npm downloads"></a>
-  <a href="https://github.com/ruvnet/gemiflow"><img src="https://img.shields.io/badge/license-MIT-green" alt="license"></a>
+  <a href="https://github.com/mrinalsunny/gemiflow"><img src="https://img.shields.io/badge/license-MIT-green" alt="license"></a>
   <a href="https://agentics.org"><img src="https://img.shields.io/badge/standard-Agentics-purple" alt="Agentics Standard"></a>
 </p>
 
@@ -1040,5 +1040,5 @@ MIT
 
 ## Support
 
-- Documentation: https://github.com/ruvnet/gemiflow
-- Issues: https://github.com/ruvnet/gemiflow/issues
+- Documentation: https://github.com/mrinalsunny/gemiflow
+- Issues: https://github.com/mrinalsunny/gemiflow/issues

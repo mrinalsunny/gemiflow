@@ -1,7 +1,7 @@
 # @gemiflow/plugin-quantum-optimizer
 
 [![npm version](https://img.shields.io/npm/v/@gemiflow/plugin-quantum-optimizer.svg)](https://www.npmjs.com/package/@gemiflow/plugin-quantum-optimizer)
-[![license](https://img.shields.io/npm/l/@gemiflow/plugin-quantum-optimizer.svg)](https://github.com/ruvnet/gemiflow/blob/main/LICENSE)
+[![license](https://img.shields.io/npm/l/@gemiflow/plugin-quantum-optimizer.svg)](https://github.com/mrinalsunny/gemiflow/blob/main/LICENSE)
 [![downloads](https://img.shields.io/npm/dm/@gemiflow/plugin-quantum-optimizer.svg)](https://www.npmjs.com/package/@gemiflow/plugin-quantum-optimizer)
 
 An exotic optimization plugin implementing quantum-inspired algorithms including Quantum Annealing simulation, QAOA (Quantum Approximate Optimization Algorithm) emulation, and Grover-inspired search acceleration. The plugin provides dramatic speedups for dependency resolution, optimal scheduling, and constraint satisfaction while running entirely on classical WASM-accelerated hardware.

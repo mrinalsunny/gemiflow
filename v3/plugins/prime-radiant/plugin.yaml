@@ -10,8 +10,8 @@ description: |
 
 author: rUv
 license: MIT
-repository: https://github.com/ruvnet/gemiflow
-documentation: https://github.com/ruvnet/gemiflow/blob/main/v3/plugins/prime-radiant/README.md
+repository: https://github.com/mrinalsunny/gemiflow
+documentation: https://github.com/mrinalsunny/gemiflow/blob/main/v3/plugins/prime-radiant/README.md
 
 # Plugin metadata
 metadata:

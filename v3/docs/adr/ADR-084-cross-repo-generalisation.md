@@ -17,7 +17,7 @@ Two changes, one release:
 
 ### 1. `pretrain-from-github.mjs` accepts `REPO_ROOT` + `GH_REPO` env vars
 
-Defaults preserve gemiflow behaviour. With `REPO_ROOT=/tmp/agentdb-bench GH_REPO=ruvnet/agentdb` the same script harvests + pretrains a different repo's history.
+Defaults preserve gemiflow behaviour. With `REPO_ROOT=/tmp/agentdb-bench GH_REPO=mrinalsunny/agentdb` the same script harvests + pretrains a different repo's history.
 
 ### 2. New `scripts/benchmark-cross-repo.mjs`
 
@@ -28,7 +28,7 @@ Embedded labelled query sets for `ruvnet/agentdb` and `ruvnet/agentic-flow`. Aut
 | Repo | N | Hybrid top-1 | Hybrid nDCG@3 | Rerank top-1 | Rerank nDCG@3 | Rerank P3 |
 |---|---:|---:|---:|---:|---:|---:|
 | **gemiflow (training corpus)** | 415 | 90% | 0.963 | 90% | 0.963 | 0.700 |
-| **ruvnet/agentdb (cross-repo)** | 15 | **100%** | **0.992** | **100%** | **1.000** | 0.400 |
+| **mrinalsunny/agentdb (cross-repo)** | 15 | **100%** | **0.992** | **100%** | **1.000** | 0.400 |
 | **ruvnet/agentic-flow (cross-repo)** | 40 | **100%** | **1.000** | **100%** | **1.000** | **0.667** |
 
 Both cross-repo corpora hit **higher** nDCG@3 than gemiflow. The retrieval architecture (multi-field BM25 + cosine + MMR + optional cross-encoder) generalises cleanly to projects with different commit conventions, different vocabularies, different scales.
@@ -82,17 +82,17 @@ This is the difference between "tuned to a benchmark" and "actually works." ADRs
 ## Verification
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 npm install && ( cd v3/@gemiflow/cli && npx tsc )
 
 # Pretrain agentdb in a temp dir
-gh repo clone ruvnet/agentdb /tmp/agentdb-bench -- --depth=300
+gh repo clone mrinalsunny/agentdb /tmp/agentdb-bench -- --depth=300
 cd /tmp/agentdb-bench && rm -rf .gemiflow
-REPO_ROOT=/tmp/agentdb-bench GH_REPO=ruvnet/agentdb COMMITS=20 ISSUES=10 \
+REPO_ROOT=/tmp/agentdb-bench GH_REPO=mrinalsunny/agentdb COMMITS=20 ISSUES=10 \
   node /path/to/gemiflow/v3/@gemiflow/cli/scripts/pretrain-from-github.mjs
 
 # Bench from agentdb's dir
-GH_REPO=ruvnet/agentdb \
+GH_REPO=mrinalsunny/agentdb \
   node /path/to/gemiflow/v3/@gemiflow/cli/scripts/benchmark-cross-repo.mjs
 # → hybrid nDCG@3 0.992, rerank nDCG@3 1.000
 

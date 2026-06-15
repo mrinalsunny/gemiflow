@@ -14,7 +14,7 @@ GemiFlow provides native Gemini CLI plugins for multi-agent orchestration, /loop
 
 ```bash
 # Add the marketplace
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 
 # Install plugins
 /plugin install gemiflow-core@gemiflow
@@ -79,7 +79,7 @@ GemiFlow plugins use Gemini CLI's native capabilities when available:
 
 ## Links
 
-- [GitHub Repository](https://github.com/ruvnet/gemiflow)
+- [GitHub Repository](https://github.com/mrinalsunny/gemiflow)
 - [npm Packages](https://www.npmjs.com/package/@gemiflow/cli)
-- [ADR-091: Native Integration](https://github.com/ruvnet/gemiflow/blob/main/v3/docs/adr/ADR-091-loop-monitor-native-integration.md)
-- [Issues & Support](https://github.com/ruvnet/gemiflow/issues)
+- [ADR-091: Native Integration](https://github.com/mrinalsunny/gemiflow/blob/main/v3/docs/adr/ADR-091-loop-monitor-native-integration.md)
+- [Issues & Support](https://github.com/mrinalsunny/gemiflow/issues)

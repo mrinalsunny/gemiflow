@@ -9,7 +9,7 @@
 
 Gemini CLI's auto-memory system stores project knowledge in `~/.gemiflow/projects/*/memory/MEMORY.md` files with YAML frontmatter. GemiFlow's AgentDB stores data in sql.js with ONNX embeddings (all-MiniLM-L6-v2, 384d) for semantic vector search. These two systems were disconnected.
 
-[ruDevolution](https://github.com/ruvnet/rudevolution) research (`07-context-and-session-management.md`) documents Gemini CLI's memory internals: auto-memory paths, env vars (`autoMemoryEnabled`, `CLAUDE_CODE_DISABLE_AUTO_MEMORY`), session persistence, dream mode, and compaction system.
+[ruDevolution](https://github.com/mrinalsunny/rudevolution) research (`07-context-and-session-management.md`) documents Gemini CLI's memory internals: auto-memory paths, env vars (`autoMemoryEnabled`, `CLAUDE_CODE_DISABLE_AUTO_MEMORY`), session persistence, dream mode, and compaction system.
 
 ## Decision
 
@@ -110,7 +110,7 @@ Not available mid-session              MCP Tool: memory_search_unified
 
 ## References
 
-- [ruDevolution](https://github.com/ruvnet/rudevolution) — Gemini CLI internals via decompilation
+- [ruDevolution](https://github.com/mrinalsunny/rudevolution) — Gemini CLI internals via decompilation
 - `07-context-and-session-management.md` — auto-memory paths, env vars, session persistence
 - `13-extension-points.md` — hooks, MCP, agents, skills integration catalog
 - ADR-048: AutoMemoryBridge design

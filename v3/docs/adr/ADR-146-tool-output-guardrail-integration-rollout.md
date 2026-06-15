@@ -2,7 +2,7 @@
 
 **Status**: Proposed
 **Date**: 2026-06-02
-**Issue**: [ruvnet/gemiflow#2149](https://github.com/ruvnet/gemiflow/issues/2149) (follow-up — original ADR-131 closed P1 only)
+**Issue**: [mrinalsunny/gemiflow#2149](https://github.com/mrinalsunny/gemiflow/issues/2149) (follow-up — original ADR-131 closed P1 only)
 **Related**: ADR-131 (ToolOutputGuardrail — P1 shipped), ADR-144 (Authorization Propagation), ADR-145 (Plugin Supply-Chain Integrity)
 
 ## Context

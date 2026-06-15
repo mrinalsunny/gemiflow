@@ -85,7 +85,7 @@ export const PACKAGE_INFO = {
   version: VERSION,
   description: 'gemini CLI integration for GemiFlow',
   futureUmbrella: 'coflow',
-  repository: 'https://github.com/ruvnet/gemiflow',
+  repository: 'https://github.com/mrinalsunny/gemiflow',
 } as const;
 
 /**

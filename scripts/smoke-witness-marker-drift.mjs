@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Regression guard for ruvnet/gemiflow#2021.
+ * Regression guard for mrinalsunny/gemiflow#2021.
  *
  * #2021 happened because a dep bump (`@gemiflow/memory` alpha.14 → 16)
  * silently invalidated witness marker `#1825`, whose marker string was

@@ -3,10 +3,10 @@
   "description": "Foundation plugin — registers the gemiflow MCP server (300+ tools across memory/agentdb/embeddings/hooks/aidefence/neural/autopilot/browser/agent/swarm), provides 3 generalist agents (coder/researcher/reviewer), 3 first-run skills, and a curated plugin-discovery catalog",
   "version": "0.2.2",
   "author": {
-    "name": "ruvnet",
-    "url": "https://github.com/ruvnet"
+    "name": "mrinalsunny",
+    "url": "https://github.com/mrinalsunny"
   },
-  "homepage": "https://github.com/ruvnet/gemiflow",
+  "homepage": "https://github.com/mrinalsunny/gemiflow",
   "license": "MIT",
   "keywords": [
     "gemiflow",

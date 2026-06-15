@@ -702,7 +702,7 @@ The GemiFlow codebase shows **strong security foundations** in some areas (timin
 
 For security vulnerabilities, please contact:
 - **Security Team:** security@gemiflow.io
-- **GitHub Security Advisories:** https://github.com/ruvnet/gemini-cli-flow/security/advisories
+- **GitHub Security Advisories:** https://github.com/mrinalsunny/gemini-cli-flow/security/advisories
 
 **Report Format:**
 1. Description of vulnerability

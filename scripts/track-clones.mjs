@@ -40,11 +40,11 @@ const LEDGER_PATH = path_resolve(DATA_DIR, 'clone-data.ledger.json');
 const PROOF_PATH = path_resolve(DATA_DIR, 'clone-data.proof.json');
 
 const REPOS = [
-  'ruvnet/gemiflow',
-  'ruvnet/agentdb',
+  'mrinalsunny/gemiflow',
+  'mrinalsunny/agentdb',
   'ruvnet/agentic-flow',
-  'ruvnet/ruvector',
-  'ruvnet/ruv-FANN',
+  'mrinalsunny/ruvector',
+  'mrinalsunny/ruv-FANN',
 ];
 
 const NPM_PKGS_HEADLINE = [

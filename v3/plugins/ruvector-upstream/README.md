@@ -24,7 +24,7 @@ This directory contains references and integration bridges for upstream RuVector
 
 ## Upstream Repository
 
-All packages are sourced from: https://github.com/ruvnet/ruvector
+All packages are sourced from: https://github.com/mrinalsunny/ruvector
 
 ## Plugin Dependencies
 

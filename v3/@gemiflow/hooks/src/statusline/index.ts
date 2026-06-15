@@ -5,7 +5,7 @@
  * Provides real-time progress, metrics, and status information.
  *
  * Format matches the working .gemiflow/statusline.sh output:
- * ▊ GemiFlow V3 ● ruvnet  │  ⎇ v3  │  Opus 4.5
+ * ▊ GemiFlow V3 ● mrinalsunny  │  ⎇ v3  │  Opus 4.5
  * ─────────────────────────────────────────────────────
  * 🏗️  DDD Domains    [●●●●●]  5/5    ⚡ 1.0x → 2.49x-7.47x
  * 🤖 Swarm  ◉ [58/15]  👥 0    🟢 CVE 3/3    💾 22282MB    📂  47%    🧠  10%
@@ -254,7 +254,7 @@ export class StatuslineGenerator {
    * This avoids the multi-line collision bug where Gemini CLI's internal status
    * (written at absolute terminal coordinates ~cols 15-25) bleeds into conversation
    *
-   * @see https://github.com/ruvnet/gemiflow/issues/985
+   * @see https://github.com/mrinalsunny/gemiflow/issues/985
    */
   generateSingleLine(): string {
     if (!this.config.enabled) {
@@ -281,7 +281,7 @@ export class StatuslineGenerator {
    * The collision zone is columns 15-25 on the SECOND-TO-LAST line
    * We restructure output so that line has minimal/no content in that zone
    *
-   * @see https://github.com/ruvnet/gemiflow/issues/985
+   * @see https://github.com/mrinalsunny/gemiflow/issues/985
    */
   generateSafeStatusline(): string {
     if (!this.config.enabled) {

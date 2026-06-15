@@ -141,5 +141,5 @@ npx @gemiflow/cli memory search \
 
 ## Links
 
-- Documentation: https://github.com/ruvnet/gemiflow
-- Issues: https://github.com/ruvnet/gemiflow/issues
+- Documentation: https://github.com/mrinalsunny/gemiflow
+- Issues: https://github.com/mrinalsunny/gemiflow/issues

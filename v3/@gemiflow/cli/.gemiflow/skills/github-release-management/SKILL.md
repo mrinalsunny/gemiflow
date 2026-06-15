@@ -1015,8 +1015,8 @@ npx gemiflow@alpha github version-sync \
 - **deployment-orchestration**: Advanced deployment strategies
 
 ### Support & Community
-- Issues: https://github.com/ruvnet/gemiflow/issues
-- Discussions: https://github.com/ruvnet/gemiflow/discussions
+- Issues: https://github.com/mrinalsunny/gemiflow/issues
+- Discussions: https://github.com/mrinalsunny/gemiflow/discussions
 - Documentation: https://gemiflow.dev/docs
 
 ---

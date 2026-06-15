@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Regression guard for ruvnet/gemiflow#2017.
+ * Regression guard for mrinalsunny/gemiflow#2017.
  *
  * The `pre-bash` PreToolUse hook in `.gemiflow/helpers/hook-handler.cjs` reads
  * the command Gemini CLI is about to execute and refuses to run dangerous

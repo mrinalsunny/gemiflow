@@ -138,7 +138,7 @@ Full reports available in:
 ## Contact
 
 Security issues: security@gemiflow.io  
-GitHub: https://github.com/ruvnet/gemini-cli-flow/security
+GitHub: https://github.com/mrinalsunny/gemini-cli-flow/security
 
 ---
 

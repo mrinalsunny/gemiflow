@@ -3,7 +3,7 @@
 **Status**: Proposed (2026-05-18) — revised 2026-05-19 to track upstream `sublinear-time-solver@1.7.0`
 **Date**: 2026-05-18
 **Authors**: claude (drafted with rUv)
-**Related**: [`sublinear-time-solver@1.7.0`](https://www.npmjs.com/package/sublinear-time-solver) ([crates.io `sublinear@0.3.0`](https://crates.io/crates/sublinear), [github](https://github.com/ruvnet/sublinear-time-solver), [1.6.0 announcement gist](https://gist.github.com/ruvnet/342518ef950348c376bc7c04ffeb5337), [upstream `sublinear` ADR-001 "Complexity as Architecture"](https://github.com/ruvnet/sublinear-time-solver/blob/main/docs/adr/ADR-001-complexity-as-architecture.md)), [eleven-wedge research gist](https://gist.github.com/ruvnet/61d6d04af514b3c81ad0abf1e37fe116), ADR-103 (witness temporal history), ADR-104 (federation wire transport), ADR-105 (federation state snapshot), ADR-118 (AIDefence 2.3.0), ADR-121 (embeddings RuVector upgrade), ADR-122 (browser substrate). Library lineage: [Andoni–Krauthgamer–Pogrow ITCS 2019 (SDD sublinear)](https://arxiv.org/abs/1809.02995), [Kyng–Sachdeva FOCS 2016 (approx Cholesky)](https://rasmuskyng.com/research.html), [Asymmetric DD sublinear (2025)](https://arxiv.org/abs/2509.13891), [Friedkin–Johnsen application (2025)](https://arxiv.org/abs/2509.13112).
+**Related**: [`sublinear-time-solver@1.7.0`](https://www.npmjs.com/package/sublinear-time-solver) ([crates.io `sublinear@0.3.0`](https://crates.io/crates/sublinear), [github](https://github.com/mrinalsunny/sublinear-time-solver), [1.6.0 announcement gist](https://gist.github.com/mrinalsunny/342518ef950348c376bc7c04ffeb5337), [upstream `sublinear` ADR-001 "Complexity as Architecture"](https://github.com/mrinalsunny/sublinear-time-solver/blob/main/docs/adr/ADR-001-complexity-as-architecture.md)), [eleven-wedge research gist](https://gist.github.com/mrinalsunny/61d6d04af514b3c81ad0abf1e37fe116), ADR-103 (witness temporal history), ADR-104 (federation wire transport), ADR-105 (federation state snapshot), ADR-118 (AIDefence 2.3.0), ADR-121 (embeddings RuVector upgrade), ADR-122 (browser substrate). Library lineage: [Andoni–Krauthgamer–Pogrow ITCS 2019 (SDD sublinear)](https://arxiv.org/abs/1809.02995), [Kyng–Sachdeva FOCS 2016 (approx Cholesky)](https://rasmuskyng.com/research.html), [Asymmetric DD sublinear (2025)](https://arxiv.org/abs/2509.13891), [Friedkin–Johnsen application (2025)](https://arxiv.org/abs/2509.13112).
 **Supersedes**: nothing (additive)
 
 ## Strategic positioning (the headline)
@@ -79,7 +79,7 @@ The rest of this document is the technical commitment — five SOTA axes surveye
 | **Coherence gate** — `coherence_score(&dyn Matrix) -> f64` (per-row DD margin in [−∞, 1]) + `SolverError::Incoherent { coherence, threshold }`; opt-in via `SolverOptions::coherence_threshold` (default 0.0 = disabled, wire-compatible) | **Closes original Open Question #5 (failure modes when source matrix is not DD).** Plugin adapters call `coherence_score()` before submitting a graph; ADR-123 no longer needs to hand-roll a DD check. The structured `Incoherent` error has `is_recoverable() = true` and severity `Low`, so plugins can fall back gracefully (clamp weights, renormalise, switch to dense solver) without crashing |
 | **`solve_on_change(matrix, prev_solution, delta)` event-gated entry** (`src/incremental.rs`) via the `IncrementalSolver` extension trait blanket-impl'd on every `SolverAlgorithm`. Solves `A·dx = delta` then `x_new = prev + dx`; sparse RHS gives asymptotically faster solves on small deltas; sidesteps the Neumann initial-guess trap | **Adds a new wedge to this ADR (Wedge 12, below): incremental PageRank for streaming systems.** Streamlined for federation peers exchanging trust-delta updates, MCTS branch additions during exploration, causal-break events appended in real time, cost-attribution increments per spend, and observability span streams. Re-uses the same `gemiflow-sublinear` plugin surface — no new MCP tool needed beyond exposing the `delta` parameter |
 
-Upstream also shipped its own [ADR-001 "Complexity as Architecture"](https://github.com/ruvnet/sublinear-time-solver/blob/main/docs/adr/ADR-001-complexity-as-architecture.md), formalising the same compile-time-complexity-as-architecture stance GemiFlow's ADR-026 takes for model routing. The two ADRs are mutually reinforcing: gemiflow-sublinear is the *call surface* and the upstream complexity classes are the *budget contracts* it negotiates against.
+Upstream also shipped its own [ADR-001 "Complexity as Architecture"](https://github.com/mrinalsunny/sublinear-time-solver/blob/main/docs/adr/ADR-001-complexity-as-architecture.md), formalising the same compile-time-complexity-as-architecture stance GemiFlow's ADR-026 takes for model routing. The two ADRs are mutually reinforcing: gemiflow-sublinear is the *call surface* and the upstream complexity classes are the *budget contracts* it negotiates against.
 
 Test counts updated: upstream 137 → 151 (lib only) at 1.7.0; full matrix 148/148 green. The original `sublinear-time-solver@1.6.0` was unbuildable on macOS Apple Silicon before its `aarch64 mrs cntvct_el0` fix — 1.7.0 is the first release that runs cleanly on the M-series macOS hosts where most of the GemiFlow team works.
 
@@ -603,11 +603,11 @@ Two SOTA findings updated working assumptions mid-flight; recorded here explicit
 
 - `sublinear-time-solver@1.7.0` npm: https://www.npmjs.com/package/sublinear-time-solver
 - `sublinear@0.3.0` crate: https://crates.io/crates/sublinear
-- Library github: https://github.com/ruvnet/sublinear-time-solver
-- 1.6.0 announcement gist: https://gist.github.com/ruvnet/342518ef950348c376bc7c04ffeb5337
-- Upstream `sublinear` ADR-001 — Complexity as Architecture: https://github.com/ruvnet/sublinear-time-solver/blob/main/docs/adr/ADR-001-complexity-as-architecture.md
-- Upstream CHANGELOG (1.6.0 + 1.7.0): https://github.com/ruvnet/sublinear-time-solver/blob/main/CHANGELOG.md
-- Eleven-wedge research gist (foundational): https://gist.github.com/ruvnet/61d6d04af514b3c81ad0abf1e37fe116
+- Library github: https://github.com/mrinalsunny/sublinear-time-solver
+- 1.6.0 announcement gist: https://gist.github.com/mrinalsunny/342518ef950348c376bc7c04ffeb5337
+- Upstream `sublinear` ADR-001 — Complexity as Architecture: https://github.com/mrinalsunny/sublinear-time-solver/blob/main/docs/adr/ADR-001-complexity-as-architecture.md
+- Upstream CHANGELOG (1.6.0 + 1.7.0): https://github.com/mrinalsunny/sublinear-time-solver/blob/main/CHANGELOG.md
+- Eleven-wedge research gist (foundational): https://gist.github.com/mrinalsunny/61d6d04af514b3c81ad0abf1e37fe116
 - Andoni, Krauthgamer, Pogrow — "On Solving Linear Systems in Sublinear Time" (ITCS 2019): https://arxiv.org/abs/1809.02995
 - Asymmetric DD sublinear (2025): https://arxiv.org/abs/2509.13891
 - Friedkin–Johnsen application (2025): https://arxiv.org/abs/2509.13112

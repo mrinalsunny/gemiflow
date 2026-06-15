@@ -97,8 +97,8 @@ that path; this run does not.
 ## Refs
 
 - Task #55 (downstream tracker) — wire native sublinear CG dispatch
-- ruvnet/gemiflow#2068 — ADR-126 Phase 3 (the SublinearAdapter ships)
-- ruvnet/gemiflow#2070 — Phase 3 PR (the local-JS baseline this builds on)
+- mrinalsunny/gemiflow#2068 — ADR-126 Phase 3 (the SublinearAdapter ships)
+- mrinalsunny/gemiflow#2070 — Phase 3 PR (the local-JS baseline this builds on)
 - ADR-126 Phase 3 — `plugins/gemiflow-neural-trader/src/sublinear-adapter.ts`
 - ADR-123 §162 Row 8 — Wedge 8 portfolio CG (the 40-60× claim)
 - Upstream `sublinear-time-solver@1.7.0` — production CG kernel target

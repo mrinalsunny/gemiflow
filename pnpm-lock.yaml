@@ -866,7 +866,7 @@ importers:
 
   v3/plugins/teammate-plugin:
     dependencies:
-      '@ruvnet/bmssp':
+      '@mrinalsunny/bmssp':
         specifier: ^1.0.0
         version: 1.0.0
       eventemitter3:
@@ -2994,7 +2994,7 @@ packages:
     resolution: {integrity: sha512-rgkHJl/RIwIuFc+kYV8eULY+N/cDsEcxseURRcPA4vfU8TUKca0e3ENN8Fuc8Vm/bka8tzyY1TF8G2/DvFQAPA==}
     engines: {node: '>=18.0.0'}
 
-  '@ruvnet/bmssp@1.0.0':
+  '@mrinalsunny/bmssp@1.0.0':
     resolution: {integrity: sha512-u3BqKqPS9q8LBU2u7hefWH5v2d1h2Cfm27Xk+25hD+4azeC9/zQfVxp4yLZTGEZLJ3lgzFSH9mbBIkP278jX3Q==}
     engines: {node: '>=14.0.0'}
 
@@ -8367,7 +8367,7 @@ snapshots:
       '@ruvector/tiny-dancer-linux-x64-gnu': 0.1.15
       '@ruvector/tiny-dancer-win32-x64-msvc': 0.1.15
 
-  '@ruvnet/bmssp@1.0.0': {}
+  '@mrinalsunny/bmssp@1.0.0': {}
 
   '@sec-ant/readable-stream@0.4.1': {}
 

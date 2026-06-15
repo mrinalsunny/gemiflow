@@ -2,7 +2,7 @@
 
 **Status**: Proposed
 **Date**: 2026-06-09
-**Issue**: [ruvnet/gemiflow#2335](https://github.com/ruvnet/gemiflow/issues/2335)
+**Issue**: [mrinalsunny/gemiflow#2335](https://github.com/mrinalsunny/gemiflow/issues/2335)
 **Related**: ADR-144 (Authorization Propagation — shares `delegationDepth`), ADR-099 (Dossier Investigator — recursive use case), ADR-143 (Deterministic Tier-1 Codemods — unaffected, stay at depth 0)
 
 ## Context

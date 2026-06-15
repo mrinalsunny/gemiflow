@@ -12,7 +12,7 @@ import { generateStatuslineScript, generateStatuslineHook } from './statusline-g
 // PR body templates and release notes.  It is NEVER hard-wired into the
 // static command-file templates — those are user-owned content.
 export const ATTRIBUTION_FOOTER =
-  '🤖 Generated with [GemiFlow](https://github.com/ruvnet/gemiflow)';
+  '🤖 Generated with [GemiFlow](https://github.com/mrinalsunny/gemiflow)';
 
 /**
  * Generate pre-commit hook script

@@ -56,7 +56,7 @@ gemiflow/
 Users install with:
 
 ```
-/plugin add ruvnet/gemiflow
+/plugin add mrinalsunny/gemiflow
 /restart
 ```
 

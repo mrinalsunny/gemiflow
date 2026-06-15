@@ -2,8 +2,8 @@
 
 **Status**: Accepted — Implemented in gemiflow 3.10.14
 **Date**: 2026-05-30
-**Tracking issue**: [#2245](https://github.com/ruvnet/gemiflow/issues/2245)
-**Companion**: ADR-143 (deterministic Tier-1 codemods — same claims-vs-reality pattern), ADR-073 (agentdb SOTA — also a claims-vs-reality round), [ruvnet/gemiflow#2241](https://github.com/ruvnet/gemiflow/issues/2241) Dream-Cycle research (Structured Distillation is the natural Round-2 enhancement to this work)
+**Tracking issue**: [#2245](https://github.com/mrinalsunny/gemiflow/issues/2245)
+**Companion**: ADR-143 (deterministic Tier-1 codemods — same claims-vs-reality pattern), ADR-073 (agentdb SOTA — also a claims-vs-reality round), [mrinalsunny/gemiflow#2241](https://github.com/mrinalsunny/gemiflow/issues/2241) Dream-Cycle research (Structured Distillation is the natural Round-2 enhancement to this work)
 
 ## Context
 

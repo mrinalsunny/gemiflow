@@ -5,7 +5,7 @@ Cache-aware /loop workers and CronCreate background automation. Substrate plugin
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-loop-workers@gemiflow
 ```
 

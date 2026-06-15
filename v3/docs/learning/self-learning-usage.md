@@ -183,7 +183,7 @@ catches future regressions.
 ## Reproduce all the proofs in this repo
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 npm install && ( cd v3/@gemiflow/cli && npx tsc -b )
 
 # ⓐ Self-learning wiring (5 sections — primitives → MCP surfaces → multi-step)

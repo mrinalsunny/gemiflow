@@ -3,10 +3,10 @@
   "description": "Neural trading via npx neural-trader — self-learning strategies, Rust/NAPI backtesting, 112+ MCP tools, swarm coordination, and portfolio optimization",
   "version": "0.2.0",
   "author": {
-    "name": "ruvnet",
-    "url": "https://github.com/ruvnet"
+    "name": "mrinalsunny",
+    "url": "https://github.com/mrinalsunny"
   },
-  "homepage": "https://github.com/ruvnet/neural-trader",
+  "homepage": "https://github.com/mrinalsunny/neural-trader",
   "license": "MIT",
   "keywords": [
     "gemiflow",

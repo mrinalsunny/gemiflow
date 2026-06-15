@@ -121,7 +121,7 @@ Storage:
 Programmatic use:
   import { JsonMemoryBackend, runMemoryCommand } from '@gemiflow/cli-core';
 
-Track progress: https://github.com/ruvnet/gemiflow/issues/1760`);
+Track progress: https://github.com/mrinalsunny/gemiflow/issues/1760`);
     process.exit(0);
   }
 

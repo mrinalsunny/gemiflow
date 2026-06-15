@@ -11,7 +11,7 @@ Get started with GemiFlow in 5 minutes!
 In Gemini CLI:
 
 ```
-/plugin add ruvnet/gemiflow
+/plugin add mrinalsunny/gemiflow
 /restart
 ```
 
@@ -19,7 +19,7 @@ In Gemini CLI:
 
 ```bash
 # Clone the repository
-git clone https://github.com/ruvnet/gemiflow.git
+git clone https://github.com/mrinalsunny/gemiflow.git
 cd gemiflow
 ```
 

@@ -97,7 +97,7 @@ The labelled corpus encodes domain knowledge that no regex can express compactly
 ## Verification
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 npm install && ( cd v3/@gemiflow/cli && npx tsc )
 
 # Pretrain (writes 415-pattern store)

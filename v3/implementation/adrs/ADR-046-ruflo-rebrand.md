@@ -3,7 +3,7 @@
 **Status:** Accepted
 **Date:** 2026-02-07
 **Updated:** 2026-02-08
-**Authors:** RuvNet, GemiFlow Team
+**Authors:** mrinalsunny, GemiFlow Team
 
 ## Context
 
@@ -15,7 +15,7 @@ The umbrella package is published to npm as `gemiflow`. As the ecosystem grows a
 |--------|---------------|
 | npm package | `gemiflow` |
 | CLI binary | `gemiflow` |
-| GitHub repo | ruvnet/gemiflow |
+| GitHub repo | mrinalsunny/gemiflow |
 | Internal packages | @gemiflow/* |
 | Weekly downloads | ~1,000+ |
 
@@ -57,11 +57,11 @@ npm registry
 
 | Aspect | Value | Reason |
 |--------|-------|--------|
-| GitHub repo | ruvnet/gemiflow | SEO, existing links, history |
+| GitHub repo | mrinalsunny/gemiflow | SEO, existing links, history |
 | Internal packages | @gemiflow/* | Minimal disruption, existing integrations |
 | Functionality | All features | No functional changes |
 | License | MIT | No change |
-| Author | RuvNet | No change |
+| Author | mrinalsunny | No change |
 | `gemiflow` npm package | Fully supported | No breaking changes for existing users |
 
 ## Consequences
@@ -200,7 +200,7 @@ claude mcp add gemiflow npx gemiflow@latest mcp start
 1. Root `package.json` is the `gemiflow` umbrella
 2. `gemiflow/package.json` is the `gemiflow` umbrella
 3. Internal imports remain `@gemiflow/*`
-4. GitHub repo remains `ruvnet/gemiflow`
+4. GitHub repo remains `mrinalsunny/gemiflow`
 
 ## Metrics for Success
 

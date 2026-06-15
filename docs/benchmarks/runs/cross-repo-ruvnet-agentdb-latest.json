@@ -1,7 +1,7 @@
 {
   "runAt": "2026-05-30T19:07:53.391Z",
   "benchmark": "cross-repo-generalisation",
-  "repo": "ruvnet/agentdb",
+  "repo": "mrinalsunny/agentdb",
   "cwd": "/private/tmp/agentdb-bench",
   "storeSize": 15,
   "queries": 10,

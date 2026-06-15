@@ -1,5 +1,5 @@
 /**
- * Regression guard for ruvnet/gemiflow#1916.
+ * Regression guard for mrinalsunny/gemiflow#1916.
  *
  *  (a) `agent_logs` MCP tool must be registered — the `gemiflow agent logs <id>`
  *      CLI subcommand called `callMCPTool('agent_logs', …)` against a tool

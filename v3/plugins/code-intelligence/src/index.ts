@@ -58,8 +58,8 @@ export const pluginMetadata = {
   author: 'GemiFlow Team',
   category: 'code-intelligence',
   keywords: ['code', 'intelligence', 'semantic-search', 'architecture', 'refactoring'],
-  homepage: 'https://github.com/ruvnet/gemiflow',
-  repository: 'https://github.com/ruvnet/gemiflow.git',
+  homepage: 'https://github.com/mrinalsunny/gemiflow',
+  repository: 'https://github.com/mrinalsunny/gemiflow.git',
 };
 
 /**

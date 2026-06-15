@@ -2,7 +2,7 @@
  * @gemiflow/ruvector-upstream
  *
  * RuVector WASM package bridges for GemiFlow plugins.
- * Provides unified access to 15+ WASM packages from ruvnet/ruvector.
+ * Provides unified access to 15+ WASM packages from mrinalsunny/ruvector.
  */
 
 // Bridge exports

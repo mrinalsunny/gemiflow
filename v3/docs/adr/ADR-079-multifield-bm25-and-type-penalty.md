@@ -72,7 +72,7 @@ The "type penalty disabled by default" decision was driven by the ablation, not 
 ## Verification
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 npm install && ( cd v3/@gemiflow/cli && npx tsc )
 
 # Unit tests — 39 tests (21 from ADR-078 + 18 new)

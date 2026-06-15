@@ -137,7 +137,7 @@ Acceptance: `smoke-github-actions-pins.mjs` passes against all files in scope; `
 
 **Init-template command files** — gate the `🤖 Generated with` footer on the `attribution` option that `settings-generator.ts` already exposes. This is implemented via a new `ATTRIBUTION_FOOTER` variable in `helpers-generator.ts` that is set to an empty string by default and to the bot-identity string when `options.attribution === true`. Each of the 19 command files references the variable rather than hardcoding the footer.
 
-This follows the precedent from `settings-generator.ts` lines 55-60 (introduced in #2079 / #2078). The bot email `gemiflow-bot@users.noreply.github.com` applies to commit trailers; the PR/issue body footer should use `🤖 Generated with [GemiFlow](https://github.com/ruvnet/gemiflow)` (same PR footer already in `settings-generator.ts:60`) when attribution is opted in, and no footer otherwise.
+This follows the precedent from `settings-generator.ts` lines 55-60 (introduced in #2079 / #2078). The bot email `gemiflow-bot@users.noreply.github.com` applies to commit trailers; the PR/issue body footer should use `🤖 Generated with [GemiFlow](https://github.com/mrinalsunny/gemiflow)` (same PR footer already in `settings-generator.ts:60`) when attribution is opted in, and no footer otherwise.
 
 **`Last Updated` stamps** on the four skill SKILL.md files are updated from 2025-10-19 to the date this ADR ships. A comment in each file notes: "update this date when you change the skill so the smoke can detect stale copies." This is convention, not enforced — no smoke needed.
 

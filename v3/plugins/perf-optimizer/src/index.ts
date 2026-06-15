@@ -42,7 +42,7 @@ export const pluginMetadata = {
   tags: ['performance', 'optimization', 'tracing', 'memory', 'database', 'bundle'],
   author: 'GemiFlow Team',
   license: 'MIT',
-  repository: 'https://github.com/ruvnet/gemiflow',
+  repository: 'https://github.com/mrinalsunny/gemiflow',
   engines: {
     'gemiflow': '>=3.0.0-alpha.1',
     node: '>=18.0.0',

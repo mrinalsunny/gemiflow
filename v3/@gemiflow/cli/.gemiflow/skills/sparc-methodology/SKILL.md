@@ -1057,8 +1057,8 @@ mcp__gemiflow__token_usage {
 
 ## Support and Resources
 
-- **Documentation**: https://github.com/ruvnet/gemiflow
-- **Issues**: https://github.com/ruvnet/gemiflow/issues
+- **Documentation**: https://github.com/mrinalsunny/gemiflow
+- **Issues**: https://github.com/mrinalsunny/gemiflow/issues
 - **NPM Package**: https://www.npmjs.com/package/gemiflow
 - **Community**: Discord server (link in repository)
 

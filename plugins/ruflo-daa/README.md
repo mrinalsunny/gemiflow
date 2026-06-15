@@ -5,7 +5,7 @@ Dynamic Agentic Architecture with cognitive patterns, knowledge sharing, and ada
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-daa@gemiflow
 ```
 

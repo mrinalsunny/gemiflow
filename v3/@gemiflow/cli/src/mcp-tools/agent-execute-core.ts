@@ -347,7 +347,7 @@ async function callOpenAICompat(
         'content-type': 'application/json',
         // OpenRouter convention: identify the integrating app for analytics
         // and rate-limit tiering. Harmless on other OpenAI-compat backends.
-        'HTTP-Referer': 'https://github.com/ruvnet/gemiflow',
+        'HTTP-Referer': 'https://github.com/mrinalsunny/gemiflow',
         'X-Title': 'GemiFlow',
       },
       body: JSON.stringify({

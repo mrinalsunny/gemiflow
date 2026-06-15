@@ -5,7 +5,7 @@ Documentation generation, drift detection, and API docs automation.
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-docs@gemiflow
 ```
 

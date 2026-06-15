@@ -572,13 +572,13 @@ Pre-scan agent inputs automatically:
 
 ## Contributing
 
-Contributions are welcome! Please see our [Contributing Guide](https://github.com/ruvnet/gemiflow/blob/main/CONTRIBUTING.md).
+Contributions are welcome! Please see our [Contributing Guide](https://github.com/mrinalsunny/gemiflow/blob/main/CONTRIBUTING.md).
 
 ### Development
 
 ```bash
 # Clone repository
-git clone https://github.com/ruvnet/gemiflow.git
+git clone https://github.com/mrinalsunny/gemiflow.git
 cd gemiflow/v3/@gemiflow/aidefence
 
 # Install dependencies

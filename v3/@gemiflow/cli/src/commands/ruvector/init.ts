@@ -275,7 +275,7 @@ export const initCommand: Command = {
             } catch {
               spinner.fail('Failed to create vector extension');
               output.printError('Please install ruvector or pgvector manually.');
-              output.printError('  ruvector: https://hub.docker.com/r/ruvnet/ruvector-postgres');
+              output.printError('  ruvector: https://hub.docker.com/r/mrinalsunny/ruvector-postgres');
               output.printError('  pgvector: https://github.com/pgvector/pgvector');
               await client.end();
               return { success: false, exitCode: 1 };

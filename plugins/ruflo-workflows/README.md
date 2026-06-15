@@ -10,7 +10,7 @@ Neither subsumes the other — see [Choosing a surface](#choosing-a-surface).
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-workflows@gemiflow
 ```
 

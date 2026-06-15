@@ -7,7 +7,7 @@ User-facing surface for GemiFlow's self-learning system. Wraps **29 intelligence
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-intelligence@gemiflow
 ```
 

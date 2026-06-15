@@ -4,7 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/@gemiflow/deployment.svg)](https://www.npmjs.com/package/@gemiflow/deployment)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
-[![CI/CD](https://img.shields.io/badge/CI%2FCD-Automated-green.svg)](https://github.com/ruvnet/gemiflow)
+[![CI/CD](https://img.shields.io/badge/CI%2FCD-Automated-green.svg)](https://github.com/mrinalsunny/gemiflow)
 [![Semantic Release](https://img.shields.io/badge/Semantic-Release-brightgreen.svg)](https://semantic-release.gitbook.io/)
 
 > Release management, CI/CD, and versioning module for GemiFlow v3.

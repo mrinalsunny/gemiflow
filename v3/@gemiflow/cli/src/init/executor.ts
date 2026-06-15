@@ -1584,7 +1584,7 @@ async function writeCapabilitiesDoc(
 
   const capabilities = `# GemiFlow V3 - Complete Capabilities Reference
 > Generated: ${new Date().toISOString()}
-> Full documentation: https://github.com/ruvnet/gemiflow
+> Full documentation: https://github.com/mrinalsunny/gemiflow
 
 ## 📋 Table of Contents
 
@@ -1983,8 +1983,8 @@ npx gemiflow@latest hooks worker dispatch --trigger optimize
 
 ---
 
-**Full Documentation**: https://github.com/ruvnet/gemiflow
-**Issues**: https://github.com/ruvnet/gemiflow/issues
+**Full Documentation**: https://github.com/mrinalsunny/gemiflow
+**Issues**: https://github.com/mrinalsunny/gemiflow/issues
 `;
 
   fs.writeFileSync(capabilitiesPath, capabilities, 'utf-8');

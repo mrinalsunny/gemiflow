@@ -7,7 +7,7 @@ Combines GemiFlow's 10 autopilot MCP tools with Gemini CLI's native `/loop` + `S
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-autopilot@gemiflow
 ```
 

@@ -3,7 +3,7 @@
 
 **Status**: Accepted
 **Date**: 2026-03-17
-**Author**: RuvNet
+**Author**: mrinalsunny
 **Version**: v3.5.24 → v3.5.25
 
 ## Context

@@ -3,10 +3,10 @@
   "description": "Agent runtimes for gemiflow \u2014 local WASM-sandboxed agents (rvagent: 10 wasm_agent_*/wasm_gallery_* MCP tools, built on @ruvector/rvagent-wasm + @ruvector/ruvllm-wasm per ADR-070) plus google Claude Managed Agents as a cloud backend (managed_agent_* MCP tools per ADR-115). One interface, local-vs-cloud runtimes.",
   "version": "0.2.0",
   "author": {
-    "name": "ruvnet",
-    "url": "https://github.com/ruvnet"
+    "name": "mrinalsunny",
+    "url": "https://github.com/mrinalsunny"
   },
-  "homepage": "https://github.com/ruvnet/gemiflow",
+  "homepage": "https://github.com/mrinalsunny/gemiflow",
   "license": "MIT",
   "keywords": [
     "gemiflow",

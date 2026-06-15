@@ -198,7 +198,7 @@ Remaining for G2:
 - Cross-host validation (mac ↔ ruvultra over tailscale, root) once `FederationTransport` is wired into a real hive-mind + federation setup.
 - Build + publish; merge PR #1905.
 
-Tracked in [#1872](https://github.com/ruvnet/gemiflow/issues/1872) and PR #1905.
+Tracked in [#1872](https://github.com/mrinalsunny/gemiflow/issues/1872) and PR #1905.
 
 ### Still open
 
@@ -208,6 +208,6 @@ Tracked in [#1872](https://github.com/ruvnet/gemiflow/issues/1872) and PR #1905.
 
 ### Tracking
 
-- [#1896](https://github.com/ruvnet/gemiflow/issues/1896) — external audit response with the per-gap measurement evidence above.
+- [#1896](https://github.com/mrinalsunny/gemiflow/issues/1896) — external audit response with the per-gap measurement evidence above.
 
 This update does NOT supersede the original ADR-095 problem statement; it records that 4 of the 7 originally-named gaps have been quietly fixed by the v3.7.0-alpha work that landed without ceremony.

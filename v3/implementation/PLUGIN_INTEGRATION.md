@@ -108,7 +108,7 @@ outputOfficialHookResult(output);
 
 ```bash
 # Add plugin marketplace
-/plugin marketplace add gemiflow https://github.com/ruvnet/gemiflow
+/plugin marketplace add gemiflow https://github.com/mrinalsunny/gemiflow
 
 # Install plugin
 /plugin install gemiflow
@@ -118,7 +118,7 @@ outputOfficialHookResult(output);
 
 ```bash
 # Clone and link
-git clone https://github.com/ruvnet/gemiflow
+git clone https://github.com/mrinalsunny/gemiflow
 claude --plugin-dir ./gemiflow/plugin
 ```
 

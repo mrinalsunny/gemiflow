@@ -7,7 +7,7 @@
 In Gemini CLI:
 
 ```
-/plugin add ruvnet/gemiflow
+/plugin add mrinalsunny/gemiflow
 ```
 
 This will:
@@ -23,7 +23,7 @@ If you've cloned the repository:
 
 ```bash
 # Clone the repository
-git clone https://github.com/ruvnet/gemiflow.git
+git clone https://github.com/mrinalsunny/gemiflow.git
 cd gemiflow
 
 # In Gemini CLI, install the plugin
@@ -177,7 +177,7 @@ Agents are automatically available for Gemini CLI to delegate to when appropriat
 /plugin list
 
 # Try installing again
-/plugin add ruvnet/gemiflow
+/plugin add mrinalsunny/gemiflow
 ```
 
 ### Commands Not Showing
@@ -199,7 +199,7 @@ ls -la agents/
 
 ```
 # Try local installation
-git clone https://github.com/ruvnet/gemiflow.git
+git clone https://github.com/mrinalsunny/gemiflow.git
 cd gemiflow
 /plugin add .
 ```
@@ -210,8 +210,8 @@ cd gemiflow
 
 - **Documentation**: See README.md for complete documentation
 - **Quick Start**: See docs/QUICKSTART.md for 5-minute guide
-- **GitHub Issues**: https://github.com/ruvnet/gemiflow/issues
-- **Discussions**: https://github.com/ruvnet/gemiflow/discussions
+- **GitHub Issues**: https://github.com/mrinalsunny/gemiflow/issues
+- **Discussions**: https://github.com/mrinalsunny/gemiflow/discussions
 
 ---
 

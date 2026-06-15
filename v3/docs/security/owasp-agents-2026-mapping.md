@@ -1,7 +1,7 @@
 # OWASP Top 10 for Agentic Applications 2026 — GemiFlow control mapping
 
 **Reference**: OWASP Gen AI Security Project, "OWASP Top 10 for Agentic Applications" (Dec 2025, 100+ contributors).
-**Issue**: [ruvnet/gemiflow#2149](https://github.com/ruvnet/gemiflow/issues/2149)
+**Issue**: [mrinalsunny/gemiflow#2149](https://github.com/mrinalsunny/gemiflow/issues/2149)
 **Last updated**: 2026-05-26
 
 ## Legend

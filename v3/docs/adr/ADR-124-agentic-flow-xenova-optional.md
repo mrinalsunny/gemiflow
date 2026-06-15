@@ -19,7 +19,7 @@ gemiflow-browser-consumer
                     └── @opentelemetry/sdk-node (opt) ^0.52.0  ← HIGH CVE, fixed in our root overrides
 ```
 
-The `agentdb → @opentelemetry/sdk-node` chain was fixed in [PR #2050 commit `9a8c9c464`](https://github.com/ruvnet/gemiflow/commit/9a8c9c464) by bumping agentdb to `3.0.0-alpha.14` + npm overrides pinning `@opentelemetry/sdk-node ≥ 0.218.0`. Overrides do NOT cascade across separate npm projects, so the same block was duplicated in `v3/@gemiflow/browser/package.json` to keep standalone installs clean.
+The `agentdb → @opentelemetry/sdk-node` chain was fixed in [PR #2050 commit `9a8c9c464`](https://github.com/mrinalsunny/gemiflow/commit/9a8c9c464) by bumping agentdb to `3.0.0-alpha.14` + npm overrides pinning `@opentelemetry/sdk-node ≥ 0.218.0`. Overrides do NOT cascade across separate npm projects, so the same block was duplicated in `v3/@gemiflow/browser/package.json` to keep standalone installs clean.
 
 What remains: **`@xenova/transformers` is a direct dependency of `agentic-flow`**, and `agentic-flow` is a direct dependency of `@gemiflow/browser`. Overrides on the consumer side can pin to a newer Xenova version — but the latest is 2.17.2, and the only fix-available is `@xenova/transformers@2.0.1` (a *downgrade* via a major version-bump). Upgrading would break Xenova's runtime API in ways the agentic-flow embedding code paths aren't prepared for, and downgrading to 2.0.1 sheds three years of ONNX-runtime improvements.
 

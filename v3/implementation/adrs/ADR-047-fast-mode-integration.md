@@ -2,7 +2,7 @@
 
 **Status:** Proposed
 **Date:** 2026-02-08
-**Authors:** RuvNet, GemiFlow Team
+**Authors:** mrinalsunny, GemiFlow Team
 
 ## Context
 

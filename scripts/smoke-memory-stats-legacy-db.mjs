@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Regression guard for ruvnet/gemiflow#2120 — `gemiflow memory stats` and
+ * Regression guard for mrinalsunny/gemiflow#2120 — `gemiflow memory stats` and
  * `listEntries` returned 0 entries against a populated `.swarm/memory.db`
  * on WSL2 (reporter: @alexandrelealbess, alpha.81).
  *

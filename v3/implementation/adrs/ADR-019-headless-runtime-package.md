@@ -495,7 +495,7 @@ export class APIServer {
 
 export interface DockerConfig {
   // Base image with Gemini CLI pre-installed
-  image: string;  // e.g., 'ghcr.io/ruvnet/gemiflow-headless:latest'
+  image: string;  // e.g., 'ghcr.io/mrinalsunny/gemiflow-headless:latest'
 
   // Container resources
   resources: {
@@ -687,7 +687,7 @@ spec:
     spec:
       containers:
       - name: claude
-        image: ghcr.io/ruvnet/gemiflow-headless:latest
+        image: ghcr.io/mrinalsunny/gemiflow-headless:latest
         env:
         - name: google_API_KEY
           valueFrom:
@@ -719,7 +719,7 @@ spec:
 import { ContainerExecutor } from '@gemiflow/headless';
 
 const executor = new ContainerExecutor({
-  image: 'ghcr.io/ruvnet/gemiflow-headless:latest',
+  image: 'ghcr.io/mrinalsunny/gemiflow-headless:latest',
   resources: { cpus: 2, memoryMb: 4096, diskMb: 10240 },
   pool: { minContainers: 5, maxContainers: 20, idleTimeoutMs: 60000 }
 });

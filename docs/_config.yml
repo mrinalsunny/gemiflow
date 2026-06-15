@@ -2,6 +2,6 @@ title: GemiFlow Marketplace
 description: Gemini CLI native agents, swarms, workers, and MCP tools
 theme: jekyll-theme-minimal
 baseurl: /gemiflow
-url: https://ruvnet.github.io
+url: https://mrinalsunny.github.io
 plugins:
   - jekyll-seo-tag

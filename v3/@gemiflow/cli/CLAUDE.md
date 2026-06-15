@@ -697,8 +697,8 @@ This includes:
 
 ## Support
 
-- Documentation: https://github.com/ruvnet/gemiflow
-- Issues: https://github.com/ruvnet/gemiflow/issues
+- Documentation: https://github.com/mrinalsunny/gemiflow
+- Issues: https://github.com/mrinalsunny/gemiflow/issues
 
 ---
 

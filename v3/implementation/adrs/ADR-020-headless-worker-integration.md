@@ -706,7 +706,7 @@ version: '3.8'
 
 services:
   worker-pool:
-    image: ghcr.io/ruvnet/gemiflow-headless:latest
+    image: ghcr.io/mrinalsunny/gemiflow-headless:latest
     deploy:
       replicas: 3
       resources:
@@ -723,7 +723,7 @@ services:
     command: daemon start --foreground --workers audit,optimize,testgaps
 
   queue-manager:
-    image: ghcr.io/ruvnet/gemiflow-headless:latest
+    image: ghcr.io/mrinalsunny/gemiflow-headless:latest
     environment:
       - REDIS_URL=redis://redis:6379
     depends_on:

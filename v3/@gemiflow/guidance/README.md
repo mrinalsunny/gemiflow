@@ -2,11 +2,11 @@
 
 [![npm version](https://img.shields.io/npm/v/@gemiflow/guidance.svg?style=flat-square&label=npm)](https://www.npmjs.com/package/@gemiflow/guidance)
 [![npm downloads](https://img.shields.io/npm/dm/@gemiflow/guidance.svg?style=flat-square&label=downloads)](https://www.npmjs.com/package/@gemiflow/guidance)
-[![license](https://img.shields.io/npm/l/@gemiflow/guidance.svg?style=flat-square)](https://github.com/ruvnet/gemiflow/blob/main/LICENSE)
-[![tests](https://img.shields.io/badge/tests-1%2C328%20passing-brightgreen?style=flat-square)](https://github.com/ruvnet/gemiflow)
+[![license](https://img.shields.io/npm/l/@gemiflow/guidance.svg?style=flat-square)](https://github.com/mrinalsunny/gemiflow/blob/main/LICENSE)
+[![tests](https://img.shields.io/badge/tests-1%2C328%20passing-brightgreen?style=flat-square)](https://github.com/mrinalsunny/gemiflow)
 [![node](https://img.shields.io/badge/node-%3E%3D20-blue?style=flat-square)](https://nodejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3+-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![GitHub stars](https://img.shields.io/github/stars/ruvnet/gemiflow?style=flat-square&logo=github)](https://github.com/ruvnet/gemiflow)
+[![GitHub stars](https://img.shields.io/github/stars/mrinalsunny/gemiflow?style=flat-square&logo=github)](https://github.com/mrinalsunny/gemiflow)
 [![gemiflow](https://img.shields.io/npm/v/gemiflow.svg?style=flat-square&label=gemiflow&color=blueviolet)](https://www.npmjs.com/package/gemiflow)
 [![ruvbot](https://img.shields.io/npm/v/ruvbot.svg?style=flat-square&label=ruvbot&color=orange)](https://www.npmjs.com/package/ruvbot)
 
@@ -1181,15 +1181,15 @@ Take 20 real GemiFlow tasks from repo history. Run A without control plane, run 
 
 | Resource | URL |
 |----------|-----|
-| **GitHub** | [github.com/ruvnet/gemiflow](https://github.com/ruvnet/gemiflow) |
+| **GitHub** | [github.com/mrinalsunny/gemiflow](https://github.com/mrinalsunny/gemiflow) |
 | **npm: @gemiflow/guidance** | [npmjs.com/package/@gemiflow/guidance](https://www.npmjs.com/package/@gemiflow/guidance) |
 | **npm: gemiflow** | [npmjs.com/package/gemiflow](https://www.npmjs.com/package/gemiflow) |
 | **npm: ruvbot** | [npmjs.com/package/ruvbot](https://www.npmjs.com/package/ruvbot) |
 | **ruv.io** | [ruv.io](https://ruv.io) |
-| **Issues** | [github.com/ruvnet/gemiflow/issues](https://github.com/ruvnet/gemiflow/issues) |
+| **Issues** | [github.com/mrinalsunny/gemiflow/issues](https://github.com/mrinalsunny/gemiflow/issues) |
 | **API Reference** | [docs/reference/api-quick-reference.md](docs/reference/api-quick-reference.md) |
 | **ADR Index** | [docs/adrs/](docs/adrs/) |
 
 ## License
 
-MIT — see [LICENSE](https://github.com/ruvnet/gemiflow/blob/main/LICENSE) for details.
+MIT — see [LICENSE](https://github.com/mrinalsunny/gemiflow/blob/main/LICENSE) for details.

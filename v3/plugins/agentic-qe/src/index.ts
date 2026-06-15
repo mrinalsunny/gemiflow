@@ -290,8 +290,8 @@ export const PLUGIN_METADATA = {
   description: 'Quality Engineering plugin with 51 specialized agents across 12 DDD bounded contexts',
   author: 'rUv',
   license: 'MIT',
-  homepage: 'https://github.com/ruvnet/agentic-qe',
-  repository: 'https://github.com/ruvnet/agentic-qe',
+  homepage: 'https://github.com/mrinalsunny/agentic-qe',
+  repository: 'https://github.com/mrinalsunny/agentic-qe',
   mingemiflowVersion: '3.0.0-alpha.50',
   capabilities: [
     'test-generation',

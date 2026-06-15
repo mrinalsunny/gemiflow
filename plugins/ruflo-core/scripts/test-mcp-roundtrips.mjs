@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Regression guard for ruvnet/gemiflow#1889.
+ * Regression guard for mrinalsunny/gemiflow#1889.
  *
  * Tests the round-trip contract between PAIRED MCP tools — tools that
  * write and read from a shared substrate. Each pair must satisfy:

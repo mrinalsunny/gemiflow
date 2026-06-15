@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Smoke test for ruvnet/gemiflow#2132 — Windows end-to-end hook execution.
+ * Smoke test for mrinalsunny/gemiflow#2132 — Windows end-to-end hook execution.
  *
  * This is the real validation: simulates a Gemini CLI PostToolUse hook
  * firing against the generated settings.json on Windows. The original

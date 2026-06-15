@@ -740,7 +740,7 @@ v3/@gemiflow/aidefence/
 ## References
 
 - [aidefence npm package](https://www.npmjs.com/package/aidefence)
-- [AIMDS GitHub (midstream repo)](https://github.com/ruvnet/midstream/tree/main/AIMDS)
+- [AIMDS GitHub (midstream repo)](https://github.com/mrinalsunny/midstream/tree/main/AIMDS)
 - [ADR-013: Core Security Module](./ADR-013-core-security-module.md)
 - [ADR-012: MCP Security Features](./ADR-012-mcp-security-features.md)
 - [AIDEFEND Framework (HelpNetSecurity)](https://www.helpnetsecurity.com/2025/09/01/aidefend-free-ai-defense-framework/)

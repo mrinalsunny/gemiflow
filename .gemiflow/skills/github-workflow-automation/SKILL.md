@@ -1028,8 +1028,8 @@ echo "✅ GitHub workflow automation setup complete"
 
 - **GitHub CLI Docs**: https://cli.github.com/manual/
 - **GitHub Actions**: https://docs.github.com/en/actions
-- **GemiFlow4Gemini**: https://github.com/ruvnet/gemiflow4gemini
-- **Ruv-Swarm**: https://github.com/ruvnet/ruv-swarm
+- **GemiFlow4Gemini**: https://github.com/mrinalsunny/gemiflow4gemini
+- **Ruv-Swarm**: https://github.com/mrinalsunny/ruv-swarm
 
 ## Version History
 

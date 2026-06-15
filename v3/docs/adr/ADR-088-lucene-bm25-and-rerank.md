@@ -100,12 +100,12 @@ This matches the published literature on hybrid retrieval — reranking helps mo
 - **BGE-large swap** — drop-in `BGE_MODEL=Xenova/bge-large-en-v1.5`. Likely lifts both datasets further. ~3× embed latency.
 - **TREC-COVID + FiQA + ArguAna** — 3-4 more BEIR datasets with the Tailscale GPU path the user offered. Would establish a real BEIR-mini-average.
 - **Fine-tuning BGE-base on NFCorpus train** (110K-pair train split) — GPU job, +0.02-0.05 expected.
-- **ruvector BGE bundling** (ruvnet/ruvector#524) — kills the silent-fallback bug at source.
+- **ruvector BGE bundling** (mrinalsunny/ruvector#524) — kills the silent-fallback bug at source.
 
 ## Verification
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 npm install && ( cd v3/@gemiflow/cli && npx tsc )
 
 # Re-use NFCorpus + SciFact caches from ADR-085 (or re-ingest if needed)

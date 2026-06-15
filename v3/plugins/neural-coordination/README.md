@@ -1,7 +1,7 @@
 # @gemiflow/plugin-neural-coordination
 
 [![npm version](https://img.shields.io/npm/v/@gemiflow/plugin-neural-coordination.svg)](https://www.npmjs.com/package/@gemiflow/plugin-neural-coordination)
-[![license](https://img.shields.io/npm/l/@gemiflow/plugin-neural-coordination.svg)](https://github.com/ruvnet/gemiflow/blob/main/LICENSE)
+[![license](https://img.shields.io/npm/l/@gemiflow/plugin-neural-coordination.svg)](https://github.com/mrinalsunny/gemiflow/blob/main/LICENSE)
 [![downloads](https://img.shields.io/npm/dm/@gemiflow/plugin-neural-coordination.svg)](https://www.npmjs.com/package/@gemiflow/plugin-neural-coordination)
 
 A cutting-edge multi-agent coordination plugin combining the SONA self-optimizing neural architecture with graph neural networks for agent communication topology optimization. The plugin enables emergent protocol development, neural consensus mechanisms, collective memory formation, and adaptive swarm behavior while maintaining interpretability of agent interactions.

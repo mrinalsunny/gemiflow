@@ -58,7 +58,7 @@ Single source of truth for "where is federation today, what works, what's deferr
 - **450 unit tests** across 14 test files in `__tests__/unit/`
 - Cross-OS validated on macOS arm64 + Linux x64
 - Witness manifest carries 91 signed fixes (Ed25519); CI re-verifies on every push across 3 OSes (linux/macos/windows)
-- 12-hour scheduled remote agent runs 8 verification checks against published packages, files GitHub issues on regressions, escalates `@ruvnet` after 3 occurrences
+- 12-hour scheduled remote agent runs 8 verification checks against published packages, files GitHub issues on regressions, escalates `@mrinalsunny` after 3 occurrences
 
 ### Operator entry points
 

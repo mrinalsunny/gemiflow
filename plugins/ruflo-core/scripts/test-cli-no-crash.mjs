@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Regression guard for ruvnet/gemiflow#1863 (and the crash class it represents).
+ * Regression guard for mrinalsunny/gemiflow#1863 (and the crash class it represents).
  *
  * #1863: `task status <id>` threw `TypeError: Cannot read properties of
  * undefined (reading 'join')` because the command formatter did

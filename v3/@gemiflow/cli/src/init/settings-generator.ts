@@ -55,7 +55,7 @@ export function generateSettings(options: InitOptions): object {
   if (options.attribution === true) {
     settings.attribution = {
       commit: 'Co-Authored-By: gemiflow-bot <gemiflow-bot@users.noreply.github.com>',
-      pr: '🤖 Generated with [GemiFlow](https://github.com/ruvnet/gemiflow)',
+      pr: '🤖 Generated with [GemiFlow](https://github.com/mrinalsunny/gemiflow)',
     };
   }
 

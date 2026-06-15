@@ -107,7 +107,7 @@ Three configs tied at the corpus ceiling. Picked hw=0.7 cw=0.3 over hw=0.8 cw=0.
 ## Verification
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 npm install && ( cd v3/@gemiflow/cli && npx tsc )
 node v3/@gemiflow/cli/scripts/pretrain-from-github.mjs
 

@@ -1,7 +1,7 @@
 /**
  * AgentAuthorizationPropagator — action-layer security for agent delegation.
  *
- * Implements P1 of ADR-144 (ruvnet/gemiflow#2248): scope-envelope on SendMessage
+ * Implements P1 of ADR-144 (mrinalsunny/gemiflow#2248): scope-envelope on SendMessage
  * + per-action authorization checks. P2-P5 wire this into the comms layer,
  * MCP dispatcher, MCP auth validator, and provenance log respectively.
  *

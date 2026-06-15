@@ -72,7 +72,7 @@ LS("$workspaces$ruv-FANN$ruv-swarm$npm")
 
 // Search for related repositories
 mcp__github__search_repositories {
-  query: "user:ruvnet claude",
+  query: "user:mrinalsunny claude",
   sort: "updated",
   order: "desc"
 }
@@ -97,7 +97,7 @@ mcp__github__create_repository {
 
 // Push template structure
 mcp__github__push_files {
-  owner: "ruvnet",
+  owner: "mrinalsunny",
   repo: "claude-project-template",
   branch: "main",
   files: [
@@ -180,7 +180,7 @@ const repositories = [
 // Update common files across repositories
 repositories.forEach(repo => {
   mcp__github__create_or_update_file({
-    owner: "ruvnet",
+    owner: "mrinalsunny",
     repo: "ruv-FANN",
     path: `${repo}/.github$workflows$integration.yml`,
     content: `name: Integration Tests

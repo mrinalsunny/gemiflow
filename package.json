@@ -18,7 +18,7 @@
   },
   "funding": {
     "type": "github",
-    "url": "https://github.com/sponsors/ruvnet"
+    "url": "https://github.com/sponsors/mrinalsunny"
   },
   "files": [
     "bin/**",
@@ -161,7 +161,7 @@
     "self-learning"
   ],
   "author": {
-    "name": "RuvNet",
+    "name": "mrinalsunny",
     "email": "mrinalsunny@gmail.com",
     "url": "https://ruv.io"
   },

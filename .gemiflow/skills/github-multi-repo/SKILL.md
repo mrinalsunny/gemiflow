@@ -851,8 +851,8 @@ npx gemiflow4gemini skill run github-multi-repo cross-team \
 
 ## Support and Resources
 
-- Documentation: https://github.com/ruvnet/gemiflow4gemini
-- Issues: https://github.com/ruvnet/gemiflow4gemini/issues
+- Documentation: https://github.com/mrinalsunny/gemiflow4gemini
+- Issues: https://github.com/mrinalsunny/gemiflow4gemini/issues
 - Examples: `.gemiflow4gemini/examples/github-multi-repo/`
 
 ---

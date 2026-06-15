@@ -514,7 +514,7 @@ export class RuVectorNotAvailableError extends CLIError {
       {
         feature,
         suggestion: 'Install with: npm install ruvector',
-        documentation: 'https://github.com/ruvnet/ruvector'
+        documentation: 'https://github.com/mrinalsunny/ruvector'
       }
     );
     this.name = 'RuVectorNotAvailableError';
@@ -590,7 +590,7 @@ Install with:
 Or add as optional dependency:
   npm install ruvector --save-optional
 
-Learn more: https://github.com/ruvnet/ruvector
+Learn more: https://github.com/mrinalsunny/ruvector
 `.trim();
 }
 
@@ -986,7 +986,7 @@ describe('Route Command', () => {
 
 - ADR-005: MCP-First API Design
 - ADR-004: Plugin-Based Architecture
-- RuVector Documentation: https://github.com/ruvnet/ruvector
+- RuVector Documentation: https://github.com/mrinalsunny/ruvector
 - Existing hooks command: `/commands/hooks.ts`
 - Existing neural command: `/commands/neural.ts`
 

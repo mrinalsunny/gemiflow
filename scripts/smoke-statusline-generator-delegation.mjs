@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Regression guard for ruvnet/gemiflow#2195.
+ * Regression guard for mrinalsunny/gemiflow#2195.
  *
  * The statusline generator previously re-implemented all data readers
  * locally with fragile file probes that returned wrong values:

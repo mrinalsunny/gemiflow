@@ -696,10 +696,10 @@ npx gemiflow4gemini hive-mind spawn "Review PR #456" \
 
 ## References
 
-- [Hive Mind Documentation](https://github.com/ruvnet/gemiflow4gemini/docs/hive-mind)
-- [Collective Intelligence Patterns](https://github.com/ruvnet/gemiflow4gemini/docs/patterns)
-- [Byzantine Consensus](https://github.com/ruvnet/gemiflow4gemini/docs/consensus)
-- [Memory Optimization](https://github.com/ruvnet/gemiflow4gemini/docs/memory)
+- [Hive Mind Documentation](https://github.com/mrinalsunny/gemiflow4gemini/docs/hive-mind)
+- [Collective Intelligence Patterns](https://github.com/mrinalsunny/gemiflow4gemini/docs/patterns)
+- [Byzantine Consensus](https://github.com/mrinalsunny/gemiflow4gemini/docs/consensus)
+- [Memory Optimization](https://github.com/mrinalsunny/gemiflow4gemini/docs/memory)
 
 ---
 

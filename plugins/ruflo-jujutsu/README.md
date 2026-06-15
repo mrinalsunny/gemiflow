@@ -5,7 +5,7 @@ Advanced git workflows with diff analysis, risk scoring, and reviewer recommenda
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-jujutsu@gemiflow
 ```
 

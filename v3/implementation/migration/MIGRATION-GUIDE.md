@@ -352,9 +352,9 @@ Manual resolution needed:
 
 ## Support
 
-- Documentation: https://github.com/ruvnet/gemiflow/docs/v3
-- Issues: https://github.com/ruvnet/gemiflow/issues
-- Discussions: https://github.com/ruvnet/gemiflow/discussions
+- Documentation: https://github.com/mrinalsunny/gemiflow/docs/v3
+- Issues: https://github.com/mrinalsunny/gemiflow/issues
+- Discussions: https://github.com/mrinalsunny/gemiflow/discussions
 
 ---
 

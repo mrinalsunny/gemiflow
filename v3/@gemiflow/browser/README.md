@@ -715,17 +715,17 @@ MIT License - see [LICENSE](../../LICENSE) for details.
 
 ## Links
 
-- [GitHub Repository](https://github.com/ruvnet/gemiflow)
+- [GitHub Repository](https://github.com/mrinalsunny/gemiflow)
 - [agent-browser](https://github.com/AugmentCode/agent-browser)
-- [GemiFlow Documentation](https://github.com/ruvnet/gemiflow#readme)
+- [GemiFlow Documentation](https://github.com/mrinalsunny/gemiflow#readme)
 - [MCP Protocol](https://modelcontextprotocol.io)
 
 ---
 
 <div align="center">
 
-**Part of the [GemiFlow](https://github.com/ruvnet/gemiflow) ecosystem**
+**Part of the [GemiFlow](https://github.com/mrinalsunny/gemiflow) ecosystem**
 
-Made with ❤️ by [ruvnet](https://github.com/ruvnet)
+Made with ❤️ by [mrinalsunny](https://github.com/mrinalsunny)
 
 </div>

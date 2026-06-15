@@ -2,7 +2,7 @@
 
 > **Modular AI Agent Coordination System** - A complete reimagining of GemiFlow with 15-agent hierarchical mesh swarm coordination.
 
-[![Version](https://img.shields.io/badge/version-3.0.0--alpha.1-blue.svg)](https://github.com/ruvnet/gemiflow)
+[![Version](https://img.shields.io/badge/version-3.0.0--alpha.1-blue.svg)](https://github.com/mrinalsunny/gemiflow)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20.0.0-green.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3+-blue.svg)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/license-MIT-purple.svg)](../LICENSE)
@@ -398,7 +398,7 @@ Features:
 
 ```bash
 # Clone the repository
-git clone https://github.com/ruvnet/gemiflow.git
+git clone https://github.com/mrinalsunny/gemiflow.git
 cd gemiflow/v3
 
 # Install dependencies
@@ -474,9 +474,9 @@ pnpm test:coverage
 - [Hooks Tools](./mcp/tools/hooks-tools.ts)
 
 ### External
-- [GitHub Repository](https://github.com/ruvnet/gemiflow)
+- [GitHub Repository](https://github.com/mrinalsunny/gemiflow)
 - [agentic-flow Integration](https://github.com/ruvnet/agentic-flow)
-- [AgentDB](https://github.com/ruvnet/agentdb)
+- [AgentDB](https://github.com/mrinalsunny/agentdb)
 
 ## Requirements
 

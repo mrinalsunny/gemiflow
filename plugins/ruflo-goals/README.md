@@ -5,7 +5,7 @@ Long-horizon goal planning, deep research orchestration, and adaptive replanning
 ## Install
 
 ```
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 /plugin install gemiflow-goals@gemiflow
 ```
 

@@ -83,7 +83,7 @@ implementation/
 
 ## Quick Links
 
-- **Master Issue:** [GitHub Issue #927](https://github.com/ruvnet/gemiflow/issues/927)
+- **Master Issue:** [GitHub Issue #927](https://github.com/mrinalsunny/gemiflow/issues/927)
 - **ADR Documentation:** [/v3/docs/adrs/](../docs/adrs/)
 - **Module Source:** [/v3/@gemiflow/](../@gemiflow/)
 

@@ -2,7 +2,7 @@
 
 **Status**: Accepted
 **Date**: 2026-05-26
-**Issue**: [ruvnet/gemiflow#2149](https://github.com/ruvnet/gemiflow/issues/2149)
+**Issue**: [mrinalsunny/gemiflow#2149](https://github.com/mrinalsunny/gemiflow/issues/2149)
 **Related**: OWASP Top 10 for Agentic Applications 2026 ASI01 (Goal Hijacking)
 
 ## Context

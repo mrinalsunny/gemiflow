@@ -65,7 +65,7 @@ Three new MCP tools wired through agentdb@3.0.0-alpha.13's native Cypher-routed 
 - `agentdb_causal-edge-delete` — calls `GraphDatabaseAdapter.deleteEdgesByEndpoints(from, to, relation?)` (Cypher-injection-safe)
 - `agentdb_causal-node-delete` — calls `GraphDatabaseAdapter.deleteNode(id, {cascade: true})` returns native `{deletedNode, deletedEdges}` audit
 
-All wrapped in MutationGuard (fail-closed) + AttestationLog (audit). Unblocks `/adr-index` re-index when ADR files are deleted from disk — stale nodes + dangling `supersedes` / `amends` / `related` / `depends-on` edges are now scrubbable. Closed [#1784](https://github.com/ruvnet/gemiflow/issues/1784).
+All wrapped in MutationGuard (fail-closed) + AttestationLog (audit). Unblocks `/adr-index` re-index when ADR files are deleted from disk — stale nodes + dangling `supersedes` / `amends` / `related` / `depends-on` edges are now scrubbable. Closed [#1784](https://github.com/mrinalsunny/gemiflow/issues/1784).
 
 ### What didn't change
 
@@ -204,10 +204,10 @@ npx gemiflow@latest hooks intelligence --status
 
 ```bash
 # One-line install (recommended)
-curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/gemiflow@main/scripts/install.sh | bash
+curl -fsSL https://cdn.jsdelivr.net/gh/mrinalsunny/gemiflow@main/scripts/install.sh | bash
 
 # Or full setup with MCP + diagnostics
-curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/gemiflow@main/scripts/install.sh | bash -s -- --full
+curl -fsSL https://cdn.jsdelivr.net/gh/mrinalsunny/gemiflow@main/scripts/install.sh | bash -s -- --full
 
 # Or via npx
 npx gemiflow@latest init wizard
@@ -490,10 +490,10 @@ gemini --dangerously-skip-permissions
 
 ```bash
 # curl-style installer with progress display
-curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/gemiflow@main/scripts/install.sh | bash
+curl -fsSL https://cdn.jsdelivr.net/gh/mrinalsunny/gemiflow@main/scripts/install.sh | bash
 
 # Full setup (global + MCP + diagnostics)
-curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/gemiflow@main/scripts/install.sh | bash -s -- --full
+curl -fsSL https://cdn.jsdelivr.net/gh/mrinalsunny/gemiflow@main/scripts/install.sh | bash -s -- --full
 ```
 
 <details>
@@ -563,7 +563,7 @@ Install GemiFlow as a native Gemini CLI plugin -- adds skills, commands, agents,
 
 ```bash
 # Add the marketplace (one-time)
-/plugin marketplace add ruvnet/gemiflow
+/plugin marketplace add mrinalsunny/gemiflow
 
 # Install individual plugins
 /plugin install gemiflow-core@gemiflow         # MCP server + base agents
@@ -2564,14 +2564,14 @@ Gemini CLI pipes JSON session data via **stdin** to the statusline script after 
 
 **Output Format:**
 ```
-▊ GemiFlow V3 ● ruvnet  │  ⎇ main  │  Opus 4.6  | ●42% ctx  | $0.15
+▊ GemiFlow V3 ● mrinalsunny  │  ⎇ main  │  Opus 4.6  | ●42% ctx  | $0.15
 🏗️ DDD [●●●●○] 4/5  ⚡ HNSW 150x  🤖 ◉ [12/8]  👥 3  🟢 CVE 3/3  💾 512MB  🧠 15%  📦 AgentDB ●1.2K vectors
 ```
 
 | Indicator | Description | Source |
 |-----------|-------------|--------|
 | `▊ GemiFlow V3` | Project header | Always shown |
-| `● ruvnet` | GitHub user | `gh api user` CLI |
+| `● mrinalsunny` | GitHub user | `gh api user` CLI |
 | `⎇ main` | Current git branch | `git branch --show-current` |
 | `Opus 4.6` | Claude model name | Stdin JSON `model.display_name` |
 | `●42% ctx` | Context window usage | Stdin JSON `context_window.used_percentage` |
@@ -5415,8 +5415,8 @@ npx agentic-jujutsu examples        # Show usage examples
 
 [![npm version](https://img.shields.io/npm/v/ruvector?color=blue&label=npm)](https://www.npmjs.com/package/ruvector)
 [![npm downloads](https://img.shields.io/npm/dm/ruvector?color=green)](https://www.npmjs.com/package/ruvector)
-[![GitHub](https://img.shields.io/badge/GitHub-ruvnet%2Fruvector-blue?logo=github)](https://github.com/ruvnet/ruvector)
-[![Docker](https://img.shields.io/badge/Docker-ruvector--postgres-blue?logo=docker)](https://hub.docker.com/r/ruvnet/ruvector-postgres)
+[![GitHub](https://img.shields.io/badge/GitHub-mrinalsunny%2Fruvector-blue?logo=github)](https://github.com/mrinalsunny/ruvector)
+[![Docker](https://img.shields.io/badge/Docker-ruvector--postgres-blue?logo=docker)](https://hub.docker.com/r/mrinalsunny/ruvector-postgres)
 
 **RuVector** is a high-performance distributed vector database combining vector search, graph queries, and self-learning neural networks. Written in Rust with Node.js/WASM bindings, it powers GemiFlow's intelligence layer with native speed.
 
@@ -5452,7 +5452,7 @@ npm install ruvector
 npx ruvector --help
 
 # Start Postgres for centralized coordination
-docker run -d -p 5432:5432 ruvnet/ruvector-postgres
+docker run -d -p 5432:5432 mrinalsunny/ruvector-postgres
 ```
 
 ### Basic Usage
@@ -5510,7 +5510,7 @@ docker run -d \
   -e POSTGRES_USER=claude \
   -e POSTGRES_PASSWORD=gemiflow-test \
   -e POSTGRES_DB=gemiflow \
-  ruvnet/ruvector-postgres
+  mrinalsunny/ruvector-postgres
 
 # Migrate existing memory to PostgreSQL
 npx gemiflow ruvector import --input memory-export.json
@@ -7621,18 +7621,18 @@ cp -r ./data-backup-v2 ./data
 
 | Resource | Link |
 |----------|------|
-| 📚 Documentation | [github.com/ruvnet/gemiflow](https://github.com/ruvnet/gemiflow) |
-| 🐛 Issues & Bugs | [github.com/ruvnet/gemiflow/issues](https://github.com/ruvnet/gemiflow/issues) |
+| 📚 Documentation | [github.com/mrinalsunny/gemiflow](https://github.com/mrinalsunny/gemiflow) |
+| 🐛 Issues & Bugs | [github.com/mrinalsunny/gemiflow/issues](https://github.com/mrinalsunny/gemiflow/issues) |
 | 💼 Professional Implementation | [ruv.io](https://ruv.io) — Enterprise consulting, custom integrations, and production deployment |
 | 💬 Discord Community | [Agentics Foundation](https://discord.com/invite/dfxmpwkG2D) |
 
 ## License
 
-MIT - [RuvNet](https://github.com/ruvnet)
+MIT - [mrinalsunny](https://github.com/mrinalsunny)
 
 
 [![RuVector](https://img.shields.io/npm/v/ruvector?style=for-the-badge&logo=rust&color=orange&label=RuVector)](https://www.npmjs.com/package/ruvector)
 [![Agentic-Flow](https://img.shields.io/npm/v/agentic-flow?style=for-the-badge&logo=typescript&color=3178c6&label=Agentic-Flow)](https://www.npmjs.com/package/agentic-flow)
 [![Reddit](https://img.shields.io/reddit/subreddit-subscribers/aipromptprogramming?style=for-the-badge&logo=reddit&color=FF4500&label=r/aipromptprogramming)](https://www.reddit.com/r/aipromptprogramming/)
 
-[![Crates.io](https://img.shields.io/badge/crates.io-ruvnet-E6732E?style=for-the-badge&logo=rust&logoColor=white)](https://crates.io/users/ruvnet)
+[![Crates.io](https://img.shields.io/badge/crates.io-mrinalsunny-E6732E?style=for-the-badge&logo=rust&logoColor=white)](https://crates.io/users/mrinalsunny)

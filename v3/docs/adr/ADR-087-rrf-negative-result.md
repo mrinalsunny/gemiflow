@@ -81,12 +81,12 @@ The gap comes from our multi-field BM25's tokenisation choices: no Snowball stem
 
 1. **Cross-encoder rerank on RRF's wider candidate pool**: Recall@100 IS up (0.95 on SciFact). If we rerank that broader top-100 with `Xenova/ms-marco-MiniLM-L-6-v2`, the rerank's stronger pairwise scoring should pull the genuine top-K out. This is the bet for 3.10.28.
 2. **Lucene-style BM25** would make RRF actually work as designed. Porter/Snowball + Lucene stopwords + proper length norm. Tracked for a future ADR.
-3. **Use ruvector's bundled embedder** (per [ruvnet/ruvector#524](https://github.com/ruvnet/ruvector/issues/524) we filed) instead of our local @xenova path — once BGE is bundled in ruvector, downstream packages stop hitting the sharp dependency issue.
+3. **Use ruvector's bundled embedder** (per [mrinalsunny/ruvector#524](https://github.com/mrinalsunny/ruvector/issues/524) we filed) instead of our local @xenova path — once BGE is bundled in ruvector, downstream packages stop hitting the sharp dependency issue.
 
 ## Verification
 
 ```bash
-git clone https://github.com/ruvnet/gemiflow && cd gemiflow
+git clone https://github.com/mrinalsunny/gemiflow && cd gemiflow
 npm install && ( cd v3/@gemiflow/cli && npx tsc )
 
 # Pretrain caches (once each)

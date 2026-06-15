@@ -9,30 +9,30 @@
 
 # CI workflow files — a malicious workflow change can compromise everything
 # that runs in CI. Always require explicit review.
-/.github/workflows/                @ruvnet
-/.github/CODEOWNERS                @ruvnet
-/.github/supply-chain/             @ruvnet
-/.github/dependabot.yml            @ruvnet
+/.github/workflows/                @mrinalsunny
+/.github/CODEOWNERS                @mrinalsunny
+/.github/supply-chain/             @mrinalsunny
+/.github/dependabot.yml            @mrinalsunny
 
 # Lockfiles — silent dep substitution via lockfile editing is a known supply-
 # chain attack vector. Maintainer review required.
-/package-lock.json                 @ruvnet
-/v3/pnpm-lock.yaml                 @ruvnet
-**/package-lock.json               @ruvnet
-**/pnpm-lock.yaml                  @ruvnet
+/package-lock.json                 @mrinalsunny
+/v3/pnpm-lock.yaml                 @mrinalsunny
+**/package-lock.json               @mrinalsunny
+**/pnpm-lock.yaml                  @mrinalsunny
 
 # Plugin manifests — listing in the marketplace, publishing identity.
-**/.claude-plugin/plugin.json      @ruvnet
+**/.claude-plugin/plugin.json      @mrinalsunny
 
 # Witness manifests + provenance — the ADR-103 root of trust.
-/verification/                     @ruvnet
-/v3/docs/adr/ADR-103-witness-temporal-history.md @ruvnet
+/verification/                     @mrinalsunny
+/v3/docs/adr/ADR-103-witness-temporal-history.md @mrinalsunny
 
 # Supply chain scripts themselves — the auditor's audit.
-/scripts/audit-supply-chain.mjs    @ruvnet
-/scripts/audit-package-dep-overlap.mjs @ruvnet
-/scripts/audit-plugin-packages.mjs @ruvnet
-/scripts/audit-hook-commands.mjs   @ruvnet
+/scripts/audit-supply-chain.mjs    @mrinalsunny
+/scripts/audit-package-dep-overlap.mjs @mrinalsunny
+/scripts/audit-plugin-packages.mjs @mrinalsunny
+/scripts/audit-hook-commands.mjs   @mrinalsunny
 
 # Default fallback — every other PR gets standard review.
-*                                  @ruvnet
+*                                  @mrinalsunny
