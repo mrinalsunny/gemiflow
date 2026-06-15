@@ -5,7 +5,7 @@ description: Coding challenges, achievements, and leaderboards
 
 # Flow Nexus Challenges
 
-Complete coding challenges to earn rUv credits and climb the leaderboard.
+Complete coding challenges to earn credits and climb the leaderboard.
 
 ## List Challenges
 ```javascript
@@ -84,13 +84,13 @@ mcp__flow-nexus__achievements_list({
 })
 ```
 
-## rUv Credits
+## credits
 ```javascript
 // Check balance
-mcp__flow-nexus__ruv_balance({ user_id: "your_id" })
+mcp__flow-nexus__wallet_balance({ user_id: "your_id" })
 
 // View history
-mcp__flow-nexus__ruv_history({
+mcp__flow-nexus__wallet_history({
   user_id: "your_id",
   limit: 20
 })

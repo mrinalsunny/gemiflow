@@ -43,15 +43,15 @@ mcp__flow-nexus__get_payment_history({
 })
 ```
 
-## rUv Credits Management
+## credits Management
 ```javascript
 // Check balance
-mcp__flow-nexus__ruv_balance({
+mcp__flow-nexus__wallet_balance({
   user_id: "your_id"
 })
 
 // Transaction history
-mcp__flow-nexus__ruv_history({
+mcp__flow-nexus__wallet_history({
   user_id: "your_id",
   limit: 100
 })

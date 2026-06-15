@@ -439,7 +439,7 @@ mcp__flow-nexus__market_data()
 
 ### Revenue Sharing
 
-- Earn rUv credits when others deploy your templates
+- Earn credits when others deploy your templates
 - Set pricing (0 for free, or credits for premium)
 - Track usage and earnings via analytics
 - Withdraw credits or use for Flow Nexus services
@@ -457,14 +457,14 @@ mcp__flow-nexus__check_balance()
 
 **Check rUv Balance**
 ```javascript
-mcp__flow-nexus__ruv_balance({
+mcp__flow-nexus__wallet_balance({
   user_id: "your_user_id"
 })
 ```
 
 **View Transaction History**
 ```javascript
-mcp__flow-nexus__ruv_history({
+mcp__flow-nexus__wallet_history({
   user_id: "your_user_id",
   limit: 100
 })
