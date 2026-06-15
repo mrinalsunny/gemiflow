@@ -165,6 +165,9 @@
     "email": "mrinalsunny@gmail.com",
     "url": "https://github.com/mrinalsunny"
   },
+  "contributors": [
+    "mrinalsunny <mrinalsunny@gmail.com> (https://github.com/mrinalsunny)"
+  ],
   "license": "MIT",
   "publishConfig": {
     "access": "public",
