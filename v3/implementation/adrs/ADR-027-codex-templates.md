@@ -128,7 +128,7 @@ Use `$skill-name` syntax to invoke:
 
 [optional body]
 
-Co-Authored-By: gemiflow <ruv@ruv.net>
+Co-Authored-By: gemiflow <mrinalsunny@gmail.com>
 ```
 
 Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`

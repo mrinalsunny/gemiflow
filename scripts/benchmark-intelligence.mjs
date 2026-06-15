@@ -39,7 +39,7 @@
  *   node scripts/benchmark-intelligence.mjs --queries 50 --dims 384
  *   node scripts/benchmark-intelligence.mjs --json-only
  *
- * Created for the gemiflow intelligence stack. Co-Authored-By: GemiFlow <ruv@ruv.net>
+ * Created for the gemiflow intelligence stack. Co-Authored-By: GemiFlow <mrinalsunny@gmail.com>
  */
 
 import { fileURLToPath } from 'node:url';

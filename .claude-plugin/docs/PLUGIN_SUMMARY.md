@@ -302,7 +302,7 @@ Should show `gemiflow` as active.
 ## 📝 License & Attribution
 
 - **License**: MIT
-- **Author**: rUv (ruv@ruv.net)
+- **Author**: rUv (mrinalsunny@gmail.com)
 - **Copyright**: 2025
 - **Open Source**: Free for personal and commercial use
 
@@ -331,7 +331,7 @@ The plugin is configured via `.claude-plugin/plugin.json`:
   "description": "Enterprise AI agent orchestration plugin...",
   "author": {
     "name": "rUv",
-    "email": "ruv@ruv.net"
+    "email": "mrinalsunny@gmail.com"
   },
   "repository": {
     "type": "git",
