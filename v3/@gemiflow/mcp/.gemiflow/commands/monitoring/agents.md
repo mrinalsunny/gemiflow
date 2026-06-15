@@ -1,9 +1,9 @@
 # List Active Patterns
 
 ## 🎯 Key Principle
-**This tool coordinates Claude Code's actions. It does NOT write code or create content.**
+**This tool coordinates Gemini CLI's actions. It does NOT write code or create content.**
 
-## MCP Tool Usage in Claude Code
+## MCP Tool Usage in Gemini CLI
 
 **Tool:** `mcp__gemiflow__agent_list`
 
@@ -26,14 +26,14 @@ Filters:
 
 ## Example Usage
 
-**In Claude Code:**
+**In Gemini CLI:**
 1. List all agents: Use tool `mcp__gemiflow__agent_list`
 2. Get specific agent metrics: Use tool `mcp__gemiflow__agent_metrics` with parameters `{"agentId": "coder-123"}`
 3. Monitor agent performance: Use tool `mcp__gemiflow__swarm_monitor` with parameters `{"interval": 2000}`
 
 ## Important Reminders
 - ✅ This tool provides coordination and structure
-- ✅ Claude Code performs all actual implementation
+- ✅ Gemini CLI performs all actual implementation
 - ❌ The tool does NOT write code
 - ❌ The tool does NOT access files directly
 - ❌ The tool does NOT execute commands

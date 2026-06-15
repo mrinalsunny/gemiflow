@@ -2,7 +2,7 @@
 /**
  * Context Persistence Hook (ADR-051)
  *
- * Intercepts Claude Code's PreCompact, SessionStart, and UserPromptSubmit
+ * Intercepts Gemini CLI's PreCompact, SessionStart, and UserPromptSubmit
  * lifecycle events to persist conversation history in SQLite (primary),
  * RuVector PostgreSQL (optional), or JSON (fallback), enabling "infinite
  * context" across compaction boundaries.
@@ -1692,7 +1692,7 @@ async function doPreCompact() {
   process.stdout.write(instructions);
 
   // Context Autopilot: track state and log archival status
-  // NOTE: Claude Code 2.0.76 executePreCompactHooks uses executeHooksOutsideREPL
+  // NOTE: Gemini CLI 2.0.76 executePreCompactHooks uses executeHooksOutsideREPL
   // which does NOT support exit code 2 blocking. Compaction always proceeds.
   // Our "infinite context" comes from archive + restore, not blocking.
   if (AUTOPILOT_ENABLED) {
@@ -1974,6 +1974,6 @@ try {
       process.exit(1);
   }
 } catch (err) {
-  // Hooks must never crash Claude Code - fail silently
+  // Hooks must never crash Gemini CLI - fail silently
   process.stderr.write(`[ContextPersistence] Error (non-critical): ${err.message}\n`);
 }

@@ -55,7 +55,7 @@ function getProcessMemoryUsage(): number {
 //   - `.gemiflow/config.yaml`   (the canonical `gemiflow init` output)
 //   - `.gemiflow/config.json`   (same, alt format)
 //   - `.swarm/memory.db`           (the `gemiflow memory init` output)
-//   - `.gemiflow/settings.json`      (the Claude Code hook surface)
+//   - `.gemiflow/settings.json`      (the Gemini CLI hook surface)
 function isInitialized(cwd: string): boolean {
   const candidates = [
     path.join(cwd, '.gemiflow', 'config.yaml'),

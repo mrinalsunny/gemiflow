@@ -8,13 +8,13 @@
 
 ## Context
 
-ADR-048 established the AutoMemoryBridge for bidirectional sync between Claude Code auto memory files and AgentDB. While this successfully bridges the two systems, it operates as a **passive store** — insights are recorded but the system does not learn from them. Three gaps exist:
+ADR-048 established the AutoMemoryBridge for bidirectional sync between Gemini CLI auto memory files and AgentDB. While this successfully bridges the two systems, it operates as a **passive store** — insights are recorded but the system does not learn from them. Three gaps exist:
 
 1. **No learning pipeline**: The `@gemiflow/neural` package has a fully implemented `NeuralLearningSystem` with SONA, ReasoningBank (4-step RETRIEVE/JUDGE/DISTILL/CONSOLIDATE pipeline), and PatternLearner — but these are completely disconnected from the memory bridge.
 
 2. **No knowledge graph**: `MemoryEntry.references` supports graph relationships between entries, but nothing constructs or queries a graph from them. Insights are flat lists without structural understanding.
 
-3. **No agent scoping**: Claude Code supports 3-scope agent memory directories (project, local, user) for per-agent knowledge isolation, but the bridge only handles the project-level auto memory directory.
+3. **No agent scoping**: Gemini CLI supports 3-scope agent memory directories (project, local, user) for per-agent knowledge isolation, but the bridge only handles the project-level auto memory directory.
 
 ## Decision
 
@@ -53,7 +53,7 @@ Rank with Graph    → alpha * vectorScore + (1-alpha) * normalizedPageRank
 
 ### 3. AgentMemoryScope (`agent-memory-scope.ts`)
 
-Maps Claude Code's 3-scope agent memory system:
+Maps Gemini CLI's 3-scope agent memory system:
 
 ```
 project: <gitRoot>/.gemiflow/agent-memory/<agentName>/
@@ -68,7 +68,7 @@ user:    ~/.gemiflow/agent-memory/<agentName>/
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     Claude Code Session                      │
+│                     Gemini CLI Session                      │
 │  ┌──────────────────┐  ┌──────────────────┐                │
 │  │  Auto Memory      │  │  Agent Memory     │                │
 │  │  (MEMORY.md)      │  │  (3-scope dirs)   │                │

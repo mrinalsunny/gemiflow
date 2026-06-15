@@ -1,7 +1,7 @@
 # Cross-Session Memory
 
 ## Purpose
-Maintain context and learnings across Claude Code sessions for continuous improvement.
+Maintain context and learnings across Gemini CLI sessions for continuous improvement.
 
 ## Memory Features
 

@@ -83,7 +83,7 @@ export function validatePackageName(value: unknown, label: string): ValidationRe
 }
 
 // Path-specific shell-meta check: backslash is a legitimate Windows path
-// separator (e.g. `E:\Repos\app\file.ts`) and Claude Code's hook events
+// separator (e.g. `E:\Repos\app\file.ts`) and Gemini CLI's hook events
 // deliver absolute paths in `tool_input.file_path` with backslashes on
 // Windows. The general SHELL_META set includes `\` for identifier safety,
 // but paths are not shell-expanded — normalizing to forward slashes for

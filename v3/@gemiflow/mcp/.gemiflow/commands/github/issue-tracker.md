@@ -88,7 +88,7 @@ mcp__github__add_issue_comment {
   - Final validation and merge preparation
   
   ---
-  🤖 Generated with Claude Code using ruv-swarm coordination`
+  🤖 Generated with Gemini CLI using ruv-swarm coordination`
 }
 
 // Store progress in swarm memory
@@ -206,7 +206,7 @@ mcp__github__update_issue {
 Updates will be posted automatically by swarm agents during implementation.
 
 ---
-🤖 Generated with Claude Code
+🤖 Generated with Gemini CLI
 ```
 
 ### Bug Report Template:
@@ -244,7 +244,7 @@ Updates will be posted automatically by swarm agents during implementation.
 - **Tester**: Validation and testing
 
 ---
-🤖 Generated with Claude Code
+🤖 Generated with Gemini CLI
 ```
 
 ## Best Practices

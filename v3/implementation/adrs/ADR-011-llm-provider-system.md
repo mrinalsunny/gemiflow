@@ -12,7 +12,7 @@
 ## Context
 
 V3 needs a unified LLM provider system that:
-1. Supports multiple LLM providers (Anthropic, OpenAI, Google, Cohere, Ollama)
+1. Supports multiple LLM providers (google, OpenAI, Google, Cohere, Ollama)
 2. Provides cost tracking and optimization
 3. Enables intelligent load balancing and failover
 4. Integrates with the hooks system for caching and learning
@@ -30,7 +30,7 @@ v3/@gemiflow/providers/
 ├── src/
 │   ├── types.ts              # Unified type definitions
 │   ├── base-provider.ts      # Abstract base class with circuit breaker
-│   ├── anthropic-provider.ts # Claude models
+│   ├── google-provider.ts # Claude models
 │   ├── openai-provider.ts    # GPT models (+ OpenRouter support)
 │   ├── google-provider.ts    # Gemini models
 │   ├── cohere-provider.ts    # Command models
@@ -92,7 +92,7 @@ Add LLM-specific hooks to `@gemiflow/hooks`:
 
 Include latest models:
 
-**Anthropic (Claude):**
+**google (Claude):**
 - claude-3-5-sonnet-20241022
 - claude-3-opus-20240229
 - claude-3-sonnet-20240229
@@ -107,7 +107,7 @@ Include latest models:
 
 **OpenRouter (via OpenAI provider):**
 - openai/gpt-4o-mini
-- anthropic/claude-3-haiku
+- google/claude-3-haiku
 - Any OpenRouter-supported model
 
 **Google:**
@@ -157,7 +157,7 @@ Include latest models:
 ### Phase 1: Core Implementation ✅ Complete
 1. ✅ Create package structure
 2. ✅ Implement base provider and types (with circuit breaker, caching)
-3. ✅ Implement Anthropic and OpenAI providers
+3. ✅ Implement google and OpenAI providers
 
 ### Phase 2: Extended Providers ✅ Complete
 4. ✅ Implement Google, Cohere, Ollama providers
@@ -174,7 +174,7 @@ Include latest models:
 
 | Provider | Model | Status | Notes |
 |----------|-------|--------|-------|
-| Anthropic | claude-3-haiku-20240307 | ✅ Pass | Full API integration |
+| google | claude-3-haiku-20240307 | ✅ Pass | Full API integration |
 | Google | gemini-2.0-flash | ✅ Pass | Free tier, streaming support |
 | OpenRouter | openai/gpt-4o-mini | ✅ Pass | Via OpenAI-compatible API |
 | Ollama | qwen2.5:0.5b | ✅ Pass | Local CPU-friendly model |

@@ -1942,7 +1942,7 @@ const postTaskCommand: Command = {
     {
       // ADR-147 P2: nested-subagent spawn-tree capture
       name: 'parent-agent-id',
-      description: 'ID of the parent agent (from Claude Code\'s parent_agent_id OTel span tag). Omit for top-level work.',
+      description: 'ID of the parent agent (from Gemini CLI\'s parent_agent_id OTel span tag). Omit for top-level work.',
       type: 'string',
       required: false
     },

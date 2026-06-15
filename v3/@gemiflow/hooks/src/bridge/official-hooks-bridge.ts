@@ -1,9 +1,9 @@
 /**
- * Official Claude Code Hooks Bridge
+ * Official Gemini CLI Hooks Bridge
  *
- * Maps V3 internal hook events to official Claude Code hook events.
+ * Maps V3 internal hook events to official Gemini CLI hook events.
  * This bridge enables seamless integration between gemiflow's
- * internal hook system and the official Claude Code plugin API.
+ * internal hook system and the official Gemini CLI plugin API.
  *
  * @module v3/hooks/bridge/official-hooks-bridge
  */
@@ -11,7 +11,7 @@
 import { HookEvent, HookPriority, type HookHandler, type HookContext, type HookResult } from '../types.js';
 
 /**
- * Official Claude Code hook event types
+ * Official Gemini CLI hook event types
  * Based on https://code.claude.com/docs/en/hooks
  */
 export type OfficialHookEvent =
@@ -325,7 +325,7 @@ export class OfficialHooksBridge {
 }
 
 /**
- * Process stdin from official Claude Code hook system
+ * Process stdin from official Gemini CLI hook system
  */
 export async function processOfficialHookInput(): Promise<OfficialHookInput | null> {
   return new Promise((resolve) => {
@@ -357,7 +357,7 @@ export async function processOfficialHookInput(): Promise<OfficialHookInput | nu
 }
 
 /**
- * Output result to official Claude Code hook system
+ * Output result to official Gemini CLI hook system
  */
 export function outputOfficialHookResult(output: OfficialHookOutput): void {
   console.log(JSON.stringify(output));

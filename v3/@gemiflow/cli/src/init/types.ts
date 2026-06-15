@@ -1,6 +1,6 @@
 /**
  * V3 Init System Types
- * Configuration options for initializing Claude Code integration
+ * Configuration options for initializing Gemini CLI integration
  */
 
 import os from 'os';
@@ -32,7 +32,7 @@ export interface InitComponents {
 
 /**
  * Hook configuration options
- * Valid Claude Code hook events (23 total):
+ * Valid Gemini CLI hook events (23 total):
  *   PreToolUse, PostToolUse, PostToolUseFailure, UserPromptSubmit,
  *   SessionStart, SessionEnd, Stop, SubagentStart, SubagentStop,
  *   PreCompact, PostCompact, Notification, ConfigChange,
@@ -80,7 +80,7 @@ export interface SkillsConfig {
   browser: boolean;
   /** Include V3 implementation skills */
   v3: boolean;
-  /** Include dual-mode skills (Claude Code + Codex hybrid) */
+  /** Include dual-mode skills (Gemini CLI + gemini hybrid) */
   dualMode: boolean;
   /** Include all available skills */
   all: boolean;
@@ -159,7 +159,7 @@ export interface AgentsConfig {
   optimization: boolean;
   /** Include testing agents */
   testing: boolean;
-  /** Include dual-mode agents (Claude Code + Codex hybrid) */
+  /** Include dual-mode agents (Gemini CLI + gemini hybrid) */
   dualMode: boolean;
   /** Include all agents */
   all: boolean;

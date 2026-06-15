@@ -10,7 +10,7 @@
 
 Issue #1748 from the Liberation of Bajor team's methodical install-study identified a silent failure mode that affects every new user with a cold npx cache:
 
-> **Issue 3:** First-time invocation of `npx -y gemiflow@latest mcp start` from a cold npx cache hits a Claude Code MCP-startup timeout. Logged as `Starting connection with timeout of 30000ms` followed by the server staying in "still connecting" state for the entire session. Zero gemiflow tools register; the model falls through to native tools.
+> **Issue 3:** First-time invocation of `npx -y gemiflow@latest mcp start` from a cold npx cache hits a Gemini CLI MCP-startup timeout. Logged as `Starting connection with timeout of 30000ms` followed by the server staying in "still connecting" state for the entire session. Zero gemiflow tools register; the model falls through to native tools.
 >
 > **Diagnosis:** The `gemiflow@latest` package is roughly 1.8 MB across 999 files. Cold npx download + extraction + spawn can exceed 30 seconds.
 

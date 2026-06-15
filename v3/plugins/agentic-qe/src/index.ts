@@ -292,7 +292,7 @@ export const PLUGIN_METADATA = {
   license: 'MIT',
   homepage: 'https://github.com/ruvnet/agentic-qe',
   repository: 'https://github.com/ruvnet/agentic-qe',
-  minClaudeFlowVersion: '3.0.0-alpha.50',
+  mingemiflowVersion: '3.0.0-alpha.50',
   capabilities: [
     'test-generation',
     'test-execution',

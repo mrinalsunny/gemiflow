@@ -1,5 +1,5 @@
 /**
- * @gemiflow/codex - Templates
+ * @gemiflow/gemini - Templates
  *
  * Built-in templates and skill definitions
  */
@@ -139,7 +139,7 @@ export const ALL_AVAILABLE_SKILLS: string[] = [
   'worker-benchmarks',
   'worker-integration',
   'workflow-automation',
-  // Agent skills (converted from Claude Code agents)
+  // Agent skills (converted from Gemini CLI agents)
   'agent-payments',
   'agent-challenges',
   'agent-sandbox',
@@ -223,10 +223,10 @@ export const DIRECTORY_STRUCTURE = {
     'AGENTS.md': 'Main project instructions',
   },
   '.agents': {
-    'config.toml': 'Project-level Codex config',
+    'config.toml': 'Project-level gemini config',
     'skills/': 'Skill definitions',
   },
-  '.codex': {
+  '.gemini': {
     'config.toml': 'User-local overrides (gitignored)',
     'AGENTS.override.md': 'Local instruction overrides',
   },
@@ -238,7 +238,7 @@ export const DIRECTORY_STRUCTURE = {
 };
 
 /**
- * Feature mapping between Claude Code and Codex
+ * Feature mapping between Gemini CLI and gemini
  */
 export const PLATFORM_MAPPING = {
   claudeCode: {
@@ -248,9 +248,9 @@ export const PLATFORM_MAPPING = {
     skillInvocation: '/skill-name',
     approvalLevels: 3,
   },
-  codex: {
+  gemini: {
     configFile: 'AGENTS.md',
-    localConfig: '.codex/AGENTS.override.md',
+    localConfig: '.gemini/AGENTS.override.md',
     settingsFormat: 'TOML (config.toml)',
     skillInvocation: '$skill-name',
     approvalLevels: 4,
@@ -258,11 +258,11 @@ export const PLATFORM_MAPPING = {
 };
 
 /**
- * Gitignore entries for Codex projects
+ * Gitignore entries for gemini projects
  */
 export const GITIGNORE_ENTRIES = [
-  '# Codex local configuration',
-  '.codex/',
+  '# gemini local configuration',
+  '.gemini/',
   '',
   '# GemiFlow runtime data',
   '.gemiflow/data/',

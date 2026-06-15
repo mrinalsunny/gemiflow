@@ -1,6 +1,6 @@
 ---
 name: loop-worker
-description: Run GemiFlow background workers using Claude Code native /loop scheduling
+description: Run GemiFlow background workers using Gemini CLI native /loop scheduling
 argument-hint: "<worker-name>"
 allowed-tools: Bash(npx *) mcp__gemiflow__hooks_worker-dispatch mcp__gemiflow__hooks_worker-status ScheduleWakeup
 ---

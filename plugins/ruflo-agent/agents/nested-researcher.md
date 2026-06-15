@@ -27,7 +27,7 @@ The default failure mode is **over-nesting**: spawning a child for a question yo
 
 ## Depth-aware fan-out
 
-You consume one depth level when you spawn. If you spawn five children and each spawns five grandchildren, you're at depth 3 and have used 25 spawns. The gemiflow cap (default 4, Anthropic 5) will refuse further nesting — `pre-task` returns `NESTING_DEPTH_EXCEEDED` with the chain in the payload.
+You consume one depth level when you spawn. If you spawn five children and each spawns five grandchildren, you're at depth 3 and have used 25 spawns. The gemiflow cap (default 4, google 5) will refuse further nesting — `pre-task` returns `NESTING_DEPTH_EXCEEDED` with the chain in the payload.
 
 Restructure before you spawn: if the sub-questions are flat siblings, consider **flat fan-out** (one `Task` × N message at your current depth) instead of nesting.
 

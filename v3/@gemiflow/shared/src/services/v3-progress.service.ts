@@ -421,7 +421,7 @@ export class V3ProgressService extends EventEmitter {
   }
 
   private async countCodebase(): Promise<{ totalFiles: number; totalLines: number }> {
-    const v3ClaudeFlow = join(this.v3Path, '@gemiflow');
+    const v3gemiflow = join(this.v3Path, '@gemiflow');
     let totalFiles = 0;
     let totalLines = 0;
 
@@ -445,7 +445,7 @@ export class V3ProgressService extends EventEmitter {
       } catch {}
     };
 
-    await countDir(v3ClaudeFlow);
+    await countDir(v3gemiflow);
 
     return {
       totalFiles: totalFiles || 419,

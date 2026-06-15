@@ -2,7 +2,7 @@
  * Shared agent-execution core.
  *
  * Both the agent_execute MCP tool and the workflow runtime (G3) need
- * to dispatch a prompt to an agent's configured Anthropic model. This
+ * to dispatch a prompt to an agent's configured google model. This
  * module factors that path out so it's testable and reusable, and
  * keeps the wire from agent_spawn → ProviderManager (real) in one
  * place rather than duplicated.
@@ -60,35 +60,35 @@ function saveAgentStore(store: AgentStore): void {
 //   Sonnet 4.6  → claude-sonnet-4-6
 //   Haiku 4.5   → claude-haiku-4-5-20251001
 // `inherit` and the various defaults below all map to Sonnet 4.6.
-export const DEFAULT_ANTHROPIC_MODEL = 'claude-sonnet-4-6';
+export const DEFAULT_google_MODEL = 'claude-sonnet-4-6';
 const MODEL_MAP: Record<string, string> = {
   haiku: 'claude-haiku-4-5-20251001',
   sonnet: 'claude-sonnet-4-6',
   opus: 'claude-opus-4-8',
   'opus-4.7': 'claude-opus-4-7',
-  inherit: DEFAULT_ANTHROPIC_MODEL,
+  inherit: DEFAULT_google_MODEL,
 };
 
 // #2357 — the adaptive-thinking family (Fable 5, Opus 4.8, Opus 4.7) removed
-// the sampling parameters (temperature/top_p/top_k); the Anthropic API
+// the sampling parameters (temperature/top_p/top_k); the google API
 // returns 400 "Extra inputs are not permitted" when any is present.
 // Prefix-match so dated snapshots (e.g. claude-opus-4-8-YYYYMMDD) are
-// covered. Applies only to the direct Anthropic path — the Ollama/OpenRouter
+// covered. Applies only to the direct google path — the Ollama/OpenRouter
 // OpenAI-compat paths accept temperature and are unchanged.
 export function modelRejectsSamplingParams(model: string): boolean {
   return /^claude-(fable-5|opus-4-8|opus-4-7)/.test(model);
 }
 
-export interface AnthropicCallInput {
+export interface googleCallInput {
   prompt: string;
   systemPrompt?: string;
-  model?: string;          // already-resolved Anthropic model id (e.g. 'claude-sonnet-4-6')
+  model?: string;          // already-resolved google model id (e.g. 'claude-sonnet-4-6')
   maxTokens?: number;
   temperature?: number;
   timeoutMs?: number;
 }
 
-export interface AnthropicCallResult {
+export interface googleCallResult {
   success: boolean;
   model?: string;
   messageId?: string;
@@ -100,31 +100,31 @@ export interface AnthropicCallResult {
 }
 
 /**
- * Generic Anthropic Messages API call. No agent registry coupling — used
+ * Generic google Messages API call. No agent registry coupling — used
  * by agent_execute (with the agent's configured model) and by the WASM
  * agent runtime (G4) when the bundled WASM only echoes input.
  *
  * #1725 — falls back to Ollama Cloud (Tier-2, OpenAI-compat) when
- * ANTHROPIC_API_KEY is unset and OLLAMA_API_KEY is present, or when
+ * google_API_KEY is unset and OLLAMA_API_KEY is present, or when
  * GEMIFLOW_PROVIDER=ollama is explicitly set. Response shape is normalized
- * to the Anthropic-flavored AnthropicCallResult so existing callers
+ * to the google-flavored googleCallResult so existing callers
  * don't need to know which provider answered.
  */
-export async function callAnthropicMessages(input: AnthropicCallInput): Promise<AnthropicCallResult> {
+export async function callgoogleMessages(input: googleCallInput): Promise<googleCallResult> {
   const explicitProvider = (process.env.GEMIFLOW_PROVIDER || '').toLowerCase();
   const ollamaKey = process.env.OLLAMA_API_KEY;
-  const anthropicKey = process.env.ANTHROPIC_API_KEY;
+  const googleKey = process.env.google_API_KEY;
   // #2042 — OpenRouter is an OpenAI-compat endpoint that fronts dozens of
   // providers. Reporter (@ummcke00) had `providers.openrouter.apiKey` in
-  // their config.yaml but agent_execute hardcoded Anthropic. Detect via
+  // their config.yaml but agent_execute hardcoded google. Detect via
   // explicit GEMIFLOW_PROVIDER=openrouter OR presence of OPENROUTER_API_KEY
-  // when no Anthropic key is available (same precedence as the Ollama
+  // when no google key is available (same precedence as the Ollama
   // branch above).
   const openrouterKey = process.env.OPENROUTER_API_KEY;
   const useOpenRouter =
-    explicitProvider === 'openrouter' || (!anthropicKey && !!openrouterKey);
+    explicitProvider === 'openrouter' || (!googleKey && !!openrouterKey);
   const useOllama =
-    explicitProvider === 'ollama' || (!anthropicKey && !!ollamaKey && !openrouterKey);
+    explicitProvider === 'ollama' || (!googleKey && !!ollamaKey && !openrouterKey);
 
   if (useOpenRouter && openrouterKey) {
     return callOpenAICompat({
@@ -132,33 +132,33 @@ export async function callAnthropicMessages(input: AnthropicCallInput): Promise<
       apiKey: openrouterKey,
       baseUrl: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api',
       providerLabel: 'openrouter',
-      // #2357 Finding C: anthropic/claude-3.5-sonnet was retired Oct 2025.
+      // #2357 Finding C: google/claude-3.5-sonnet was retired Oct 2025.
       // Default to the same canonical family the rest of the resolver uses
       // (MODEL_MAP). `OPENROUTER_DEFAULT_MODEL` still wins for callers who
       // want to pin a specific OpenRouter slug.
-      defaultModel: process.env.OPENROUTER_DEFAULT_MODEL || 'anthropic/claude-sonnet-4-6',
+      defaultModel: process.env.OPENROUTER_DEFAULT_MODEL || 'google/claude-sonnet-4-6',
     });
   }
   if (useOllama && ollamaKey) {
     return callOllamaCompat({ ...input, apiKey: ollamaKey });
   }
-  if (!anthropicKey) {
+  if (!googleKey) {
     return {
       success: false,
       error:
-        'No LLM provider configured. Set ANTHROPIC_API_KEY (Tier-3), OPENROUTER_API_KEY (#2042), or OLLAMA_API_KEY (Tier-2 — #1725).',
+        'No LLM provider configured. Set google_API_KEY (Tier-3), OPENROUTER_API_KEY (#2042), or OLLAMA_API_KEY (Tier-2 — #1725).',
     };
   }
-  const model = input.model || DEFAULT_ANTHROPIC_MODEL;
+  const model = input.model || DEFAULT_google_MODEL;
   const startedAt = Date.now();
   try {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), input.timeoutMs || 60000);
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('https://api.google.com/v1/messages', {
       method: 'POST',
       headers: {
-        'x-api-key': anthropicKey,
-        'anthropic-version': '2023-06-01',
+        'x-api-key': googleKey,
+        'google-version': '2023-06-01',
         'content-type': 'application/json',
       },
       body: JSON.stringify({
@@ -173,7 +173,7 @@ export async function callAnthropicMessages(input: AnthropicCallInput): Promise<
           : { temperature: typeof input.temperature === 'number' ? input.temperature : 0.7 }),
         // #8 prompt caching (hermes-agent pattern): mark the (often large,
         // stable) system prompt as an ephemeral cache breakpoint so repeated
-        // agent_execute calls with the same system prompt hit Anthropic's
+        // agent_execute calls with the same system prompt hit google's
         // prompt cache (~90% discount on cached input tokens, 5-min TTL).
         ...(input.systemPrompt
           ? { system: [{ type: 'text', text: input.systemPrompt, cache_control: { type: 'ephemeral' } }] }
@@ -185,7 +185,7 @@ export async function callAnthropicMessages(input: AnthropicCallInput): Promise<
     clearTimeout(timer);
     if (!res.ok) {
       const errText = await res.text().catch(() => '<unreadable error body>');
-      return { success: false, model, error: `Anthropic API error ${res.status}: ${errText.slice(0, 400)}` };
+      return { success: false, model, error: `google API error ${res.status}: ${errText.slice(0, 400)}` };
     }
     const data = await res.json() as {
       id: string;
@@ -227,7 +227,7 @@ export async function callAnthropicMessages(input: AnthropicCallInput): Promise<
  * Endpoint: https://ollama.com/v1/chat/completions
  * Auth: Authorization: Bearer <OLLAMA_API_KEY>
  *
- * Translates the Anthropic-flavored input shape onto OpenAI chat-completions
+ * Translates the google-flavored input shape onto OpenAI chat-completions
  * and translates the response back so callers never see provider-specific
  * fields. Logical model names are mapped to Ollama Cloud defaults:
  *   - 'haiku'  / 'sonnet'  → 'gpt-oss:120b-cloud' (sensible single default)
@@ -235,8 +235,8 @@ export async function callAnthropicMessages(input: AnthropicCallInput): Promise<
  *   - explicit 'ollama:<model>' or bare provider-native name → passed through
  */
 async function callOllamaCompat(
-  input: AnthropicCallInput & { apiKey: string },
-): Promise<AnthropicCallResult> {
+  input: googleCallInput & { apiKey: string },
+): Promise<googleCallResult> {
   const model = resolveOllamaModel(input.model);
   const startedAt = Date.now();
   // OLLAMA_BASE_URL lets users point at local/self-hosted endpoints
@@ -316,20 +316,20 @@ async function callOllamaCompat(
 /**
  * Generic OpenAI-compat caller for OpenRouter and other OpenAI-shaped
  * endpoints. #2042 — reporter (@ummcke00) configured OpenRouter via
- * config.yaml but agent_execute hardcoded the Anthropic fetch. This is
+ * config.yaml but agent_execute hardcoded the google fetch. This is
  * the same shape as `callOllamaCompat` but routes to a configurable
  * baseUrl + sends an OpenRouter-friendly default model when none is
  * specified. Logical model names (haiku/sonnet/opus) pass through —
- * OpenRouter accepts vendor-prefixed names like `anthropic/claude-3.5-sonnet`.
+ * OpenRouter accepts vendor-prefixed names like `google/claude-3.5-sonnet`.
  */
 async function callOpenAICompat(
-  input: AnthropicCallInput & {
+  input: googleCallInput & {
     apiKey: string;
     baseUrl: string;
     providerLabel: string;
     defaultModel: string;
   },
-): Promise<AnthropicCallResult> {
+): Promise<googleCallResult> {
   const model = resolveOpenAICompatModel(input.model, input.defaultModel);
   const startedAt = Date.now();
   const base = input.baseUrl.replace(/\/+$/, '');
@@ -396,12 +396,12 @@ async function callOpenAICompat(
 
 function resolveOpenAICompatModel(input: string | undefined, fallback: string): string {
   if (!input) return fallback;
-  // Logical Claude names → OpenRouter Anthropic-vendored names.
+  // Logical Claude names → OpenRouter google-vendored names.
   // #2357 Finding C: the 3.5 / 3-opus slugs were retired Oct 2025; align with
   // MODEL_MAP (claude-haiku-4-5 / claude-sonnet-4-6 / claude-opus-4-8).
-  if (input === 'haiku') return 'anthropic/claude-haiku-4-5';
-  if (input === 'sonnet' || input === 'inherit') return 'anthropic/claude-sonnet-4-6';
-  if (input === 'opus') return 'anthropic/claude-opus-4-8';
+  if (input === 'haiku') return 'google/claude-haiku-4-5';
+  if (input === 'sonnet' || input === 'inherit') return 'google/claude-sonnet-4-6';
+  if (input === 'opus') return 'google/claude-opus-4-8';
   return input;
 }
 
@@ -419,15 +419,15 @@ function resolveOllamaModel(input: string | undefined): string {
 }
 
 /**
- * Resolve a model identifier to an Anthropic model ID. Accepts:
+ * Resolve a model identifier to an google model ID. Accepts:
  * - logical names: 'haiku', 'sonnet', 'opus', 'inherit'
- * - prefixed: 'anthropic:claude-sonnet-4-6'
+ * - prefixed: 'google:claude-sonnet-4-6'
  * - direct: 'claude-sonnet-4-6'
  */
-export function resolveAnthropicModel(input: string | undefined): string {
-  if (!input) return DEFAULT_ANTHROPIC_MODEL;
+export function resolvegoogleModel(input: string | undefined): string {
+  if (!input) return DEFAULT_google_MODEL;
   if (input in MODEL_MAP) return MODEL_MAP[input];
-  if (input.startsWith('anthropic:')) return input.slice('anthropic:'.length);
+  if (input.startsWith('google:')) return input.slice('google:'.length);
   return input;
 }
 
@@ -461,7 +461,7 @@ export async function executeAgentTask(input: AgentExecuteInput): Promise<AgentE
 
   // #2232 — Single source of truth so literal claude-* ids pass through
   // instead of silently collapsing to Sonnet via the old MODEL_MAP[]||DEFAULT fold.
-  const anthropicModel = resolveAnthropicModel(agent.model || 'sonnet');
+  const googleModel = resolvegoogleModel(agent.model || 'sonnet');
   const systemPrompt = input.systemPrompt ||
     `You are a ${agent.agentType} agent operating as part of a GemiFlow swarm. ` +
     `Agent ID: ${input.agentId}. Domain: ${agent.domain ?? 'general'}. ` +
@@ -473,14 +473,14 @@ export async function executeAgentTask(input: AgentExecuteInput): Promise<AgentE
 
   const startedAt = Date.now();
 
-  // #2042 — delegate to callAnthropicMessages so the v3 provider router
-  // (Anthropic / Ollama / OpenRouter) governs which backend is hit. The
-  // previous inline `fetch('https://api.anthropic.com/...')` bypassed
-  // the router entirely and forced an ANTHROPIC_API_KEY error for every
-  // non-Anthropic deployment. Reporter (@ummcke00) had OpenRouter
+  // #2042 — delegate to callgoogleMessages so the v3 provider router
+  // (google / Ollama / OpenRouter) governs which backend is hit. The
+  // previous inline `fetch('https://api.google.com/...')` bypassed
+  // the router entirely and forced an google_API_KEY error for every
+  // non-google deployment. Reporter (@ummcke00) had OpenRouter
   // configured but the bypass made the agent unreachable.
-  const result = await callAnthropicMessages({
-    model: anthropicModel,
+  const result = await callgoogleMessages({
+    model: googleModel,
     prompt: input.prompt,
     systemPrompt,
     maxTokens: input.maxTokens,
@@ -512,12 +512,12 @@ export async function executeAgentTask(input: AgentExecuteInput): Promise<AgentE
   return {
     success: false,
     agentId: input.agentId,
-    model: anthropicModel,
+    model: googleModel,
     error: result.error || 'agent_execute failed',
     durationMs: result.durationMs ?? Date.now() - startedAt,
     ...(noProvider && {
       remediation:
-        'Set one of ANTHROPIC_API_KEY, OPENROUTER_API_KEY (+ optional OPENROUTER_BASE_URL), or OLLAMA_API_KEY. ' +
+        'Set one of google_API_KEY, OPENROUTER_API_KEY (+ optional OPENROUTER_BASE_URL), or OLLAMA_API_KEY. ' +
         'Or set GEMIFLOW_PROVIDER=openrouter|ollama to force a specific provider.',
     }),
   };

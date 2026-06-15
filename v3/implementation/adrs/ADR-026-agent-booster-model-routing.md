@@ -452,8 +452,8 @@ v3/@gemiflow/cli/src/
 ## References
 
 - ADR-017: RuVector Integration Architecture
-- ADR-018: Claude Code Integration
-- Agent Booster: https://github.com/anthropics/agent-booster
+- ADR-018: Gemini CLI Integration
+- Agent Booster: https://github.com/googles/agent-booster
 - agentic-flow: https://github.com/ruvnet/agentic-flow
 - tiny-dancer: design-intent name for the model-routing layer; the shipped
   implementation is a lexical + Thompson-bandit `ModelRouter`, not a neural

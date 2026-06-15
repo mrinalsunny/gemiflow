@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // scripts/probe-nested-spawn-depth.mjs
 //
-// Empirical probe of Claude Code's nested-subagent depth cap (announced 2026-06-09
+// Empirical probe of Gemini CLI's nested-subagent depth cap (announced 2026-06-09
 // by Boris Cherny: "Capped at depth=5 to start"). Runs a fresh `claude -p` session,
 // spawns gemiflow-agent:nested-coordinator at L1, and that coordinator recursively
 // spawns more nested-coordinators (L2, L3, ...) until either (a) some level's
@@ -25,7 +25,7 @@ const OUT_DIR = join(REPO_ROOT, 'docs', 'probes');
 const TEST_LIMIT = 7; // stop voluntarily one past the announced cap of 5
 const BUDGET_USD = '3.00';
 
-const RECURSIVE_PROCEDURE = `You are participating in an empirical test of Claude Code's nested-subagent depth cap.
+const RECURSIVE_PROCEDURE = `You are participating in an empirical test of Gemini CLI's nested-subagent depth cap.
 
 YOU ARE AT LEVEL N (a number passed to you in this prompt; see "CURRENT LEVEL" below).
 

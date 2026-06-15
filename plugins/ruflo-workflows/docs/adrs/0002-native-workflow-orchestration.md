@@ -1,10 +1,10 @@
 ---
 id: ADR-0002
-title: gemiflow-workflows adopts native Claude Code Workflow orchestration (.gemiflow/workflows/*.js) alongside the MCP workflow_* surface
+title: gemiflow-workflows adopts native Gemini CLI Workflow orchestration (.gemiflow/workflows/*.js) alongside the MCP workflow_* surface
 status: Accepted
 date: 2026-05-29
 authors:
-  - coder (Claude Code)
+  - coder (Gemini CLI)
 tags: [plugin, workflows, orchestration, native-workflow, gemini-cli, agent-fanout]
 ---
 
@@ -12,7 +12,7 @@ tags: [plugin, workflows, orchestration, native-workflow, gemini-cli, agent-fano
 
 [ADR-0001](./0001-workflows-contract.md) established `gemiflow-workflows` as the canonical wrapper for the **10 `workflow_*` MCP tools** (`v3/@gemiflow/cli/src/mcp-tools/workflow-tools.ts`). That surface is *declarative and persisted*: a workflow definition is created, then run/paused/resumed/cancelled through a state machine, with state indexed in the `workflows-state` AgentDB namespace.
 
-Claude Code has since shipped a second, complementary capability — the **native `Workflow` tool**. It executes a JavaScript orchestration script that fans subagents out deterministically via four hooks:
+Gemini CLI has since shipped a second, complementary capability — the **native `Workflow` tool**. It executes a JavaScript orchestration script that fans subagents out deterministically via four hooks:
 
 | Hook | Purpose |
 |------|---------|

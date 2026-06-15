@@ -1,9 +1,9 @@
 ---
 name: create-plugin
-description: Scaffold a new Claude Code plugin interactively
+description: Scaffold a new Gemini CLI plugin interactively
 ---
 
-Create a new Claude Code plugin:
+Create a new Gemini CLI plugin:
 
 1. Ask the user for: plugin name, description, desired skills, commands, and agents
 2. Use the `create-plugin` skill to scaffold the complete directory structure

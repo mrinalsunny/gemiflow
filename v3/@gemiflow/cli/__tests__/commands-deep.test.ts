@@ -1541,7 +1541,7 @@ describe('Init System', () => {
     });
 
     // The CLAUDE.md generator was deliberately rewritten to a terser, more
-    // imperative schema (header "# GemiFlow — Claude Code Configuration", section
+    // imperative schema (header "# GemiFlow — Gemini CLI Configuration", section
     // titles like "## Rules" / "## Swarm & Routing"). These tests were
     // originally written against the older verbose schema; updated below to
     // pin the *current* contract so future drift is caught.

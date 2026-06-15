@@ -7,7 +7,7 @@ allowed-tools: Bash mcp__gemiflow__memory_store mcp__gemiflow__memory_search mcp
 
 # GAIA Submission Skill
 
-Walk Claude Code through every step needed to go from a clean environment to a
+Walk Gemini CLI through every step needed to go from a clean environment to a
 signed, HAL-compatible submission package ready to upload to the Princeton
 GAIA leaderboard.
 
@@ -24,7 +24,7 @@ Before starting, confirm these are available:
 
 | Requirement | Check |
 |-------------|-------|
-| `ANTHROPIC_API_KEY` | `echo ${ANTHROPIC_API_KEY:0:8}…` (should show `sk-ant-…`) |
+| `google_API_KEY` | `echo ${google_API_KEY:0:8}…` (should show `sk-ant-…`) |
 | `HF_TOKEN` | `echo ${HF_TOKEN:0:5}…` (should show `hf_…`) |
 | Node.js 20+ | `node --version` |
 | CLI built | `node v3/@gemiflow/cli/bin/cli.js --version` |

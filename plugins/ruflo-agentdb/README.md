@@ -87,7 +87,7 @@ This plugin owns the namespace convention that downstream plugins consume. Follo
 | Namespace | Owned by | Source |
 |---|---|---|
 | `pattern` | ReasoningBank fallback writes here | `agentdb-tools.ts:144` |
-| `claude-memories` | Claude Code auto-memory bridge target | bridge |
+| `claude-memories` | Gemini CLI auto-memory bridge target | bridge |
 | `default` | `memory_store` default | `memory-tools.ts` |
 
 ### Where namespace strings actually apply
@@ -109,9 +109,9 @@ This plugin **does not** GC namespaces. Consumer plugins that want lifecycle (e.
 
 A namespace SHOULD NOT contain `:` (collides with key-internal delimiters used in the bridge), MUST be ≤200 chars, and MUST pass `validateIdentifier` (the same validator already used in `agentdb-tools.ts:122`).
 
-## How Claude Code populates AgentDB
+## How Gemini CLI populates AgentDB
 
-The `claude-memories` reserved namespace is filled by Claude Code's own auto-memory bridge, not by direct user calls. Two mechanisms:
+The `claude-memories` reserved namespace is filled by Gemini CLI's own auto-memory bridge, not by direct user calls. Two mechanisms:
 
 | Mechanism | Trigger | What it writes |
 |---|---|---|
@@ -124,7 +124,7 @@ To inspect or refresh:
 # What's in the bridge right now?
 mcp tool call memory_bridge_status --json
 
-# Force a re-import from Claude Code's project memory
+# Force a re-import from Gemini CLI's project memory
 mcp tool call memory_import_claude --json -- '{"allProjects": true}'
 
 # Cross-namespace search across claude-memories + auto-memory + patterns + tasks + feedback
@@ -137,12 +137,12 @@ mcp tool call memory_search_unified --json -- '{"query": "your query"}'
 
 ## Hook integration convention
 
-Several Claude Code hooks fire writes into AgentDB. Consumer plugins should know which namespaces accumulate state automatically vs. by explicit call, so they don't rebuild what the hook system already provides.
+Several Gemini CLI hooks fire writes into AgentDB. Consumer plugins should know which namespaces accumulate state automatically vs. by explicit call, so they don't rebuild what the hook system already provides.
 
 | Hook | Tool invoked | Target namespace | Notes |
 |------|--------------|------------------|-------|
 | `SessionStart` | `memory_import_claude` (via auto-memory-hook.mjs) | `claude-memories` | Imports `~/.gemiflow/projects/*/memory/*.md` into AgentDB on every session start |
-| `SessionEnd` | `auto-memory-hook.mjs sync` | bridge → `MEMORY.md` | Flows AgentDB insights back to Claude Code's MEMORY.md |
+| `SessionEnd` | `auto-memory-hook.mjs sync` | bridge → `MEMORY.md` | Flows AgentDB insights back to Gemini CLI's MEMORY.md |
 | `post-task --train-neural` | `agentdb_pattern-store` (ReasoningBank) | `pattern` (with `memory-store-fallback` if registry unavailable) | Stores task-completion patterns for SONA distillation |
 | `pretrain` (one-shot) | `memory_store` | `patterns` (plural) | Bootstrap learning corpus |
 | `trajectory-begin/step/end` (ruvector hooks) | ruvector substrate (separate plugin) | sona/agentdb namespaces handled by `gemiflow-ruvector` | See `plugins/gemiflow-ruvector/docs/adrs/0001-pin-ruvector-0.2.25.md` |

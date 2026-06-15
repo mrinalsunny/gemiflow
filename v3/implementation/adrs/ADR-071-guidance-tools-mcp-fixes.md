@@ -10,7 +10,7 @@ Three areas needed attention in v3.5.43:
 
 1. **Capability discovery**: With 259 MCP tools, 26 CLI commands, 60+ agents, and 37 skills, the system had no way to navigate its own capabilities at runtime. Agents and the MCP client needed structured guidance to select the right tools for a task.
 
-2. **Agent/skill YAML frontmatter**: 98% of agent definitions (135 files) and many skill files used invalid YAML frontmatter fields not recognized by Claude Code (`type`, `color`, `capabilities`, `priority`, `triggers`, `version`, `metadata`, etc.). Six agent files used `.yaml` extension instead of `.md`. Two skill files used lowercase `skill.md` instead of `SKILL.md`. The `tools` field used YAML array format instead of the required comma-separated string.
+2. **Agent/skill YAML frontmatter**: 98% of agent definitions (135 files) and many skill files used invalid YAML frontmatter fields not recognized by Gemini CLI (`type`, `color`, `capabilities`, `priority`, `triggers`, `version`, `metadata`, etc.). Six agent files used `.yaml` extension instead of `.md`. Two skill files used lowercase `skill.md` instead of `SKILL.md`. The `tools` field used YAML array format instead of the required comma-separated string.
 
 3. **MCP server startup failures**: Two bugs caused `mcp start` to fail with "MCP Server already running" even when no server was running:
    - `getStatus()` reported `running: true` with the current process PID for stdio transport before the server actually started, causing `start()` to block itself.
@@ -34,7 +34,7 @@ The tools use a static capability catalog with pattern-matched task routing. `gu
 
 ### 2. Agent/Skill YAML Standardization
 
-Batch-fix all agent and skill files to comply with Claude Code's YAML frontmatter spec:
+Batch-fix all agent and skill files to comply with Gemini CLI's YAML frontmatter spec:
 
 **Valid agent fields**: `name`, `description`, `tools` (comma-separated string), `disallowedTools`, `model`, `permissionMode`, `maxTurns`, `skills`, `mcpServers`, `hooks`, `memory`, `background`, `effort`, `isolation`, `initialPrompt`
 
@@ -61,12 +61,12 @@ Changes:
 
 ### Positive
 - Agents can now discover and navigate capabilities at runtime via MCP
-- All 107 agent files and 37 skill files have valid Claude Code frontmatter
+- All 107 agent files and 37 skill files have valid Gemini CLI frontmatter
 - MCP server starts reliably without false "already running" errors
 - `init` generates clean agents when scaffolding new projects
 
 ### Negative
-- `hooks` fields were removed from agent frontmatter (they contained GemiFlow shell scripts, not Claude Code hook references — functionality preserved in CLI hooks system)
+- `hooks` fields were removed from agent frontmatter (they contained GemiFlow shell scripts, not Gemini CLI hook references — functionality preserved in CLI hooks system)
 - Guidance tools use a static catalog that must be updated when new capabilities are added
 
 ## Files Changed

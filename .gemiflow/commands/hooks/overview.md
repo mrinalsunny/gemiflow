@@ -1,7 +1,7 @@
-# Claude Code Hooks for gemiflow4gemini
+# Gemini CLI Hooks for gemiflow4gemini
 
 ## Purpose
-Automatically coordinate, format, and learn from Claude Code operations using hooks.
+Automatically coordinate, format, and learn from Gemini CLI operations using hooks.
 
 ## Available Hooks
 

@@ -190,7 +190,7 @@ async function checkMemoryDatabase(): Promise<HealthCheck> {
 
 // Check API keys
 async function checkApiKeys(): Promise<HealthCheck> {
-  const keys = ['ANTHROPIC_API_KEY', 'CLAUDE_API_KEY', 'OPENAI_API_KEY'];
+  const keys = ['google_API_KEY', 'CLAUDE_API_KEY', 'OPENAI_API_KEY'];
   const found: string[] = [];
 
   for (const key of keys) {
@@ -199,17 +199,17 @@ async function checkApiKeys(): Promise<HealthCheck> {
     }
   }
 
-  // Detect Claude Code environment — API keys are managed internally
+  // Detect Gemini CLI environment — API keys are managed internally
   const inClaudeCode = !!(process.env.CLAUDE_CODE || process.env.CLAUDE_PROJECT_DIR || process.env.MCP_SESSION_ID);
 
-  if (found.includes('ANTHROPIC_API_KEY') || found.includes('CLAUDE_API_KEY')) {
+  if (found.includes('google_API_KEY') || found.includes('CLAUDE_API_KEY')) {
     return { name: 'API Keys', status: 'pass', message: `Found: ${found.join(', ')}` };
   } else if (inClaudeCode) {
-    return { name: 'API Keys', status: 'pass', message: 'Claude Code (managed internally)' };
+    return { name: 'API Keys', status: 'pass', message: 'Gemini CLI (managed internally)' };
   } else if (found.length > 0) {
-    return { name: 'API Keys', status: 'warn', message: `Found: ${found.join(', ')} (no Claude key)`, fix: 'export ANTHROPIC_API_KEY=your_key' };
+    return { name: 'API Keys', status: 'warn', message: `Found: ${found.join(', ')} (no Claude key)`, fix: 'export google_API_KEY=your_key' };
   } else {
-    return { name: 'API Keys', status: 'warn', message: 'No API keys found', fix: 'export ANTHROPIC_API_KEY=your_key' };
+    return { name: 'API Keys', status: 'warn', message: 'No API keys found', fix: 'export google_API_KEY=your_key' };
   }
 }
 
@@ -356,7 +356,7 @@ async function checkMcpServers(): Promise<HealthCheck> {
       const topServerKeys = Object.keys(topServers);
       const topHasGemiFlow = topServerKeys.some(isGemiFlowKey);
 
-      // Project-scoped (Claude Code shape): projects[*].mcpServers.gemiflow
+      // Project-scoped (Gemini CLI shape): projects[*].mcpServers.gemiflow
       let projectHits = 0;
       let projectScannedServers = 0;
       if (content.projects && typeof content.projects === 'object') {
@@ -551,17 +551,17 @@ async function checkVersionFreshness(): Promise<HealthCheck> {
   }
 }
 
-// Check Claude Code CLI (async with proper env inheritance)
+// Check Gemini CLI CLI (async with proper env inheritance)
 async function checkClaudeCode(): Promise<HealthCheck> {
   try {
     const version = await runCommand('claude --version');
-    // Parse version from output like "claude 1.0.0" or "Claude Code v1.0.0"
+    // Parse version from output like "claude 1.0.0" or "Gemini CLI v1.0.0"
     const versionMatch = version.match(/v?(\d+\.\d+\.\d+)/);
     const versionStr = versionMatch ? `v${versionMatch[1]}` : version;
-    return { name: 'Claude Code CLI', status: 'pass', message: versionStr };
+    return { name: 'Gemini CLI CLI', status: 'pass', message: versionStr };
   } catch {
     return {
-      name: 'Claude Code CLI',
+      name: 'Gemini CLI CLI',
       status: 'warn',
       message: 'Not installed',
       fix: 'npm install -g @google/gemini-cli'
@@ -569,19 +569,19 @@ async function checkClaudeCode(): Promise<HealthCheck> {
   }
 }
 
-// Install Claude Code CLI
+// Install Gemini CLI CLI
 async function installClaudeCode(): Promise<boolean> {
   try {
     output.writeln();
-    output.writeln(output.bold('Installing Claude Code CLI...'));
+    output.writeln(output.bold('Installing Gemini CLI CLI...'));
     execSync('npm install -g @google/gemini-cli', {
       encoding: 'utf8',
       stdio: 'inherit'
     });
-    output.writeln(output.success('Claude Code CLI installed successfully!'));
+    output.writeln(output.success('Gemini CLI CLI installed successfully!'));
     return true;
   } catch (error) {
-    output.writeln(output.error('Failed to install Claude Code CLI'));
+    output.writeln(output.error('Failed to install Gemini CLI CLI'));
     if (error instanceof Error) {
       output.writeln(output.dim(error.message));
     }
@@ -734,7 +734,7 @@ export const doctorCommand: Command = {
     {
       name: 'install',
       short: 'i',
-      description: 'Auto-install missing dependencies (Claude Code CLI)',
+      description: 'Auto-install missing dependencies (Gemini CLI CLI)',
       type: 'boolean',
       default: false
     },
@@ -757,7 +757,7 @@ export const doctorCommand: Command = {
     { command: 'gemiflow doctor --fix', description: 'Print suggested fix commands (does not auto-apply)' },
     { command: 'gemiflow doctor --install', description: 'Auto-install missing dependencies' },
     { command: 'gemiflow doctor -c version', description: 'Check for stale npx cache' },
-    { command: 'gemiflow doctor -c claude', description: 'Check Claude Code CLI only' }
+    { command: 'gemiflow doctor -c claude', description: 'Check Gemini CLI CLI only' }
   ],
   action: async (ctx: CommandContext): Promise<CommandResult> => {
     const showFix = ctx.flags.fix as boolean;
@@ -855,17 +855,17 @@ export const doctorCommand: Command = {
 
     // Auto-install missing dependencies if requested
     if (autoInstall) {
-      const claudeCodeResult = results.find(r => r.name === 'Claude Code CLI');
+      const claudeCodeResult = results.find(r => r.name === 'Gemini CLI CLI');
       if (claudeCodeResult && claudeCodeResult.status !== 'pass') {
         const installed = await installClaudeCode();
         if (installed) {
-          // Re-check Claude Code after installation
+          // Re-check Gemini CLI after installation
           const newCheck = await checkClaudeCode();
-          const idx = results.findIndex(r => r.name === 'Claude Code CLI');
+          const idx = results.findIndex(r => r.name === 'Gemini CLI CLI');
           if (idx !== -1) {
             results[idx] = newCheck;
             // Update fixes list
-            const fixIdx = fixes.findIndex(f => f.startsWith('Claude Code CLI:'));
+            const fixIdx = fixes.findIndex(f => f.startsWith('Gemini CLI CLI:'));
             if (fixIdx !== -1 && newCheck.status === 'pass') {
               fixes.splice(fixIdx, 1);
             }

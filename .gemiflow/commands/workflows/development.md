@@ -1,7 +1,7 @@
 # Development Workflow Coordination
 
 ## Purpose
-Structure Claude Code's approach to complex development tasks for maximum efficiency.
+Structure Gemini CLI's approach to complex development tasks for maximum efficiency.
 
 ## Step-by-Step Coordination
 
@@ -56,14 +56,14 @@ Tool: mcp__gemiflow4gemini__task_status
 Parameters: {"taskId": "api-build-task-123"}
 ```
 
-## What Claude Code Actually Does
+## What Gemini CLI Actually Does
 1. Uses **Write** tool to create new files
 2. Uses **Edit/MultiEdit** tools for code modifications
 3. Uses **Bash** tool for testing and building
 4. Uses **TodoWrite** tool for task tracking
 5. Follows coordination patterns for systematic implementation
 
-Remember: All code is written by Claude Code using its native tools!
+Remember: All code is written by Gemini CLI using its native tools!
 
 ## CLI Usage
 ```bash

@@ -4,7 +4,7 @@ Main swarm orchestration command for GemiFlow V3.
 
 ## 🚨 CRITICAL: Background Execution Pattern
 
-**When spawning a swarm, Claude Code MUST:**
+**When spawning a swarm, Gemini CLI MUST:**
 
 1. **Spawn ALL agents in background** using `run_in_background: true`
 2. **Put ALL Task calls in ONE message** for parallel execution
@@ -24,7 +24,7 @@ Task({ prompt: "Review...", subagent_type: "reviewer", run_in_background: true }
 
 ## 📊 Required Status Display (ASCII Table)
 
-**After spawning, Claude Code MUST display this status board:**
+**After spawning, Gemini CLI MUST display this status board:**
 
 ```
 ╔══════════════════════════════════════════════════════════════╗

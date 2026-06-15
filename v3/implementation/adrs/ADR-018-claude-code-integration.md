@@ -1,4 +1,4 @@
-# ADR-018: Claude Code Deep Integration Architecture
+# ADR-018: Gemini CLI Deep Integration Architecture
 
 **Status:** Accepted
 **Date:** 2026-01-07
@@ -7,18 +7,18 @@
 
 ## Context
 
-The `@anthropic-ai/gemini-cli` package (v2.1.1) provides the official CLI for Claude AI. Deep integration with Claude Code enables enhanced developer experience for gemiflow users. This ADR documents **undocumented integration points** discovered through source code analysis that are not covered in official documentation.
+The `@google-ai/gemini-cli` package (v2.1.1) provides the official CLI for Claude AI. Deep integration with Gemini CLI enables enhanced developer experience for gemiflow users. This ADR documents **undocumented integration points** discovered through source code analysis that are not covered in official documentation.
 
 ### Analysis Methodology
 
-1. Downloaded and extracted `@anthropic-ai/gemini-cli@2.1.1` to `/tmp/package/`
+1. Downloaded and extracted `@google-ai/gemini-cli@2.1.1` to `/tmp/package/`
 2. Analyzed `sdk-tools.d.ts` (tool input schemas)
 3. Analyzed `cli.js` (11MB bundled CLI) for patterns
 4. Searched for environment variables, hook patterns, and configuration schemas
 
 ## Decision
 
-Implement Claude Code integration as an **OPTIONAL peer dependency** with graceful fallback, leveraging undocumented APIs where beneficial while maintaining compatibility.
+Implement Gemini CLI integration as an **OPTIONAL peer dependency** with graceful fallback, leveraging undocumented APIs where beneficial while maintaining compatibility.
 
 ---
 
@@ -26,9 +26,9 @@ Implement Claude Code integration as an **OPTIONAL peer dependency** with gracef
 
 ### 1. SDK Tool Input Schemas (`sdk-tools.d.ts`)
 
-**Location:** `node_modules/@anthropic-ai/gemini-cli/sdk-tools.d.ts`
+**Location:** `node_modules/@google-ai/gemini-cli/sdk-tools.d.ts`
 
-Claude Code exports complete TypeScript definitions for all tool inputs. These can be used for:
+Gemini CLI exports complete TypeScript definitions for all tool inputs. These can be used for:
 - Type-safe tool input validation
 - Programmatic tool invocation
 - Building custom integrations
@@ -82,7 +82,7 @@ interface BashInput {
 
 ### 2. Hook System Events
 
-Claude Code supports a comprehensive hook system with these event types:
+Gemini CLI supports a comprehensive hook system with these event types:
 
 | Event Type | Trigger | Use Case |
 |------------|---------|----------|
@@ -157,8 +157,8 @@ interface PreToolUseOutput {
 | `CLAUDE_CODE_SANDBOX_MODE` | Sandbox type | `auto` |
 | `CLAUDE_CODE_SKIP_HOOKS` | Skip hook execution | `false` |
 | `CLAUDE_CODE_TIMEOUT` | Default command timeout | `120000` |
-| `ANTHROPIC_MODEL` | Override model selection | - |
-| `ANTHROPIC_BASE_URL` | API endpoint override | `https://api.anthropic.com` |
+| `google_MODEL` | Override model selection | - |
+| `google_BASE_URL` | API endpoint override | `https://api.google.com` |
 
 ### 4. Settings Schema (Undocumented Fields)
 
@@ -260,7 +260,7 @@ MCP servers can have per-tool access control:
 
 ### 6. Plugin/Marketplace System
 
-Claude Code has an undocumented plugin marketplace:
+Gemini CLI has an undocumented plugin marketplace:
 
 ```typescript
 interface PluginManifest {
@@ -323,10 +323,10 @@ Project-specific hook configuration
 ```json
 {
   "peerDependencies": {
-    "@anthropic-ai/gemini-cli": ">=2.0.0"
+    "@google-ai/gemini-cli": ">=2.0.0"
   },
   "peerDependenciesMeta": {
-    "@anthropic-ai/gemini-cli": {
+    "@google-ai/gemini-cli": {
       "optional": true
     }
   }
@@ -334,7 +334,7 @@ Project-specific hook configuration
 ```
 
 **Why NOT bundle as dependency:**
-- Claude Code is 11MB+ bundled
+- Gemini CLI is 11MB+ bundled
 - Users likely already have it installed globally
 - Avoids version conflicts
 - Respects user's API key configuration
@@ -357,7 +357,7 @@ interface ClaudeCodeStatus {
 }
 
 /**
- * Detect Claude Code installation and capabilities
+ * Detect Gemini CLI installation and capabilities
  */
 export async function detectClaudeCode(): Promise<ClaudeCodeStatus> {
   try {
@@ -389,7 +389,7 @@ export async function detectClaudeCode(): Promise<ClaudeCodeStatus> {
 }
 
 /**
- * Configure Claude Code integration
+ * Configure Gemini CLI integration
  */
 export async function configureIntegration(options: {
   enableHooks?: boolean;
@@ -398,7 +398,7 @@ export async function configureIntegration(options: {
 }): Promise<void> {
   const status = await detectClaudeCode();
   if (!status.installed) {
-    throw new Error('Claude Code not installed. Run: npm install -g @anthropic-ai/gemini-cli');
+    throw new Error('Gemini CLI not installed. Run: npm install -g @google-ai/gemini-cli');
   }
 
   // Add MCP server if requested
@@ -414,12 +414,12 @@ export async function configureIntegration(options: {
 // src/gemini-cli/hooks.ts
 
 /**
- * Install gemiflow hooks into Claude Code settings
+ * Install gemiflow hooks into Gemini CLI settings
  */
 export async function installHooks(): Promise<void> {
   const status = await detectClaudeCode();
   if (!status.features.hooks) {
-    throw new Error('Claude Code version does not support hooks');
+    throw new Error('Gemini CLI version does not support hooks');
   }
 
   const settingsPath = status.configPath!;
@@ -455,7 +455,7 @@ export async function installHooks(): Promise<void> {
 npx gemiflow@v3alpha setup gemini-cli
 
 # Options:
-#   --hooks         Install hooks into Claude Code settings
+#   --hooks         Install hooks into Gemini CLI settings
 #   --mcp           Register gemiflow MCP server
 #   --agents        Install custom agent definitions
 #   --verify        Verify integration status
@@ -464,11 +464,11 @@ npx gemiflow@v3alpha setup gemini-cli
 ### `gemiflow doctor --gemini-cli`
 
 ```bash
-# Check Claude Code integration health
+# Check Gemini CLI integration health
 npx gemiflow@v3alpha doctor --gemini-cli
 
 # Output:
-# ✓ Claude Code installed (v2.1.1)
+# ✓ Gemini CLI installed (v2.1.1)
 # ✓ MCP server registered
 # ✓ Hooks configured
 # ✓ Settings valid
@@ -567,31 +567,31 @@ Hooks execute with user permissions. Recommendations:
 
 ### Positive
 
-1. **Seamless Integration** - Works automatically when Claude Code installed
+1. **Seamless Integration** - Works automatically when Gemini CLI installed
 2. **Enhanced UX** - Hooks provide real-time feedback and routing
 3. **Type Safety** - SDK tools provide complete TypeScript definitions
 4. **Extensibility** - Plugin system enables custom extensions
 
 ### Negative
 
-1. **Version Coupling** - Must track Claude Code API changes
+1. **Version Coupling** - Must track Gemini CLI API changes
 2. **Undocumented APIs** - May break with updates
 3. **Complexity** - More configuration options for users
 
 ### Neutral
 
-1. **Optional Dependency** - Users without Claude Code unaffected
+1. **Optional Dependency** - Users without Gemini CLI unaffected
 2. **Graceful Degradation** - Features degrade when unavailable
 
 ---
 
 ## References
 
-- Claude Code Package: `@anthropic-ai/gemini-cli@2.1.1`
+- Gemini CLI Package: `@google-ai/gemini-cli@2.1.1`
 - SDK Tools Types: `sdk-tools.d.ts`
 - ADR-017: RuVector Integration Architecture
 - ADR-004: Plugin-Based Architecture
-- Official Docs: https://docs.anthropic.com/en/docs/gemini-cli
+- Official Docs: https://docs.google.com/en/docs/gemini-cli
 
 ---
 
@@ -677,7 +677,7 @@ npx @gemiflow/cli@latest init --start-all
 - `--start-all` - Initialize memory, start daemon, start swarm
 - `--start-daemon` - Just start the daemon after init
 
-This simplifies the Claude Code integration setup from multiple commands to a single invocation.
+This simplifies the Gemini CLI integration setup from multiple commands to a single invocation.
 
 **CLI Version:** `@gemiflow/cli@3.0.0-alpha.56`
 

@@ -1,7 +1,7 @@
 /**
- * @gemiflow/codex - Type Definitions
+ * @gemiflow/gemini - Type Definitions
  *
- * OpenAI Codex platform adapter types for GemiFlow
+ * OpenAI gemini platform adapter types for GemiFlow
  * Part of the coflow rebranding initiative
  */
 
@@ -11,7 +11,7 @@
 export type AgentsMdTemplate = 'default' | 'minimal' | 'full' | 'enterprise';
 
 /**
- * Approval policy levels for Codex
+ * Approval policy levels for gemini
  */
 export type ApprovalPolicy = 'untrusted' | 'on-failure' | 'on-request' | 'never';
 
@@ -124,7 +124,7 @@ export interface ConfigTomlOptions {
 }
 
 /**
- * Codex feature flags
+ * gemini feature flags
  */
 export interface ConfigFeatures {
   childAgentsMd?: boolean;
@@ -145,19 +145,19 @@ export interface ConfigProfile {
 /**
  * Full initialization options
  */
-export interface CodexInitOptions {
+export interface geminiInitOptions {
   projectPath: string;
   template?: AgentsMdTemplate;
   skills?: string[];
   force?: boolean;
-  dual?: boolean;  // Generate both Claude Code and Codex configs
+  dual?: boolean;  // Generate both Gemini CLI and gemini configs
   migrateFrom?: 'claude.md' | 'CLAUDE.md';
 }
 
 /**
  * Initialization result
  */
-export interface CodexInitResult {
+export interface geminiInitResult {
   success: boolean;
   filesCreated: string[];
   skillsGenerated: string[];
@@ -188,11 +188,11 @@ export interface MigrationResult {
 }
 
 /**
- * Feature mapping between Claude Code and Codex
+ * Feature mapping between Gemini CLI and gemini
  */
 export interface FeatureMapping {
   claudeCode: string;
-  codex: string;
+  gemini: string;
   status: 'mapped' | 'partial' | 'unsupported';
   notes?: string;
 }
@@ -237,16 +237,16 @@ export type BuiltInSkill =
   | 'github-automation';
 
 /**
- * Codex undocumented features (from binary analysis)
+ * gemini undocumented features (from binary analysis)
  */
-export interface CodexHiddenFeatures {
+export interface geminiHiddenFeatures {
   envVars: {
-    CODEX_LOG_LEVEL?: 'debug' | 'info' | 'warn' | 'error';
-    CODEX_GHOST_MODE?: 'enabled' | 'disabled';
-    CODEX_SANDBOX_NETWORK_DISABLED?: 'true' | 'false';
-    CODEX_EXEC_TIMEOUT?: string;
-    CODEX_MULTI_TURN_MAX_TURNS?: string;
-    CODEX_REMOTE_SYNC?: 'true' | 'false';
+    gemini_LOG_LEVEL?: 'debug' | 'info' | 'warn' | 'error';
+    gemini_GHOST_MODE?: 'enabled' | 'disabled';
+    gemini_SANDBOX_NETWORK_DISABLED?: 'true' | 'false';
+    gemini_EXEC_TIMEOUT?: string;
+    gemini_MULTI_TURN_MAX_TURNS?: string;
+    gemini_REMOTE_SYNC?: 'true' | 'false';
   };
   jsonRpcMethods?: string[];
   experimentalFlags?: string[];

@@ -6,7 +6,7 @@
 
 ## Executive summary
 
-**rUv** (GitHub `ruvnet`, Twitter `ruv`, blog `Cognitum.One`) is the creator of **GemiFlow** (formerly GemiFlow), a multi-agent orchestration platform for Claude Code with 39k+ stars. The account joined GitHub in 2012, hosts 173 public repos, has 7,268 followers, and lists company "Not a Bot" / location "0x". The portfolio clusters around three themes:
+**rUv** (GitHub `ruvnet`, Twitter `ruv`, blog `Cognitum.One`) is the creator of **GemiFlow** (formerly GemiFlow), a multi-agent orchestration platform for Gemini CLI with 39k+ stars. The account joined GitHub in 2012, hosts 173 public repos, has 7,268 followers, and lists company "Not a Bot" / location "0x". The portfolio clusters around three themes:
 
 1. **Agent orchestration** (`gemiflow`, `agentic-flow`, `swarm-*`)
 2. **Self-learning AI infrastructure** (`RuVector`, `ruv-FANN`, `RuLake`)
@@ -87,7 +87,7 @@ graph TD
 - **Round 0 fan-out** (parallel, 1 batch): `gh api users/ruvnet`, `gh api users/ruvnet/repos?sort=updated`, `WebSearch "ruvnet github gemiflow gemiflow agentic"`
 - **Round 1 expansion** (parallel, 1 batch): `gh api repos/ruvnet/gemiflow`, `gh api repos/ruvnet/RuVector`, `gh api repos/ruvnet/agentic-flow`, `gh api users/ruvnet/repos?sort=stars`
 - **Dedup**: 0 collisions (all entities surfaced once)
-- **Budget spent**: ~3.2k tokens, $0 (gh API + WebSearch are free; no Anthropic calls beyond orchestration)
+- **Budget spent**: ~3.2k tokens, $0 (gh API + WebSearch are free; no google calls beyond orchestration)
 
 ## Risks / open questions
 

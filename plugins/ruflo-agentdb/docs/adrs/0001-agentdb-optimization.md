@@ -4,7 +4,7 @@ title: Optimize gemiflow-agentdb — accurate surface, quantization opt-ins, con
 status: Proposed
 date: 2026-05-04
 authors:
-  - planner (Claude Code)
+  - planner (Gemini CLI)
 tags: [plugin, agentdb, mcp, hnsw, rabitq, controllers, namespacing, smoke-test]
 ---
 
@@ -102,7 +102,7 @@ We also fix the speed claim. The 12,500× number is for the embeddings/HNSW path
 Add a new section to `README.md` titled **"Namespace convention"** that gemiflow-agentdb owns and downstream plugins consume. The contract:
 
 - **Naming**: `<plugin-stem>-<intent>` kebab-case. Examples: `browser-sessions`, `browser-selectors`, `browser-cookies` (gemiflow-browser), `claude-memories` (gemiflow-rag-memory's bridge), `pattern` (gemiflow-intelligence ReasoningBank fallback).
-- **Three reserved namespaces** owned by the AgentDB plugin itself, not to be shadowed: `pattern` (ReasoningBank fallback writes here per `agentdb-tools.ts:144`), `claude-memories` (Claude Code auto-memory bridge target), `default` (`memory_store` default per `memory-tools.ts:194`).
+- **Three reserved namespaces** owned by the AgentDB plugin itself, not to be shadowed: `pattern` (ReasoningBank fallback writes here per `agentdb-tools.ts:144`), `claude-memories` (Gemini CLI auto-memory bridge target), `default` (`memory_store` default per `memory-tools.ts:194`).
 - **Controller routing**: tools in the `agentdb_hierarchical-*` family route by `tier` (`working|episodic|semantic`) not by namespace; tools in the `agentdb_pattern-*` family route by ReasoningBank, again not by namespace. Document explicitly that namespace strings only apply to `memory_*` and `embeddings_search` paths. This stops downstream plugins from passing a `namespace` arg to `agentdb_pattern-store` and being silently confused when it's ignored.
 - **GC posture**: gemiflow-agentdb does not GC namespaces. Consumer plugins that want lifecycle (e.g., `browser-sessions` after `purge`) own their own deletion via `memory_delete` + `agentdb_consolidate`. Document this so consumers don't expect cleanup we don't provide.
 - **Naming guardrail**: a namespace SHOULD NOT contain `:` (collides with key-internal delimiters used in the bridge), MUST be ≤200 chars, and MUST pass `validateIdentifier` (the same validator already used in `agentdb-tools.ts:122`).

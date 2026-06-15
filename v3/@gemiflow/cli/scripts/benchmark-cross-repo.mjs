@@ -41,7 +41,7 @@ const QUERIES_AGENTDB = [
     labels: ['spawnsync', 'execsync'] },
   { q: 'better-sqlite3 inline schemas',
     labels: ['better-sqlite3', 'inline schema', 'schemas'] },
-  { q: 'Claude Code marketplace plugins',
+  { q: 'Gemini CLI marketplace plugins',
     labels: ['marketplace', 'plugin', 'claude code'] },
   { q: 'README rewrite gemiflow style',
     labels: ['readme', 'rewrite'] },

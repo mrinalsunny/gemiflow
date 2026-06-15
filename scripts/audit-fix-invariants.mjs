@@ -39,7 +39,7 @@ const JSON_OUT = process.argv.includes('--json');
  */
 /** @type {Invariant[]} */
 const INVARIANTS = [
-  // #1939 — Win32 cwd → Claude Code slug
+  // #1939 — Win32 cwd → Gemini CLI slug
   {
     issue: '#1939',
     file: 'v3/@gemiflow/cli/src/mcp-tools/memory-tools.ts',
@@ -202,7 +202,7 @@ const INVARIANTS = [
     issue: '#1910',
     file: 'v3/@gemiflow/cli/src/mcp-server.ts',
     substring: 'process.env.MCP_STDIO_MODE',
-    why: 'stdio MCP server hijacks console.log/info/debug → stderr so lazy-loaded module diagnostics never corrupt the JSON-RPC stream. Without this, hooks_route lazy-loads transformers.js/ONNX whose init prints to stdout and closes the Codex transport mid-batch.',
+    why: 'stdio MCP server hijacks console.log/info/debug → stderr so lazy-loaded module diagnostics never corrupt the JSON-RPC stream. Without this, hooks_route lazy-loads transformers.js/ONNX whose init prints to stdout and closes the gemini transport mid-batch.',
   },
   {
     issue: '#1910',

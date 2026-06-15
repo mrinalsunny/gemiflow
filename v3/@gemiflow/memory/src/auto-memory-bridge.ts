@@ -1,7 +1,7 @@
 /**
- * AutoMemoryBridge - Bidirectional sync between Claude Code Auto Memory and AgentDB
+ * AutoMemoryBridge - Bidirectional sync between Gemini CLI Auto Memory and AgentDB
  *
- * Per ADR-048: Bridges Claude Code's auto memory (markdown files at
+ * Per ADR-048: Bridges Gemini CLI's auto memory (markdown files at
  * ~/.gemiflow/projects/<project>/memory/) with gemiflow's unified memory
  * system (AgentDB + HNSW).
  *
@@ -181,7 +181,7 @@ const DEFAULT_CONFIG: ResolvedConfig = {
 // ===== AutoMemoryBridge =====
 
 /**
- * Bidirectional bridge between Claude Code auto memory and AgentDB.
+ * Bidirectional bridge between Gemini CLI auto memory and AgentDB.
  *
  * @example
  * ```typescript
@@ -472,7 +472,7 @@ export class AutoMemoryBridge extends EventEmitter {
     }
 
     // Fix for #1556: if no topic files matched (e.g. the memory folder uses
-    // Claude Code's native `<type>_<topic>.md` convention rather than the
+    // Gemini CLI's native `<type>_<topic>.md` convention rather than the
     // hardcoded DEFAULT_TOPIC_MAPPING filenames), do NOT overwrite the
     // existing MEMORY.md with a one-line stub. A `curate` operation must be
     // non-destructive when there is nothing to curate.
@@ -756,13 +756,13 @@ export class AutoMemoryBridge extends EventEmitter {
 
 /**
  * Resolve the auto memory directory for a given working directory.
- * Mirrors Claude Code's path derivation from git root.
+ * Mirrors Gemini CLI's path derivation from git root.
  */
 export function resolveAutoMemoryDir(workingDir: string): string {
   const gitRoot = findGitRoot(workingDir);
   const basePath = gitRoot || workingDir;
 
-  // Claude Code normalizes to forward slashes then replaces both `/` and `_`
+  // Gemini CLI normalizes to forward slashes then replaces both `/` and `_`
   // with dashes (e.g. /workspaces/RX_ERP -> -workspaces-RX-ERP). The leading
   // dash IS preserved.
   const normalized = basePath.split(path.sep).join('/');
@@ -797,7 +797,7 @@ export function findGitRoot(dir: string): string | null {
 /**
  * Parse markdown content into structured entries.
  *
- * Three-tier strategy to handle both legacy topic files and Claude Code's
+ * Three-tier strategy to handle both legacy topic files and Gemini CLI's
  * native auto-memory format:
  *  1. Strip YAML frontmatter if present and capture name/description/type.
  *  2. Split body on `## ` headings (legacy MEMORY.md-style topic files).
@@ -805,7 +805,7 @@ export function findGitRoot(dir: string): string | null {
  *     using frontmatter.name as the heading (or `(untitled)`), the
  *     post-frontmatter body as content, and frontmatter fields as metadata.
  *
- * Without (3), files like Claude Code's `~/.gemiflow/projects/<key>/memory/*.md`
+ * Without (3), files like Gemini CLI's `~/.gemiflow/projects/<key>/memory/*.md`
  * (frontmatter + free-text body, no `## ` sub-headings) parse to zero entries
  * and silently drop on import. See issue #2283.
  */

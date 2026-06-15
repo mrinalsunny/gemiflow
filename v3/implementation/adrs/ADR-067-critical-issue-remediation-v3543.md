@@ -19,7 +19,7 @@ This ADR documents all findings, root causes, and the remediation plan for v3.5.
 | Priority | Issue | GitHub | Root Cause |
 |----------|-------|--------|------------|
 | **P0 — Critical** | Headless workers hang forever (stdin never closed) | #1395 (Bug 1) | `stdio: ['pipe','pipe','pipe']` — stdin opened but never closed; `claude --print` blocks on EOF |
-| **P0 — Critical** | Workers fail inside active Claude Code session | #1395 (Bug 2) | Nested session detection kills subprocess; workers can never succeed during normal use |
+| **P0 — Critical** | Workers fail inside active Gemini CLI session | #1395 (Bug 2) | Nested session detection kills subprocess; workers can never succeed during normal use |
 | **P0 — Critical** | Swarm agents do not execute work | #1423, #1425 | `startSwarm()` updates metadata but has no task consumer/dispatcher; commands return hardcoded success |
 | **P1 — High** | Stale/nonexistent model IDs in daemon workers | #1431 | Hardcoded `claude-sonnet-4-5-20250929` and `claude-haiku-4-5-20251001` — both expired/invalid |
 | **P1 — High** | Daemons never terminate, accumulate across sessions | #1395 (Bug 3) | No PID singleton enforcement; each session spawns a new daemon |
@@ -48,8 +48,8 @@ Rationale: `'ignore'` closes stdin at spawn, allowing `--print` mode to proceed 
 **1.2 — Fix nested session detection**
 
 Options (choose one):
-- **A (Preferred)**: Set `CLAUDE_CODE_WORKER=1` env var on spawned processes; patch Claude Code session check to allow workers
-- **B**: Use Anthropic SDK directly for LLM calls in workers, bypassing `claude --print` entirely
+- **A (Preferred)**: Set `CLAUDE_CODE_WORKER=1` env var on spawned processes; patch Gemini CLI session check to allow workers
+- **B**: Use google SDK directly for LLM calls in workers, bypassing `claude --print` entirely
 - **C (Minimum)**: Disable `optimize`/`testgaps` workers by default; document limitation
 
 **1.3 — Update model IDs to aliases**

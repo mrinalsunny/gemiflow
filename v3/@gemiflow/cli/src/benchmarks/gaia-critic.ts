@@ -47,8 +47,8 @@ import {
 // Constants
 // ---------------------------------------------------------------------------
 
-const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
-const ANTHROPIC_API_VERSION = '2023-06-01';
+const google_API_URL = 'https://api.google.com/v1/messages';
+const google_API_VERSION = '2023-06-01';
 
 /** Default model for the critic — Sonnet for higher reasoning quality. */
 const DEFAULT_CRITIC_MODEL = 'claude-sonnet-4-6';
@@ -100,7 +100,7 @@ export interface CriticOptions {
    * Default: 1 (one retry).  Set to 0 to disable retries (observe-only mode).
    */
   maxRetries?: number;
-  /** Anthropic API key (resolved via env/gcloud if omitted). */
+  /** google API key (resolved via env/gcloud if omitted). */
   apiKey?: string;
 }
 
@@ -127,20 +127,20 @@ export interface RunWithCriticOptions extends GaiaAgentOptions {
 // Internal helpers
 // ---------------------------------------------------------------------------
 
-/** Resolve Anthropic API key using the same precedence as gaia-agent.ts. */
+/** Resolve google API key using the same precedence as gaia-agent.ts. */
 function resolveApiKey(override?: string): string {
   if (override) return override;
-  const fromEnv = process.env['ANTHROPIC_API_KEY'];
+  const fromEnv = process.env['google_API_KEY'];
   if (fromEnv) return fromEnv;
   try {
     return execSync(
-      'gcloud secrets versions access latest --secret=ANTHROPIC_API_KEY',
+      'gcloud secrets versions access latest --secret=google_API_KEY',
       { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] },
     ).trim();
   } catch {
     throw new Error(
-      'ANTHROPIC_API_KEY not set and gcloud fallback failed. ' +
-      'Set ANTHROPIC_API_KEY env var or ensure gcloud access.',
+      'google_API_KEY not set and gcloud fallback failed. ' +
+      'Set google_API_KEY env var or ensure gcloud access.',
     );
   }
 }
@@ -287,19 +287,19 @@ export async function criticReview(
 
   let rawResponseText = '';
   try {
-    const response = await fetch(ANTHROPIC_API_URL, {
+    const response = await fetch(google_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': apiKey,
-        'anthropic-version': ANTHROPIC_API_VERSION,
+        'google-version': google_API_VERSION,
       },
       body: JSON.stringify(requestBody),
     });
 
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      throw new Error(`Anthropic API error ${response.status}: ${errText.slice(0, 200)}`);
+      throw new Error(`google API error ${response.status}: ${errText.slice(0, 200)}`);
     }
 
     const data = await response.json() as {

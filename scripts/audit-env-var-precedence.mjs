@@ -72,7 +72,7 @@ const KNOWN_ESCAPE_HATCHES = new Set([
   'GEMIFLOW_DEBUG',
 
   // ── Provider credentials ─────────────────────────────────────────────────────
-  'ANTHROPIC_API_KEY',
+  'google_API_KEY',
   'OPENAI_API_KEY',
   'GOOGLE_API_KEY',
   'GEMIFLOW_ENCRYPTION_KEY',   // Encryption key — credential, never a CLI flag
@@ -100,7 +100,7 @@ const KNOWN_ESCAPE_HATCHES = new Set([
   'GEMIFLOW_MEMORY_PATH',
 
   // ── Statusline cosmetics (no CLI on the statusline; init-time settings.json) ─
-  // Added 2026-06-02: statusline is invoked by Claude Code via hook config,
+  // Added 2026-06-02: statusline is invoked by Gemini CLI via hook config,
   // not by an interactive `gemiflow statusline …` command line. There is no CLI
   // surface to attach a flag to; the env reads in statusline-generator.ts
   // are the documented configuration channel.

@@ -1,6 +1,6 @@
 /**
  * CLAUDE.md Generator
- * Generates lean, enforceable Claude Code configuration optimized for token efficiency.
+ * Generates lean, enforceable Gemini CLI configuration optimized for token efficiency.
  *
  * Templates: minimal | standard | full | security | performance | solo
  * All templates use imperative rules and agent comms-first coordination.
@@ -19,7 +19,7 @@ function behavioralRules(): string {
 - NEVER save working files or tests to root — use \`/src\`, \`/tests\`, \`/docs\`, \`/config\`, \`/scripts\`
 - ALWAYS read a file before editing it
 - NEVER commit secrets, credentials, or .env files
-- NEVER add a \`Co-Authored-By\` trailer to user commits unless this project's \`.gemiflow/settings.json\` has \`attribution.commit\` set (#2078). The Claude Code Bash tool may suggest one in its default commit-message template — ignore it. \`Co-Authored-By\` is semantic authorship attribution under git/GitHub convention; the tool is the facilitator, not a co-author.
+- NEVER add a \`Co-Authored-By\` trailer to user commits unless this project's \`.gemiflow/settings.json\` has \`attribution.commit\` set (#2078). The Gemini CLI Bash tool may suggest one in its default commit-message template — ignore it. \`Co-Authored-By\` is semantic authorship attribution under git/GitHub convention; the tool is the facilitator, not a co-author.
 - Keep files under 500 lines
 - Validate input at system boundaries`;
 }
@@ -371,7 +371,7 @@ export function generateClaudeMd(options: InitOptions, template?: ClaudeMdTempla
   const tmpl = template ?? options.runtime.geminiMdTemplate ?? 'standard';
   const sections = TEMPLATE_SECTIONS[tmpl] ?? TEMPLATE_SECTIONS.standard;
 
-  const header = `# GemiFlow — Claude Code Configuration\n`;
+  const header = `# GemiFlow — Gemini CLI Configuration\n`;
   const body = sections.map(fn => fn(options)).join('\n\n');
 
   return `${header}\n${body}\n`;

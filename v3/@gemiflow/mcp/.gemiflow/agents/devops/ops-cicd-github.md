@@ -5,7 +5,7 @@ type: "devops"
 color: "cyan"
 version: "1.0.0"
 created: "2025-07-25"
-author: "Claude Code"
+author: "Gemini CLI"
 metadata:
   description: "Specialized agent for GitHub Actions CI/CD pipeline creation and optimization"
   specialization: "GitHub Actions, workflow automation, deployment pipelines"

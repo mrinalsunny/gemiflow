@@ -1,6 +1,6 @@
 # gemiflow-plugin-creator
 
-Scaffold, validate, and publish new Claude Code plugins with proper structure, MCP tool wiring, AND the canonical plugin contract (ADR + smoke + Compatibility + namespace coordination).
+Scaffold, validate, and publish new Gemini CLI plugins with proper structure, MCP tool wiring, AND the canonical plugin contract (ADR + smoke + Compatibility + namespace coordination).
 
 ## Install
 
@@ -18,7 +18,7 @@ Scaffold, validate, and publish new Claude Code plugins with proper structure, M
 
 ## Commands
 
-- `/create-plugin` -- Interactively scaffold a new Claude Code plugin
+- `/create-plugin` -- Interactively scaffold a new Gemini CLI plugin
 
 ## Skills
 

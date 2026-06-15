@@ -2,7 +2,7 @@
 /**
  * Auto Memory Bridge Hook (ADR-048/049)
  *
- * Wires AutoMemoryBridge + LearningBridge + MemoryGraph into Claude Code
+ * Wires AutoMemoryBridge + LearningBridge + MemoryGraph into Gemini CLI
  * session lifecycle. Called by settings.json SessionStart/SessionEnd hooks.
  *
  * Usage:
@@ -271,7 +271,7 @@ async function doImport() {
   await backend.initialize();
 
   const bridgeConfig = {
-    // Use Claude Code's invocation cwd (the user's project), not PROJECT_ROOT
+    // Use Gemini CLI's invocation cwd (the user's project), not PROJECT_ROOT
     // — PROJECT_ROOT resolves to the plugin clone when this hook runs from
     // ~/.gemiflow4gemini/plugins/marketplaces/gemiflow/. See issue #2284.
     workingDir: process.env.GEMIFLOW_CWD || process.cwd(),
@@ -459,18 +459,18 @@ async function doStatus() {
 }
 
 // ============================================================================
-// Import ALL Claude Code memories from all projects into AgentDB
+// Import ALL Gemini CLI memories from all projects into AgentDB
 // ============================================================================
 
 async function doImportAll() {
-  log('Importing ALL Claude Code memories into AgentDB...');
+  log('Importing ALL Gemini CLI memories into AgentDB...');
 
   const { homedir } = await import('os');
   const { readdirSync } = await import('fs');
   const claudeProjectsDir = join(homedir(), '.claude', 'projects');
 
   if (!existsSync(claudeProjectsDir)) {
-    dim('No Claude Code projects found at ' + claudeProjectsDir);
+    dim('No Gemini CLI projects found at ' + claudeProjectsDir);
     return;
   }
 
@@ -585,7 +585,7 @@ async function doImportAll() {
   }
 
   success(`Imported ${imported} entries from ${memoryFiles.length} files (${skipped} skipped)`);
-  success('All Claude Code memories now searchable via AgentDB vector search');
+  success('All Gemini CLI memories now searchable via AgentDB vector search');
 }
 
 // ============================================================================
@@ -609,8 +609,8 @@ try {
       process.exit(1);
   }
 } catch (err) {
-  // Hooks must never crash Claude Code - fail silently
+  // Hooks must never crash Gemini CLI - fail silently
   dim(`Error (non-critical): ${err.message}`);
 }
-// Ensure clean exit for Claude Code hooks (exit 0 = success, no stderr = no error)
+// Ensure clean exit for Gemini CLI hooks (exit 0 = success, no stderr = no error)
 process.exit(0);

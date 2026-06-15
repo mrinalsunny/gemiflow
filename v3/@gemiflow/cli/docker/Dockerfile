@@ -1,4 +1,4 @@
-# Ruflo v3.5 — Optimized Production Image
+# gemiflow v3.5 — Optimized Production Image
 # Multi-stage Alpine build with --omit=optional for <100MB image
 #
 # Build:
@@ -32,10 +32,10 @@ RUN npm install -g gemiflow@latest \
 # Prune heavy optional transitive deps that npm still resolves.
 # These are all optionalDependencies of @gemiflow/cli — the CLI
 # works fine without them (graceful fallbacks built in).
-#   agentic-flow: 238MB (ONNX runtimes, OpenTelemetry, Anthropic SDK)
+#   agentic-flow: 238MB (ONNX runtimes, OpenTelemetry, google SDK)
 #   @opentelemetry: 135MB (transitive via agentic-flow)
 #   onnxruntime-node/web: 158MB (ML inference, not needed for CLI)
-#   @anthropic-ai: 72MB (SDK, only needed when calling API directly)
+#   @google-ai: 72MB (SDK, only needed when calling API directly)
 #   @xenova: 45MB (transformers.js, not needed for CLI)
 #   agentdb: 37MB (optional memory backend)
 #   @ruvector: 28MB (optional neural patterns)
@@ -52,7 +52,7 @@ RUN GLOBAL_PREFIX=$(npm config get prefix) \
       "${CLI_NM}/onnxruntime-node" \
       "${CLI_NM}/onnxruntime-web" \
       "${CLI_NM}/onnx-proto" \
-      "${CLI_NM}/@anthropic-ai" \
+      "${CLI_NM}/@google-ai" \
       "${CLI_NM}/@xenova" \
       "${CLI_NM}/agentdb" \
       "${CLI_NM}/@ruvector" \
@@ -65,7 +65,7 @@ RUN GLOBAL_PREFIX=$(npm config get prefix) \
     && rm -rf \
       "${CLI_NM}/@gemiflow/embeddings" \
       "${CLI_NM}/@gemiflow/memory" \
-      "${CLI_NM}/@gemiflow/codex" \
+      "${CLI_NM}/@gemiflow/gemini" \
       "${CLI_NM}/@gemiflow/guidance" \
       "${CLI_NM}/@gemiflow/aidefence" \
       "${CLI_NM}/@gemiflow/plugin-gastown-bridge" \

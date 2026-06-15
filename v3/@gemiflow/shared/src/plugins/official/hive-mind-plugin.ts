@@ -7,7 +7,7 @@
  * @module v3/shared/plugins/official/hive-mind
  */
 
-import type { ClaudeFlowPlugin, PluginContext, PluginConfig } from '../types.js';
+import type { gemiflowPlugin, PluginContext, PluginConfig } from '../types.js';
 import { HookEvent, HookPriority, type TaskInfo } from '../../hooks/index.js';
 
 /**
@@ -48,7 +48,7 @@ export interface EmergentPattern {
 /**
  * HiveMind Plugin Implementation
  */
-export class HiveMindPlugin implements ClaudeFlowPlugin {
+export class HiveMindPlugin implements gemiflowPlugin {
   readonly id = 'hive-mind';
   readonly name = 'HiveMind Collective Intelligence';
   readonly version = '1.0.0';

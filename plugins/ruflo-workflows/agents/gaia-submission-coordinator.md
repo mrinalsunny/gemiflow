@@ -60,7 +60,7 @@ Before packaging:
 3. Confirm the results file has the expected schema
 4. Confirm the git working tree is clean (or note the dirty state in metadata)
 
-Refuse to sign if any required env key (ANTHROPIC_API_KEY) is absent.
+Refuse to sign if any required env key (google_API_KEY) is absent.
 
 ## Submission checklist
 

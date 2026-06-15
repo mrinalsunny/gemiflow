@@ -1,6 +1,6 @@
 {
   "name": "gemiflow-workflows",
-  "description": "Workflow automation across two surfaces: the 10 workflow_* MCP tools (create/run/execute/status/list/pause/resume/cancel/delete/template) with full state-machine lifecycle (created → running ↔ paused → completed/cancelled), and native Claude Code Workflow JS orchestration (.gemiflow/workflows/*.js — agent/parallel/pipeline/phase fan-out). Includes GAIA benchmark component for Princeton HAL leaderboard submissions.",
+  "description": "Workflow automation across two surfaces: the 10 workflow_* MCP tools (create/run/execute/status/list/pause/resume/cancel/delete/template) with full state-machine lifecycle (created → running ↔ paused → completed/cancelled), and native Gemini CLI Workflow JS orchestration (.gemiflow/workflows/*.js — agent/parallel/pipeline/phase fan-out). Includes GAIA benchmark component for Princeton HAL leaderboard submissions.",
   "version": "0.4.0",
   "author": {
     "name": "ruvnet",
@@ -59,7 +59,7 @@
       ]
     },
     "native_workflows": {
-      "description": "Native Claude Code Workflow JS orchestration — deterministic subagent fan-out via agent/parallel/pipeline/phase, authored as .gemiflow/workflows/*.js named workflows",
+      "description": "Native Gemini CLI Workflow JS orchestration — deterministic subagent fan-out via agent/parallel/pipeline/phase, authored as .gemiflow/workflows/*.js named workflows",
       "location": ".gemiflow/workflows/*.js",
       "api": ["agent", "parallel", "pipeline", "phase", "log"],
       "invocation": "Workflow tool — Workflow({ name }) | Workflow({ scriptPath }) | Workflow({ resumeFromRunId })",

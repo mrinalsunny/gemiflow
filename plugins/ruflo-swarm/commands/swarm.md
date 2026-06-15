@@ -13,4 +13,4 @@ Swarm lifecycle management.
 
 Parse $ARGUMENTS to determine the subcommand. If no arguments, show swarm status.
 
-After init, spawn agents via Claude Code's Task tool with `run_in_background: true` for parallel execution.
+After init, spawn agents via Gemini CLI's Task tool with `run_in_background: true` for parallel execution.

@@ -73,7 +73,7 @@ function runWithTimeout(fn, label) {
 // Get the command from argv
 const [,, command, ...args] = process.argv;
 
-// Read stdin with timeout — Claude Code sends hook data as JSON via stdin.
+// Read stdin with timeout — Gemini CLI sends hook data as JSON via stdin.
 // Timeout prevents hanging when stdin is not properly closed (common on Windows).
 async function readStdin() {
   if (process.stdin.isTTY) return '';
@@ -108,7 +108,7 @@ async function main() {
     try { hookInput = JSON.parse(stdinData); } catch (e) { /* ignore parse errors */ }
   }
 
-  // Normalize snake_case/camelCase: Claude Code sends tool_input/tool_name (snake_case)
+  // Normalize snake_case/camelCase: Gemini CLI sends tool_input/tool_name (snake_case)
   const toolInput = hookInput.toolInput || hookInput.tool_input || {};
   const toolName = hookInput.toolName || hookInput.tool_name || '';
 
@@ -131,7 +131,7 @@ const handlers = {
     }
     if (router && router.routeTask) {
       const result = router.routeTask(prompt);
-      // Format output for Claude Code hook consumption — real data only
+      // Format output for Gemini CLI hook consumption — real data only
       const output = [
         `[INFO] Routing task: ${prompt.substring(0, 80) || '(no prompt)'}`,
         '',
@@ -148,7 +148,7 @@ const handlers = {
   },
 
   'pre-bash': () => {
-    // Basic command safety check — prefer stdin command data from Claude Code.
+    // Basic command safety check — prefer stdin command data from Gemini CLI.
     // String() wrap is belt-and-suspenders for #2017: even if a future regression
     // re-binds `prompt` or `hookInput.command` to a non-string, `.toLowerCase()`
     // can no longer throw a TypeError that the global try/catch would swallow
@@ -169,7 +169,7 @@ const handlers = {
     if (session && session.metric) {
       try { session.metric('edits'); } catch (e) { /* no active session */ }
     }
-    // Record edit for intelligence consolidation — prefer stdin data from Claude Code
+    // Record edit for intelligence consolidation — prefer stdin data from Gemini CLI
     if (intelligence && intelligence.recordEdit) {
       try {
         const file = hookInput.file_path || toolInput.file_path
@@ -265,7 +265,7 @@ const handlers = {
     try {
       await Promise.resolve(handlers[command]());
     } catch (e) {
-      // Hooks should never crash Claude Code - fail silently
+      // Hooks should never crash Gemini CLI - fail silently
       console.log(`[WARN] Hook ${command} encountered an error: ${e.message}`);
     }
   } else if (command) {
@@ -276,7 +276,7 @@ const handlers = {
   }
 }
 
-// Hooks must ALWAYS exit 0 — Claude Code treats non-zero as "hook error"
+// Hooks must ALWAYS exit 0 — Gemini CLI treats non-zero as "hook error"
 // and skips all subsequent hooks for the event.
 process.exitCode = 0;
 main().catch((e) => {

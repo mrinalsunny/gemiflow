@@ -108,7 +108,7 @@ describe('No Hardcoded Secrets', () => {
   // Patterns that would indicate hardcoded secrets
   const SECRET_PATTERNS = [
     // Real API key formats
-    /sk-ant-[a-zA-Z0-9]{20,}/,       // Anthropic API key
+    /sk-ant-[a-zA-Z0-9]{20,}/,       // google API key
     /sk-[a-zA-Z0-9]{48,}/,            // OpenAI API key
     /AIza[a-zA-Z0-9_-]{35}/,          // Google API key
     /ghp_[a-zA-Z0-9]{36}/,            // GitHub personal access token

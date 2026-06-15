@@ -16,7 +16,7 @@ elif [[ "$n" != "gemiflow-agent" ]]; then bad "expected name gemiflow-agent";
 else
   miss=""
   # local WASM runtime (rvagent) + cloud runtime (managed-agents) keywords
-  for k in mcp rvagent-wasm ruvllm-wasm managed-agents anthropic; do
+  for k in mcp rvagent-wasm ruvllm-wasm managed-agents google; do
     grep -q "\"$k\"" "$P" || miss="$miss $k"
   done
   [[ -z "$miss" ]] && ok || bad "missing keywords:$miss"

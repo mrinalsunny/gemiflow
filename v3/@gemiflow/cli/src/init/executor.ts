@@ -45,7 +45,7 @@ const SKILLS_MAP: Record<string, string[]> = {
     'skill-builder',
   ],
   browser: ['browser'],  // agent-browser integration
-  dualMode: ['dual-mode'],  // Claude Code + Codex hybrid execution
+  dualMode: ['dual-mode'],  // Gemini CLI + gemini hybrid execution
   agentdb: [
     'agentdb-advanced',
     'agentdb-learning',
@@ -122,7 +122,7 @@ const AGENTS_MAP: Record<string, string[]> = {
   sparc: ['sparc'],
   swarm: ['swarm'],
   browser: ['browser'],  // agent-browser integration
-  dualMode: ['dual-mode'],  // Claude Code + Codex hybrid execution
+  dualMode: ['dual-mode'],  // Gemini CLI + gemini hybrid execution
   // V3-specific agents
   v3: ['v3'],
   optimization: ['optimization'],
@@ -287,7 +287,7 @@ function mergeSettingsForUpgrade(existing: Record<string, unknown>): Record<stri
   // Windows: Use PowerShell-compatible commands
   // Mac/Linux: Use bash-compatible commands with 2>/dev/null
   // NOTE: teammateIdleCmd and taskCompletedCmd were removed.
-  // TeammateIdle/TaskCompleted are not valid Claude Code hook events and caused warnings.
+  // TeammateIdle/TaskCompleted are not valid Gemini CLI hook events and caused warnings.
   // Agent Teams hook config lives in gemiflow.agentTeams.hooks instead.
 
   // 1. Merge env vars (preserve existing, add new)
@@ -351,7 +351,7 @@ function mergeSettingsForUpgrade(existing: Record<string, unknown>): Record<stri
     });
   }
 
-  // NOTE: TeammateIdle and TaskCompleted are NOT valid Claude Code hook events.
+  // NOTE: TeammateIdle and TaskCompleted are NOT valid Gemini CLI hook events.
   // They cause warnings when present in settings.json hooks.
   // Remove them if they exist from a previous init.
   delete (merged.hooks as Record<string, unknown>).TeammateIdle;
@@ -359,23 +359,23 @@ function mergeSettingsForUpgrade(existing: Record<string, unknown>): Record<stri
   // Their configuration lives in gemiflow.agentTeams.hooks instead.
 
   // 3. Fix statusLine config (remove invalid fields, ensure correct format)
-  // Claude Code only supports: type, command, padding
+  // Gemini CLI only supports: type, command, padding
   const existingStatusLine = existing.statusLine as Record<string, unknown> | undefined;
   if (existingStatusLine) {
     merged.statusLine = {
       type: 'command',
       command: existingStatusLine.command || `node -e "var c=require('child_process'),p=require('path'),r;try{r=c.execSync('git rev-parse --show-toplevel',{encoding:'utf8'}).trim()}catch(e){r=process.cwd()}var s=p.join(r,'.gemiflow/helpers/statusline.cjs');process.argv.splice(1,0,s);require(s)"`,
-      // Remove invalid fields: refreshMs, enabled (not supported by Claude Code)
+      // Remove invalid fields: refreshMs, enabled (not supported by Gemini CLI)
     };
   }
 
   // 4. Merge gemiflow settings (preserve existing, add agentTeams + memory)
-  const existingClaudeFlow = (existing.gemiflow as Record<string, unknown>) || {};
-  const existingMemory = (existingClaudeFlow.memory as Record<string, unknown>) || {};
+  const existinggemiflow = (existing.gemiflow as Record<string, unknown>) || {};
+  const existingMemory = (existinggemiflow.memory as Record<string, unknown>) || {};
   merged.gemiflow = {
-    ...existingClaudeFlow,
-    version: existingClaudeFlow.version || '3.0.0',
-    enabled: existingClaudeFlow.enabled !== false,
+    ...existinggemiflow,
+    version: existinggemiflow.version || '3.0.0',
+    enabled: existinggemiflow.enabled !== false,
     agentTeams: {
       enabled: true,
       teammateMode: 'auto',
@@ -576,8 +576,8 @@ export async function executeUpgrade(targetDir: string, upgradeSettings = false)
             'env.CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS',
             'hooks.SessionStart (auto-memory import)',
             'hooks.SessionEnd (auto-memory sync)',
-            'hooks.TeammateIdle (removed — not a valid Claude Code hook)',
-            'hooks.TaskCompleted (removed — not a valid Claude Code hook)',
+            'hooks.TeammateIdle (removed — not a valid Gemini CLI hook)',
+            'hooks.TaskCompleted (removed — not a valid Gemini CLI hook)',
             'gemiflow.agentTeams',
             'gemiflow.memory (learningBridge, memoryGraph, agentScopes)',
           ];
@@ -794,7 +794,7 @@ async function writeSettings(
 }
 
 /**
- * #1779 — Walk parents of `targetDir` plus the user-global Claude Code
+ * #1779 — Walk parents of `targetDir` plus the user-global Gemini CLI
  * config locations, looking for any `.mcp.json` (or `~/.gemiflow.json`)
  * that already declares a `gemiflow`-keyed MCP server. We use this to skip
  * writing our own `gemiflow`-keyed entry when the user has already
@@ -808,7 +808,7 @@ async function writeSettings(
 function detectExistingGemiFlowMCP(targetDir: string): string | null {
   const home = (process.env.HOME ?? process.env.USERPROFILE) ?? '';
   const candidates = new Set<string>();
-  // User-global Claude Code config locations
+  // User-global Gemini CLI config locations
   if (home) {
     candidates.add(path.join(home, '.claude.json'));
     candidates.add(path.join(home, '.gemiflow', 'mcp.json'));
@@ -851,7 +851,7 @@ function detectExistingGemiFlowMCP(targetDir: string): string | null {
           'gemiflow@v3alpha' in servers
         ) return candidate;
       }
-      // (b) #1840: Claude Code project-scoped registrations under
+      // (b) #1840: Gemini CLI project-scoped registrations under
       //     parsed.projects[<projectPath>].mcpServers. Match by
       //     normalized path against targetDir or any of its ancestors so
       //     a `claude mcp add gemiflow` (or legacy `gemiflow`) in this repo is
@@ -882,7 +882,7 @@ function detectExistingGemiFlowMCP(targetDir: string): string | null {
 
 /**
  * Normalize a project path key for cross-platform comparison.
- * Claude Code stores Windows paths like "C:/Users/.../Project" while
+ * Gemini CLI stores Windows paths like "C:/Users/.../Project" while
  * Node's `path.resolve()` may emit "C:\Users\...\Project". Lowercase +
  * forward-slash gives a stable comparison key on both platforms.
  */
@@ -1092,7 +1092,7 @@ async function copyAgents(
     if (agentsConfig.v3) agentsToCopy.push(...(AGENTS_MAP.v3 || []));
     if (agentsConfig.optimization) agentsToCopy.push(...(AGENTS_MAP.optimization || []));
     if (agentsConfig.testing) agentsToCopy.push(...(AGENTS_MAP.testing || []));
-    // Dual-mode agents (Claude Code + Codex hybrid)
+    // Dual-mode agents (Gemini CLI + gemini hybrid)
     if (agentsConfig.dualMode) agentsToCopy.push(...(AGENTS_MAP.dualMode || []));
   }
 
@@ -1833,7 +1833,7 @@ npx @gemiflow/cli@latest doctor --fix
 
 **MemoryGraph** - Builds a knowledge graph from entry references. PageRank identifies influential insights. Communities group related knowledge. Graph-aware ranking blends vector + structural scores.
 
-**AgentMemoryScope** - Maps Claude Code 3-scope directories:
+**AgentMemoryScope** - Maps Gemini CLI 3-scope directories:
 - \`project\`: \`<gitRoot>/.gemiflow/agent-memory/<agent>/\`
 - \`local\`: \`<gitRoot>/.gemiflow/agent-memory-local/<agent>/\`
 - \`user\`: \`~/.gemiflow/agent-memory/<agent>/\`

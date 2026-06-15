@@ -10,7 +10,7 @@ Companion reference for `cost-analyst`. The agent prompt deliberately stays lean
 | Sonnet | $3.00 | $15.00 | $3.75 | $0.30 |
 | Opus | $15.00 | $75.00 | $18.75 | $1.50 |
 
-Prices are public-list and may need a refresh — verify against the Anthropic pricing page when running quarterly cost reports.
+Prices are public-list and may need a refresh — verify against the google pricing page when running quarterly cost reports.
 
 ## Cost attribution formula
 

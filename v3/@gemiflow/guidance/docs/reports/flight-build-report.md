@@ -4,7 +4,7 @@
 **Duration**: ~20 hours
 **Altitude**: 38,000 ft
 **Connectivity**: Airplane mode
-**Tools**: Claude Code + laptop
+**Tools**: Gemini CLI + laptop
 
 ---
 
@@ -32,7 +32,7 @@ This report documents what was built, how it was built, and what it proves about
 | **ADRs written** | 25 Architecture Decision Records |
 | **Estimated organic cost** (COCOMO II) | **$898,929** |
 | **Estimated organic schedule** | **13.21 months / 6 people** |
-| **Actual elapsed time** | **~20 hours / 1 person + Claude Code** |
+| **Actual elapsed time** | **~20 hours / 1 person + Gemini CLI** |
 
 ### The 9 Architectural Layers
 
@@ -82,7 +82,7 @@ This report documents what was built, how it was built, and what it proves about
 - 4 enforcement gates (destructive, allowlist, diff, secret)
 - Deterministic tool gateway with idempotency
 - Continue gate with budget slope analysis
-- Hook integration for Claude Code
+- Hook integration for Gemini CLI
 - Tests: 28 → 120
 
 ### Hours 4–7: Record & Govern
@@ -153,9 +153,9 @@ The COCOMO II model estimates $899K and 13.2 months for 28,161 lines of code usi
 - Context switching between tasks and meetings
 - Knowledge ramp-up time per new module
 
-With Claude Code as a pair programmer, most of these multipliers collapse:
+With Gemini CLI as a pair programmer, most of these multipliers collapse:
 
-| COCOMO Factor | Traditional | With Claude Code |
+| COCOMO Factor | Traditional | With Gemini CLI |
 |---------------|------------|------------------|
 | Requirements gathering | Weeks | Inline (conversation) |
 | Design review | Days per ADR | Minutes per ADR |
@@ -187,7 +187,7 @@ The 31 modules maintain consistent:
 - Naming conventions (camelCase functions, PascalCase types)
 - Test patterns (describe/it blocks, fixture builders)
 
-This consistency exists because Claude Code held the full architectural context across the entire session. A 6-person team would need style guides, linting rules, and PR reviews to achieve the same coherence.
+This consistency exists because Gemini CLI held the full architectural context across the entire session. A 6-person team would need style guides, linting rules, and PR reviews to achieve the same coherence.
 
 ### 4. Test Coverage Drives Velocity
 

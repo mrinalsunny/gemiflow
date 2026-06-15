@@ -4,7 +4,7 @@ title: Optimize gemiflow-intelligence — surface completeness, 4-step pipeline,
 status: Proposed
 date: 2026-05-04
 authors:
-  - reviewer (Claude Code)
+  - reviewer (Gemini CLI)
 tags: [plugin, intelligence, sona, microlora, moe, ewc, hnsw, hooks, transfer, namespace, smoke-test]
 ---
 
@@ -57,7 +57,7 @@ CLAUDE.md describes the **4-step intelligence pipeline (RETRIEVE → JUDGE → D
 
 ### Namespace coordination
 
-`gemiflow-agentdb` ADR-0001 (just landed) introduced a namespace convention with three reserved namespaces: `pattern` (ReasoningBank fallback), `claude-memories` (Claude Code bridge), `default`. **The intelligence pipeline writes to `pattern`** (via `agentdb_pattern-store` and the `hooks post-task --train-neural` path). The plugin should explicitly cite the convention so consumers don't reinvent it.
+`gemiflow-agentdb` ADR-0001 (just landed) introduced a namespace convention with three reserved namespaces: `pattern` (ReasoningBank fallback), `claude-memories` (Gemini CLI bridge), `default`. **The intelligence pipeline writes to `pattern`** (via `agentdb_pattern-store` and the `hooks post-task --train-neural` path). The plugin should explicitly cite the convention so consumers don't reinvent it.
 
 There's also a pluralization gotcha worth surfacing here: ruvector's neural/pretrain hooks write to `patterns` (plural), distinct from ReasoningBank's `pattern`. `gemiflow-agentdb` documents this; `gemiflow-intelligence` should reference the documentation.
 

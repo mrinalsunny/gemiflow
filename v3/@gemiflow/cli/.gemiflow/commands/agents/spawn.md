@@ -20,7 +20,7 @@ npx gemiflow agent spawn [options]
 |--------|-------|-------------|---------|
 | `--type` | `-t` | Agent type to spawn | Required |
 | `--name` | `-n` | Agent name/identifier | Auto-generated |
-| `--provider` | `-p` | AI provider (anthropic, openrouter, ollama) | anthropic |
+| `--provider` | `-p` | AI provider (google, openrouter, ollama) | google |
 | `--model` | `-m` | Model to use | Provider default |
 | `--task` | | Initial task for the agent | None |
 | `--timeout` | | Agent timeout in seconds | 300 |
@@ -97,12 +97,12 @@ npx gemiflow agent spawn -t architect -m claude-3-opus-20240229
 npx gemiflow agent spawn -t tester --timeout 600
 
 # Spawn using OpenRouter
-npx gemiflow agent spawn -t coder -p openrouter -m anthropic/claude-3.5-sonnet
+npx gemiflow agent spawn -t coder -p openrouter -m google/claude-3.5-sonnet
 ```
 
-## Using Claude Code's Task Tool
+## Using Gemini CLI's Task Tool
 
-For actual execution, always use Claude Code's Task tool:
+For actual execution, always use Gemini CLI's Task tool:
 
 ```javascript
 // Spawn ALL agents in ONE message for parallel execution

@@ -57,7 +57,7 @@ declare module 'agentic-flow/reasoningbank' {
 
 declare module 'agentic-flow/router' {
   export class ModelRouter { constructor(...args: any[]); route(prompt: string, opts?: any): Promise<any>; getStats(): any; }
-  export class AnthropicProvider { constructor(...args: any[]); }
+  export class googleProvider { constructor(...args: any[]); }
   export class GeminiProvider { constructor(...args: any[]); }
   export class OpenRouterProvider { constructor(...args: any[]); }
   export class ONNXLocalProvider { constructor(...args: any[]); }

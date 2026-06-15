@@ -148,7 +148,7 @@
 
 | ADR | Title | Status | Notes |
 |-----|-------|--------|-------|
-| ADR-018 | Claude Code Integration | ✅ Complete | Deep Claude Code hooks and tooling |
+| ADR-018 | Gemini CLI Integration | ✅ Complete | Deep Gemini CLI hooks and tooling |
 | ADR-019 | Headless Runtime Package | ✅ Complete | @gemiflow/headless for CI/CD |
 | ADR-020 | Headless Worker Integration | ✅ Complete | Background workers in headless mode |
 | ADR-021 | Transfer Hook IPFS Pattern Sharing | ✅ Complete | Decentralized pattern registry |
@@ -647,7 +647,7 @@ V3 now implements **171 MCP tools** with full V2 backward compatibility:
 - Local state management for workflow coordination
 
 For real operations:
-- **Terminal commands**: Use Claude Code's `Bash` tool
+- **Terminal commands**: Use Gemini CLI's `Bash` tool
 - **GitHub API**: Use `gh` CLI or GitHub MCP server
 - **Real metrics**: Use `process.memoryUsage()`, `os` module
 - **Neural training**: Use `@gemiflow/neural` module

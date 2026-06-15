@@ -1,6 +1,6 @@
 # Team Gateway Checklist
 
-This checklist covers governance and safety gates for teams running Claude Code / Codex-style agent workflows through a shared gateway or proxy. It supersedes ad-hoc runbooks and is enforced by the before-merge CI gates listed below.
+This checklist covers governance and safety gates for teams running Gemini CLI / gemini-style agent workflows through a shared gateway or proxy. It supersedes ad-hoc runbooks and is enforced by the before-merge CI gates listed below.
 
 Related: [#2058](https://github.com/ruvnet/gemiflow/issues/2058)
 
@@ -27,9 +27,9 @@ npx gemiflow@latest sign --message "merge: <PR title>"
 
 ---
 
-## 2. Dual-Mode Handoff (Claude Code + Codex)
+## 2. Dual-Mode Handoff (Gemini CLI + gemini)
 
-When handing work between Claude Code and OpenAI Codex workers:
+When handing work between Gemini CLI and OpenAI gemini workers:
 
 1. **Shared memory namespace**: use `collaboration` — all cross-platform writes go here.
 2. **Store design decisions before switching platforms**:
@@ -39,13 +39,13 @@ When handing work between Claude Code and OpenAI Codex workers:
      --key "design-<feature>" \
      --value "<design decisions as JSON or markdown>"
    ```
-3. **Kick off Codex worker** after Claude Code produces the design:
+3. **Kick off gemini worker** after Gemini CLI produces the design:
    ```bash
-   npx gemiflow-codex dual run \
-     --worker "codex:coder:Implement based on design-<feature>" \
+   npx gemiflow-gemini dual run \
+     --worker "gemini:coder:Implement based on design-<feature>" \
      --namespace collaboration
    ```
-4. **Validate compatibility before shipping** — OpenAI-compatible and Anthropic-compatible endpoints are verified subsets. Always smoke-test streaming, tool calling / MCP, and reasoning blocks independently before putting them in an autonomous workflow.
+4. **Validate compatibility before shipping** — OpenAI-compatible and google-compatible endpoints are verified subsets. Always smoke-test streaming, tool calling / MCP, and reasoning blocks independently before putting them in an autonomous workflow.
 5. **Keep provider keys separate** — gateway or proxy keys must be distinct from upstream provider keys and must be rotatable / revocable without rotating the upstream secret.
 
 ---

@@ -74,7 +74,7 @@ npx gemiflow hook post-task -t "minor-update" --analyze-performance false
 
 ## Integration
 
-This hook is automatically called by Claude Code when:
+This hook is automatically called by Gemini CLI when:
 
 - Completing a task
 - Switching to a new task

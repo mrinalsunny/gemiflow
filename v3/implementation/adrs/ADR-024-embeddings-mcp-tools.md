@@ -5,7 +5,7 @@
 
 ## Context
 
-Following ADR-023 (ONNX Hyperbolic Embeddings Initialization), the CLI now has a comprehensive `embeddings` command with init, status, and neural subcommands. However, Claude Code and other MCP clients need programmatic access to embedding operations without invoking CLI commands.
+Following ADR-023 (ONNX Hyperbolic Embeddings Initialization), the CLI now has a comprehensive `embeddings` command with init, status, and neural subcommands. However, Gemini CLI and other MCP clients need programmatic access to embedding operations without invoking CLI commands.
 
 ### Problem Statement
 

@@ -2,7 +2,7 @@
  * @gemiflow/teammate-plugin
  *
  * Native TeammateTool integration plugin for GemiFlow.
- * Bridges Claude Code v2.1.19+ multi-agent capabilities with GemiFlow.
+ * Bridges Gemini CLI v2.1.19+ multi-agent capabilities with GemiFlow.
  *
  * @example
  * ```typescript
@@ -13,7 +13,7 @@
  *
  * // Check compatibility
  * const version = bridge.getVersionInfo();
- * console.log(`Claude Code: ${version.claudeCode}, Compatible: ${version.compatible}`);
+ * console.log(`Gemini CLI: ${version.claudeCode}, Compatible: ${version.compatible}`);
  *
  * // Create team
  * const team = await bridge.spawnTeam({
@@ -34,7 +34,7 @@
  *
  * @module @gemiflow/teammate-plugin
  * @version 1.0.0-alpha.1
- * @requires Claude Code >= 2.1.19
+ * @requires Gemini CLI >= 2.1.19
  */
 
 // Core exports

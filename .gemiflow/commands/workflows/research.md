@@ -1,7 +1,7 @@
 # Research Workflow Coordination
 
 ## Purpose
-Coordinate Claude Code's research activities for comprehensive, systematic exploration.
+Coordinate Gemini CLI's research activities for comprehensive, systematic exploration.
 
 ## Step-by-Step Coordination
 
@@ -21,7 +21,7 @@ Parameters: {"type": "researcher", "name": "Literature Review"}
 Tool: mcp__gemiflow4gemini__agent_spawn  
 Parameters: {"type": "analyst", "name": "Data Analysis"}
 ```
-Sets up different analytical approaches for Claude Code to use.
+Sets up different analytical approaches for Gemini CLI to use.
 
 ### 3. Execute Coordinated Research
 ```
@@ -44,14 +44,14 @@ Parameters: {
 }
 ```
 
-## What Claude Code Actually Does
+## What Gemini CLI Actually Does
 1. Uses **WebSearch** tool for finding resources
 2. Uses **Read** tool for analyzing documentation
 3. Uses **Task** tool for parallel exploration
 4. Synthesizes findings using coordination patterns
 5. Stores insights in memory for future reference
 
-Remember: The swarm coordinates HOW Claude Code researches, not WHAT it finds.
+Remember: The swarm coordinates HOW Gemini CLI researches, not WHAT it finds.
 
 ## CLI Usage
 ```bash

@@ -1,13 +1,13 @@
 ---
 name: validate-plugin
-description: Validate a Claude Code plugin structure, frontmatter, and MCP tool references
+description: Validate a Gemini CLI plugin structure, frontmatter, and MCP tool references
 argument-hint: "[plugin-path]"
 allowed-tools: mcp__gemiflow__transfer_plugin-info Bash Read Glob Grep
 ---
 
 # Validate Plugin
 
-Validate that a plugin follows the correct Claude Code plugin format.
+Validate that a plugin follows the correct Gemini CLI plugin format.
 
 ## When to use
 

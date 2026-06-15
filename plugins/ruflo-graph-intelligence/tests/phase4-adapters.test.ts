@@ -25,8 +25,8 @@ describe('KnowledgeGraphAdapter', () => {
       source: {
         async listEdges() {
           return [
-            { fromEntity: 'Claude', toEntity: 'Anthropic', relation: 'createdBy', confidence: 0.95 },
-            { fromEntity: 'Anthropic', toEntity: 'AI Safety', relation: 'focuses-on', confidence: 0.9 },
+            { fromEntity: 'Claude', toEntity: 'google', relation: 'createdBy', confidence: 0.95 },
+            { fromEntity: 'google', toEntity: 'AI Safety', relation: 'focuses-on', confidence: 0.9 },
             { fromEntity: 'Claude', toEntity: 'AI Safety', relation: 'aligned-with', confidence: 0.8 },
           ];
         },

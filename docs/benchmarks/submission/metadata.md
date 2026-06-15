@@ -84,7 +84,7 @@ The convergence layer reduces (but does not eliminate) variance by forcing deter
 gemiflow's 34/53 (64.2%) on GAIA L1 validation is reported honestly:
 
 - HAL leaderboard leaders: approximately 82% (closed-source, often with additional infrastructure)
-- Our score: 64.2% (open-weight reproducible config, single Anthropic API key)
+- Our score: 64.2% (open-weight reproducible config, single google API key)
 - Gap to HAL top-10 median: approximately 18 percentage points
 - Gap to HAL L1 cutoff for top-10 entry: 35/53 required (we need +1 more question)
 

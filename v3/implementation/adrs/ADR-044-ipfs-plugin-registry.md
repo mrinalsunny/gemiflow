@@ -162,7 +162,7 @@ export const PluginEntrySchema = z.object({
   downloads: z.number(),
   rating: z.number(),
   lastUpdated: z.string().datetime(),
-  minClaudeFlowVersion: z.string(),
+  mingemiflowVersion: z.string(),
   dependencies: z.array(z.object({
     name: z.string(),
     version: z.string(),

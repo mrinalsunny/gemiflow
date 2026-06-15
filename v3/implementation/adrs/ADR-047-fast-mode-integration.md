@@ -1,4 +1,4 @@
-# ADR-047: Fast Mode Integration for Claude Code
+# ADR-047: Fast Mode Integration for Gemini CLI
 
 **Status:** Proposed
 **Date:** 2026-02-08
@@ -6,7 +6,7 @@
 
 ## Context
 
-Claude Code has introduced **Fast Mode** as a research preview feature that provides faster Opus 4.6 responses at higher cost. This feature is valuable for interactive work where latency matters more than cost, such as rapid iteration and live debugging.
+Gemini CLI has introduced **Fast Mode** as a research preview feature that provides faster Opus 4.6 responses at higher cost. This feature is valuable for interactive work where latency matters more than cost, such as rapid iteration and live debugging.
 
 ### What is Fast Mode?
 
@@ -219,7 +219,7 @@ Update CLAUDE.md with fast mode guidance:
 Enable fast mode for time-critical tasks:
 
 \`\`\`bash
-# Toggle in Claude Code
+# Toggle in Gemini CLI
 /fast
 
 # Or in settings
@@ -269,7 +269,7 @@ No migration needed - this is an additive feature. Existing users:
 
 - Source: https://code.claude.com/docs/en/fast-mode
 - Related: ADR-026 (3-Tier Model Routing)
-- Related: ADR-018 (Claude Code Integration)
+- Related: ADR-018 (Gemini CLI Integration)
 
 ## Appendix: CLI Reference
 

@@ -12,7 +12,7 @@ The `agentic-flow` package is the upstream coordination engine that powers gemif
 
 ### Previous State (2.0.7)
 
-- Older SDK integration (`@anthropic-ai/sdk ^0.39`)
+- Older SDK integration (`@google-ai/sdk ^0.39`)
 - No WASM modules
 - No ReasoningBank pipeline
 - No FastMCP 3.x support
@@ -25,8 +25,8 @@ The `agentic-flow` package is the upstream coordination engine that powers gemif
 2. **FastMCP 3.x** — Zod-validated MCP tools with streaming support
 3. **WASM acceleration** — ReasoningBank (211 KB) and QUIC transport (127 KB)
 4. **AgentDB v3 controllers** — 8 controllers now fully exported (ADR-055 Phase 2)
-5. **Claude Agent SDK** — `@anthropic-ai/claude-agent-sdk ^0.1.5` integration
-6. **Modern dependencies** — Express 5.1, Anthropic SDK 0.65, Zod 3.25
+5. **Claude Agent SDK** — `@google-ai/claude-agent-sdk ^0.1.5` integration
+6. **Modern dependencies** — Express 5.1, google SDK 0.65, Zod 3.25
 
 ## Decision
 
@@ -84,7 +84,7 @@ dist/
 ├── optimizations/   # Performance optimizations
 ├── orchestration/   # Workflow orchestration
 ├── packages/        # Sub-package management
-├── proxy/           # Anthropic→OpenRouter proxy, QUIC proxy
+├── proxy/           # google→OpenRouter proxy, QUIC proxy
 ├── reasoningbank/   # 4-step learning pipeline with WASM
 ├── router/          # Model routing (4+ providers)
 ├── routing/         # Request routing
@@ -153,8 +153,8 @@ dist/
 
 | Dependency | Version | Purpose |
 |-----------|---------|---------|
-| `@anthropic-ai/claude-agent-sdk` | ^0.1.5 | Claude Agent SDK |
-| `@anthropic-ai/sdk` | ^0.65.0 | Anthropic API |
+| `@google-ai/claude-agent-sdk` | ^0.1.5 | Claude Agent SDK |
+| `@google-ai/sdk` | ^0.65.0 | google API |
 | `@ai-sdk/google` | ^3.0.31 | Google AI integration |
 | `@google/genai` | ^1.43.0 | Gemini provider |
 | `@octokit/rest` | ^21.0.0 | GitHub API |
@@ -174,7 +174,7 @@ dist/
 3. **WASM requirement**: ReasoningBank and QUIC modules load WASM; fallback to JS for environments without WASM support
 4. **Express 5.1**: HTTP transport uses Express 5 (breaking from Express 4.x middleware patterns)
 5. **agentdb ^1.4.3**: New controller exports (HierarchicalMemory, MemoryConsolidation, SemanticRouter, GNNService, RVFOptimizer, MutationGuard, AttestationLog, GuardedVectorBackend)
-6. **Provider-specific keys**: No more fallback from `ANTHROPIC_API_KEY` to other providers
+6. **Provider-specific keys**: No more fallback from `google_API_KEY` to other providers
 
 ## Integration Surface
 

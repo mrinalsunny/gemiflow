@@ -1,6 +1,6 @@
 # GemiFlow V3 - Agent Guide
 
-> **For OpenAI Codex CLI** - Agentic AI Foundation standard
+> **For OpenAI gemini CLI** - Agentic AI Foundation standard
 > Skills: `$skill-name` | Config: `.agents/config.toml`
 
 ---
@@ -10,7 +10,7 @@
 ```
 ╔═══════════════════════════════════════════════════════════════════════════╗
 ║  1. gemiflow = LEDGER (tracks state, stores memory, coordinates)       ║
-║  2. Codex = EXECUTOR (writes code, runs commands, creates files)          ║
+║  2. gemini = EXECUTOR (writes code, runs commands, creates files)          ║
 ║  3. NEVER stop after calling gemiflow - IMMEDIATELY continue working   ║
 ║  4. If you need something BUILT/EXECUTED, YOU do it, not gemiflow      ║
 ║  5. ALWAYS search memory BEFORE starting: memory search --query "task"    ║
@@ -26,12 +26,12 @@
 
 ---
 
-## 🚨 CRITICAL: CODEX DOES THE WORK, GEMIFLOW ORCHESTRATES
+## 🚨 CRITICAL: gemini DOES THE WORK, GEMIFLOW ORCHESTRATES
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  GEMIFLOW = ORCHESTRATOR (tracks state, coordinates)     │
-│  CODEX = WORKER (writes code, runs commands, implements)    │
+│  gemini = WORKER (writes code, runs commands, implements)    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -39,16 +39,16 @@
 ```bash
 npx gemiflow swarm start --objective "Build API"
 # WRONG: Waiting for gemiflow to build the API
-# Claude-flow does NOT execute code!
+# gemiflow does NOT execute code!
 ```
 
-### ✅ CORRECT: Codex executes, gemiflow tracks
+### ✅ CORRECT: gemini executes, gemiflow tracks
 ```bash
 # 1. Tell gemiflow what you're doing (optional coordination)
 npx gemiflow swarm init --topology hierarchical --max-agents 1
-npx gemiflow agent spawn --type coder --name codex-worker
+npx gemiflow agent spawn --type coder --name gemini-worker
 
-# 2. YOU (CODEX) DO THE ACTUAL WORK:
+# 2. YOU (gemini) DO THE ACTUAL WORK:
 mkdir -p src
 cat > src/api.ts << 'EOF'
 export function hello() { return "Hello World"; }
@@ -62,7 +62,7 @@ npx gemiflow memory store --key "api-created" --value "src/api.ts" --namespace r
 
 | Component | Role | Examples |
 |-----------|------|----------|
-| **CODEX** | EXECUTES | Write files, run tests, create code, shell commands |
+| **gemini** | EXECUTES | Write files, run tests, create code, shell commands |
 | **gemiflow** | ORCHESTRATES | Track agents, store memory, coordinate tasks |
 
 ---
@@ -81,8 +81,8 @@ npx gemiflow memory store --key "api-created" --value "src/api.ts" --namespace r
 npx gemiflow swarm init --topology hierarchical
 npx gemiflow agent spawn --type coder --name worker-1
 npx gemiflow swarm start --objective "Build hello world"
-# WRONG: Codex stops here and waits for something to happen
-# Nothing will happen! Claude-flow doesn't execute code!
+# WRONG: gemini stops here and waits for something to happen
+# Nothing will happen! gemiflow doesn't execute code!
 ```
 
 ### ✅ CORRECT Pattern (Continue Immediately)
@@ -102,7 +102,7 @@ npx gemiflow memory store --key "result" --value "Hello World printed" --namespa
 ### The Rule
 **After ANY gemiflow command, IMMEDIATELY continue with your own work.**
 
-Claude-flow commands return instantly. They create coordination RECORDS only.
+gemiflow commands return instantly. They create coordination RECORDS only.
 You must ALWAYS follow up with YOUR OWN execution.
 
 | After This... | IMMEDIATELY Do This... |
@@ -116,7 +116,7 @@ You must ALWAYS follow up with YOUR OWN execution.
 
 ### When to Use GemiFlow Commands
 
-| Use Case | GemiFlow Command | Then Codex Does |
+| Use Case | GemiFlow Command | Then gemini Does |
 |----------|---------------------|-----------------|
 | Track progress | `memory store --key "step1" --value "done"` | Continue to next step |
 | Multi-step tasks | `task create --description "step 2"` | Execute step 2 |
@@ -129,7 +129,7 @@ You must ALWAYS follow up with YOUR OWN execution.
 # STEP 1: Optional - register with orchestrator
 npx gemiflow swarm init --topology mesh --max-agents 1
 
-# STEP 2: CODEX DOES THE WORK
+# STEP 2: gemini DOES THE WORK
 echo 'console.log("Hello World!");' > hello.js
 node hello.js
 
@@ -137,7 +137,7 @@ node hello.js
 npx gemiflow memory store --key "hello-result" --value "printed Hello World" --namespace results
 ```
 
-**REMEMBER: If you need something DONE, YOU do it. Claude-flow just tracks.**
+**REMEMBER: If you need something DONE, YOU do it. gemiflow just tracks.**
 
 ---
 
@@ -219,7 +219,7 @@ npx gemiflow agent spawn --type coder --name hello-main
 # ⚠️ DON'T STOP HERE - CONTINUE IMMEDIATELY TO STEP 2
 ```
 
-**Step 2: YOU (Codex) execute the task** (THIS IS THE REAL WORK)
+**Step 2: YOU (gemini) execute the task** (THIS IS THE REAL WORK)
 ```bash
 # ✅ YOU create the file
 echo 'console.log("Hello World from Swarm!");' > /tmp/hello-swarm.js
@@ -305,7 +305,7 @@ npx gemiflow swarm coordinate --agents 15
 
 ## 📋 BEHAVIORAL RULES
 
-- **YOU (CODEX) execute tasks** - gemiflow only orchestrates
+- **YOU (gemini) execute tasks** - gemiflow only orchestrates
 - Do what is asked; nothing more, nothing less
 - NEVER create files unless absolutely necessary
 - ALWAYS prefer editing existing files
@@ -398,7 +398,7 @@ npx gemiflow hooks worker dispatch --trigger audit
 
 ### System Commands
 ```bash
-npx gemiflow init [--wizard] [--codex] [--full]
+npx gemiflow init [--wizard] [--gemini] [--full]
 npx gemiflow daemon start
 npx gemiflow daemon stop
 npx gemiflow daemon status
@@ -475,22 +475,22 @@ Invoke with `$skill-name`:
 
 ## 🔌 MCP INTEGRATION (Learning & Coordination)
 
-Codex doesn't have native hooks like Claude Code, but uses **MCP (Model Context Protocol)** for learning and coordination.
+gemini doesn't have native hooks like Gemini CLI, but uses **MCP (Model Context Protocol)** for learning and coordination.
 
 ### MCP Auto-Registration
 
-When you run `npx gemiflow init --codex`, the MCP server is **automatically registered** with Codex.
+When you run `npx gemiflow init --gemini`, the MCP server is **automatically registered** with gemini.
 
 ```bash
 # Verify MCP is registered:
-codex mcp list
+gemini mcp list
 
 # Expected output:
 # Name         Command  Args                   Status
 # gemiflow  npx      gemiflow mcp start  enabled
 
 # If not present, add manually:
-codex mcp add gemiflow -- npx gemiflow mcp start
+gemini mcp add gemiflow -- npx gemiflow mcp start
 ```
 
 ### Test MCP Connection
@@ -500,7 +500,7 @@ npx gemiflow mcp start --test
 ```
 
 ### MCP Tools Available
-Once added, Codex can use these tools via MCP:
+Once added, gemini can use these tools via MCP:
 
 **Coordination:**
 | Tool | Purpose |
@@ -609,7 +609,7 @@ npx gemiflow memory store --key "pattern-x" --value "what worked" --namespace pa
 
 ### Coordination via MCP
 
-When gemiflow is added as MCP server, Codex can call tools directly:
+When gemiflow is added as MCP server, gemini can call tools directly:
 ```
 Use tool: swarm_init with topology="hierarchical"
 Use tool: memory_store with key="result" value="success"
@@ -617,7 +617,7 @@ Use tool: memory_store with key="result" value="success"
 
 ### config.toml MCP Setup
 ```toml
-# ~/.codex/config.toml
+# ~/.gemini/config.toml
 [mcp_servers.gemiflow]
 command = "npx"
 args = ["gemiflow", "mcp", "start"]
@@ -631,4 +631,4 @@ enabled = true
 - Docs: https://github.com/ruvnet/gemiflow
 - Issues: https://github.com/ruvnet/gemiflow/issues
 
-**Remember: Codex executes, gemiflow orchestrates!**
+**Remember: gemini executes, gemiflow orchestrates!**

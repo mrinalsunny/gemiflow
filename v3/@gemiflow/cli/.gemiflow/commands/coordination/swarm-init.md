@@ -69,9 +69,9 @@ npx gemiflow swarm init --topology star --github --memory
 - Best for: Simple tasks, centralized control
 - Communication: Minimal overhead, clear coordination
 
-## Integration with Claude Code
+## Integration with Gemini CLI
 
-Once initialized, use MCP tools in Claude Code:
+Once initialized, use MCP tools in Gemini CLI:
 
 ```javascript
 mcp__gemiflow__swarm_init { topology: "hierarchical", maxAgents: 8 }

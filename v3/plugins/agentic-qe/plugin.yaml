@@ -27,7 +27,7 @@ metadata:
     - chaos-engineering
     - accessibility
   stability: stable
-  minClaudeFlowVersion: "3.5.0"
+  mingemiflowVersion: "3.5.0"
 
 # Dependencies
 dependencies:
@@ -1033,7 +1033,7 @@ implementation:
       estimatedLines: 2320
       deliverables:
         - All 58 agents (51 + 7 TDD) defined as YAML
-        - Agents spawn via Claude Code Task tool
+        - Agents spawn via Gemini CLI Task tool
         - Model routing hints in agent definitions
 
     - phase: 6

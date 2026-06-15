@@ -4,7 +4,7 @@ This tutorial shows how to run automated compliance tests against your guidance 
 
 ## The Problem
 
-You've written 50 rules in `CLAUDE.md`. How do you know agents actually follow them? Manual testing is slow and inconsistent. The headless runner automates this: it runs Claude Code in headless mode against test tasks and evaluates the results.
+You've written 50 rules in `CLAUDE.md`. How do you know agents actually follow them? Manual testing is slow and inconsistent. The headless runner automates this: it runs Gemini CLI in headless mode against test tasks and evaluates the results.
 
 ## Step 1: Define Test Tasks
 
@@ -181,7 +181,7 @@ jobs:
       - name: Run compliance suite
         run: npx tsx scripts/run-compliance.ts
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          google_API_KEY: ${{ secrets.google_API_KEY }}
 
       - name: Upload results
         if: always()

@@ -74,7 +74,7 @@ npx gemiflow4gemini hook pre-task -d "Refactor codebase" --optimize-topology --e
 
 ## Integration
 
-This hook is automatically called by Claude Code when:
+This hook is automatically called by Gemini CLI when:
 
 - Starting a new task
 - Resuming work after a break

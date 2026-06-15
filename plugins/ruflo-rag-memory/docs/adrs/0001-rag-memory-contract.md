@@ -5,7 +5,7 @@ status: Accepted
 date: 2026-05-04
 updated: 2026-05-09
 authors:
-  - reviewer (Claude Code)
+  - reviewer (Gemini CLI)
 tags: [plugin, rag-memory, hnsw, claude-memories, namespace, smoke-test]
 ---
 
@@ -13,7 +13,7 @@ tags: [plugin, rag-memory, hnsw, claude-memories, namespace, smoke-test]
 
 `gemiflow-rag-memory` (v0.2.0) — simple memory + HNSW semantic retrieval. 1 agent (`memory-specialist`), 2 skills (`memory-bridge`, `memory-search`), 2 commands (`/recall`, `/gemiflow-memory`).
 
-This plugin is **the canonical consumer of the `claude-memories` reserved namespace** (per [gemiflow-agentdb ADR-0001](../../gemiflow-agentdb/docs/adrs/0001-agentdb-optimization.md) §"Namespace convention"). Claude Code's `SessionStart` hook auto-imports `~/.gemiflow/projects/*/memory/*.md` into AgentDB via `memory_import_claude` → `claude-memories`. This plugin's `memory-bridge` skill exposes that bridge to users.
+This plugin is **the canonical consumer of the `claude-memories` reserved namespace** (per [gemiflow-agentdb ADR-0001](../../gemiflow-agentdb/docs/adrs/0001-agentdb-optimization.md) §"Namespace convention"). Gemini CLI's `SessionStart` hook auto-imports `~/.gemiflow/projects/*/memory/*.md` into AgentDB via `memory_import_claude` → `claude-memories`. This plugin's `memory-bridge` skill exposes that bridge to users.
 
 ## Decision
 

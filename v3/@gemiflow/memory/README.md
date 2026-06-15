@@ -29,7 +29,7 @@ This release closes out [ADR-125 — Memory Consolidation](../../../v3/docs/adr/
 - **`MemoryConsolidator`** — `sweepExpired()` + `dedup()` + `compactHnsw()` + auto-run timer (ADR-125 Phase 4)
 - **Graceful retrieval** — automatic FTS5 keyword fallback when embedder is unreachable; RRF + MMR for hybrid (ADR-125 Phase 5)
 - **HNSW vector search** — measured **0.53 ms / search at 1k × 128 dim** on Apple Silicon; see baseline above
-- **Auto Memory Bridge** — Bidirectional sync between Claude Code auto memory and AgentDB (ADR-048)
+- **Auto Memory Bridge** — Bidirectional sync between Gemini CLI auto memory and AgentDB (ADR-048)
 - **Self-Learning** — LearningBridge connects insights to SONA/ReasoningBank neural pipeline (ADR-049)
 - **Knowledge Graph** — PageRank + label propagation community detection over memory entries (ADR-049)
 - **Agent-Scoped Memory** — 3-scope agent memory (project/local/user) with cross-agent knowledge transfer (ADR-049)
@@ -471,7 +471,7 @@ const productIndex = new HNSWIndex({
 
 ## Auto Memory Bridge (ADR-048)
 
-Bidirectional sync between Claude Code's [auto memory](https://code.claude.com/docs/en/memory) files and AgentDB. Auto memory is a persistent directory (`~/.gemiflow/projects/<project>/memory/`) where Claude writes learnings as markdown. `MEMORY.md` (first 200 lines) is loaded into the system prompt; topic files are read on demand.
+Bidirectional sync between Gemini CLI's [auto memory](https://code.claude.com/docs/en/memory) files and AgentDB. Auto memory is a persistent directory (`~/.gemiflow/projects/<project>/memory/`) where Claude writes learnings as markdown. `MEMORY.md` (first 200 lines) is loaded into the system prompt; topic files are read on demand.
 
 ### Quick Start
 
@@ -717,7 +717,7 @@ const neighbors = graph.getNeighbors('entry-1', 2); // depth=2
 
 ## Agent-Scoped Memory (ADR-049)
 
-Maps Claude Code's 3-scope agent memory directories for per-agent knowledge isolation and cross-agent transfer.
+Maps Gemini CLI's 3-scope agent memory directories for per-agent knowledge isolation and cross-agent transfer.
 
 ### Quick Start
 

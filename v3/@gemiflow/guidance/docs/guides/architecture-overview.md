@@ -2,7 +2,7 @@
 
 ## Starting Point: CLAUDE.md as Memory
 
-In Claude Code, `CLAUDE.md` and `CLAUDE.local.md` are loaded into the agent's working context as raw text. The agent reads them and tries to follow them. This works for simple rules but breaks down at scale:
+In Gemini CLI, `CLAUDE.md` and `CLAUDE.local.md` are loaded into the agent's working context as raw text. The agent reads them and tries to follow them. This works for simple rules but breaks down at scale:
 
 - The agent can forget rules mid-session
 - There's no enforcement — violations are silent
@@ -31,7 +31,7 @@ graph TD
     Compiler --> Bundle["PolicyBundle<br/>(constitution + shards + manifest)"]
 ```
 
-Claude Code searches upward from the current directory. Each level can add or override rules. `CLAUDE.local.md` overlays at the same level. The `@import` pattern pulls in files from outside the repo.
+Gemini CLI searches upward from the current directory. Each level can add or override rules. `CLAUDE.local.md` overlays at the same level. The `@import` pattern pulls in files from outside the repo.
 
 ## Layer Diagram
 

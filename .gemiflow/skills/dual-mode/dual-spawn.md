@@ -1,11 +1,11 @@
 ---
 name: dual-spawn
-description: Spawn headless Codex workers from Claude Code for parallel execution
+description: Spawn headless gemini workers from Gemini CLI for parallel execution
 ---
 
 # Dual Spawn Skill
 
-Spawn multiple headless Codex workers to run tasks in parallel while you continue working interactively.
+Spawn multiple headless gemini workers to run tasks in parallel while you continue working interactively.
 
 ## Usage
 
@@ -42,7 +42,7 @@ Spawn multiple headless Codex workers to run tasks in parallel while you continu
 ## How It Works
 
 1. Initializes shared swarm coordination
-2. Spawns headless Codex workers with `claude -p`
+2. Spawns headless gemini workers with `claude -p`
 3. Each worker searches memory for relevant patterns
 4. Workers execute in parallel
 5. Results stored in shared memory

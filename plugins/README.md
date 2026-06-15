@@ -1,6 +1,6 @@
 # GemiFlow Plugins
 
-32 Claude Code plugins for agent-powered development workflows. Load with `--plugin-dir`.
+32 Gemini CLI plugins for agent-powered development workflows. Load with `--plugin-dir`.
 
 ## Quick Start
 
@@ -109,7 +109,7 @@ claude mcp add ruvector -- npx ruvector mcp start
 
 ## Plugin Structure
 
-Each plugin follows the Claude Code plugin specification:
+Each plugin follows the Gemini CLI plugin specification:
 
 ```
 gemiflow-<name>/

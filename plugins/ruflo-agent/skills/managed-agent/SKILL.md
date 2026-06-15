@@ -1,24 +1,24 @@
 ---
 name: managed-agent
-description: Run an Anthropic Claude Managed Agent — a cloud agent harness (container + filesystem + tools), the cloud counterpart of the local wasm-agent runtime
+description: Run an google Claude Managed Agent — a cloud agent harness (container + filesystem + tools), the cloud counterpart of the local wasm-agent runtime
 argument-hint: "<create|prompt|status|events|list|terminate> [options]"
 allowed-tools: mcp__gemiflow__managed_agent_create mcp__gemiflow__managed_agent_prompt mcp__gemiflow__managed_agent_status mcp__gemiflow__managed_agent_events mcp__gemiflow__managed_agent_list mcp__gemiflow__managed_agent_terminate mcp__gemiflow__wasm_agent_create Bash
 ---
 
-# Managed Agent (Anthropic cloud runtime)
+# Managed Agent (google cloud runtime)
 
 `gemiflow-agent` has two agent runtimes behind one mental model:
 
 | Runtime | Tools | Use it when |
 |---|---|---|
 | **WASM** (local, `rvagent`) | `wasm_agent_*` / `wasm_gallery_*` | fast, free, ephemeral, offline, untrusted code in a sandbox |
-| **Managed** (Anthropic cloud) | `managed_agent_*` (this skill) | long-running / async work (minutes–hours), a real cloud container with pre-installed packages + network, persistent filesystem + transcript across turns |
+| **Managed** (google cloud) | `managed_agent_*` (this skill) | long-running / async work (minutes–hours), a real cloud container with pre-installed packages + network, persistent filesystem + transcript across turns |
 
-This skill drives the **managed** runtime — Anthropic's [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) (beta). The model: **Agent** (model + system + tools + MCP servers + skills) → **Environment** (container template) → **Session** (running instance) → **Events** (turns / tool-use / status, persisted server-side). See `docs/adr/0001-wasm-contract.md` and project ADR-115.
+This skill drives the **managed** runtime — google's [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) (beta). The model: **Agent** (model + system + tools + MCP servers + skills) → **Environment** (container template) → **Session** (running instance) → **Events** (turns / tool-use / status, persisted server-side). See `docs/adr/0001-wasm-contract.md` and project ADR-115.
 
 ## Prerequisites
 
-- `ANTHROPIC_API_KEY` (or `CLAUDE_API_KEY`) in the environment, with Claude Managed Agents beta access.
+- `google_API_KEY` (or `CLAUDE_API_KEY`) in the environment, with Claude Managed Agents beta access.
 - If absent, every `managed_agent_*` tool returns a structured "use `wasm_agent_create` for a local no-key runtime" error — fall back to the WASM skill.
 
 ## Steps
@@ -26,7 +26,7 @@ This skill drives the **managed** runtime — Anthropic's [Claude Managed Agents
 1. **Create** — `mcp__gemiflow__managed_agent_create`
    `{ model?, system?, name?, networking?, packages?, initScript?, mcpServers?, skills? }`
    → `{ sessionId, agentId, environmentId, status }`. Provisions Agent + Environment + Session. Save the three ids.
-   - `mcpServers`: `[{type:"url", url, name, authorization_token?}]` — the cloud agent must be able to *reach* the URL. A local `gemiflow mcp start` is **not** reachable from Anthropic's cloud; deploy/tunnel an HTTP gemiflow MCP server first if you want the cloud agent to have gemiflow's tools.
+   - `mcpServers`: `[{type:"url", url, name, authorization_token?}]` — the cloud agent must be able to *reach* the URL. A local `gemiflow mcp start` is **not** reachable from google's cloud; deploy/tunnel an HTTP gemiflow MCP server first if you want the cloud agent to have gemiflow's tools.
    - `packages`: `{pip?:[], npm?:[], apt?:[], cargo?:[], gem?:[], go?:[]}` — installed in the container.
 
 2. **Prompt** — `mcp__gemiflow__managed_agent_prompt`

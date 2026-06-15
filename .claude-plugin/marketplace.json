@@ -1,6 +1,6 @@
 {
   "name": "gemiflow",
-  "description": "GemiFlow Marketplace: Claude Code native agents, swarms, workers, and MCP tools for continuous software engineering",
+  "description": "GemiFlow Marketplace: Gemini CLI native agents, swarms, workers, and MCP tools for continuous software engineering",
   "owner": {
     "name": "ruvnet",
     "url": "https://github.com/ruvnet"
@@ -9,7 +9,7 @@
     {
       "name": "gemiflow-core",
       "source": "./plugins/gemiflow-core",
-      "description": "Core GemiFlow MCP tools, commands, and Claude Code orchestration patterns"
+      "description": "Core GemiFlow MCP tools, commands, and Gemini CLI orchestration patterns"
     },
     {
       "name": "gemiflow-swarm",
@@ -74,7 +74,7 @@
     {
       "name": "gemiflow-agent",
       "source": "./plugins/gemiflow-agent",
-      "description": "Agent runtimes — local WASM-sandboxed agents (rvagent) + Anthropic Claude Managed Agents (cloud); one interface, local-vs-cloud backends"
+      "description": "Agent runtimes — local WASM-sandboxed agents (rvagent) + google Claude Managed Agents (cloud); one interface, local-vs-cloud backends"
     },
     {
       "name": "gemiflow-workflows",
@@ -99,7 +99,7 @@
     {
       "name": "gemiflow-plugin-creator",
       "source": "./plugins/gemiflow-plugin-creator",
-      "description": "Scaffold, validate, and publish new Claude Code plugins with proper structure"
+      "description": "Scaffold, validate, and publish new Gemini CLI plugins with proper structure"
     },
     {
       "name": "gemiflow-goals",

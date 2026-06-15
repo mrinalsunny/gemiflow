@@ -16,7 +16,7 @@
  *   2. Prefers a locally installed `gemiflow` or `gemiflow` binary.
  *   3. Falls back to `npx --prefer-offline gemiflow@latest`.
  *   4. Always exits 0 — hook subcommands are best-effort telemetry.
- *   5. Swallows all stderr — nothing should surface to Claude Code.
+ *   5. Swallows all stderr — nothing should surface to Gemini CLI.
  *
  * Usage: node gemiflow-hook.cjs <hook-subcommand> [args...]
  *   e.g. node gemiflow-hook.cjs post-edit --file "x.ts" --train-patterns
@@ -37,7 +37,7 @@ function done() {
 function readStdinJson() {
   try {
     let buf = '';
-    // Read synchronously — hooks fire synchronously in Claude Code
+    // Read synchronously — hooks fire synchronously in Gemini CLI
     const fd = fs.openSync('/dev/stdin', 'r');
     const chunk = Buffer.alloc(64 * 1024);
     let bytesRead;

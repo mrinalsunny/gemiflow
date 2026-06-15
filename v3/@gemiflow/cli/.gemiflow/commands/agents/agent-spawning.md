@@ -1,10 +1,10 @@
 # agent-spawning
 
-Guide to spawning agents with Claude Code's Task tool.
+Guide to spawning agents with Gemini CLI's Task tool.
 
-## Using Claude Code's Task Tool
+## Using Gemini CLI's Task Tool
 
-**CRITICAL**: Always use Claude Code's Task tool for actual agent execution:
+**CRITICAL**: Always use Gemini CLI's Task tool for actual agent execution:
 
 ```javascript
 // Spawn ALL agents in ONE message

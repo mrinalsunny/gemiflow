@@ -336,7 +336,7 @@ const rateLimits = {
 - **VS Code Extension**: Real-time analysis and suggestions
 - **JetBrains Plugin**: IntelliJ, WebStorm, PyCharm support
 - **CLI**: CI/CD pipeline integration
-- **MCP**: Direct Claude Code integration
+- **MCP**: Direct Gemini CLI integration
 
 ## Dependencies
 

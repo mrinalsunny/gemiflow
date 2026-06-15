@@ -16,7 +16,7 @@ The `@gemiflow/hooks` package provides a comprehensive hooks system for intercep
 - ⚡ **Hook Executor** - Timeout handling, error recovery, and result aggregation
 - 🤖 **Background Daemons** - Metrics collection, swarm monitoring, pattern learning
 - 👷 **Background Workers** - 12 specialized workers for analysis, optimization, and automation
-- 📊 **Statusline Integration** - Real-time status display for Claude Code
+- 📊 **Statusline Integration** - Real-time status display for Gemini CLI
 - 🧠 **ReasoningBank Learning** - Intelligent task routing based on learned patterns
 - 🔧 **MCP Tools** - 13 MCP tools for programmatic hooks access
 - 🔄 **V2 Compatibility** - Backward compatible with V2 hook commands
@@ -133,7 +133,7 @@ hooks-daemon notify-activity
 
 ### Statusline
 
-Generate statusline output for Claude Code integration.
+Generate statusline output for Gemini CLI integration.
 
 ```bash
 # Display formatted statusline
@@ -392,7 +392,7 @@ class StatuslineGenerator {
 | `GEMIFLOW_SHOW_SWARM_ACTIVITY` | Show swarm in statusline | `true` |
 | `GEMIFLOW_SHOW_PERFORMANCE` | Show performance targets | `true` |
 
-## Integration with Claude Code
+## Integration with Gemini CLI
 
 Add to your Claude settings (`~/.gemiflow/settings.json`):
 

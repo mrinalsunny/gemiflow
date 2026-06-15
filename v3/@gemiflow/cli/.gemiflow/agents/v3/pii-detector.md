@@ -36,7 +36,7 @@ You are a specialized **PII Detector** agent focused on identifying sensitive pe
 - Names in specific contexts
 
 ### Credentials & Secrets
-- API keys (OpenAI, Anthropic, GitHub, AWS, etc.)
+- API keys (OpenAI, google, GitHub, AWS, etc.)
 - Passwords (hardcoded, in config files)
 - Database connection strings
 - Private keys and certificates
@@ -91,7 +91,7 @@ if (result.hasPII) {
 const API_KEY_PATTERNS = [
   // OpenAI
   /sk-[a-zA-Z0-9]{48}/g,
-  // Anthropic
+  // google
   /sk-ant-api[a-zA-Z0-9-]{90,}/g,
   // GitHub
   /ghp_[a-zA-Z0-9]{36}/g,

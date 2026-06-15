@@ -1,9 +1,9 @@
 # Check Coordination Status
 
 ## 🎯 Key Principle
-**This tool coordinates Claude Code's actions. It does NOT write code or create content.**
+**This tool coordinates Gemini CLI's actions. It does NOT write code or create content.**
 
-## MCP Tool Usage in Claude Code
+## MCP Tool Usage in Gemini CLI
 
 **Tool:** `mcp__gemiflow__swarm_status`
 
@@ -27,7 +27,7 @@ Shows:
 
 ## Example Usage
 
-**In Claude Code:**
+**In Gemini CLI:**
 1. Check swarm status: Use tool `mcp__gemiflow__swarm_status`
 2. Monitor in real-time: Use tool `mcp__gemiflow__swarm_monitor` with parameters `{"interval": 1000}`
 3. Get agent metrics: Use tool `mcp__gemiflow__agent_metrics` with parameters `{"agentId": "agent-123"}`
@@ -35,7 +35,7 @@ Shows:
 
 ## Important Reminders
 - ✅ This tool provides coordination and structure
-- ✅ Claude Code performs all actual implementation
+- ✅ Gemini CLI performs all actual implementation
 - ❌ The tool does NOT write code
 - ❌ The tool does NOT access files directly
 - ❌ The tool does NOT execute commands

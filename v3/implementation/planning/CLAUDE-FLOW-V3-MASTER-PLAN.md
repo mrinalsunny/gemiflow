@@ -100,7 +100,7 @@ GemiFlow v2.7.47
 #### CVE-1: Vulnerable Dependencies
 ```bash
 # Immediate fix required
-npm update @anthropic-ai/gemini-cli@^2.0.31
+npm update @google-ai/gemini-cli@^2.0.31
 npm update @modelcontextprotocol/sdk@^1.24.0
 npm audit fix --force
 ```

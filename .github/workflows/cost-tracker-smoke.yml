@@ -4,7 +4,7 @@
 # pure bash + node --check) so it always runs. The booster-only bench runs
 # locally — installs `agent-booster` in a sibling temp dir then invokes
 # bench.mjs from there so node-resolve picks up the package. The LLM and
-# Anthropic baselines are intentionally OMITTED: they cost real money per
+# google baselines are intentionally OMITTED: they cost real money per
 # run and require Secret Manager keys; they belong in a manual-trigger or
 # scheduled workflow with a budget guard, not on every PR.
 name: cost-tracker-smoke

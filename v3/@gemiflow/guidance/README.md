@@ -10,17 +10,17 @@
 [![gemiflow](https://img.shields.io/npm/v/gemiflow.svg?style=flat-square&label=gemiflow&color=blueviolet)](https://www.npmjs.com/package/gemiflow)
 [![ruvbot](https://img.shields.io/npm/v/ruvbot.svg?style=flat-square&label=ruvbot&color=orange)](https://www.npmjs.com/package/ruvbot)
 
-**Long-horizon governance for Claude Code agents.**
+**Long-horizon governance for Gemini CLI agents.**
 
 AI coding agents are powerful for short tasks, but they break down over long sessions. They forget rules, repeat mistakes, run in circles, corrupt their own memory, and eventually need a human to step in. The longer the session, the worse it gets.
 
-`@gemiflow/guidance` fixes this. It takes the memory files Claude Code already uses — `CLAUDE.md` and `CLAUDE.local.md` — and turns them into a structured control plane that compiles rules, enforces them through gates the agent cannot bypass, proves every decision cryptographically, and evolves the rule set over time based on what actually works.
+`@gemiflow/guidance` fixes this. It takes the memory files Gemini CLI already uses — `CLAUDE.md` and `CLAUDE.local.md` — and turns them into a structured control plane that compiles rules, enforces them through gates the agent cannot bypass, proves every decision cryptographically, and evolves the rule set over time based on what actually works.
 
 The result: agents that can operate for days instead of minutes.
 
 ## The Problem
 
-Claude Code agents load `CLAUDE.md` into their context at session start. That's the entire governance mechanism — a text file that the model reads once and then gradually forgets. There is no enforcement, no audit trail, no memory protection, and no way to measure whether the rules are working.
+Gemini CLI agents load `CLAUDE.md` into their context at session start. That's the entire governance mechanism — a text file that the model reads once and then gradually forgets. There is no enforcement, no audit trail, no memory protection, and no way to measure whether the rules are working.
 
 | Problem | What happens | How often |
 |---------|-------------|-----------|
@@ -76,16 +76,16 @@ The control plane operates in a 7-phase pipeline. Each phase builds on the previ
 6. **Defends** against adversarial attacks — prompt injection, memory poisoning, inter-agent collusion
 7. **Evolves** the rule set through simulation, staged rollout, and automatic promotion of winning experiments
 
-## How Claude Code Memory Works
+## How Gemini CLI Memory Works
 
-Claude Code uses two plain-text files as agent memory. Understanding them is essential because they are the input to the control plane.
+Gemini CLI uses two plain-text files as agent memory. Understanding them is essential because they are the input to the control plane.
 
 | File | Scope | Purpose |
 |------|-------|---------|
 | **CLAUDE.md** | Team / repo | Shared guidance: architecture, workflows, build commands, coding standards, domain rules. Lives at `./CLAUDE.md` or `./.gemiflow/CLAUDE.md`. Committed to git. |
-| **CLAUDE.local.md** | Individual / machine | Private notes: local sandbox URLs, test data, machine quirks, personal preferences. Auto-added to `.gitignore` by Claude Code. Stays local. |
+| **CLAUDE.local.md** | Individual / machine | Private notes: local sandbox URLs, test data, machine quirks, personal preferences. Auto-added to `.gitignore` by Gemini CLI. Stays local. |
 
-**How they get loaded:** Claude Code searches upward from the current working directory and loads every `CLAUDE.md` and `CLAUDE.local.md` it finds on the path. In monorepos and nested projects, child directories can have their own files that layer on top of parent ones. It also discovers additional `CLAUDE.md` files in subtrees as it reads files there.
+**How they get loaded:** Gemini CLI searches upward from the current working directory and loads every `CLAUDE.md` and `CLAUDE.local.md` it finds on the path. In monorepos and nested projects, child directories can have their own files that layer on top of parent ones. It also discovers additional `CLAUDE.md` files in subtrees as it reads files there.
 
 **The @import pattern:** For "local" instructions that work cleanly across multiple git worktrees, you can use `@` imports inside `CLAUDE.md` that point to a file in each developer's home directory:
 
@@ -94,7 +94,7 @@ Claude Code uses two plain-text files as agent memory. Understanding them is ess
 @~/.gemiflow/my_project_instructions.md
 ```
 
-**Verification:** Run `/memory` in Claude Code to see which files were loaded. You can test by placing a unique rule in each file and asking Claude to restate both.
+**Verification:** Run `/memory` in Gemini CLI to see which files were loaded. You can test by placing a unique rule in each file and asking Claude to restate both.
 
 ## Architecture
 
@@ -660,7 +660,7 @@ const validation = governor.validateOptimizerAction({
 ```
 
 <details>
-<summary><strong>Tutorial: Wiring into Claude Code hooks</strong></summary>
+<summary><strong>Tutorial: Wiring into Gemini CLI hooks</strong></summary>
 
 ```typescript
 import { createGuidanceHooks } from '@gemiflow/guidance';

@@ -56,7 +56,7 @@ export class SecureFoundation {
 // package.json - Updated secure dependencies
 {
   "dependencies": {
-    "@anthropic-ai/gemini-cli": "^2.0.31",
+    "@google-ai/gemini-cli": "^2.0.31",
     "@modelcontextprotocol/sdk": "^1.24.0",
     "agentic-flow": "^2.0.1-alpha.0",
     "bcrypt": "^5.1.1",
@@ -891,7 +891,7 @@ export function createInitCommand(): Command {
 
 ```bash
 # Day 1-2: Security fixes
-npm update @anthropic-ai/gemini-cli@^2.0.31
+npm update @google-ai/gemini-cli@^2.0.31
 npm update @modelcontextprotocol/sdk@^1.24.0
 npm install bcrypt zod
 

@@ -1,6 +1,6 @@
 # @gemiflow/teammate-plugin
 
-Native **TeammateTool** integration plugin for GemiFlow. Bridges Claude Code v2.1.19+ multi-agent orchestration capabilities with GemiFlow's swarm system.
+Native **TeammateTool** integration plugin for GemiFlow. Bridges Gemini CLI v2.1.19+ multi-agent orchestration capabilities with GemiFlow's swarm system.
 
 [![npm version](https://badge.fury.io/js/%40gemiflow%2Fteammate-plugin.svg)](https://badge.fury.io/js/%40gemiflow%2Fteammate-plugin)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -9,22 +9,22 @@ Native **TeammateTool** integration plugin for GemiFlow. Bridges Claude Code v2.
 
 | Requirement | Minimum Version | Recommended |
 |-------------|-----------------|-------------|
-| **Claude Code** | **>= 2.1.19** | Latest |
+| **Gemini CLI** | **>= 2.1.19** | Latest |
 | Node.js | >= 18.0.0 | >= 20.0.0 |
 | npm | >= 9.0.0 | >= 10.0.0 |
 
-> **IMPORTANT:** This plugin requires Claude Code version **2.1.19 or higher**. The TeammateTool functionality was introduced in this version and is not available in earlier releases.
+> **IMPORTANT:** This plugin requires Gemini CLI version **2.1.19 or higher**. The TeammateTool functionality was introduced in this version and is not available in earlier releases.
 
 ### Version Check
 
 ```bash
-# Check your Claude Code version
+# Check your Gemini CLI version
 claude --version
 
 # Should output: 2.1.19 or higher
 ```
 
-If your version is below 2.1.19, update Claude Code:
+If your version is below 2.1.19, update Gemini CLI:
 
 ```bash
 claude update
@@ -32,9 +32,9 @@ claude update
 
 ## Installation
 
-### Via Claude Code CLI (Recommended)
+### Via Gemini CLI CLI (Recommended)
 
-Install directly using Claude Code's plugin system:
+Install directly using Gemini CLI's plugin system:
 
 ```bash
 # Install from npm registry
@@ -86,11 +86,11 @@ const bridge = await createTeammateBridge();
 
 // Check compatibility
 const version = bridge.getVersionInfo();
-console.log(`Claude Code: ${version.claudeCode}`);
+console.log(`Gemini CLI: ${version.claudeCode}`);
 console.log(`Compatible: ${version.compatible}`);
 
 if (!version.compatible) {
-  console.error('Please upgrade Claude Code to >= 2.1.19');
+  console.error('Please upgrade Gemini CLI to >= 2.1.19');
   process.exit(1);
 }
 
@@ -102,7 +102,7 @@ const team = await bridge.spawnTeam({
   planModeRequired: true,
 });
 
-// Spawn teammates (returns AgentInput for Claude Code Task tool)
+// Spawn teammates (returns AgentInput for Gemini CLI Task tool)
 const coder = await bridge.spawnTeammate({
   name: 'coder-1',
   role: 'coder',
@@ -112,7 +112,7 @@ const coder = await bridge.spawnTeammate({
   allowedTools: ['Edit', 'Write', 'Read', 'Bash'],
 });
 
-// The agentInput can be passed to Claude Code's Task tool
+// The agentInput can be passed to Gemini CLI's Task tool
 const agentInput = bridge.buildAgentInput({
   name: 'tester-1',
   role: 'tester',
@@ -221,7 +221,7 @@ const agentInput = bridge.buildAgentInput({
   prompt: 'Review code changes',
   teamName: 'my-team',
 });
-// Pass agentInput to Claude Code's Task tool
+// Pass agentInput to Gemini CLI's Task tool
 ```
 
 #### Messaging
@@ -342,7 +342,7 @@ if (canTeleport) {
 
 ### MCP Tools
 
-The plugin provides 16 MCP tools for use with Claude Code's MCP server:
+The plugin provides 16 MCP tools for use with Gemini CLI's MCP server:
 
 ```typescript
 import { TEAMMATE_MCP_TOOLS, handleMCPTool } from '@gemiflow/teammate-plugin';
@@ -418,7 +418,7 @@ try {
         console.log(`Team not found: ${error.teamName}`);
         break;
       case TeammateErrorCode.VERSION_INCOMPATIBLE:
-        console.log('Claude Code version too old');
+        console.log('Gemini CLI version too old');
         break;
     }
   }
@@ -538,7 +538,7 @@ Teams are stored in `~/.gemiflow/teams/`:
 
 ## Environment Variables
 
-The plugin uses these Claude Code environment variables:
+The plugin uses these Gemini CLI environment variables:
 
 ```bash
 CLAUDE_CODE_TEAM_NAME          # Current team context
@@ -555,7 +555,7 @@ CLAUDE_CODE_TEAMMATE_COMMAND   # Custom spawn command
 ```typescript
 const version = bridge.getVersionInfo();
 if (!version.compatible) {
-  console.log(`Claude Code version: ${version.claudeCode}`);
+  console.log(`Gemini CLI version: ${version.claudeCode}`);
   console.log(`Required: >= 2.1.19`);
   console.log('Run: claude update');
 }
@@ -616,7 +616,7 @@ async function verifyPlugin() {
 
   // 3. Check version compatibility
   const version = bridge.getVersionInfo();
-  console.log(`✓ Claude Code version: ${version.claudeCode || 'not detected'}`);
+  console.log(`✓ Gemini CLI version: ${version.claudeCode || 'not detected'}`);
   console.log(`✓ Plugin version: ${version.plugin}`);
   console.log(`✓ Compatible: ${version.compatible}`);
 
@@ -660,7 +660,7 @@ This plugin is published to the GemiFlow Plugin Registry on IPFS for decentraliz
   "name": "teammate-plugin",
   "package": "@gemiflow/teammate-plugin",
   "version": "1.0.0-alpha.1",
-  "description": "Native TeammateTool integration for Claude Code v2.1.19+",
+  "description": "Native TeammateTool integration for Gemini CLI v2.1.19+",
   "author": "GemiFlow Team",
   "license": "MIT",
   "repository": "https://github.com/ruvnet/gemiflow",
@@ -709,5 +709,5 @@ MIT
 ## Related
 
 - [GemiFlow](https://github.com/ruvnet/gemiflow) - Multi-agent orchestration framework
-- [Claude Code](https://github.com/anthropics/gemini-cli) - Anthropic's CLI for Claude
+- [Gemini CLI](https://github.com/googles/gemini-cli) - google's CLI for Claude
 - [ADR-027](../implementation/adrs/ADR-027-teammate-tool-integration.md) - Architecture decision record

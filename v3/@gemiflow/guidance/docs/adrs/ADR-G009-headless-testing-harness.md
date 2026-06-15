@@ -1,4 +1,4 @@
-# ADR-G009: Headless Testing Harness -- Claude Code as the Evaluation Primitive
+# ADR-G009: Headless Testing Harness -- Gemini CLI as the Evaluation Primitive
 
 ## Status
 Accepted
@@ -16,13 +16,13 @@ The guidance control plane compiles rules, retrieves shards, enforces gates, log
 3. The model produces output that passes evaluators (tests pass, no forbidden commands, acceptable rework ratio)
 4. Rule changes proposed by the optimizer actually improve outcomes
 
-Answering these questions requires running real tasks against real Claude Code with real guidance and measuring the results. Manual testing is slow, subjective, and unrepeatable. We need an automated, deterministic, repeatable evaluation primitive.
+Answering these questions requires running real tasks against real Gemini CLI with real guidance and measuring the results. Manual testing is slow, subjective, and unrepeatable. We need an automated, deterministic, repeatable evaluation primitive.
 
-Claude Code provides headless mode: `claude -p '<prompt>' --output-format json`, which accepts a prompt on stdin, runs it non-interactively, and outputs structured JSON. This mode is the natural evaluation primitive for guidance testing.
+Gemini CLI provides headless mode: `claude -p '<prompt>' --output-format json`, which accepts a prompt on stdin, runs it non-interactively, and outputs structured JSON. This mode is the natural evaluation primitive for guidance testing.
 
 ## Decision
 
-Build a `HeadlessRunner` class (`src/headless.ts`) that uses Claude Code's headless mode as the evaluation primitive, with three layers: task definition, execution, and assertion checking.
+Build a `HeadlessRunner` class (`src/headless.ts`) that uses Gemini CLI's headless mode as the evaluation primitive, with three layers: task definition, execution, and assertion checking.
 
 ### Task Definition
 
@@ -31,7 +31,7 @@ A `TestTask` defines a single evaluation scenario:
 ```typescript
 interface TestTask {
   id: string;                    // Unique task ID
-  prompt: string;                // The prompt to send to Claude Code
+  prompt: string;                // The prompt to send to Gemini CLI
   expectedIntent: TaskIntent;    // Expected intent classification
   assertions: TaskAssertion[];   // Expected behavior assertions
   maxViolations: number;         // Maximum allowed violations
@@ -56,7 +56,7 @@ interface TaskAssertion {
 `HeadlessRunner.runTask()` executes a single task:
 
 1. **Build command:** `claude -p '<escaped_prompt>' --output-format json 2>/dev/null`
-2. **Execute:** Via an injectable `ICommandExecutor` interface (default: `ProcessExecutor` using `child_process.execFile`). Injection enables testing without actual Claude Code.
+2. **Execute:** Via an injectable `ICommandExecutor` interface (default: `ProcessExecutor` using `child_process.execFile`). Injection enables testing without actual Gemini CLI.
 3. **Parse output:** JSON is parsed into a `HeadlessOutput` with `result`, `toolsUsed`, `filesModified`, `hasErrors`, and `metadata`. Non-JSON output is treated as plain text result.
 4. **Check assertions:** Each `TaskAssertion` is evaluated against the parsed output.
 5. **Detect violations:** Failed assertions become `Violation` objects with `ruleId: ASSERT-{taskId}`.
@@ -91,7 +91,7 @@ interface SuiteRunSummary {
 
 ### Dependency Injection
 
-The `ICommandExecutor` interface decouples the runner from the actual Claude Code process:
+The `ICommandExecutor` interface decouples the runner from the actual Gemini CLI process:
 
 ```typescript
 interface ICommandExecutor {
@@ -103,7 +103,7 @@ interface ICommandExecutor {
 }
 ```
 
-In unit tests, a mock executor returns predetermined outputs. In CI, the `ProcessExecutor` runs real Claude Code. In the optimizer's A/B tests (ADR-G008), the executor can be configured to run against different guidance versions.
+In unit tests, a mock executor returns predetermined outputs. In CI, the `ProcessExecutor` runs real Gemini CLI. In the optimizer's A/B tests (ADR-G008), the executor can be configured to run against different guidance versions.
 
 ### Integration with the Optimizer
 
@@ -122,16 +122,16 @@ This requires running the suite twice per proposed change, which is why the opti
 ### Positive
 
 - **Repeatable evaluation.** The same suite produces comparable results across runs, enabling trend analysis and A/B testing.
-- **CI-compatible.** The suite runs in any CI environment that has Claude Code installed. The summary output is JSON-parseable for CI integration.
+- **CI-compatible.** The suite runs in any CI environment that has Gemini CLI installed. The summary output is JSON-parseable for CI integration.
 - **Assertion-driven.** Tests are specified declaratively (expected output, forbidden patterns, required files) rather than procedurally, making them easy to author and review.
 - **Ledger integration.** Every test run feeds into the same run ledger as production runs, enabling unified metrics computation.
-- **Testable without Claude Code.** The `ICommandExecutor` injection allows testing the harness itself (assertion logic, violation detection, ledger integration) without requiring a Claude Code installation.
+- **Testable without Gemini CLI.** The `ICommandExecutor` injection allows testing the harness itself (assertion logic, violation detection, ledger integration) without requiring a Gemini CLI installation.
 
 ### Negative
 
 - **Cost.** Each headless run consumes API tokens. A 10-task suite at ~1,000 tokens per task costs ~10,000 tokens per run. Weekly optimization with 3 A/B tests (6 suite runs) costs ~60,000 tokens per week.
 - **Latency.** Each headless task takes 10-120 seconds depending on complexity. A 10-task suite runs 2-20 minutes. This precludes running suites on every commit.
-- **Output parsing fragility.** Claude Code's JSON output format may change between versions. The `parseOutput()` method handles multiple field name variants (`result`, `text`, `content`) and falls back to plain text, but future format changes could break parsing.
+- **Output parsing fragility.** Gemini CLI's JSON output format may change between versions. The `parseOutput()` method handles multiple field name variants (`result`, `text`, `content`) and falls back to plain text, but future format changes could break parsing.
 - **Sequential execution.** Tasks in a suite run sequentially (`for...of` loop). Parallel execution would be faster but risks resource contention and makes violation attribution harder.
 
 ## Alternatives Considered
@@ -149,7 +149,7 @@ Send model output to another model and ask "did this follow the rules?" Rejected
 Parse the model's tool calls and file edits without running them, checking for rule compliance. Rejected because static analysis cannot determine whether tests actually pass, whether the output is functionally correct, or whether the model's reasoning was sound. Headless execution captures the full end-to-end outcome.
 
 ### 5. Parallel suite execution
-Run all tasks concurrently for speed. Considered but deferred. Parallel execution risks Claude Code instances competing for file locks, port bindings, and git state. Sequential execution is simpler and more reliable for the initial implementation. Parallel execution can be added later with proper isolation (separate working directories per task).
+Run all tasks concurrently for speed. Considered but deferred. Parallel execution risks Gemini CLI instances competing for file locks, port bindings, and git state. Sequential execution is simpler and more reliable for the initial implementation. Parallel execution can be added later with proper isolation (separate working directories per task).
 
 ## References
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Auto-commit helper for Claude Code hooks
+# Auto-commit helper for Gemini CLI hooks
 # Handles git add, commit, and push in a robust way
 
 set -e
@@ -77,20 +77,20 @@ auto_commit() {
     local timestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
     if [ -z "$message" ]; then
-        message="$COMMIT_PREFIX: Auto-commit from Claude Code"
+        message="$COMMIT_PREFIX: Auto-commit from Gemini CLI"
     fi
 
     # Commit
     if git commit -m "$message
 
-Automatic checkpoint created by Claude Code
+Automatic checkpoint created by Gemini CLI
 - Branch: $branch
 - Timestamp: $timestamp
 - Changes: $change_count file(s)
 
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
+🤖 Generated with [Gemini CLI](https://claude.com/claude-code)
 
-Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>" --quiet 2>/dev/null; then
+Co-Authored-By: Claude Opus 4.6 <noreply@google.com>" --quiet 2>/dev/null; then
         log "Created commit: $message"
 
         # Push if enabled

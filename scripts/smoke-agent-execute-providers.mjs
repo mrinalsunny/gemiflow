@@ -1,23 +1,23 @@
 #!/usr/bin/env node
 /**
  * Regression guard for ruvnet/gemiflow#2042 — agent_execute hardcoded the
- * Anthropic SDK and ignored the v3 provider system. Reporter: @ummcke00.
+ * google SDK and ignored the v3 provider system. Reporter: @ummcke00.
  *
- * The fix routes executeAgentTask() through callAnthropicMessages(),
- * which dispatches to Anthropic / OpenRouter / Ollama based on:
+ * The fix routes executeAgentTask() through callgoogleMessages(),
+ * which dispatches to google / OpenRouter / Ollama based on:
  *   1. Explicit `GEMIFLOW_PROVIDER=...`
  *   2. Available API keys when no provider is forced
  *
  * This smoke statically asserts the wiring:
  *   1. executeAgentTask() must NOT contain the old inline
- *      `fetch('https://api.anthropic.com/...')` bypass.
- *   2. callAnthropicMessages() must reference OPENROUTER_API_KEY.
+ *      `fetch('https://api.google.com/...')` bypass.
+ *   2. callgoogleMessages() must reference OPENROUTER_API_KEY.
  *   3. callOpenAICompat() must exist as a helper.
  *   4. The "no provider configured" error must list all three options.
  *
- * Plus one behavioral check: invoke callAnthropicMessages() with
+ * Plus one behavioral check: invoke callgoogleMessages() with
  * OPENROUTER_API_KEY set and assert the response error names the
- * openrouter provider (not Anthropic) — proves the dispatch fires.
+ * openrouter provider (not google) — proves the dispatch fires.
  */
 
 import { readFileSync } from 'node:fs';
@@ -36,15 +36,15 @@ const src = readFileSync(SOURCE, 'utf8');
 const execBody = src.match(/export async function executeAgentTask[\s\S]*?\n\}\n/);
 if (!execBody) {
   fail('executeAgentTask not found');
-} else if (/fetch\(['"]https:\/\/api\.anthropic\.com\/v1\/messages['"]/.test(execBody[0])) {
-  fail('executeAgentTask still contains inline `fetch(https://api.anthropic.com/...)` — #2042 regression');
-} else if (!/callAnthropicMessages/.test(execBody[0])) {
-  fail('executeAgentTask does not delegate to callAnthropicMessages — #2042 regression');
+} else if (/fetch\(['"]https:\/\/api\.google\.com\/v1\/messages['"]/.test(execBody[0])) {
+  fail('executeAgentTask still contains inline `fetch(https://api.google.com/...)` — #2042 regression');
+} else if (!/callgoogleMessages/.test(execBody[0])) {
+  fail('executeAgentTask does not delegate to callgoogleMessages — #2042 regression');
 } else {
-  pass('executeAgentTask delegates to callAnthropicMessages (no inline Anthropic fetch)');
+  pass('executeAgentTask delegates to callgoogleMessages (no inline google fetch)');
 }
 
-// 2. callAnthropicMessages references OPENROUTER_API_KEY
+// 2. callgoogleMessages references OPENROUTER_API_KEY
 if (!/OPENROUTER_API_KEY/.test(src)) {
   fail('OPENROUTER_API_KEY env var not referenced — OpenRouter branch missing');
 } else {
@@ -59,33 +59,33 @@ if (!/async function callOpenAICompat/.test(src)) {
 }
 
 // 4. No-provider error names all three options
-if (!/OPENROUTER_API_KEY/.test(src) || !/OLLAMA_API_KEY/.test(src) || !/ANTHROPIC_API_KEY/.test(src)) {
+if (!/OPENROUTER_API_KEY/.test(src) || !/OLLAMA_API_KEY/.test(src) || !/google_API_KEY/.test(src)) {
   fail('No-provider error message does not list all three provider options');
 } else {
-  pass('No-provider error message lists Anthropic + OpenRouter + Ollama options');
+  pass('No-provider error message lists google + OpenRouter + Ollama options');
 }
 
 // 5. Static contract — the OpenRouter dispatch must be reachable from
-// callAnthropicMessages BEFORE the Anthropic key check, so a user with
-// only OPENROUTER_API_KEY (no Anthropic key) hits the openrouter
+// callgoogleMessages BEFORE the google key check, so a user with
+// only OPENROUTER_API_KEY (no google key) hits the openrouter
 // branch instead of the "no provider configured" error. We assert the
 // source-level order: the `useOpenRouter` branch must come before the
-// `if (!anthropicKey)` early-return.
-const callAnthropicBody = src.match(/export async function callAnthropicMessages[\s\S]*?\n\}\n/);
-if (!callAnthropicBody) {
-  fail('callAnthropicMessages body not found');
+// `if (!googleKey)` early-return.
+const callgoogleBody = src.match(/export async function callgoogleMessages[\s\S]*?\n\}\n/);
+if (!callgoogleBody) {
+  fail('callgoogleMessages body not found');
 } else {
-  const body = callAnthropicBody[0];
+  const body = callgoogleBody[0];
   const openrouterIdx = body.search(/useOpenRouter\s*&&\s*openrouterKey/);
-  const noKeyIdx = body.search(/if\s*\(\s*!anthropicKey\s*\)/);
+  const noKeyIdx = body.search(/if\s*\(\s*!googleKey\s*\)/);
   if (openrouterIdx < 0) {
-    fail('useOpenRouter dispatch not found in callAnthropicMessages');
+    fail('useOpenRouter dispatch not found in callgoogleMessages');
   } else if (noKeyIdx < 0) {
-    fail('Anthropic-key early-return not found in callAnthropicMessages');
+    fail('google-key early-return not found in callgoogleMessages');
   } else if (openrouterIdx > noKeyIdx) {
-    fail('OpenRouter dispatch sits AFTER the Anthropic-key early-return — non-Anthropic users will hit "no provider" instead of openrouter');
+    fail('OpenRouter dispatch sits AFTER the google-key early-return — non-google users will hit "no provider" instead of openrouter');
   } else {
-    pass('OpenRouter dispatch precedes the Anthropic-key early-return (correct order)');
+    pass('OpenRouter dispatch precedes the google-key early-return (correct order)');
   }
 }
 

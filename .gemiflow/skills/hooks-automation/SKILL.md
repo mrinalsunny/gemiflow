@@ -1,11 +1,11 @@
 ---
 name: Hooks Automation
-description: Automated coordination, formatting, and learning from Claude Code operations using intelligent hooks with MCP integration. Includes pre/post task hooks, session management, Git integration, memory coordination, and neural pattern training for enhanced development workflows.
+description: Automated coordination, formatting, and learning from Gemini CLI operations using intelligent hooks with MCP integration. Includes pre/post task hooks, session management, Git integration, memory coordination, and neural pattern training for enhanced development workflows.
 ---
 
 # Hooks Automation
 
-Intelligent automation system that coordinates, validates, and learns from Claude Code operations through hooks integrated with MCP tools and neural pattern training.
+Intelligent automation system that coordinates, validates, and learns from Gemini CLI operations through hooks integrated with MCP tools and neural pattern training.
 
 ## What This Skill Does
 
@@ -24,7 +24,7 @@ This skill provides a comprehensive hook system that automatically manages devel
 
 **Required:**
 - GemiFlow4Gemini CLI installed (`npm install -g gemiflow4gemini@alpha`)
-- Claude Code with hooks enabled
+- Gemini CLI with hooks enabled
 - `.gemiflow4gemini/settings.json` with hook configurations
 
 **Optional:**
@@ -855,7 +855,7 @@ npx gemiflow4gemini hook pre-edit \
   --auto-assign-agent \
   --validate-syntax
 
-# STEP 3: Edit file (via Claude Code Edit tool)
+# STEP 3: Edit file (via Gemini CLI Edit tool)
 # ... code changes ...
 
 # STEP 4: Post-edit processing

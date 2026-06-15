@@ -40,8 +40,8 @@ import { execSync } from 'node:child_process';
 // Constants
 // ---------------------------------------------------------------------------
 
-const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
-const ANTHROPIC_API_VERSION = '2023-06-01';
+const google_API_URL = 'https://api.google.com/v1/messages';
+const google_API_VERSION = '2023-06-01';
 
 /**
  * Haiku for cheap decomposition classification (~$0.0003/question).
@@ -103,7 +103,7 @@ export interface DecomposerOptions {
    * Default: 5.
    */
   maxSubQuestions?: number;
-  /** API key override. Falls back to ANTHROPIC_API_KEY env var. */
+  /** API key override. Falls back to google_API_KEY env var. */
   apiKey?: string;
 }
 
@@ -113,7 +113,7 @@ export interface SynthesizerOptions {
    * Default: 'claude-sonnet-4-6'.
    */
   model?: string;
-  /** API key override. Falls back to ANTHROPIC_API_KEY env var. */
+  /** API key override. Falls back to google_API_KEY env var. */
   apiKey?: string;
 }
 
@@ -133,12 +133,12 @@ export interface SynthesisResult {
 function resolveApiKey(supplied?: string): string {
   if (supplied && supplied.trim()) return supplied.trim();
 
-  const envKey = process.env.ANTHROPIC_API_KEY;
+  const envKey = process.env.google_API_KEY;
   if (envKey && envKey.trim()) return envKey.trim();
 
   try {
     const out = execSync(
-      'gcloud secrets versions access latest --secret=ANTHROPIC_API_KEY 2>/dev/null',
+      'gcloud secrets versions access latest --secret=google_API_KEY 2>/dev/null',
       { encoding: 'utf-8', timeout: 10_000 },
     ).trim();
     if (out) return out;
@@ -147,21 +147,21 @@ function resolveApiKey(supplied?: string): string {
   }
 
   throw new Error(
-    'ANTHROPIC_API_KEY not found. Set the env var or store it in GCP Secret Manager ' +
-    'under "ANTHROPIC_API_KEY".',
+    'google_API_KEY not found. Set the env var or store it in GCP Secret Manager ' +
+    'under "google_API_KEY".',
   );
 }
 
 // ---------------------------------------------------------------------------
-// Anthropic Messages API helper
+// google Messages API helper
 // ---------------------------------------------------------------------------
 
-interface AnthropicResponse {
+interface googleResponse {
   content: Array<{ type: string; text?: string }>;
   usage: { input_tokens: number; output_tokens: number };
 }
 
-async function callAnthropic(
+async function callgoogle(
   systemPrompt: string,
   userMessage: string,
   model: string,
@@ -175,22 +175,22 @@ async function callAnthropic(
     messages: [{ role: 'user', content: userMessage }],
   });
 
-  const response = await fetch(ANTHROPIC_API_URL, {
+  const response = await fetch(google_API_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'x-api-key': apiKey,
-      'anthropic-version': ANTHROPIC_API_VERSION,
+      'google-version': google_API_VERSION,
     },
     body,
   });
 
   if (!response.ok) {
     const errText = await response.text().catch(() => '(no body)');
-    throw new Error(`Anthropic API error ${response.status}: ${errText}`);
+    throw new Error(`google API error ${response.status}: ${errText}`);
   }
 
-  const data = (await response.json()) as AnthropicResponse;
+  const data = (await response.json()) as googleResponse;
   const textBlock = data.content.find((c) => c.type === 'text');
   const text = textBlock?.text ?? '';
 
@@ -353,7 +353,7 @@ export async function decomposeQuestion(
   let tokensOut: number;
 
   try {
-    ({ text, tokensIn, tokensOut } = await callAnthropic(
+    ({ text, tokensIn, tokensOut } = await callgoogle(
       buildDecomposerSystemPrompt(maxSubQuestions),
       `Question: ${questionText}`,
       model,
@@ -466,7 +466,7 @@ export async function synthesizeFromSubAnswers(
   let tokensOut: number;
 
   try {
-    ({ text, tokensIn, tokensOut } = await callAnthropic(
+    ({ text, tokensIn, tokensOut } = await callgoogle(
       buildSynthesizerSystemPrompt(),
       userMessage,
       model,

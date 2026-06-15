@@ -46,7 +46,7 @@ Note: `@gemiflow/memory` (AgentDB) is now published at `@latest`, which affects 
 - **Impact:** Daemon always shows STOPPED on macOS. Background workers, learning hooks, and neural training are all non-functional.
 - **Fix:** Likely PID file or signal handling issue. Add launchd/plist support as alternative to raw daemon.
 
-### 5. Claude Code hooks: misconfigured commands cause silent failures (#1284)
+### 5. Gemini CLI hooks: misconfigured commands cause silent failures (#1284)
 - **Impact:** Generated `settings.json` contains broken hook commands. Users get no feedback — hooks silently fail, degrading learning, session management, and intelligence features.
 - **Fix:** Validate all hook commands at generation time; add `--dry-run` flag to hooks.
 - **Status:** ✅ **FIXED** in PR #1298. All hook commands in `settings-generator.ts` and `executor.ts` now use `git rev-parse --show-toplevel` for absolute path resolution. Issue #1284 closed.

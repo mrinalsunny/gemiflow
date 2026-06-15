@@ -12,14 +12,14 @@
 The V3 worker daemon (`WorkerDaemon`) currently runs 12 background workers that perform metrics collection, security auditing, and optimization tasks. These workers execute **local logic** (file scanning, JSON generation).
 
 By integrating `CLAUDE_CODE_HEADLESS` mode, workers can:
-1. **Invoke Claude Code** for intelligent analysis (not just file scanning)
+1. **Invoke Gemini CLI** for intelligent analysis (not just file scanning)
 2. **Execute in sandboxed environments** per worker type
 3. **Scale across containers** for parallel AI execution
-4. **Chain worker outputs** to Claude Code prompts
+4. **Chain worker outputs** to Gemini CLI prompts
 
 ## Decision
 
-Extend the existing `WorkerDaemon` with a new `HeadlessWorkerExecutor` that enables workers to invoke Claude Code headlessly with configurable sandbox profiles.
+Extend the existing `WorkerDaemon` with a new `HeadlessWorkerExecutor` that enables workers to invoke Gemini CLI headlessly with configurable sandbox profiles.
 
 ---
 
@@ -45,7 +45,7 @@ Extend the existing `WorkerDaemon` with a new `HeadlessWorkerExecutor` that enab
 │  └─────────────────────────────────────────────────────────────┘   │
 │                                ▼                                    │
 │  ┌─────────────────────────────────────────────────────────────┐   │
-│  │                  Claude Code (Headless)                      │   │
+│  │                  Gemini CLI (Headless)                      │   │
 │  │  CLAUDE_CODE_HEADLESS=true                                   │   │
 │  │  CLAUDE_CODE_SANDBOX_MODE=<per-worker>                       │   │
 │  └─────────────────────────────────────────────────────────────┘   │
@@ -84,7 +84,7 @@ export interface HeadlessWorkerConfig extends WorkerConfig {
 
   // Headless-specific options
   headless?: {
-    // Prompt template for Claude Code
+    // Prompt template for Gemini CLI
     promptTemplate: string;
 
     // Sandbox profile
@@ -378,7 +378,7 @@ export class HeadlessWorkerExecutor extends EventEmitter {
     // Build the full prompt
     const fullPrompt = this.buildPrompt(headless.promptTemplate, context);
 
-    // Execute Claude Code headlessly
+    // Execute Gemini CLI headlessly
     const result = await this.executeClaudeCode(fullPrompt, {
       sandbox: headless.sandbox,
       model: headless.model,
@@ -453,7 +453,7 @@ Analyze the above codebase and provide your response.`;
   }
 
   /**
-   * Execute Claude Code in headless mode
+   * Execute Gemini CLI in headless mode
    */
   private async executeClaudeCode(
     prompt: string,
@@ -468,7 +468,7 @@ Analyze the above codebase and provide your response.`;
         ...process.env,
         CLAUDE_CODE_HEADLESS: 'true',
         CLAUDE_CODE_SANDBOX_MODE: options.sandbox,
-        ANTHROPIC_MODEL: options.model || 'claude-sonnet-4-20250514',
+        google_MODEL: options.model || 'claude-sonnet-4-20250514',
       };
 
       // Use claude CLI directly
@@ -511,7 +511,7 @@ Analyze the above codebase and provide your response.`;
   }
 
   /**
-   * Check if Claude Code is available
+   * Check if Gemini CLI is available
    */
   async isAvailable(): Promise<boolean> {
     try {
@@ -547,7 +547,7 @@ export class WorkerDaemon extends EventEmitter {
   }
 
   /**
-   * Initialize headless executor if Claude Code is available
+   * Initialize headless executor if Gemini CLI is available
    */
   private async initHeadlessExecutor(): Promise<void> {
     this.headlessExecutor = new HeadlessWorkerExecutor(this.projectRoot, {
@@ -557,9 +557,9 @@ export class WorkerDaemon extends EventEmitter {
     this.headlessAvailable = await this.headlessExecutor.isAvailable();
 
     if (this.headlessAvailable) {
-      this.log('info', 'Claude Code headless mode available - AI workers enabled');
+      this.log('info', 'Gemini CLI headless mode available - AI workers enabled');
     } else {
-      this.log('warn', 'Claude Code not found - AI workers will run in local mode');
+      this.log('warn', 'Gemini CLI not found - AI workers will run in local mode');
     }
   }
 
@@ -580,7 +580,7 @@ export class WorkerDaemon extends EventEmitter {
       case 'map':
         return this.runMapWorker();
       case 'audit':
-        return this.runAuditWorkerLocal(); // Fallback if no Claude Code
+        return this.runAuditWorkerLocal(); // Fallback if no Gemini CLI
       // ... other workers ...
     }
   }
@@ -597,7 +597,7 @@ export class WorkerDaemon extends EventEmitter {
         envFilesProtected: true,
         gitIgnoreExists: true,
       },
-      note: 'Install Claude Code for AI-powered security analysis',
+      note: 'Install Gemini CLI for AI-powered security analysis',
     };
   }
 }
@@ -632,7 +632,7 @@ npx gemiflow@v3alpha daemon status --show-modes
 │ Status: ● RUNNING (background)                      │
 │ PID: 12345                                          │
 │ Started: 2026-01-07T23:00:00Z                       │
-│ Claude Code: ✓ Available (headless enabled)        │
+│ Gemini CLI: ✓ Available (headless enabled)        │
 │ Workers: 5 enabled (3 headless, 2 local)            │
 └─────────────────────────────────────────────────────┘
 
@@ -714,7 +714,7 @@ services:
           cpus: '2'
           memory: 4G
     environment:
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - google_API_KEY=${google_API_KEY}
       - CLAUDE_CODE_HEADLESS=true
       - CLAUDE_CODE_SANDBOX_MODE=strict
     volumes:
@@ -772,7 +772,7 @@ volumes:
 ### Phase 1: Core Integration (Week 1) ✅ COMPLETE
 1. ✅ Add `HeadlessWorkerExecutor` to existing daemon
 2. ✅ Create headless worker configurations
-3. ✅ Implement graceful fallback for missing Claude Code
+3. ✅ Implement graceful fallback for missing Gemini CLI
 4. ✅ Add `--headless` flag to CLI
 
 ### Phase 2: Sandbox Profiles (Week 2) ✅ COMPLETE
@@ -783,7 +783,7 @@ volumes:
 
 ### Phase 3: Container Pool (Week 3) ✅ COMPLETE
 1. ✅ Create `ContainerWorkerPool` (src/services/container-worker-pool.ts)
-2. ✅ Docker image with pre-installed Claude Code (docker/Dockerfile.headless)
+2. ✅ Docker image with pre-installed Gemini CLI (docker/Dockerfile.headless)
 3. ✅ Docker Compose for local development (docker/docker-compose.workers.yml)
 4. ⏳ Kubernetes manifests for production (future enhancement)
 
@@ -802,7 +802,7 @@ volumes:
 1. **AI-Powered Workers** - Intelligent analysis beyond pattern matching
 2. **Sandboxed Execution** - Security-first worker execution
 3. **Scalable** - Container pools for high throughput
-4. **Graceful Degradation** - Works without Claude Code (local mode)
+4. **Graceful Degradation** - Works without Gemini CLI (local mode)
 5. **Unified System** - Single daemon manages all worker types
 
 ### Negative
@@ -823,7 +823,7 @@ volumes:
 - ADR-019: @gemiflow/headless Runtime Package
 - ADR-014: Workers System
 - V3 Worker Daemon: `src/services/worker-daemon.ts`
-- Claude Code Environment Variables
+- Gemini CLI Environment Variables
 
 ---
 

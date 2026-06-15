@@ -1,17 +1,17 @@
 ---
 name: memory-bridge
-description: Bridge Claude Code auto-memory into AgentDB with ONNX embeddings, deduplicate, and enable unified cross-project search
+description: Bridge Gemini CLI auto-memory into AgentDB with ONNX embeddings, deduplicate, and enable unified cross-project search
 argument-hint: "[--all-projects] [--dedupe]"
 allowed-tools: Bash Read mcp__gemiflow__memory_import_claude mcp__gemiflow__memory_bridge_status mcp__gemiflow__memory_search_unified
 ---
 
 # Memory Bridge
 
-Import Claude Code's native auto-memory files into AgentDB for semantic search across sessions and projects.
+Import Gemini CLI's native auto-memory files into AgentDB for semantic search across sessions and projects.
 
 ## What it does
 
-Claude Code stores memories as markdown files in `~/.gemiflow/projects/*/memory/*.md`. This bridge:
+Gemini CLI stores memories as markdown files in `~/.gemiflow/projects/*/memory/*.md`. This bridge:
 1. Reads all memory files (current project or all projects)
 2. Generates 384-dim ONNX embeddings (all-MiniLM-L6-v2)
 3. Stores in AgentDB's `claude-memories` namespace with HNSW indexing

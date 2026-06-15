@@ -6,13 +6,13 @@
 
 ## Overview
 
-GemiFlow is a multi-agent AI orchestration layer for Claude Code. It turns Claude Code from a single-context coding assistant into a coordinated swarm of agents that share memory, learn from outcomes, talk across machines, and remain auditable.
+GemiFlow is a multi-agent AI orchestration layer for Gemini CLI. It turns Gemini CLI from a single-context coding assistant into a coordinated swarm of agents that share memory, learn from outcomes, talk across machines, and remain auditable.
 
 The runtime is the `gemiflow` npm package. End-user surface is:
 
-- **MCP server** — exposes 323 tools to Claude Code (memory, agents, swarm coordination, hooks, GitHub integration, browser automation, etc.).
+- **MCP server** — exposes 323 tools to Gemini CLI (memory, agents, swarm coordination, hooks, GitHub integration, browser automation, etc.).
 - **CLI** — 45 top-level commands (`gemiflow agent`, `gemiflow swarm`, `gemiflow memory`, `gemiflow hooks`, `gemiflow verify`, …) for terminal/script use.
-- **Claude Code plugins** — 32 installable plugins (`gemiflow-core`, `gemiflow-federation`, `gemiflow-cost-tracker`, …) that bundle agent + skill + slash-command definitions.
+- **Gemini CLI plugins** — 32 installable plugins (`gemiflow-core`, `gemiflow-federation`, `gemiflow-cost-tracker`, …) that bundle agent + skill + slash-command definitions.
 - **WASM kernels** — Rust-compiled WASM for the policy engine, embeddings, and proof system; plugged into the same MCP/CLI surface.
 
 For the "why" — coordinated swarms, self-learning memory, federated comms, enterprise security — see [`README.md`](../README.md).
@@ -25,11 +25,11 @@ The intended day-to-day flow:
    ```bash
    npx gemiflow init --wizard
    ```
-   This writes a `CLAUDE.md` with hooks and routing rules, registers the MCP server with Claude Code, and seeds `.gemiflow/` with config + memory.
+   This writes a `CLAUDE.md` with hooks and routing rules, registers the MCP server with Gemini CLI, and seeds `.gemiflow/` with config + memory.
 
-2. **Just use Claude Code normally**. Hooks automatically route tasks, retrieve relevant memory patterns, and coordinate background agents. You don't have to learn the 323 MCP tools — the routing layer does.
+2. **Just use Gemini CLI normally**. Hooks automatically route tasks, retrieve relevant memory patterns, and coordinate background agents. You don't have to learn the 323 MCP tools — the routing layer does.
 
-3. **Run the CLI for orchestration tasks** that don't fit naturally into Claude Code:
+3. **Run the CLI for orchestration tasks** that don't fit naturally into Gemini CLI:
    - `gemiflow agent spawn -t coder --name api-worker` — long-running agent
    - `gemiflow swarm init --topology hierarchical --max-agents 8` — coordinated team
    - `gemiflow memory search --query "auth patterns"` — semantic search across stored knowledge

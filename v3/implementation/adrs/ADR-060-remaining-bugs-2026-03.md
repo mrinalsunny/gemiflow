@@ -34,12 +34,12 @@ ADR-059 triaged 30 open issues and 11 were fixed in v3.5.3 (PR #1297, #1298). Th
 ## P1 — High
 
 ### 2. hook-handler.cjs ignores stdin — all hook data silently lost (#1211)
-- **Impact:** Every Claude Code hook sends structured JSON via stdin, but hook-handler.cjs never reads it. The entire learning, routing, and intelligence pipeline receives no input data.
+- **Impact:** Every Gemini CLI hook sends structured JSON via stdin, but hook-handler.cjs never reads it. The entire learning, routing, and intelligence pipeline receives no input data.
 - **Root cause:** The handler reads `process.argv` but never `process.stdin`.
 - **Fix:** Add stdin buffering: `let data = ''; process.stdin.on('data', c => data += c); process.stdin.on('end', () => { /* parse JSON, dispatch */ })`.
 - **Effort:** Small — single file fix with high leverage.
 - **Note:** This is the single highest-leverage fix remaining. Without it, all hooks are effectively no-ops.
-- **Status:** ✅ **FIXED** in PR #1300 (v3.5.4). Added `readStdin()` async function with `!process.stdin.isTTY` detection, JSON parsing, and merged `hookInput` into prompt resolution. **Updated** in v3.5.7: replaced `for await` with event-based + 500ms timeout to prevent hanging when Claude Code leaves stdin in an ambiguous state.
+- **Status:** ✅ **FIXED** in PR #1300 (v3.5.4). Added `readStdin()` async function with `!process.stdin.isTTY` detection, JSON parsing, and merged `hookInput` into prompt resolution. **Updated** in v3.5.7: replaced `for await` with event-based + 500ms timeout to prevent hanging when Gemini CLI leaves stdin in an ambiguous state.
 
 ### 3. macOS: daemon dies immediately after start (#1283)
 - **Impact:** Daemon always shows STOPPED on macOS. Background workers, learning hooks, and neural training are all non-functional.

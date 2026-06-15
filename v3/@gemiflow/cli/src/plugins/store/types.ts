@@ -37,8 +37,8 @@ export interface PluginEntry {
   createdAt: string;
 
   // Requirements
-  minClaudeFlowVersion: string;
-  maxClaudeFlowVersion?: string;
+  mingemiflowVersion: string;
+  maxgemiflowVersion?: string;
   dependencies: PluginDependency[];
   peerDependencies?: PluginDependency[];
 

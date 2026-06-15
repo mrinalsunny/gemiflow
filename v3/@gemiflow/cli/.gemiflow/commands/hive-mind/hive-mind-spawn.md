@@ -11,7 +11,7 @@ npx gemiflow hive-mind spawn <objective> [options]
 - `--queen-type <type>` - Queen type (strategic, tactical, adaptive)
 - `--max-workers <n>` - Maximum worker agents
 - `--consensus <type>` - Consensus algorithm
-- `--claude` - Generate Claude Code spawn commands
+- `--claude` - Generate Gemini CLI spawn commands
 
 ## Examples
 ```bash

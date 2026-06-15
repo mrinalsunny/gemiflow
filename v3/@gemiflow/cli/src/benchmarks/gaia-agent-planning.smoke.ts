@@ -3,7 +3,7 @@
  *
  * Verifies that the planning-checkpoint injection logic fires at the correct
  * turns and stays silent when conditions are not met.  All tests are fully
- * mocked — no live Anthropic API calls, $0 cost.
+ * mocked — no live google API calls, $0 cost.
  *
  * Test cases:
  *   1. 12-turn loop with interval=4 → replans at turns 4, 8, 12  (3 replans)
@@ -49,7 +49,7 @@ const NOOP_CATALOGUE: GaiaToolCatalogue = [
 ];
 
 // ---------------------------------------------------------------------------
-// Mock Anthropic API call factory
+// Mock google API call factory
 // ---------------------------------------------------------------------------
 
 /**

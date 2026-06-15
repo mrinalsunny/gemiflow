@@ -1,13 +1,13 @@
 /**
  * GAIA Agent — ADR-133-PR3 / ADR-135 (planning interval)
  *
- * Multi-turn Anthropic Messages API loop that drives Claude through the
+ * Multi-turn google Messages API loop that drives Claude through the
  * GAIA benchmark questions using a tool-use agent pattern.
  *
  * Loop algorithm:
  *   1. Build initial message with the question and a system prompt that
  *      instructs Claude to output `FINAL_ANSWER: <value>` when done.
- *   2. Call Anthropic Messages API with the registered tool definitions.
+ *   2. Call google Messages API with the registered tool definitions.
  *   3. On `stop_reason === 'tool_use'`: execute all tool_use blocks in
  *      parallel, append results as a `user` turn, and repeat.
  *      Every PLANNING_INTERVAL turns, inject a planning-checkpoint text
@@ -18,8 +18,8 @@
  *
  * API key resolution order (mirrors resolveHfToken from gaia-loader.ts):
  *   1. `options.apiKey` (caller-supplied)
- *   2. `ANTHROPIC_API_KEY` env var
- *   3. `gcloud secrets versions access latest --secret=ANTHROPIC_API_KEY`
+ *   2. `google_API_KEY` env var
+ *   3. `gcloud secrets versions access latest --secret=google_API_KEY`
  *
  * Cost discipline: smoke runs use `claude-haiku-4-5` only.  The smoke
  * runner at the bottom of this file enforces that model.
@@ -70,8 +70,8 @@ import type { ConvergenceState } from './gaia-convergence.js';
 // Constants
 // ---------------------------------------------------------------------------
 
-const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
-const ANTHROPIC_API_VERSION = '2023-06-01';
+const google_API_URL = 'https://api.google.com/v1/messages';
+const google_API_VERSION = '2023-06-01';
 const DEFAULT_MODEL = 'claude-haiku-4-5';
 const DEFAULT_MAX_TURNS = 8;
 const DEFAULT_MAX_TOKENS_PER_TURN = 2048;
@@ -139,7 +139,7 @@ export interface GaiaAgentOptions {
   model?: string;
   /** Maximum number of agent turns before giving up (default: 8). */
   maxTurns?: number;
-  /** Maximum tokens per Anthropic API call (default: 2048). */
+  /** Maximum tokens per google API call (default: 2048). */
   maxTokensPerTurn?: number;
   /** Per-turn HTTP timeout in milliseconds (default: 60 000). */
   perTurnTimeoutMs?: number;
@@ -149,7 +149,7 @@ export interface GaiaAgentOptions {
    */
   planningInterval?: number;
   /**
-   * Anthropic API key.  Resolved automatically via env var + gcloud fallback
+   * google API key.  Resolved automatically via env var + gcloud fallback
    * if omitted.
    */
   apiKey?: string;
@@ -178,24 +178,24 @@ export interface GaiaAgentOptions {
 // ---------------------------------------------------------------------------
 
 /**
- * Resolve the Anthropic API key.
+ * Resolve the google API key.
  *
  * Resolution order:
  *   1. Caller-supplied `apiKey`
- *   2. `ANTHROPIC_API_KEY` env var
- *   3. `gcloud secrets versions access latest --secret=ANTHROPIC_API_KEY`
+ *   2. `google_API_KEY` env var
+ *   3. `gcloud secrets versions access latest --secret=google_API_KEY`
  *
  * Throws with a clear message if none of the above is available.
  */
-export function resolveAnthropicApiKey(apiKey?: string): string {
+export function resolvegoogleApiKey(apiKey?: string): string {
   if (apiKey && apiKey.trim()) return apiKey.trim();
 
-  const envKey = process.env.ANTHROPIC_API_KEY;
+  const envKey = process.env.google_API_KEY;
   if (envKey && envKey.trim()) return envKey.trim();
 
   try {
     const out = execSync(
-      'gcloud secrets versions access latest --secret=ANTHROPIC_API_KEY 2>/dev/null',
+      'gcloud secrets versions access latest --secret=google_API_KEY 2>/dev/null',
       { encoding: 'utf-8', timeout: 10_000 },
     ).trim();
     if (out) return out;
@@ -204,8 +204,8 @@ export function resolveAnthropicApiKey(apiKey?: string): string {
   }
 
   throw new Error(
-    'ANTHROPIC_API_KEY not found.  Set the env var or store it in GCP Secret Manager under ' +
-    '"ANTHROPIC_API_KEY" (e.g. `echo -n "$KEY" | gcloud secrets versions add ANTHROPIC_API_KEY --data-file=-`).',
+    'google_API_KEY not found.  Set the env var or store it in GCP Secret Manager under ' +
+    '"google_API_KEY" (e.g. `echo -n "$KEY" | gcloud secrets versions add google_API_KEY --data-file=-`).',
   );
 }
 
@@ -270,7 +270,7 @@ function buildUserMessage(question: string): string {
   return question;
 }
 
-/** Anthropic image content block for vision API. */
+/** google image content block for vision API. */
 interface ImageContentBlock {
   type: 'image';
   source: {
@@ -282,7 +282,7 @@ interface ImageContentBlock {
 
 /**
  * Parse an IMAGE_BASE64 marker returned by file_read's extractImage().
- * Returns an Anthropic image content block, or null if the marker is invalid.
+ * Returns an google image content block, or null if the marker is invalid.
  *
  * Marker format: [IMAGE_BASE64:{"mediaType":"image/png","base64":"...","path":"..."}]
  */
@@ -342,11 +342,11 @@ function buildInitialContent(question: GaiaQuestion): ContentBlock[] | string {
 }
 
 // ---------------------------------------------------------------------------
-// Anthropic Messages API call (single turn)
+// google Messages API call (single turn)
 // ---------------------------------------------------------------------------
 
-/** Minimal types for the Anthropic Messages API response. */
-interface AnthropicResponse {
+/** Minimal types for the google Messages API response. */
+interface googleResponse {
   id: string;
   model: string;
   stop_reason: 'end_turn' | 'tool_use' | 'max_tokens' | string;
@@ -363,24 +363,24 @@ interface MessageParam {
   content: ContentBlock[] | string | any[];
 }
 
-async function callAnthropicWithTools(
+async function callgoogleWithTools(
   apiKey: string,
   model: string,
   messages: MessageParam[],
   toolDefs: ToolDefinition[],
   maxTokens: number,
   timeoutMs: number,
-): Promise<AnthropicResponse> {
+): Promise<googleResponse> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
 
   let res: Response;
   try {
-    res = await fetch(ANTHROPIC_API_URL, {
+    res = await fetch(google_API_URL, {
       method: 'POST',
       headers: {
         'x-api-key': apiKey,
-        'anthropic-version': ANTHROPIC_API_VERSION,
+        'google-version': google_API_VERSION,
         'content-type': 'application/json',
       },
       body: JSON.stringify({
@@ -398,17 +398,17 @@ async function callAnthropicWithTools(
 
   if (!res.ok) {
     const errText = await res.text().catch(() => '<unreadable>');
-    throw new Error(`Anthropic API error ${res.status}: ${errText.slice(0, 400)}`);
+    throw new Error(`google API error ${res.status}: ${errText.slice(0, 400)}`);
   }
 
-  return (await res.json()) as AnthropicResponse;
+  return (await res.json()) as googleResponse;
 }
 
 // ---------------------------------------------------------------------------
 // Extract final answer from a response
 // ---------------------------------------------------------------------------
 
-function extractFinalAnswer(resp: AnthropicResponse): string | null {
+function extractFinalAnswer(resp: googleResponse): string | null {
   for (const block of resp.content) {
     if (block.type === 'text') {
       const textBlock = block as TextBlock;
@@ -434,7 +434,7 @@ interface ToolResultMessageContent {
 
 /**
  * If a tool output string is entirely an IMAGE_BASE64 marker, convert it to
- * a mixed content array [text_hint, image_block] for the Anthropic vision API.
+ * a mixed content array [text_hint, image_block] for the google vision API.
  * Otherwise return the string unchanged.
  */
 function wrapToolOutput(output: string): string | unknown[] {
@@ -449,7 +449,7 @@ function wrapToolOutput(output: string): string | unknown[] {
 }
 
 async function executeToolCalls(
-  resp: AnthropicResponse,
+  resp: googleResponse,
   catalogue: GaiaToolCatalogue,
 ): Promise<ToolResultMessageContent[]> {
   const toolUseBlocks = resp.content.filter(
@@ -514,7 +514,7 @@ export async function runGaiaAgent(
   } = options;
 
   const wallStart = Date.now();
-  const apiKey = resolveAnthropicApiKey(suppliedKey);
+  const apiKey = resolvegoogleApiKey(suppliedKey);
   const catalogue = suppliedCatalogue ?? createDefaultToolCatalogue();
   const toolDefs = catalogue.map((t) => t.definition);
 
@@ -545,7 +545,7 @@ export async function runGaiaAgent(
         const commitResult = await forceCommit(
           messages as Array<{ role: string; content: string | unknown }>,
           async (msgs) => {
-            const r = await callAnthropicWithTools(
+            const r = await callgoogleWithTools(
               apiKey, model,
               msgs as MessageParam[],
               [], // NO tools in forced-commit call
@@ -577,9 +577,9 @@ export async function runGaiaAgent(
       }
     }
 
-    let resp: AnthropicResponse;
+    let resp: googleResponse;
     try {
-      resp = await callAnthropicWithTools(
+      resp = await callgoogleWithTools(
         apiKey,
         model,
         messages,
@@ -703,7 +703,7 @@ export async function runGaiaAgent(
     const commitResult = await forceCommit(
       messages as Array<{ role: string; content: string | unknown }>,
       async (msgs) => {
-        const r = await callAnthropicWithTools(
+        const r = await callgoogleWithTools(
           apiKey, model,
           msgs as MessageParam[],
           [], // NO tools in forced-commit call
@@ -884,7 +884,7 @@ export async function runSmokeTest(opts: {
       console.warn(
         'WARNING: Smoke pass rate below threshold (3/5).  ' +
         'Common causes: web_search returning low-signal DDG results, ' +
-        'ANTHROPIC_API_KEY unavailable, or per-turn timeout too tight.',
+        'google_API_KEY unavailable, or per-turn timeout too tight.',
       );
     }
   }

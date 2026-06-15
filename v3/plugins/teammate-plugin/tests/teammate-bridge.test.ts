@@ -73,7 +73,7 @@ describe('TeammateBridge Initialization', () => {
     cleanupTestDir();
   });
 
-  it('should detect Claude Code version on initialize', async () => {
+  it('should detect Gemini CLI version on initialize', async () => {
     const versionInfo = await bridge.initialize();
 
     expect(versionInfo.claudeCode).toBe('2.1.19');

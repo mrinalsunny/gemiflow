@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// cost-track — auto-capture token usage from a Claude Code session jsonl
+// cost-track — auto-capture token usage from a Gemini CLI session jsonl
 // and persist a structured record to the `cost-tracking` AgentDB namespace.
 //
 // Resolution: by default reads the most-recently-modified session jsonl in
@@ -46,7 +46,7 @@ function costForUsage(tier, usage) {
 }
 
 function encodeProjectPath(cwd) {
-  // #1927: Claude Code encodes an absolute path by replacing path separators
+  // #1927: Gemini CLI encodes an absolute path by replacing path separators
   // AND the Windows drive colon with `-`. So:
   //   POSIX:   /home/user/proj      -> -home-user-proj
   //   Windows: D:\project\Subcloudy -> D--project-Subcloudy   (`:` -> `-`, `\` -> `-`)
@@ -143,7 +143,7 @@ function main() {
   const targetCwd = process.env.TRACK_CWD || process.cwd();
   const projectDir = findProjectDir(targetCwd);
   if (!projectDir) {
-    console.error(`cost-track: no Claude Code project dir for cwd=${targetCwd}`);
+    console.error(`cost-track: no Gemini CLI project dir for cwd=${targetCwd}`);
     console.error(`looked under ${PROJECTS_DIR}/${encodeProjectPath(targetCwd)}`);
     process.exit(2);
   }

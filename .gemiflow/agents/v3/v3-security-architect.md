@@ -15,8 +15,8 @@ Design and implement comprehensive security architecture for v3, addressing all 
 ## Priority Security Fixes
 
 ### **CVE-1: Vulnerable Dependencies**
-- **Issue**: Outdated @anthropic-ai/claude-code version
-- **Action**: Update to @anthropic-ai/claude-code@^2.0.31
+- **Issue**: Outdated @google-ai/claude-code version
+- **Action**: Update to @google-ai/claude-code@^2.0.31
 - **Files**: package.json
 - **Timeline**: Phase 1 Week 1
 

@@ -1,5 +1,5 @@
 // Regression tests for #2234 — parent-death watchdog so `gemiflow mcp start`
-// doesn't orphan and accumulate ~1 GB of stale MCP servers when Claude Code
+// doesn't orphan and accumulate ~1 GB of stale MCP servers when Gemini CLI
 // restarts.
 
 import { describe, it, expect, vi, afterEach } from 'vitest';
@@ -20,7 +20,7 @@ describe('parent-death watchdog (#2234)', () => {
       onOrphaned,
     });
 
-    // Still parented to Claude Code → no action.
+    // Still parented to Gemini CLI → no action.
     await vi.advanceTimersByTimeAsync(150);
     expect(onOrphaned).not.toHaveBeenCalled();
     expect(exit).not.toHaveBeenCalled();

@@ -75,7 +75,7 @@ export interface MemoryFilter {
 /**
  * Adapter for gemiflow memory system with HNSW indexing
  */
-export class ClaudeFlowMemoryAdapter implements IMemoryAdapter {
+export class gemiflowMemoryAdapter implements IMemoryAdapter {
   private namespace: string;
   private cache: Map<string, BrowserMemoryEntry> = new Map();
   private embeddingCache: Map<string, number[]> = new Map();
@@ -261,7 +261,7 @@ export class BrowserMemoryManager {
 
   constructor(sessionId: string, adapter?: IMemoryAdapter) {
     this.sessionId = sessionId;
-    this.adapter = adapter || new ClaudeFlowMemoryAdapter();
+    this.adapter = adapter || new gemiflowMemoryAdapter();
   }
 
   /**
@@ -439,7 +439,7 @@ let defaultAdapter: IMemoryAdapter | null = null;
 
 export function getMemoryAdapter(): IMemoryAdapter {
   if (!defaultAdapter) {
-    defaultAdapter = new ClaudeFlowMemoryAdapter();
+    defaultAdapter = new gemiflowMemoryAdapter();
   }
   return defaultAdapter;
 }

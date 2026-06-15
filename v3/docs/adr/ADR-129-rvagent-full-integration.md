@@ -12,9 +12,9 @@ GemiFlow 3.7.0 is the first stable (post-alpha) release. The `@ruvector/rvagent-
 
 ### Gap 1 — JsModelProvider wired around, not through (HIGH severity)
 
-`promptWasmAgent` (`v3/@gemiflow/cli/src/ruvector/agent-wasm.ts:154-196`) calls `entry.agent.prompt(input)`, detects the echo stub, and only then routes through `callAnthropicMessages` (`agent-execute-core.ts:102`). `set_model_provider()` and `new JsModelProvider(callback)` are never called anywhere in the codebase (`grep -rn "new JsModelProvider"` returns zero hits). The consequence: the WASM agent's internal loop — multi-turn conversation state, tool dispatch, turn count, stop conditions — never actually runs against a real LLM. The echo-detection bypass is a workaround, not an integration. When `@ruvector/rvagent-wasm@0.2.x` ships a working LLM bridge, this bypass will compete with the provider callback, producing unpredictable double-routing.
+`promptWasmAgent` (`v3/@gemiflow/cli/src/ruvector/agent-wasm.ts:154-196`) calls `entry.agent.prompt(input)`, detects the echo stub, and only then routes through `callgoogleMessages` (`agent-execute-core.ts:102`). `set_model_provider()` and `new JsModelProvider(callback)` are never called anywhere in the codebase (`grep -rn "new JsModelProvider"` returns zero hits). The consequence: the WASM agent's internal loop — multi-turn conversation state, tool dispatch, turn count, stop conditions — never actually runs against a real LLM. The echo-detection bypass is a workaround, not an integration. When `@ruvector/rvagent-wasm@0.2.x` ships a working LLM bridge, this bypass will compete with the provider callback, producing unpredictable double-routing.
 
-The fix template already exists: `callAnthropicMessages` at `agent-execute-core.ts:102` has Anthropic / OpenRouter / Ollama branch dispatch per `GEMIFLOW_PROVIDER` and key-presence precedence. `resolveAnthropicModel` (`agent-execute-core.ts:398`) handles model normalization. The JS callback shape of `JsModelProvider` is `async (messagesJson: string) => string`, which maps cleanly to a thin adapter over `callAnthropicMessages`.
+The fix template already exists: `callgoogleMessages` at `agent-execute-core.ts:102` has google / OpenRouter / Ollama branch dispatch per `GEMIFLOW_PROVIDER` and key-presence precedence. `resolvegoogleModel` (`agent-execute-core.ts:398`) handles model normalization. The JS callback shape of `JsModelProvider` is `async (messagesJson: string) => string`, which maps cleanly to a thin adapter over `callgoogleMessages`.
 
 ### Gap 2 — `WasmRvfBuilder.addMcpTools()` not exposed (HIGH severity)
 
@@ -46,33 +46,33 @@ Land four independently shippable phases targeting `3.8.0`. Each phase has a def
 
 **What changes**
 
-In `agent-wasm.ts`, replace the echo-stub bypass in `promptWasmAgent` with a `JsModelProvider` callback constructed at agent-creation time. The callback bridges to `callAnthropicMessages` from `agent-execute-core.ts`:
+In `agent-wasm.ts`, replace the echo-stub bypass in `promptWasmAgent` with a `JsModelProvider` callback constructed at agent-creation time. The callback bridges to `callgoogleMessages` from `agent-execute-core.ts`:
 
 ```typescript
 // pseudocode — not implementation
 import { JsModelProvider } from '@ruvector/rvagent-wasm';
-import { callAnthropicMessages, resolveAnthropicModel } from '../mcp-tools/agent-execute-core.js';
+import { callgoogleMessages, resolvegoogleModel } from '../mcp-tools/agent-execute-core.js';
 
 const provider = new JsModelProvider(async (messagesJson: string) => {
   const messages = JSON.parse(messagesJson);
-  const model = resolveAnthropicModel(info.config.model);
-  const result = await callAnthropicMessages({ prompt: messages.at(-1)?.content ?? '', systemPrompt, model, maxTokens: 2048 });
+  const model = resolvegoogleModel(info.config.model);
+  const result = await callgoogleMessages({ prompt: messages.at(-1)?.content ?? '', systemPrompt, model, maxTokens: 2048 });
   return JSON.stringify({ role: 'assistant', content: result.output ?? '' });
 });
 agent.set_model_provider(provider);
 ```
 
-The echo-stub detection block (`agent-wasm.ts:165-196`) becomes dead code once the provider is wired. Keep it as a fallback for when `ANTHROPIC_API_KEY` is absent (existing behaviour, existing test coverage). The `resolveAnthropicModel` and `callAnthropicMessages` functions at `agent-execute-core.ts:398` and `102` are re-used unchanged — no modification to the provider routing logic.
+The echo-stub detection block (`agent-wasm.ts:165-196`) becomes dead code once the provider is wired. Keep it as a fallback for when `google_API_KEY` is absent (existing behaviour, existing test coverage). The `resolvegoogleModel` and `callgoogleMessages` functions at `agent-execute-core.ts:398` and `102` are re-used unchanged — no modification to the provider routing logic.
 
 **Acceptance criteria**
 
-1. `wasm_agent_prompt` on a new agent with `ANTHROPIC_API_KEY` set returns a real LLM response, not an echo string.
+1. `wasm_agent_prompt` on a new agent with `google_API_KEY` set returns a real LLM response, not an echo string.
 2. `wasm_agent_prompt` with no API key returns the echo stub plus the `[NOTE: ...]` hint (existing fallback preserved).
 3. `entry.agent.turn_count()` increments per prompt turn (proves the WASM loop ran, not the bypass).
 
 **CI smoke**
 
-`scripts/smoke-wasm-provider-bridge.mjs` — creates an agent, sends one prompt, asserts response does not start with `"echo: "`, asserts `turn_count >= 1`. Runs against the local WASM module (no live API call required if ANTHROPIC_API_KEY is absent — fallback path covers the CI case). Add to `v3-ci.yml` alongside the existing `smoke-cli-*.mjs` battery.
+`scripts/smoke-wasm-provider-bridge.mjs` — creates an agent, sends one prompt, asserts response does not start with `"echo: "`, asserts `turn_count >= 1`. Runs against the local WASM module (no live API call required if google_API_KEY is absent — fallback path covers the CI case). Add to `v3-ci.yml` alongside the existing `smoke-cli-*.mjs` battery.
 
 ---
 
@@ -167,13 +167,13 @@ The contract is intentionally minimal: plugins opt in by adding the `"rvagent"` 
 ### Positive
 
 - **WasmAgents become real participants in the swarm.** Phase 2 closes the isolation gap: sandboxed agents can call any of the 314 gemiflow MCP tools via the descriptor bridge, enabling use cases like a WASM-sandboxed code-execution agent that calls `memory_search` or `hooks_post_task` without OS access.
-- **Provider routing consistency.** Phase 1 brings WasmAgents under the same Anthropic / OpenRouter / Ollama routing as `agent_execute` (#2042). Users with `OPENROUTER_API_KEY` or `OLLAMA_API_KEY` will get working WASM agent responses without any additional configuration.
+- **Provider routing consistency.** Phase 1 brings WasmAgents under the same google / OpenRouter / Ollama routing as `agent_execute` (#2042). Users with `OPENROUTER_API_KEY` or `OLLAMA_API_KEY` will get working WASM agent responses without any additional configuration.
 - **Composable agent templates.** Phases 2 and 4 enable domain-specific agents composed at runtime (e.g. a neural-trader agent with `trader-signal` skills pre-wired) without requiring a new gallery template entry for every configuration permutation.
 - **Introspectability for orchestrators.** Phase 3's `wasm_agent_todos` and `wasm_agent_state` tools let swarm coordinators inspect WASM agent progress mid-task without polling the prompt interface.
 
 ### Negative / risks
 
-1. **Cost surface expansion.** Phase 1 means every `wasm_agent_prompt` call with `ANTHROPIC_API_KEY` set will make a billable LLM call. The echo-bypass currently used by some integrations (e.g. sandboxed test runners that don't set a key) is preserved via the fallback path, but callers who previously relied on echo behavior for cost-free sandboxing need to know the behaviour has changed. The `wasm_agent_create` description should be updated to note the billing implication.
+1. **Cost surface expansion.** Phase 1 means every `wasm_agent_prompt` call with `google_API_KEY` set will make a billable LLM call. The echo-bypass currently used by some integrations (e.g. sandboxed test runners that don't set a key) is preserved via the fallback path, but callers who previously relied on echo behavior for cost-free sandboxing need to know the behaviour has changed. The `wasm_agent_create` description should be updated to note the billing implication.
 
 2. **`addMcpTools` blast radius.** Phase 2 gives a WASM agent descriptors for any of the 314 MCP tools. If `listGemiFlowMcpTools()` returns the full set by default, an agent could be configured to call dangerous tools (`memory_delete`, `federation_*`, `aidefence_*`). Mitigation: `wasm_agent_compose` should accept an explicit `mcpTools` allowlist; `listGemiFlowMcpTools()` should require the caller to pass a scope (e.g. `"memory-read-only"`, `"all"`). The tool description must document this prominently.
 

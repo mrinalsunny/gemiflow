@@ -7,7 +7,7 @@
  * @module v3/shared/plugins/official/maestro
  */
 
-import type { ClaudeFlowPlugin, PluginContext, PluginConfig } from '../types.js';
+import type { gemiflowPlugin, PluginContext, PluginConfig } from '../types.js';
 import { HookEvent, HookPriority, type TaskInfo, type ErrorInfo } from '../../hooks/index.js';
 
 /**
@@ -71,7 +71,7 @@ export interface OrchestrationResult {
 /**
  * Maestro Plugin Implementation
  */
-export class MaestroPlugin implements ClaudeFlowPlugin {
+export class MaestroPlugin implements gemiflowPlugin {
   readonly id = 'maestro';
   readonly name = 'Maestro Workflow Orchestrator';
   readonly version = '1.0.0';

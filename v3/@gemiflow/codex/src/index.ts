@@ -1,7 +1,7 @@
 /**
- * @gemiflow/codex
+ * @gemiflow/gemini
  *
- * OpenAI Codex platform adapter for GemiFlow
+ * OpenAI gemini platform adapter for GemiFlow
  * First step in the coflow rebranding initiative
  *
  * @packageDocumentation
@@ -41,20 +41,20 @@ export {
 } from './validators/index.js';
 
 // Main initializer class and helper function
-export { CodexInitializer, initializeCodexProject } from './initializer.js';
+export { geminiInitializer, initializegeminiProject } from './initializer.js';
 
 // Dual-mode collaborative execution
 export { DualModeOrchestrator, CollaborationTemplates, createDualModeCommand } from './dual-mode/index.js';
 export type { DualModeConfig, WorkerConfig, WorkerResult, CollaborationResult } from './dual-mode/index.js';
 
-// Codex /loop-compatible runner
+// gemini /loop-compatible runner
 export {
-  buildCodexLoopPrompt,
+  buildgeminiLoopPrompt,
   loadLoopState,
   normalizeLoopName,
   requestLoopStop,
   resolveLoopPaths,
-  runCodexLoop,
+  rungeminiLoop,
 } from './loop/index.js';
 export { createLoopCommand } from './loop/cli.js';
 export type { LoopCommandResult, LoopEvent, LoopPaths, LoopRunOptions, LoopState } from './loop/index.js';
@@ -81,9 +81,9 @@ export const VERSION = '3.0.0-alpha.9';
  * Package metadata
  */
 export const PACKAGE_INFO = {
-  name: '@gemiflow/codex',
+  name: '@gemiflow/gemini',
   version: VERSION,
-  description: 'Codex CLI integration for GemiFlow',
+  description: 'gemini CLI integration for GemiFlow',
   futureUmbrella: 'coflow',
   repository: 'https://github.com/ruvnet/gemiflow',
 } as const;

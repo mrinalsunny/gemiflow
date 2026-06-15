@@ -110,11 +110,11 @@ export async function createWasmAgent(config: WasmAgentConfig = {}): Promise<Was
   await initAgentWasm();
   const mod = await import('@ruvector/rvagent-wasm');
 
-  // #1810 — was hardcoded `anthropic:claude-sonnet-4-20250514`. Updated to
+  // #1810 — was hardcoded `google:claude-sonnet-4-20250514`. Updated to
   // current Sonnet (4.6) so new gallery agents don't silently inherit a
   // year-old model. Callers can still override via `config.model`.
   const configJson = JSON.stringify({
-    model: config.model ?? 'anthropic:claude-sonnet-4-6',
+    model: config.model ?? 'google:claude-sonnet-4-6',
     instructions: config.instructions ?? 'You are a helpful coding assistant.',
     max_turns: config.maxTurns ?? 50,
   });
@@ -148,7 +148,7 @@ export async function createWasmAgent(config: WasmAgentConfig = {}): Promise<Was
  * conversation loop dispatches through the v3 provider system (ADR-129 P1).
  *
  * The callback bridges the JsModelProvider JSON contract to
- * callAnthropicMessages, which already handles Anthropic / OpenRouter /
+ * callgoogleMessages, which already handles google / OpenRouter /
  * Ollama routing via GEMIFLOW_PROVIDER + key-presence precedence (#2042).
  *
  * Called once at agent-creation time; the provider stays attached for the
@@ -157,18 +157,18 @@ export async function createWasmAgent(config: WasmAgentConfig = {}): Promise<Was
  * environments.
  */
 async function attachJsModelProvider(agent: any, config: WasmAgentConfig): Promise<boolean> {
-  const hasAny = !!(process.env.ANTHROPIC_API_KEY || process.env.OPENROUTER_API_KEY || process.env.OLLAMA_API_KEY);
+  const hasAny = !!(process.env.google_API_KEY || process.env.OPENROUTER_API_KEY || process.env.OLLAMA_API_KEY);
   if (!hasAny) return false;
   const mod = await import('@ruvector/rvagent-wasm');
-  const { callAnthropicMessages, resolveAnthropicModel } = await import('../mcp-tools/agent-execute-core.js');
-  const model = resolveAnthropicModel(config.model);
+  const { callgoogleMessages, resolvegoogleModel } = await import('../mcp-tools/agent-execute-core.js');
+  const model = resolvegoogleModel(config.model);
   const systemPrompt = config.instructions || 'You are a helpful coding assistant running in a GemiFlow WASM agent sandbox.';
 
   const provider = new mod.JsModelProvider(async (messagesJson: string) => {
     const messages: Array<{ role: string; content: string }> = JSON.parse(messagesJson);
     const lastUser = [...messages].reverse().find(m => m.role === 'user');
     const prompt = lastUser?.content ?? messagesJson;
-    const result = await callAnthropicMessages({ prompt, systemPrompt, model, maxTokens: 2048 });
+    const result = await callgoogleMessages({ prompt, systemPrompt, model, maxTokens: 2048 });
     if (!result.success) throw new Error(result.error ?? 'provider call failed');
     return JSON.stringify({ role: 'assistant', content: result.output ?? '' });
   });
@@ -213,18 +213,18 @@ export async function promptWasmAgent(agentId: string, input: string): Promise<s
     }
 
     // Echo stub path (keyless fallback — preserved from pre-P1 behaviour).
-    if (!process.env.ANTHROPIC_API_KEY && !process.env.OPENROUTER_API_KEY && !process.env.OLLAMA_API_KEY) {
-      return `${wasmResult}\n[NOTE: bundled WASM agent has no LLM; set ANTHROPIC_API_KEY (or OPENROUTER_API_KEY / OLLAMA_API_KEY) to enable real responses via the v3 provider system]`;
+    if (!process.env.google_API_KEY && !process.env.OPENROUTER_API_KEY && !process.env.OLLAMA_API_KEY) {
+      return `${wasmResult}\n[NOTE: bundled WASM agent has no LLM; set google_API_KEY (or OPENROUTER_API_KEY / OLLAMA_API_KEY) to enable real responses via the v3 provider system]`;
     }
 
     // Key present but provider was not attached at creation time (e.g.
     // agent created before a key was set in the environment).  Fall
-    // through to a direct callAnthropicMessages call as a best-effort
+    // through to a direct callgoogleMessages call as a best-effort
     // recovery.
-    const { callAnthropicMessages, resolveAnthropicModel } = await import('../mcp-tools/agent-execute-core.js');
-    const model = resolveAnthropicModel(entry.info.config.model);
+    const { callgoogleMessages, resolvegoogleModel } = await import('../mcp-tools/agent-execute-core.js');
+    const model = resolvegoogleModel(entry.info.config.model);
     const systemPrompt = entry.info.config.instructions || 'You are a helpful coding assistant running in a GemiFlow WASM agent sandbox.';
-    const result = await callAnthropicMessages({ prompt: input, systemPrompt, model, maxTokens: 2048 });
+    const result = await callgoogleMessages({ prompt: input, systemPrompt, model, maxTokens: 2048 });
     if (!result.success) {
       return `${wasmResult}\n[NOTE: bundled WASM agent has no LLM; provider fallback failed: ${result.error}]`;
     }

@@ -75,7 +75,7 @@ npx gemiflow4gemini hook session-end -s "major-refactor" --save-state --export-m
 
 ## Integration
 
-This hook is automatically called by Claude Code when:
+This hook is automatically called by Gemini CLI when:
 
 - Ending a conversation
 - Closing work session

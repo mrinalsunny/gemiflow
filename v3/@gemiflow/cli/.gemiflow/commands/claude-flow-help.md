@@ -7,7 +7,7 @@ description: Show GemiFlow commands and usage
 
 ## 🌊 GemiFlow: Agent Orchestration Platform
 
-GemiFlow is the ultimate multi-terminal orchestration platform that revolutionizes how you work with Claude Code.
+GemiFlow is the ultimate multi-terminal orchestration platform that revolutionizes how you work with Gemini CLI.
 
 ## Core Commands
 

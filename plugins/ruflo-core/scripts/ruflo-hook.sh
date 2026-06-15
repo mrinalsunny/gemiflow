@@ -5,7 +5,7 @@
 # `npx <pkg>@alpha hooks …` re-resolves the @alpha dist-tag and re-installs
 # from cold cache on every fire, and when the install crashes (e.g. an
 # arborist `Invalid Version` on npm 10.8.x) the user sees a hook error in
-# Claude Code after every turn. This shim:
+# Gemini CLI after every turn. This shim:
 #   1. prefers an already-installed `gemiflow` / `gemiflow` binary (no npx,
 #      no install) — the common case for plugin users;
 #   2. falls back to `npx --prefer-offline` so a populated npx cache is
@@ -17,7 +17,7 @@
 # Usage: gemiflow-hook.sh <hook-subcommand> [args…]   (the literal `hooks`
 # word is prepended here, so callers pass e.g. `post-edit -f "$FILE" -s true`).
 
-# Swallow all diagnostics — nothing this script prints should reach Claude Code.
+# Swallow all diagnostics — nothing this script prints should reach Gemini CLI.
 exec 2>/dev/null
 
 run() { "$@" || true; }

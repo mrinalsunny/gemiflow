@@ -481,7 +481,7 @@ async function verifyPlugin(plugin: PluginEntry): Promise<VerificationResult> {
 **Deployment Options:**
 - **Self-hosted**: `npx gemiflow marketplace start --port 3001`
 - **Serverless**: Deploy as Cloudflare Worker / Vercel Edge Function with SQLite (D1/Turso)
-- **MCP Server**: Expose as MCP tool for Claude Code integration
+- **MCP Server**: Expose as MCP tool for Gemini CLI integration
 
 ## Performance Targets
 

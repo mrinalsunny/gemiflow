@@ -8,7 +8,7 @@
 #   docker build -t gemiflow:headless -f v3/@gemiflow/cli/docker/Dockerfile.headless .
 #
 # Run:
-#   docker run -e ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY gemiflow:headless
+#   docker run -e google_API_KEY=$google_API_KEY gemiflow:headless
 
 # ── Stage 1: Install ─────────────────────────────────────────────
 FROM node:22-alpine AS build
@@ -34,7 +34,7 @@ RUN GLOBAL_PREFIX=$(npm config get prefix) \
       "${CLI_NM}/onnxruntime-node" \
       "${CLI_NM}/onnxruntime-web" \
       "${CLI_NM}/onnx-proto" \
-      "${CLI_NM}/@anthropic-ai" \
+      "${CLI_NM}/@google-ai" \
       "${CLI_NM}/@xenova" \
       "${CLI_NM}/agentdb" \
       "${CLI_NM}/@ruvector" \
@@ -47,7 +47,7 @@ RUN GLOBAL_PREFIX=$(npm config get prefix) \
     && rm -rf \
       "${CLI_NM}/@gemiflow/embeddings" \
       "${CLI_NM}/@gemiflow/memory" \
-      "${CLI_NM}/@gemiflow/codex" \
+      "${CLI_NM}/@gemiflow/gemini" \
       "${CLI_NM}/@gemiflow/guidance" \
       "${CLI_NM}/@gemiflow/aidefence" \
       "${CLI_NM}/@gemiflow/plugin-gastown-bridge" \

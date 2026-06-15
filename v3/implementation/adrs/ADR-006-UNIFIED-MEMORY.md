@@ -177,7 +177,7 @@ npx @gemiflow/cli@latest memory init --force  # Overwrite existing
 
 **Locations:**
 - `.swarm/memory.db` - Primary database
-- `.gemiflow/memory.db` - Sync location for Claude Code hooks
+- `.gemiflow/memory.db` - Sync location for Gemini CLI hooks
 
 ---
 

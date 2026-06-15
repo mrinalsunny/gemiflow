@@ -6,10 +6,10 @@ Detailed documentation for each component created by the V3 init system.
 
 ```
 project/
-├── .gemiflow/                    # Claude Code integration
+├── .gemiflow/                    # Gemini CLI integration
 │   ├── settings.json           # Hooks and permissions
-│   ├── skills/                 # Claude Code skills
-│   ├── commands/               # Claude Code commands
+│   ├── skills/                 # Gemini CLI skills
+│   ├── commands/               # Gemini CLI commands
 │   ├── agents/                 # Agent definitions
 │   ├── helpers/                # Utility scripts
 │   ├── statusline.sh           # Unix/macOS statusline
@@ -157,7 +157,7 @@ Advanced bash script showing:
 - Model and branch info
 
 ### statusline.mjs (ESM Module)
-Claude Code statusline module showing:
+Gemini CLI statusline module showing:
 - Model name
 - Token usage
 - Cost tracking

@@ -116,7 +116,7 @@ function installFetchMock(responses: MockResponse[]): () => void {
 }
 
 /**
- * Build a mock Anthropic response body containing a critic verdict JSON.
+ * Build a mock google response body containing a critic verdict JSON.
  */
 function mockCriticResponse(
   verdict: CriticVerdictType,
@@ -135,7 +135,7 @@ function mockCriticResponse(
  * We monkey-patch the module-level import by wrapping runGaiaAgentWithCritic
  * via its options.catalogue approach — but since gaia-agent's runGaiaAgent is
  * imported directly, we mock at the fetch level instead (the agent also calls
- * the Anthropic API, so we intercept there).
+ * the google API, so we intercept there).
  *
  * For the smoke tests we only exercise criticReview directly in Tests 1-6, and
  * use a simplified version of runGaiaAgentWithCritic that pre-supplies a
@@ -218,12 +218,12 @@ async function test3_retriesExhausted(): Promise<void> {
   // Strategy: sequence the mock responses in the order they will be called.
   //
   // Call sequence (with enableCritic=true, maxRetries=1):
-  //   1. runGaiaAgent attempt 1   → agent Anthropic API call (returns answer "Lyon")
+  //   1. runGaiaAgent attempt 1   → agent google API call (returns answer "Lyon")
   //   2. criticReview attempt 1   → critic API call (returns "fail")
-  //   3. runGaiaAgent attempt 2   → agent Anthropic API call (returns answer "Marseille")
+  //   3. runGaiaAgent attempt 2   → agent google API call (returns answer "Marseille")
   //   4. criticReview attempt 2   → critic API call (returns "fail")
   //
-  // For simplicity we make the agent calls also return valid Anthropic responses
+  // For simplicity we make the agent calls also return valid google responses
   // that produce a FINAL_ANSWER (the agent code parses stop_reason=end_turn).
 
   const agentResponseLyon = {

@@ -2,7 +2,7 @@
   "mcp": [
     {
       "name": "agent_execute",
-      "description": "Execute a task on a spawned agent — calls the Anthropic Messages API with the agent\\",
+      "description": "Execute a task on a spawned agent — calls the google Messages API with the agent\\",
       "sourceFile": "v3\\@gemiflow\\cli\\src\\mcp-tools\\agent-tools.ts"
     },
     {
@@ -842,7 +842,7 @@
     },
     {
       "name": "hooks_route",
-      "description": "Get a 3-tier routing recommendation for a task: Tier 1 (Agent Booster, 0ms / $0 — for var-to-const, add-types, etc.), Tier 2 (Haiku — simple), Tier 3 (Sonnet/Opus — complex). Use this BEFORE spawning an agent to avoid sending simple transforms to Sonnet. Native tools have no equivalent — Claude Code does not introspect its own model-selection cost. Returns the recommended model + a",
+      "description": "Get a 3-tier routing recommendation for a task: Tier 1 (Agent Booster, 0ms / $0 — for var-to-const, add-types, etc.), Tier 2 (Haiku — simple), Tier 3 (Sonnet/Opus — complex). Use this BEFORE spawning an agent to avoid sending simple transforms to Sonnet. Native tools have no equivalent — Gemini CLI does not introspect its own model-selection cost. Returns the recommended model + a",
       "sourceFile": "v3\\@gemiflow\\cli\\src\\mcp-tools\\hooks-tools.ts"
     },
     {
@@ -957,7 +957,7 @@
     },
     {
       "name": "memory_bridge_status",
-      "description": "Show Claude Code memory bridge status — AgentDB vectors, SONA learning, intelligence patterns, and connection health.",
+      "description": "Show Gemini CLI memory bridge status — AgentDB vectors, SONA learning, intelligence patterns, and connection health.",
       "sourceFile": "v3\\@gemiflow\\cli\\src\\mcp-tools\\memory-tools.ts"
     },
     {
@@ -967,7 +967,7 @@
     },
     {
       "name": "memory_import_claude",
-      "description": "Import Claude Code auto-memory files into AgentDB with ONNX vector embeddings. Reads ~/.gemiflow/projects/*/memory/*.md files, parses YAML frontmatter, splits into sections, and stores with 384-dim embeddings for semantic search. Use allProjects=true to import from ALL Claude projects.",
+      "description": "Import Gemini CLI auto-memory files into AgentDB with ONNX vector embeddings. Reads ~/.gemiflow/projects/*/memory/*.md files, parses YAML frontmatter, splits into sections, and stores with 384-dim embeddings for semantic search. Use allProjects=true to import from ALL Claude projects.",
       "sourceFile": "v3\\@gemiflow\\cli\\src\\mcp-tools\\memory-tools.ts"
     },
     {
@@ -992,7 +992,7 @@
     },
     {
       "name": "memory_search_unified",
-      "description": "Search across both Claude Code memories and AgentDB entries using semantic vector similarity. Returns merged, deduplicated results from all namespaces.",
+      "description": "Search across both Gemini CLI memories and AgentDB entries using semantic vector similarity. Returns merged, deduplicated results from all namespaces.",
       "sourceFile": "v3\\@gemiflow\\cli\\src\\mcp-tools\\memory-tools.ts"
     },
     {
@@ -1903,7 +1903,7 @@
     {
       "name": "gemiflow-plugin-creator",
       "version": "0.2.0",
-      "description": "Scaffold, validate, and publish new Claude Code plugins with the canonical plugin contract — ADR + smoke + Compatibility + namespace coordination + MCP-tool drift warnings",
+      "description": "Scaffold, validate, and publish new Gemini CLI plugins with the canonical plugin contract — ADR + smoke + Compatibility + namespace coordination + MCP-tool drift warnings",
       "sourceFile": "plugins\\gemiflow-plugin-creator\\.claude-plugin\\plugin.json"
     },
     {
@@ -2144,7 +2144,7 @@
     },
     {
       "name": "plugin-developer",
-      "description": "Plugin development specialist for scaffolding, validating, and publishing Claude Code plugins",
+      "description": "Plugin development specialist for scaffolding, validating, and publishing Gemini CLI plugins",
       "plugin": "gemiflow-plugin-creator",
       "sourceFile": "plugins\\gemiflow-plugin-creator\\agents\\plugin-developer.md"
     },

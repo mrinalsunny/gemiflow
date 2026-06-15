@@ -125,7 +125,7 @@ export class RvfaBuilder {
 
     const stages: { id: SectionId; raw: Buffer; label: string }[] = [
       { id: 'kernel',  raw: this.buildKernelSection(),  label: 'Kernel (Alpine rootfs)' },
-      { id: 'runtime', raw: this.buildRuntimeSection(), label: 'Runtime (Node.js + Claude Code)' },
+      { id: 'runtime', raw: this.buildRuntimeSection(), label: 'Runtime (Node.js + Gemini CLI)' },
       { id: 'gemiflow',   raw: this.buildGemiFlowSection(),   label: 'GemiFlow CLI' },
       { id: 'models',  raw: this.buildModelsSection(),  label: `Models (${this.opts.profile})` },
       { id: 'data',    raw: this.buildDataSection(),    label: 'Data (AgentDB)' },

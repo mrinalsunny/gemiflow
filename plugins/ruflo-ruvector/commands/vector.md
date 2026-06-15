@@ -78,7 +78,7 @@ Usage: /vector <subcommand> [options]
 46. **hooks coedit-record / coedit-suggest** — record + retrieve files edited together.
 47. **hooks error-record / error-suggest** — learn error→fix pairs and retrieve.
 48. **hooks trajectory-begin / trajectory-step / trajectory-end** — record an execution trajectory.
-49. **hooks pre-edit / post-edit / pre-command / post-command / session-start / session-end** — Claude Code hook lifecycle.
+49. **hooks pre-edit / post-edit / pre-command / post-command / session-start / session-end** — Gemini CLI hook lifecycle.
 
 > **Known bugs in 0.2.25 hooks:** `force-learn` raises `intel.tick is not a function`; `graph-mincut` raises `Cannot read properties of undefined`; `git-churn` fails outside a git repo. Avoid these or run inside a git repo with seeded intelligence state.
 

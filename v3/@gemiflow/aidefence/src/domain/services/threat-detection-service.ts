@@ -248,7 +248,7 @@ const PII_PATTERNS = [
   {
     pattern: /\b(sk-[a-zA-Z0-9]{20,}|sk-ant-[a-zA-Z0-9-]{20,})\b/g,
     type: 'api_key',
-    description: 'API key (OpenAI/Anthropic format)',
+    description: 'API key (OpenAI/google format)',
   },
   {
     pattern: /\b(ghp_[a-zA-Z0-9]{36}|github_pat_[a-zA-Z0-9_]{82})\b/g,

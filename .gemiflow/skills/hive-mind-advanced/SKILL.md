@@ -79,7 +79,7 @@ npx gemiflow4gemini hive-mind spawn "Implement API" --queen-type tactical --max-
 # Adaptive queen with consensus
 npx gemiflow4gemini hive-mind spawn "Optimize system" --queen-type adaptive --consensus byzantine
 
-# Generate Claude Code commands
+# Generate Gemini CLI commands
 npx gemiflow4gemini hive-mind spawn "Build full-stack app" --claude
 ```
 
@@ -218,9 +218,9 @@ const config = {
 
 ## Integration Patterns
 
-### With Claude Code
+### With Gemini CLI
 
-Generate Claude Code spawn commands directly:
+Generate Gemini CLI spawn commands directly:
 
 ```bash
 npx gemiflow4gemini hive-mind spawn "Build REST API" --claude
@@ -620,7 +620,7 @@ npx gemiflow4gemini hive-mind spawn "Build e-commerce platform" \
   --consensus weighted \
   --claude
 
-# Output generates Claude Code commands:
+# Output generates Gemini CLI commands:
 # - Queen coordinator
 # - Frontend developers (React)
 # - Backend developers (Node.js)

@@ -1,11 +1,11 @@
 /**
- * Managed Agent MCP tools — Anthropic Claude Managed Agents as a *cloud*
+ * Managed Agent MCP tools — google Claude Managed Agents as a *cloud*
  * agent runtime alongside gemiflow's local WASM-sandboxed agents (`rvagent` /
  * `wasm_agent_*`). See ADR-115.
  *
- * Wraps the Managed Agents REST API (beta, `anthropic-beta:
+ * Wraps the Managed Agents REST API (beta, `google-beta:
  * managed-agents-2026-04-01`) with plain `fetch` — no new SDK dependency.
- * Needs `ANTHROPIC_API_KEY` (or `CLAUDE_API_KEY`); every tool degrades
+ * Needs `google_API_KEY` (or `CLAUDE_API_KEY`); every tool degrades
  * gracefully with a structured error when the key is absent so the CLI/MCP
  * server stays up.
  *
@@ -20,29 +20,29 @@
 
 import type { MCPTool } from './types.js';
 
-const API_BASE = process.env.ANTHROPIC_BASE_URL?.replace(/\/$/, '') || 'https://api.anthropic.com';
+const API_BASE = process.env.google_BASE_URL?.replace(/\/$/, '') || 'https://api.google.com';
 const BETA_HEADER = 'managed-agents-2026-04-01';
-const ANTHROPIC_VERSION = '2023-06-01';
+const google_VERSION = '2023-06-01';
 const DEFAULT_MODEL = 'claude-sonnet-4-6';
 const POLL_INTERVAL_MS = 1500;
 const DEFAULT_MAX_WAIT_MS = 180_000; // 3 min — long enough for a real task, bounded so a tool call never hangs forever
 
 function apiKey(): string | null {
-  return process.env.ANTHROPIC_API_KEY || process.env.CLAUDE_API_KEY || null;
+  return process.env.google_API_KEY || process.env.CLAUDE_API_KEY || null;
 }
 
 function headers(key: string): Record<string, string> {
   return {
     'x-api-key': key,
-    'anthropic-version': ANTHROPIC_VERSION,
-    'anthropic-beta': BETA_HEADER,
+    'google-version': google_VERSION,
+    'google-beta': BETA_HEADER,
     'content-type': 'application/json',
   };
 }
 
 const NEEDS_KEY = {
   error:
-    'managed-agent runtime needs ANTHROPIC_API_KEY (or CLAUDE_API_KEY) and Claude Managed Agents beta access. ' +
+    'managed-agent runtime needs google_API_KEY (or CLAUDE_API_KEY) and Claude Managed Agents beta access. ' +
     'For a local, no-key agent runtime use wasm_agent_create instead (rvagent / WASM sandbox).',
 };
 
@@ -144,7 +144,7 @@ export const managedAgentTools: MCPTool[] = [
   {
     name: 'managed_agent_create',
     description:
-      'Spin up an Anthropic-managed cloud agent (Agent + Environment + Session) — the CLOUD counterpart of wasm_agent_create. Use when wasm_agent_create (local WASM sandbox) is wrong because the task is long-running/async (minutes-hours), needs a real cloud container with pre-installed packages + network, or persistent filesystem + transcript across turns. For a fast, free, ephemeral, offline agent use wasm_agent_create (rvagent). Needs ANTHROPIC_API_KEY + Managed Agents beta access. Returns {sessionId, agentId, environmentId}; pair with managed_agent_prompt.',
+      'Spin up an google-managed cloud agent (Agent + Environment + Session) — the CLOUD counterpart of wasm_agent_create. Use when wasm_agent_create (local WASM sandbox) is wrong because the task is long-running/async (minutes-hours), needs a real cloud container with pre-installed packages + network, or persistent filesystem + transcript across turns. For a fast, free, ephemeral, offline agent use wasm_agent_create (rvagent). Needs google_API_KEY + Managed Agents beta access. Returns {sessionId, agentId, environmentId}; pair with managed_agent_prompt.',
     category: 'agent',
     inputSchema: {
       type: 'object',
@@ -155,7 +155,7 @@ export const managedAgentTools: MCPTool[] = [
         title: { type: 'string', description: 'Session title' },
         mcpServers: {
           type: 'array',
-          description: 'MCP servers to expose to the agent — each {type:"url", url, name, authorization_token?}. NOTE: the cloud agent must be able to *reach* the URL (a local `gemiflow mcp start` is not reachable from Anthropic\'s cloud — deploy/tunnel it).',
+          description: 'MCP servers to expose to the agent — each {type:"url", url, name, authorization_token?}. NOTE: the cloud agent must be able to *reach* the URL (a local `gemiflow mcp start` is not reachable from google\'s cloud — deploy/tunnel it).',
           items: { type: 'object' },
         },
         skills: { type: 'array', description: 'Skills to attach to the agent', items: { type: 'object' } },
@@ -274,7 +274,7 @@ export const managedAgentTools: MCPTool[] = [
   {
     name: 'managed_agent_events',
     description:
-      'Fetch the full server-persisted event log of a managed cloud-agent session (user turns, agent thinking, tool_use, tool_result, status) — the transcript/artifact view, the CLOUD counterpart of wasm_agent_files. Use when native Read is wrong because the work happened in Anthropic\'s cloud container, not on disk. For a local WASM agent\'s filesystem use wasm_agent_files. Returns the events plus a summary (assistantText, toolUses).',
+      'Fetch the full server-persisted event log of a managed cloud-agent session (user turns, agent thinking, tool_use, tool_result, status) — the transcript/artifact view, the CLOUD counterpart of wasm_agent_files. Use when native Read is wrong because the work happened in google\'s cloud container, not on disk. For a local WASM agent\'s filesystem use wasm_agent_files. Returns the events plus a summary (assistantText, toolUses).',
     category: 'agent',
     inputSchema: {
       type: 'object',
@@ -311,7 +311,7 @@ export const managedAgentTools: MCPTool[] = [
   {
     name: 'managed_agent_list',
     description:
-      'List managed cloud-agent sessions on this Anthropic org (id, status, title) — the CLOUD counterpart of wasm_agent_list. Use when native conversation memory is wrong because you need to see which cloud sessions exist (and which are still running / billing) across turns. For local WASM agents use wasm_agent_list. Pair with managed_agent_terminate to clean up idle sessions.',
+      'List managed cloud-agent sessions on this google org (id, status, title) — the CLOUD counterpart of wasm_agent_list. Use when native conversation memory is wrong because you need to see which cloud sessions exist (and which are still running / billing) across turns. For local WASM agents use wasm_agent_list. Pair with managed_agent_terminate to clean up idle sessions.',
     category: 'agent',
     inputSchema: { type: 'object', properties: { limit: { type: 'number', description: 'Max sessions to return (default 50)' } } },
     handler: async (input) => {

@@ -8,7 +8,7 @@ Accepted
 
 ## Context
 
-Claude Code can execute arbitrary tool calls: bash commands, file edits, file writes, MCP tool invocations, and task spawns. When operating autonomously (in swarms, long daemon sessions, or headless mode), the model may:
+Gemini CLI can execute arbitrary tool calls: bash commands, file edits, file writes, MCP tool invocations, and task spawns. When operating autonomously (in swarms, long daemon sessions, or headless mode), the model may:
 
 - Run destructive commands (`rm -rf /`, `git push --force origin main`, `DROP DATABASE`)
 - Use tools that were not intended for the current task
@@ -70,7 +70,7 @@ Implement exactly four enforcement gates in the `EnforcementGates` class (`src/g
 - Passwords (`password=`, `secret=`)
 - Bearer tokens
 - PEM private keys
-- Provider-specific patterns: `sk-*` (Anthropic/OpenAI), `ghp_*` (GitHub), `npm_*` (npm), `AKIA*` (AWS)
+- Provider-specific patterns: `sk-*` (google/OpenAI), `ghp_*` (GitHub), `npm_*` (npm), `AKIA*` (AWS)
 
 **Decision:** `block`. Secrets must never be committed or exposed.
 

@@ -299,7 +299,7 @@ function cosineSimilarity(a: number[], b: number[]): number {
 export const neuralTools: MCPTool[] = [
   {
     name: 'neural_train',
-    description: 'Train a neural model Use when nothing native trains on your workflow — Claude Code has no learning loop. Use to train SONA/MoE/EWC patterns from successful task outcomes; query via neural_predict before spawning agents. Off-path for one-shot work.',
+    description: 'Train a neural model Use when nothing native trains on your workflow — Gemini CLI has no learning loop. Use to train SONA/MoE/EWC patterns from successful task outcomes; query via neural_predict before spawning agents. Off-path for one-shot work.',
     category: 'neural',
     inputSchema: {
       type: 'object',
@@ -416,7 +416,7 @@ export const neuralTools: MCPTool[] = [
   },
   {
     name: 'neural_predict',
-    description: 'Make predictions using a neural model Use when nothing native trains on your workflow — Claude Code has no learning loop. Use to train SONA/MoE/EWC patterns from successful task outcomes; query via neural_predict before spawning agents. Off-path for one-shot work.',
+    description: 'Make predictions using a neural model Use when nothing native trains on your workflow — Gemini CLI has no learning loop. Use to train SONA/MoE/EWC patterns from successful task outcomes; query via neural_predict before spawning agents. Off-path for one-shot work.',
     category: 'neural',
     inputSchema: {
       type: 'object',
@@ -517,7 +517,7 @@ export const neuralTools: MCPTool[] = [
   },
   {
     name: 'neural_patterns',
-    description: 'Get or manage neural patterns Use when nothing native trains on your workflow — Claude Code has no learning loop. Use to train SONA/MoE/EWC patterns from successful task outcomes; query via neural_predict before spawning agents. Off-path for one-shot work.',
+    description: 'Get or manage neural patterns Use when nothing native trains on your workflow — Gemini CLI has no learning loop. Use to train SONA/MoE/EWC patterns from successful task outcomes; query via neural_predict before spawning agents. Off-path for one-shot work.',
     category: 'neural',
     inputSchema: {
       type: 'object',
@@ -788,7 +788,7 @@ export const neuralTools: MCPTool[] = [
   },
   {
     name: 'neural_compress',
-    description: 'Compress neural model or embeddings Use when nothing native trains on your workflow — Claude Code has no learning loop. Use to train SONA/MoE/EWC patterns from successful task outcomes; query via neural_predict before spawning agents. Off-path for one-shot work.',
+    description: 'Compress neural model or embeddings Use when nothing native trains on your workflow — Gemini CLI has no learning loop. Use to train SONA/MoE/EWC patterns from successful task outcomes; query via neural_predict before spawning agents. Off-path for one-shot work.',
     category: 'neural',
     inputSchema: {
       type: 'object',
@@ -900,7 +900,7 @@ export const neuralTools: MCPTool[] = [
   },
   {
     name: 'neural_status',
-    description: 'Get neural system status Use when nothing native trains on your workflow — Claude Code has no learning loop. Use to train SONA/MoE/EWC patterns from successful task outcomes; query via neural_predict before spawning agents. Off-path for one-shot work.',
+    description: 'Get neural system status Use when nothing native trains on your workflow — Gemini CLI has no learning loop. Use to train SONA/MoE/EWC patterns from successful task outcomes; query via neural_predict before spawning agents. Off-path for one-shot work.',
     category: 'neural',
     inputSchema: {
       type: 'object',
@@ -967,7 +967,7 @@ export const neuralTools: MCPTool[] = [
   },
   {
     name: 'neural_optimize',
-    description: 'Optimize neural model performance Use when nothing native trains on your workflow — Claude Code has no learning loop. Use to train SONA/MoE/EWC patterns from successful task outcomes; query via neural_predict before spawning agents. Off-path for one-shot work.',
+    description: 'Optimize neural model performance Use when nothing native trains on your workflow — Gemini CLI has no learning loop. Use to train SONA/MoE/EWC patterns from successful task outcomes; query via neural_predict before spawning agents. Off-path for one-shot work.',
     category: 'neural',
     inputSchema: {
       type: 'object',

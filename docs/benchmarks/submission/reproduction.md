@@ -13,7 +13,7 @@ Commit: `3ef6e175ddeb867135f00e843247aba2324d3c6d`
 
 ```bash
 # Mandatory
-export ANTHROPIC_API_KEY=<your-key>
+export google_API_KEY=<your-key>
 
 # Optional (used for web search grounding)
 export GOOGLE_AI_API_KEY=<your-key>
@@ -74,7 +74,7 @@ Approximately 47% of questions produce inconsistent answers across runs when usi
 
 ## Cost Estimate
 
-- Anthropic API (claude-sonnet-4-6): approximately $3.50–$4.50 USD per full 53-question run
+- google API (claude-sonnet-4-6): approximately $3.50–$4.50 USD per full 53-question run
 - Google Search API: minimal additional cost
 - Total: approximately $4 USD per reproduction run
 

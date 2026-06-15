@@ -1,6 +1,6 @@
 /**
  * V3 CLI Init Command
- * Comprehensive initialization for GemiFlow with Claude Code integration
+ * Comprehensive initialization for GemiFlow with Gemini CLI integration
  */
 
 import type { Command, CommandContext, CommandResult } from '../types.js';
@@ -18,46 +18,46 @@ import {
   type InitOptions,
 } from '../init/index.js';
 
-// Codex initialization action
-async function initCodexAction(
+// gemini initialization action
+async function initgeminiAction(
   ctx: CommandContext,
-  options: { codexMode: boolean; dualMode: boolean; force: boolean; minimal: boolean; full: boolean }
+  options: { geminiMode: boolean; dualMode: boolean; force: boolean; minimal: boolean; full: boolean }
 ): Promise<CommandResult> {
   const { force, minimal, full, dualMode } = options;
 
   output.writeln();
-  output.writeln(output.bold('Initializing GemiFlow V3 for OpenAI Codex'));
+  output.writeln(output.bold('Initializing GemiFlow V3 for OpenAI gemini'));
   output.writeln();
 
   // Determine template
   const template = minimal ? 'minimal' : full ? 'full' : 'default';
 
-  const spinner = output.createSpinner({ text: 'Initializing Codex project...' });
+  const spinner = output.createSpinner({ text: 'Initializing gemini project...' });
   spinner.start();
 
   try {
-    // Dynamic import of the Codex initializer with lazy loading fallback
-    interface CodexInitResult {
+    // Dynamic import of the gemini initializer with lazy loading fallback
+    interface geminiInitResult {
       success: boolean;
       errors?: string[];
       filesCreated: string[];
       skillsGenerated: string[];
       warnings?: string[];
     }
-    let CodexInitializer: (new () => { initialize: (options: Record<string, unknown>) => Promise<CodexInitResult> }) | undefined;
+    let geminiInitializer: (new () => { initialize: (options: Record<string, unknown>) => Promise<geminiInitResult> }) | undefined;
 
-    // Try multiple resolution strategies for the @gemiflow/codex package
+    // Try multiple resolution strategies for the @gemiflow/gemini package
     // Use a variable to prevent TypeScript from statically resolving the optional module
-    const codexModuleId = '@gemiflow/codex';
+    const geminiModuleId = '@gemiflow/gemini';
     const resolutionStrategies = [
       // Strategy 1: Direct import (works if installed as CLI dependency)
-      async () => (await import(codexModuleId)).CodexInitializer,
+      async () => (await import(geminiModuleId)).geminiInitializer,
       // Strategy 2: Project node_modules (works if installed in user's project)
       async () => {
-        const projectPath = path.join(ctx.cwd, 'node_modules', '@gemiflow', 'codex', 'dist', 'index.js');
+        const projectPath = path.join(ctx.cwd, 'node_modules', '@gemiflow', 'gemini', 'dist', 'index.js');
         if (fs.existsSync(projectPath)) {
           const mod = await import(`file://${projectPath}`);
-          return mod.CodexInitializer;
+          return mod.geminiInitializer;
         }
         throw new Error('Not found in project');
       },
@@ -65,10 +65,10 @@ async function initCodexAction(
       async () => {
         const { execSync } = await import('child_process');
         const globalPath = execSync('npm root -g', { encoding: 'utf-8' }).trim();
-        const codexPath = path.join(globalPath, '@gemiflow', 'codex', 'dist', 'index.js');
-        if (fs.existsSync(codexPath)) {
-          const mod = await import(`file://${codexPath}`);
-          return mod.CodexInitializer;
+        const geminiPath = path.join(globalPath, '@gemiflow', 'gemini', 'dist', 'index.js');
+        if (fs.existsSync(geminiPath)) {
+          const mod = await import(`file://${geminiPath}`);
+          return mod.geminiInitializer;
         }
         throw new Error('Not found globally');
       },
@@ -76,18 +76,18 @@ async function initCodexAction(
 
     for (const strategy of resolutionStrategies) {
       try {
-        CodexInitializer = await strategy();
-        if (CodexInitializer) break;
+        geminiInitializer = await strategy();
+        if (geminiInitializer) break;
       } catch {
         // Try next strategy
       }
     }
 
-    if (!CodexInitializer) {
-      throw new Error('Cannot find module @gemiflow/codex');
+    if (!geminiInitializer) {
+      throw new Error('Cannot find module @gemiflow/gemini');
     }
 
-    const initializer = new CodexInitializer();
+    const initializer = new geminiInitializer();
 
     const result = await initializer.initialize({
       projectPath: ctx.cwd,
@@ -97,7 +97,7 @@ async function initCodexAction(
     });
 
     if (!result.success) {
-      spinner.fail('Codex initialization failed');
+      spinner.fail('gemini initialization failed');
       if (result.errors) {
         for (const error of result.errors) {
           output.printError(error);
@@ -106,7 +106,7 @@ async function initCodexAction(
       return { success: false, exitCode: 1 };
     }
 
-    spinner.succeed('Codex project initialized successfully!');
+    spinner.succeed('gemini project initialized successfully!');
     output.writeln();
 
     // Display summary
@@ -123,10 +123,10 @@ async function initCodexAction(
         `AGENTS.md:     Main project instructions`,
         `.agents/config.toml: Project configuration`,
         `.agents/skills/: ${result.skillsGenerated.length} skills`,
-        `.codex/: Local overrides (gitignored)`,
-        dualMode ? `CLAUDE.md: Claude Code compatibility` : '',
+        `.gemini/: Local overrides (gitignored)`,
+        dualMode ? `CLAUDE.md: Gemini CLI compatibility` : '',
       ].filter(Boolean).join('\n'),
-      'OpenAI Codex Integration'
+      'OpenAI gemini Integration'
     );
     output.writeln();
 
@@ -148,18 +148,18 @@ async function initCodexAction(
       `Review ${output.highlight('AGENTS.md')} for project instructions`,
       `Add skills with ${output.highlight('$skill-name')} syntax`,
       `Configure ${output.highlight('.agents/config.toml')} for your project`,
-      dualMode ? `Claude Code users can use ${output.highlight('CLAUDE.md')}` : '',
+      dualMode ? `Gemini CLI users can use ${output.highlight('CLAUDE.md')}` : '',
     ].filter(Boolean));
 
     return { success: true, data: result };
   } catch (error) {
-    spinner.fail('Codex initialization failed');
+    spinner.fail('gemini initialization failed');
     const errorMessage = error instanceof Error ? error.message : String(error);
 
     // Handle module not found error gracefully
-    if (errorMessage.includes('Cannot find module') || errorMessage.includes('@gemiflow/codex')) {
-      output.printError('The @gemiflow/codex package is not installed.');
-      output.printInfo('Install it with: npm install @gemiflow/codex');
+    if (errorMessage.includes('Cannot find module') || errorMessage.includes('@gemiflow/gemini')) {
+      output.printError('The @gemiflow/gemini package is not installed.');
+      output.printInfo('Install it with: npm install @gemiflow/gemini');
       output.writeln();
       output.printInfo('Alternatively, copy skills manually from .gemiflow/skills/ to .agents/skills/');
     } else {
@@ -172,11 +172,11 @@ async function initCodexAction(
 
 // Check if project is already initialized with gemiflow.
 // #2207: .gemiflow/settings.json alone is NOT a gemiflow marker — it's created by
-// Claude Code itself and exists in every Claude Code project. We require a
+// Gemini CLI itself and exists in every Gemini CLI project. We require a
 // gemiflow-specific signal: either a gemiflow section in settings.json, OR a
 // .mcp.json with a 'gemiflow' or 'gemiflow' server key, OR the gemiflow-only
 // .gemiflow/config.yaml. Using the bare file-existence check was causing
-// false-positives for new users whose only existing file was Claude Code's own
+// false-positives for new users whose only existing file was Gemini CLI's own
 // settings.json.
 function isInitialized(cwd: string): { claude: boolean; gemiflow: boolean } {
   const gemiflowPath = path.join(cwd, '.gemiflow', 'config.yaml');
@@ -184,7 +184,7 @@ function isInitialized(cwd: string): { claude: boolean; gemiflow: boolean } {
   const settingsPath = path.join(cwd, '.gemiflow', 'settings.json');
 
   // Check .gemiflow/config.yaml — gemiflow-specific, always reliable
-  const hasClaudeFlow = fs.existsSync(gemiflowPath);
+  const hasgemiflow = fs.existsSync(gemiflowPath);
 
   // Check .gemiflow/settings.json for gemiflow-specific content (gemiflow section)
   let hasGemiFlowSettings = false;
@@ -215,7 +215,7 @@ function isInitialized(cwd: string): { claude: boolean; gemiflow: boolean } {
 
   return {
     claude: hasGemiFlowSettings || hasGemiFlowMcp,
-    gemiflow: hasClaudeFlow,
+    gemiflow: hasgemiflow,
   };
 }
 
@@ -235,13 +235,13 @@ const initAction = async (ctx: CommandContext): Promise<CommandResult> => {
   const noGlobal = ctx.flags['no-global'] === true || ctx.flags['global'] === false;
   const allAgents = ctx.flags['all-agents'] as boolean;
   const cloudMcp = ctx.flags['cloud-mcp'] as boolean;
-  const codexMode = ctx.flags.codex as boolean;
+  const geminiMode = ctx.flags.gemini as boolean;
   const dualMode = ctx.flags.dual as boolean;
   const cwd = ctx.cwd;
 
-  // If codex mode, use the Codex initializer
-  if (codexMode || dualMode) {
-    return initCodexAction(ctx, { codexMode, dualMode, force, minimal, full });
+  // If gemini mode, use the gemini initializer
+  if (geminiMode || dualMode) {
+    return initgeminiAction(ctx, { geminiMode, dualMode, force, minimal, full });
   }
 
   // Check if already initialized
@@ -368,7 +368,7 @@ const initAction = async (ctx: CommandContext): Promise<CommandResult> => {
           options.components.helpers ? `Helpers:     .gemiflow/helpers/` : '',
           options.components.mcp ? `MCP:         .mcp.json` : '',
         ].filter(Boolean).join('\n'),
-        'Claude Code Integration'
+        'Gemini CLI Integration'
       );
       output.writeln();
     }
@@ -546,9 +546,9 @@ const wizardCommand: Command = {
           message: 'Select components to initialize:',
           options: [
             { value: 'geminiMd', label: 'CLAUDE.md', hint: 'Swarm guidance and project configuration', selected: true },
-            { value: 'settings', label: 'settings.json', hint: 'Claude Code hooks configuration', selected: true },
-            { value: 'skills', label: 'Skills', hint: 'Claude Code skills in .gemiflow/skills/', selected: true },
-            { value: 'commands', label: 'Commands', hint: 'Claude Code commands in .gemiflow/commands/', selected: true },
+            { value: 'settings', label: 'settings.json', hint: 'Gemini CLI hooks configuration', selected: true },
+            { value: 'skills', label: 'Skills', hint: 'Gemini CLI skills in .gemiflow/skills/', selected: true },
+            { value: 'commands', label: 'Commands', hint: 'Gemini CLI commands in .gemiflow/commands/', selected: true },
             { value: 'agents', label: 'Agents', hint: 'Agent definitions in .gemiflow/agents/', selected: true },
             { value: 'helpers', label: 'Helpers', hint: 'Utility scripts in .gemiflow/helpers/', selected: true },
             { value: 'statusline', label: 'Statusline', hint: 'Shell statusline integration', selected: false },
@@ -800,7 +800,7 @@ const checkCommand: Command = {
     if (result.initialized) {
       output.printSuccess('GemiFlow is initialized');
       if (initialized.claude) {
-        output.printInfo(`  Claude Code: .gemiflow/settings.json`);
+        output.printInfo(`  Gemini CLI: .gemiflow/settings.json`);
       }
       if (initialized.gemiflow) {
         output.printInfo(`  V3 Runtime: .gemiflow/config.yaml`);
@@ -1179,14 +1179,14 @@ export const initCommand: Command = {
       choices: ['Xenova/all-MiniLM-L6-v2', 'Xenova/all-mpnet-base-v2'],
     },
     {
-      name: 'codex',
-      description: 'Initialize for OpenAI Codex CLI (creates AGENTS.md, .agents/)',
+      name: 'gemini',
+      description: 'Initialize for OpenAI gemini CLI (creates AGENTS.md, .agents/)',
       type: 'boolean',
       default: false,
     },
     {
       name: 'dual',
-      description: 'Initialize for both Claude Code and OpenAI Codex',
+      description: 'Initialize for both Gemini CLI and OpenAI gemini',
       type: 'boolean',
       default: false,
     },
@@ -1204,7 +1204,7 @@ export const initCommand: Command = {
     { command: 'gemiflow init --minimal', description: 'Initialize with minimal configuration' },
     { command: 'gemiflow init --full', description: 'Initialize with all components' },
     { command: 'gemiflow init --force', description: 'Reinitialize and overwrite existing config' },
-    { command: 'gemiflow init --only-claude', description: 'Only create Claude Code integration' },
+    { command: 'gemiflow init --only-claude', description: 'Only create Gemini CLI integration' },
     { command: 'gemiflow init --skip-claude', description: 'Only create V3 runtime' },
     { command: 'gemiflow init wizard', description: 'Interactive setup wizard' },
     { command: 'gemiflow init --with-embeddings', description: 'Initialize with ONNX embeddings' },
@@ -1214,9 +1214,9 @@ export const initCommand: Command = {
     { command: 'gemiflow init upgrade', description: 'Update helpers while preserving data' },
     { command: 'gemiflow init upgrade --settings', description: 'Update helpers and merge new settings (Agent Teams)' },
     { command: 'gemiflow init upgrade --verbose', description: 'Show detailed upgrade info' },
-    { command: 'gemiflow init --codex', description: 'Initialize for OpenAI Codex (AGENTS.md)' },
-    { command: 'gemiflow init --codex --full', description: 'Codex init with all 137+ skills' },
-    { command: 'gemiflow init --dual', description: 'Initialize for both Claude Code and Codex' },
+    { command: 'gemiflow init --gemini', description: 'Initialize for OpenAI gemini (AGENTS.md)' },
+    { command: 'gemiflow init --gemini --full', description: 'gemini init with all 137+ skills' },
+    { command: 'gemiflow init --dual', description: 'Initialize for both Gemini CLI and gemini' },
     { command: 'gemiflow init --all-agents', description: 'Install all agent categories (~89 agents; ADR-128 opt-in)' },
   ],
   action: initAction,

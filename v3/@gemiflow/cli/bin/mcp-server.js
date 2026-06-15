@@ -2,7 +2,7 @@
 /**
  * @gemiflow/cli - MCP Server Entry Point
  *
- * Direct stdio MCP server for Claude Code integration.
+ * Direct stdio MCP server for Gemini CLI integration.
  * This entry point handles stdin/stdout directly for MCP protocol
  * without any CLI formatting output that would corrupt the protocol.
  */

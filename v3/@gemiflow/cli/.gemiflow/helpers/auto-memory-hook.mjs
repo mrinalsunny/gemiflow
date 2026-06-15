@@ -2,7 +2,7 @@
 /**
  * Auto Memory Bridge Hook (ADR-048/049)
  *
- * Wires AutoMemoryBridge + LearningBridge + MemoryGraph into Claude Code
+ * Wires AutoMemoryBridge + LearningBridge + MemoryGraph into Gemini CLI
  * session lifecycle. Called by settings.json SessionStart/SessionEnd hooks.
  *
  * Usage:
@@ -361,7 +361,7 @@ try {
       break;
   }
 } catch (err) {
-  // Hooks must never crash Claude Code - fail silently
+  // Hooks must never crash Gemini CLI - fail silently
   try { dim(`Error (non-critical): ${err.message}`); } catch (_) {}
 }
 // Force clean exit — process.exitCode alone isn't enough if async errors override it

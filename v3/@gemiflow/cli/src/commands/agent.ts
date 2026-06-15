@@ -87,9 +87,9 @@ const spawnCommand: Command = {
     {
       name: 'provider',
       short: 'p',
-      description: 'Provider to use (anthropic, openrouter, ollama)',
+      description: 'Provider to use (google, openrouter, ollama)',
       type: 'string',
-      default: 'anthropic'
+      default: 'google'
     },
     {
       name: 'model',
@@ -154,7 +154,7 @@ const spawnCommand: Command = {
         agentType,
         id: agentName,
         config: {
-          provider: ctx.flags.provider || 'anthropic',
+          provider: ctx.flags.provider || 'google',
           model: ctx.flags.model,
           task: ctx.flags.task,
           timeout: ctx.flags.timeout,

@@ -8,7 +8,7 @@ The V3 hooks system integrates with background daemons and statusline displays t
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                        Claude Code Session                               │
+│                        Gemini CLI Session                               │
 ├─────────────────────────────────────────────────────────────────────────┤
 │  SessionStart Hook                                                       │
 │  └─> .gemiflow/helpers/daemon-manager.sh start                            │

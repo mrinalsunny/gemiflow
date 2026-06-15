@@ -1,7 +1,7 @@
 /**
  * Headless Test Harness
  *
- * Integrates with Claude Code headless mode (claude -p --output-format json)
+ * Integrates with Gemini CLI headless mode (claude -p --output-format json)
  * to run automated evaluation suites against guidance rules.
  *
  * Usage:
@@ -66,7 +66,7 @@ export interface TaskRunResult {
   task: TestTask;
   /** Whether the run succeeded */
   success: boolean;
-  /** Claude Code output (parsed JSON) */
+  /** Gemini CLI output (parsed JSON) */
   output: HeadlessOutput | null;
   /** Assertion results */
   assertionResults: Array<{
@@ -87,7 +87,7 @@ export interface TaskRunResult {
 }
 
 /**
- * Parsed output from Claude Code headless mode
+ * Parsed output from Gemini CLI headless mode
  */
 export interface HeadlessOutput {
   /** The response text */
@@ -317,7 +317,7 @@ export class HeadlessRunner {
   }
 
   /**
-   * Build the Claude Code headless command
+   * Build the Gemini CLI headless command
    */
   private buildCommand(task: TestTask): string {
     // Escape the prompt for shell safety
@@ -326,7 +326,7 @@ export class HeadlessRunner {
   }
 
   /**
-   * Parse Claude Code JSON output
+   * Parse Gemini CLI JSON output
    */
   private parseOutput(stdout: string): HeadlessOutput | null {
     try {

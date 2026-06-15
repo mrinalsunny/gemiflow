@@ -349,7 +349,7 @@ export class PatternDiscovery {
           ratingCount: 42,
           lastUpdated: new Date().toISOString(),
           createdAt: '2026-01-08T18:42:31.126Z',
-          minClaudeFlowVersion: '3.0.0',
+          mingemiflowVersion: '3.0.0',
           verified: true,
           trustLevel: 'verified',
           signature: 'ed25519:genesis-pattern-signature',

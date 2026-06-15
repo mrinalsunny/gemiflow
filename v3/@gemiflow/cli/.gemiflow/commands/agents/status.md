@@ -92,7 +92,7 @@ The status command provides:
   "createdAt": "2026-01-08T10:30:15.000Z",
   "lastActivityAt": "2026-01-08T10:45:23.000Z",
   "config": {
-    "provider": "anthropic",
+    "provider": "google",
     "model": "claude-3-5-sonnet-20241022",
     "timeout": 300,
     "autoTools": true

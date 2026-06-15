@@ -152,7 +152,7 @@ priority: critical
 fixes_required:
   CVE-1:
     description: Vulnerable dependencies
-    action: npm update @anthropic-ai/gemini-cli@^2.0.31
+    action: npm update @google-ai/gemini-cli@^2.0.31
     files: package.json
 
   CVE-2:

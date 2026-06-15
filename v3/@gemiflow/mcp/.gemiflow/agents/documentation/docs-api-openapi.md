@@ -6,7 +6,7 @@ type: "documentation"
 version: "2.0.0-alpha"
 created: "2025-07-25"
 updated: "2025-12-03"
-author: "Claude Code"
+author: "Gemini CLI"
 metadata:
   description: "Expert agent for creating OpenAPI documentation with pattern learning"
   specialization: "OpenAPI 3.0, API documentation, pattern-based generation"

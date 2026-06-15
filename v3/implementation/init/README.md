@@ -1,6 +1,6 @@
 # V3 Init System
 
-Comprehensive initialization system for Claude Code integration with gemiflow V3.
+Comprehensive initialization system for Gemini CLI integration with gemiflow V3.
 
 ## Overview
 
@@ -59,7 +59,7 @@ The init system automatically detects:
 ### Component Selection
 
 Choose which components to install:
-- **Settings**: Claude Code hooks and permissions
+- **Settings**: Gemini CLI hooks and permissions
 - **Skills**: Specialized capabilities (50+)
 - **Commands**: Quick action shortcuts
 - **Agents**: Agent definitions (25+)

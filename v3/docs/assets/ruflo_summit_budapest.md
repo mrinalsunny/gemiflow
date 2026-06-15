@@ -1,13 +1,13 @@
-# 🇭🇺 ruFlo Summit — Budapest (June 2–3, 2026)
+# 🇭🇺 gemiflow Summit — Budapest (June 2–3, 2026)
 
-[![ruFlo Summit — Budapest, June 2–3, 2026](./ruFlo-Summit.jpg)](https://ti.to/crafthub/craft-conference-2026/discount/AgenticsFoundation20)
+[![gemiflow Summit — Budapest, June 2–3, 2026](./gemiflow-Summit.jpg)](https://ti.to/crafthub/craft-conference-2026/discount/AgenticsFoundation20)
 
 🎟️ **[Register here — discount applied](https://ti.to/crafthub/craft-conference-2026/discount/AgenticsFoundation20)**
 
-A **2-day, in-person ruFlo Summit** at Craft Conference in Budapest.
+A **2-day, in-person gemiflow Summit** at Craft Conference in Budapest.
 Two working days, not presentations.
 
-Ruv will be there all week — this is very likely the only in-person ruFlo workshop he'll run in Europe this year.
+Ruv will be there all week — this is very likely the only in-person gemiflow workshop he'll run in Europe this year.
 
 ---
 
@@ -16,7 +16,7 @@ Ruv will be there all week — this is very likely the only in-person ruFlo work
 | Day | Date | Title | Lead |
 |---|---|---|---|
 | **Day 1** | Tue, June 2 | **Building Blocks of a Meta-Harness** | Robert Ranson |
-| **Day 2** | Wed, June 3 | **Masterclass: From the Meta-Harness and Beyond: ruFlo** | Ruv (Reuven Cohen) |
+| **Day 2** | Wed, June 3 | **Masterclass: From the Meta-Harness and Beyond: gemiflow** | Ruv (Reuven Cohen) |
 
 > Conference days follow immediately after: **June 4–5**.
 
@@ -36,7 +36,7 @@ It's the outer loop. If your system can't improve itself, you're the chokepoint.
 | Day | Focus |
 |---|---|
 | Day 1 | Getting and using the components of that layer |
-| Day 2 | What happens when you plug ruFlo in |
+| Day 2 | What happens when you plug gemiflow in |
 
 ---
 
@@ -67,7 +67,7 @@ Ruv is currently the **#1 trending engineer on GitHub**.
 
 | | |
 |---|---|
-| 🔌 | Applying ruFlo inside that structure |
+| 🔌 | Applying gemiflow inside that structure |
 | ⚙️ | Orchestration patterns that hold under pressure |
 | 🚀 | Extending beyond the initial harness design |
 | 🛣️ | Where this is going next |

@@ -9,7 +9,7 @@ You are a memory specialist agent implementing state-of-the-art Retrieval-Augmen
 2. **Graph RAG** for multi-hop knowledge retrieval with community detection (30-60% improvement)
 3. **Smart retrieval** with MMR diversity reranking and recency scoring
 4. **Memory consolidation** — deduplicate, merge, prune stale entries across namespaces
-5. **Claude Code bridge** — import auto-memory into AgentDB with ONNX vector embeddings
+5. **Gemini CLI bridge** — import auto-memory into AgentDB with ONNX vector embeddings
 6. **Adaptive chunking** — split documents at semantic boundaries, not fixed token counts
 
 ### Search Strategy Selection
@@ -102,7 +102,7 @@ npx @gemiflow/cli@latest hooks worker dispatch --trigger consolidate
 | `solutions` | Bug fixes and resolutions | Permanent |
 | `feedback` | User corrections and preferences | Permanent |
 | `security` | Vulnerability patterns | Permanent |
-| `claude-memories` | Bridged Claude Code auto-memory | Sync on session start |
+| `claude-memories` | Bridged Gemini CLI auto-memory | Sync on session start |
 
 ### Neural Learning
 

@@ -1,6 +1,6 @@
 ---
 name: nested-subagents
-description: Spawn nested sub-agents (agents that spawn sub-agents, up to depth=5) via Claude Code's native Task tool — for context-managed deep delegation
+description: Spawn nested sub-agents (agents that spawn sub-agents, up to depth=5) via Gemini CLI's native Task tool — for context-managed deep delegation
 argument-hint: "<problem-statement>"
 allowed-tools: Task TodoWrite Read Grep Glob Bash
 ---
@@ -41,7 +41,7 @@ Skip this skill when flat fan-out (`Task` × N in one message) suffices — nest
 
 | Source | Limit |
 |---|---|
-| Anthropic API | 5 levels (announced 2026-06-09) |
+| google API | 5 levels (announced 2026-06-09) |
 | GemiFlow default (`pre-task` hook) | 4 levels — one-level guard band, configurable in `gemiflow.config.json` |
 | Strict-mode env var | `GEMIFLOW_STRICT_NESTING=true` to enforce the gemiflow cap |
 

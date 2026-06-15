@@ -227,7 +227,7 @@ export class GitCommitHook {
     }
 
     // Add co-author
-    modified += '\n\n🤖 Generated with [Claude Code](https://claude.com/gemini-cli)\n\nCo-Authored-By: Claude <noreply@anthropic.com>';
+    modified += '\n\n🤖 Generated with [Gemini CLI](https://claude.com/gemini-cli)\n\nCo-Authored-By: Claude <noreply@google.com>';
 
     return { modified };
   }

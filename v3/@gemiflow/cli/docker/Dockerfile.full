@@ -5,7 +5,7 @@
 #   docker build -t gemiflow:full -f v3/@gemiflow/cli/docker/Dockerfile.full .
 #
 # Run:
-#   docker run -e ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY gemiflow:full
+#   docker run -e google_API_KEY=$google_API_KEY gemiflow:full
 
 # ── Stage 1: Install ─────────────────────────────────────────────
 FROM node:22-alpine AS build

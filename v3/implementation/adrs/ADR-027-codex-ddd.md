@@ -1,13 +1,13 @@
-# ADR-027 Supplement: Domain-Driven Design for Codex Integration
+# ADR-027 Supplement: Domain-Driven Design for gemini Integration
 
 ## Overview
 
-This document defines the Domain-Driven Design (DDD) architecture for integrating OpenAI Codex support into gemiflow via the `@gemiflow/codex` package. The design follows the existing V3 architecture patterns while introducing new bounded contexts for Codex-specific functionality.
+This document defines the Domain-Driven Design (DDD) architecture for integrating OpenAI gemini support into gemiflow via the `@gemiflow/gemini` package. The design follows the existing V3 architecture patterns while introducing new bounded contexts for gemini-specific functionality.
 
 ## Package Information
 
-- **Package Name**: `@gemiflow/codex`
-- **Location**: `v3/@gemiflow/codex/`
+- **Package Name**: `@gemiflow/gemini`
+- **Location**: `v3/@gemiflow/gemini/`
 - **Future Umbrella**: `coflow` (npm/npx coflow)
 - **Compatibility**: Maintains `gemiflow` branding during transition
 
@@ -32,7 +32,7 @@ This document defines the Domain-Driven Design (DDD) architecture for integratin
 │  │                     Platform Adaptation Layer                           ││
 │  ├─────────────────────────────────────────────────────────────────────────┤│
 │  │  ┌─────────────────────────┐    ┌─────────────────────────────────────┐││
-│  │  │   Claude Code Context   │    │       Codex Context (NEW)          │││
+│  │  │   Gemini CLI Context   │    │       gemini Context (NEW)          │││
 │  │  │                         │    │                                     │││
 │  │  │  - CLAUDE.md Generator  │    │  - AGENTS.md Generator             │││
 │  │  │  - Skills (.md format)  │    │  - Skills (SKILL.md format)        │││
@@ -52,7 +52,7 @@ This document defines the Domain-Driven Design (DDD) architecture for integratin
 **Purpose**: Abstract platform-specific configurations behind a unified interface.
 
 **Ubiquitous Language**:
-- **Platform**: Target CLI tool (Claude Code or Codex)
+- **Platform**: Target CLI tool (Gemini CLI or gemini)
 - **Manifest**: Platform-specific project instructions file (CLAUDE.md or AGENTS.md)
 - **Skill**: Reusable task-specific instruction set
 - **Configuration**: Platform settings (JSON or TOML)
@@ -63,21 +63,21 @@ This document defines the Domain-Driven Design (DDD) architecture for integratin
 - `SkillLibrary`
 - `ManifestDocument`
 
-#### 2. Codex Adapter Context (New)
+#### 2. gemini Adapter Context (New)
 
-**Purpose**: Handle all Codex-specific generation and configuration.
+**Purpose**: Handle all gemini-specific generation and configuration.
 
 **Ubiquitous Language**:
-- **AGENTS.md**: Project instruction file for Codex
+- **AGENTS.md**: Project instruction file for gemini
 - **SKILL.md**: Skill definition file with YAML frontmatter
 - **config.toml**: TOML configuration file
 - **Approval Policy**: Permission level for command execution
 - **Sandbox Mode**: Filesystem access restrictions
 - **Progressive Disclosure**: Lazy loading of skill instructions
 
-#### 3. Claude Code Adapter Context (Existing)
+#### 3. Gemini CLI Adapter Context (Existing)
 
-**Purpose**: Handle all Claude Code-specific generation (already implemented).
+**Purpose**: Handle all Gemini CLI-specific generation (already implemented).
 
 #### 4. Init Context (Extended)
 
@@ -112,7 +112,7 @@ interface PlatformConfiguration {
 
 enum Platform {
   CLAUDE_CODE = 'gemini-cli',
-  CODEX = 'codex',
+  gemini = 'gemini',
   DUAL = 'dual'
 }
 ```
@@ -150,7 +150,7 @@ interface Skill {
   description: string;
   platform: Platform;
 
-  // For Codex
+  // For gemini
   metadata?: SkillMetadata;
   scripts?: SkillScript[];
   references?: SkillReference[];
@@ -158,7 +158,7 @@ interface Skill {
 
   // Behavior
   toClaudeFormat(): string;
-  toCodexFormat(): SkillDirectory;
+  togeminiFormat(): SkillDirectory;
 }
 
 interface SkillMetadata {
@@ -178,10 +178,10 @@ interface SkillDirectory {
 }
 ```
 
-#### CodexConfiguration (Entity)
+#### geminiConfiguration (Entity)
 
 ```typescript
-interface CodexConfiguration {
+interface geminiConfiguration {
   // Core settings
   model: string;
   approvalPolicy: ApprovalPolicy;
@@ -203,7 +203,7 @@ interface CodexConfiguration {
   // Behavior
   toTOML(): string;
   validate(): ValidationResult;
-  merge(other: Partial<CodexConfiguration>): CodexConfiguration;
+  merge(other: Partial<geminiConfiguration>): geminiConfiguration;
 }
 
 enum ApprovalPolicy {
@@ -277,7 +277,7 @@ class ManifestPath {
   ) {}
 
   get filename(): string {
-    if (this.platform === Platform.CODEX) {
+    if (this.platform === Platform.gemini) {
       return this.isOverride ? 'AGENTS.override.md' : 'AGENTS.md';
     }
     return this.isOverride ? 'CLAUDE.local.md' : 'CLAUDE.md';
@@ -300,9 +300,9 @@ class ConfigurationPath {
   ) {}
 
   get fullPath(): string {
-    if (this.platform === Platform.CODEX) {
+    if (this.platform === Platform.gemini) {
       return this.scope === 'global'
-        ? path.join(os.homedir(), '.codex', 'config.toml')
+        ? path.join(os.homedir(), '.gemini', 'config.toml')
         : path.join(this.basePath, '.agents', 'config.toml');
     }
     return this.scope === 'global'
@@ -403,8 +403,8 @@ class SkillLibraryAggregate {
 
   generateForPlatform(): SkillOutput[] {
     return this.getAllSkills().map(skill => {
-      if (this.platform === Platform.CODEX) {
-        return skill.toCodexFormat();
+      if (this.platform === Platform.gemini) {
+        return skill.togeminiFormat();
       }
       return skill.toClaudeFormat();
     });
@@ -439,23 +439,23 @@ class PlatformDetectionService {
       return { platform: Platform.CLAUDE_CODE, existing: true };
     }
     if (hasAgentsDir || hasAgentsMd) {
-      return { platform: Platform.CODEX, existing: true };
+      return { platform: Platform.gemini, existing: true };
     }
 
     return { platform: Platform.UNKNOWN, existing: false };
   }
 
   async detectUserPreference(): Promise<Platform> {
-    // Check for global Codex config
-    const codexConfig = path.join(os.homedir(), '.codex', 'config.toml');
+    // Check for global gemini config
+    const geminiConfig = path.join(os.homedir(), '.gemini', 'config.toml');
     const claudeConfig = path.join(os.homedir(), '.gemiflow');
 
-    const hasCodex = fs.existsSync(codexConfig);
+    const hasgemini = fs.existsSync(geminiConfig);
     const hasClaude = fs.existsSync(claudeConfig);
 
-    if (hasCodex && !hasClaude) return Platform.CODEX;
-    if (hasClaude && !hasCodex) return Platform.CLAUDE_CODE;
-    if (hasCodex && hasClaude) return Platform.DUAL;
+    if (hasgemini && !hasClaude) return Platform.gemini;
+    if (hasClaude && !hasgemini) return Platform.CLAUDE_CODE;
+    if (hasgemini && hasClaude) return Platform.DUAL;
 
     return Platform.UNKNOWN;
   }
@@ -466,7 +466,7 @@ class PlatformDetectionService {
 
 ```typescript
 class SkillConversionService {
-  convertClaudeToCodex(skill: ClaudeSkill): CodexSkill {
+  convertClaudeTogemini(skill: ClaudeSkill): geminiSkill {
     // Parse YAML frontmatter from Claude skill
     const { metadata, content } = this.parseClaudeSkill(skill);
 
@@ -479,7 +479,7 @@ class SkillConversionService {
     // Extract references (links to docs)
     const references = this.extractReferences(content);
 
-    return new CodexSkill({
+    return new geminiSkill({
       name: metadata.name || skill.name,
       description: metadata.description || '',
       skillMd,
@@ -488,7 +488,7 @@ class SkillConversionService {
     });
   }
 
-  convertCodexToClaude(skill: CodexSkill): ClaudeSkill {
+  convertgeminiToClaude(skill: geminiSkill): ClaudeSkill {
     // Parse SKILL.md
     const { frontmatter, body } = this.parseSkillMd(skill.skillMd);
 
@@ -516,9 +516,9 @@ ${content}`;
 
 ```typescript
 class ConfigurationMigrationService {
-  migrateClaudeToCodex(claudeSettings: ClaudeSettings): CodexConfiguration {
+  migrateClaudeTogemini(claudeSettings: ClaudeSettings): geminiConfiguration {
     return {
-      model: 'gpt-5.3-codex',
+      model: 'gpt-5.3-gemini',
       approvalPolicy: this.mapApprovalPolicy(claudeSettings),
       sandboxMode: this.mapSandboxMode(claudeSettings),
       webSearch: 'cached',
@@ -529,16 +529,16 @@ class ConfigurationMigrationService {
     };
   }
 
-  migrateCodexToClaude(codexConfig: CodexConfiguration): ClaudeSettings {
+  migrategeminiToClaude(geminiConfig: geminiConfiguration): ClaudeSettings {
     return {
-      hooks: this.mapHooksFromApprovalPolicy(codexConfig.approvalPolicy),
-      mcpServers: this.migrateMcpServersToJson(codexConfig.mcpServers),
+      hooks: this.mapHooksFromApprovalPolicy(geminiConfig.approvalPolicy),
+      mcpServers: this.migrateMcpServersToJson(geminiConfig.mcpServers),
       // ... other mappings
     };
   }
 
   private mapApprovalPolicy(settings: ClaudeSettings): ApprovalPolicy {
-    // Map Claude Code permission mode to Codex approval policy
+    // Map Gemini CLI permission mode to gemini approval policy
     const hooks = settings.hooks || {};
     if (hooks.preToolUse?.autoApprove) {
       return ApprovalPolicy.NEVER;
@@ -599,9 +599,9 @@ interface SkillRepository {
   delete(identifier: SkillIdentifier): Promise<void>;
 }
 
-class CodexSkillRepository implements SkillRepository {
+class geminiSkillRepository implements SkillRepository {
   async save(skill: Skill, scope: SkillScope): Promise<void> {
-    const directory = skill.toCodexFormat();
+    const directory = skill.togeminiFormat();
     const skillPath = path.join(scope.basePath, skill.name);
 
     // Create directory structure
@@ -657,7 +657,7 @@ class CodexSkillRepository implements SkillRepository {
     const scripts = await this.loadDirectory(path.join(skillPath, 'scripts'));
     const references = await this.loadDirectory(path.join(skillPath, 'references'));
 
-    return Skill.fromCodexFormat({
+    return Skill.fromgeminiFormat({
       skillMd,
       scripts,
       references,
@@ -695,7 +695,7 @@ class InitializationApplicationService {
     private readonly conversionService: SkillConversionService
   ) {}
 
-  async initializeForCodex(options: CodexInitOptions): Promise<InitResult> {
+  async initializeForgemini(options: geminiInitOptions): Promise<InitResult> {
     // Check for existing configuration
     const detected = this.platformDetection.detect(options.projectPath);
 
@@ -705,7 +705,7 @@ class InitializationApplicationService {
 
     // Create aggregate
     const aggregate = new PlatformInitializationAggregate({
-      platform: Platform.CODEX,
+      platform: Platform.gemini,
       projectPath: options.projectPath
     });
 
@@ -727,51 +727,51 @@ class InitializationApplicationService {
     return result;
   }
 
-  async convertToCodex(projectPath: string): Promise<ConversionResult> {
-    // Load existing Claude Code configuration
+  async convertTogemini(projectPath: string): Promise<ConversionResult> {
+    // Load existing Gemini CLI configuration
     const claudeManifest = await this.loadClaudeManifest(projectPath);
     const claudeSkills = await this.loadClaudeSkills(projectPath);
     const claudeSettings = await this.loadClaudeSettings(projectPath);
 
     // Convert manifest
-    const codexManifest = this.convertManifest(claudeManifest);
+    const geminiManifest = this.convertManifest(claudeManifest);
 
     // Convert skills
-    const codexSkills = claudeSkills.map(skill =>
-      this.conversionService.convertClaudeToCodex(skill)
+    const geminiSkills = claudeSkills.map(skill =>
+      this.conversionService.convertClaudeTogemini(skill)
     );
 
     // Convert configuration
-    const codexConfig = this.configMigration.migrateClaudeToCodex(claudeSettings);
+    const geminiConfig = this.configMigration.migrateClaudeTogemini(claudeSettings);
 
     // Save converted artifacts
-    await this.manifestRepo.save(codexManifest);
-    for (const skill of codexSkills) {
+    await this.manifestRepo.save(geminiManifest);
+    for (const skill of geminiSkills) {
       await this.skillRepo.save(skill, new SkillScope('repository', projectPath));
     }
-    await this.configRepo.save(codexConfig);
+    await this.configRepo.save(geminiConfig);
 
     return {
       success: true,
-      manifest: codexManifest,
-      skills: codexSkills,
-      configuration: codexConfig
+      manifest: geminiManifest,
+      skills: geminiSkills,
+      configuration: geminiConfig
     };
   }
 
   async initializeDualMode(options: DualModeInitOptions): Promise<DualModeResult> {
-    // Initialize for Claude Code
+    // Initialize for Gemini CLI
     const claudeResult = await this.initializeForClaude(options);
 
-    // Initialize for Codex
-    const codexResult = await this.initializeForCodex(options);
+    // Initialize for gemini
+    const geminiResult = await this.initializeForgemini(options);
 
     // Create sync configuration to keep them in sync
     await this.createSyncConfiguration(options.projectPath);
 
     return {
       claude: claudeResult,
-      codex: codexResult,
+      gemini: geminiResult,
       syncConfigPath: path.join(options.projectPath, '.gemiflow', 'platform-sync.yaml')
     };
   }
@@ -855,9 +855,9 @@ v3/@gemiflow/
 ├── cli/
 │   └── src/
 │       └── commands/
-│           └── init.ts              # Extended with --codex flag
+│           └── init.ts              # Extended with --gemini flag
 │
-├── codex/                           # NEW PACKAGE
+├── gemini/                           # NEW PACKAGE
 │   ├── package.json
 │   ├── src/
 │   │   ├── index.ts
@@ -920,7 +920,7 @@ v3/@gemiflow/
 ```typescript
 // v3/@gemiflow/cli/src/commands/init.ts
 
-import { CodexInitializer } from '@gemiflow/codex';
+import { geminiInitializer } from '@gemiflow/gemini';
 
 // Add new options
 const initCommand: Command = {
@@ -928,47 +928,47 @@ const initCommand: Command = {
   options: [
     // ... existing options ...
     {
-      name: 'codex',
-      description: 'Initialize for OpenAI Codex',
+      name: 'gemini',
+      description: 'Initialize for OpenAI gemini',
       type: 'boolean',
       default: false,
     },
     {
       name: 'dual',
-      description: 'Initialize for both Claude Code and Codex',
+      description: 'Initialize for both Gemini CLI and gemini',
       type: 'boolean',
       default: false,
     },
     {
       name: 'from-claude',
-      description: 'Convert existing Claude Code setup to Codex',
+      description: 'Convert existing Gemini CLI setup to gemini',
       type: 'boolean',
       default: false,
     },
     {
-      name: 'from-codex',
-      description: 'Convert existing Codex setup to Claude Code',
+      name: 'from-gemini',
+      description: 'Convert existing gemini setup to Gemini CLI',
       type: 'boolean',
       default: false,
     },
   ],
   action: async (ctx) => {
-    const codex = ctx.flags.codex as boolean;
+    const gemini = ctx.flags.gemini as boolean;
     const dual = ctx.flags.dual as boolean;
     const fromClaude = ctx.flags['from-claude'] as boolean;
-    const fromCodex = ctx.flags['from-codex'] as boolean;
+    const fromgemini = ctx.flags['from-gemini'] as boolean;
 
-    if (codex || dual) {
-      const initializer = new CodexInitializer();
-      // ... codex initialization logic
+    if (gemini || dual) {
+      const initializer = new geminiInitializer();
+      // ... gemini initialization logic
     }
 
     if (fromClaude) {
       const converter = new PlatformConverter();
-      await converter.convertToCodex(ctx.cwd);
+      await converter.convertTogemini(ctx.cwd);
     }
 
-    // ... existing Claude Code init logic
+    // ... existing Gemini CLI init logic
   }
 };
 ```
@@ -977,7 +977,7 @@ const initCommand: Command = {
 
 This DDD design provides:
 
-1. **Clear Bounded Contexts** - Platform Adapter, Codex Adapter, Claude Code Adapter
+1. **Clear Bounded Contexts** - Platform Adapter, gemini Adapter, Gemini CLI Adapter
 2. **Rich Domain Model** - Entities, Value Objects, Aggregates for each concept
 3. **Domain Services** - Platform detection, skill conversion, config migration
 4. **Repository Pattern** - Abstract persistence for manifests, skills, configurations

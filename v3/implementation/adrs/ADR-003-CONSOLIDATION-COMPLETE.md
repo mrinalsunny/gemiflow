@@ -382,6 +382,6 @@ The architecture now follows the **Single Coordination Engine** principle, with 
 
 ---
 
-**Implementation**: Claude Code
+**Implementation**: Gemini CLI
 **Date**: 2026-01-04
 **ADR**: ADR-003 (Single Coordination Engine)

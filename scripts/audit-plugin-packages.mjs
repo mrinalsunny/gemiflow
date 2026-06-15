@@ -48,7 +48,7 @@ const KNOWN_PUBLISHED = new Set([
   '@gemiflow/claims',
   '@gemiflow/cli',
   '@gemiflow/cli-core',
-  '@gemiflow/codex',
+  '@gemiflow/gemini',
   '@gemiflow/deployment',
   '@gemiflow/embeddings',
   '@gemiflow/guidance',

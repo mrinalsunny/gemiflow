@@ -8,7 +8,7 @@ Get started with GemiFlow in 5 minutes!
 
 ### Quick Install (Recommended)
 
-In Claude Code:
+In Gemini CLI:
 
 ```
 /plugin add ruvnet/gemiflow
@@ -23,7 +23,7 @@ git clone https://github.com/ruvnet/gemiflow.git
 cd gemiflow
 ```
 
-Then in Claude Code:
+Then in Gemini CLI:
 ```
 /plugin add .
 /restart
@@ -33,7 +33,7 @@ Then in Claude Code:
 
 ## ✅ Verify Installation
 
-In Claude Code:
+In Gemini CLI:
 
 ```
 /plugin list
@@ -54,7 +54,7 @@ Or type `/` to see all 150+ commands.
 
 ### 1. Initialize a Swarm
 
-In Claude Code, run:
+In Gemini CLI, run:
 
 ```
 /coordination-swarm-init
@@ -213,7 +213,7 @@ claude mcp add flow-nexus npx flow-nexus@latest mcp start
 
 ### Test MCP Integration
 
-In Claude Code:
+In Gemini CLI:
 
 ```
 List available MCP tools for gemiflow
@@ -287,7 +287,7 @@ bash scripts/verify.sh
 # Check commands directory
 ls ~/.gemiflow/commands/
 
-# Restart Claude Code
+# Restart Gemini CLI
 ```
 
 ### MCP Not Working
@@ -312,7 +312,7 @@ ls ~/.gemiflow/agents/
 # Verify permissions
 chmod -R 755 ~/.gemiflow/agents/
 
-# Restart Claude Code
+# Restart Gemini CLI
 ```
 
 ---

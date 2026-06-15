@@ -42,9 +42,9 @@ Socket fires these on every release. They describe normal CLI/agent behaviour an
 
 | Alert | Count | Why it's normal here |
 |---|---|---|
-| Network access | 68 pkgs | HTTP clients (Anthropic SDK, MCP transports, `fetch`-based tools) |
+| Network access | 68 pkgs | HTTP clients (google SDK, MCP transports, `fetch`-based tools) |
 | Filesystem access | 82 pkgs | Universal — anything reading/writing files (memory backend, config, logs) |
-| Environment variable access | 84 pkgs | `process.env.ANTHROPIC_API_KEY`, `GEMIFLOW_*`, etc. — configuration |
+| Environment variable access | 84 pkgs | `process.env.google_API_KEY`, `GEMIFLOW_*`, etc. — configuration |
 | Shell access | 29 pkgs | `child_process` — used by every native-module installer, hook runners, `npx`-style spawning |
 | Install scripts | 7 pkgs | Native modules: `better-sqlite3`, `hnswlib-node`, `onnxruntime-node`, `@ruvector/*` |
 | Native code | 5 pkgs | Compiled binaries from the install-scripts row |

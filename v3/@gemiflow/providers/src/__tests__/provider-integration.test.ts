@@ -14,7 +14,7 @@ import { resolve } from 'path';
 config({ path: resolve(__dirname, '../../../../../.env') });
 
 import {
-  AnthropicProvider,
+  googleProvider,
   OpenAIProvider,
   GoogleProvider,
   OllamaProvider,
@@ -44,13 +44,13 @@ const createTestRequest = (model?: string): LLMRequest => ({
 
 describe('Provider Integration Tests', () => {
 
-  describe('Anthropic Provider', () => {
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+  describe('google Provider', () => {
+    const apiKey = process.env.google_API_KEY;
 
     it.skipIf(!apiKey)('should complete request with Claude 3.5 Sonnet', async () => {
-      const provider = new AnthropicProvider({
+      const provider = new googleProvider({
         config: {
-          provider: 'anthropic',
+          provider: 'google',
           apiKey,
           model: 'claude-3-5-sonnet-latest',
           maxTokens: 100,
@@ -62,21 +62,21 @@ describe('Provider Integration Tests', () => {
 
       const response = await provider.complete(createTestRequest());
 
-      console.log('Anthropic Response:', response.content);
+      console.log('google Response:', response.content);
       console.log('Usage:', response.usage);
       console.log('Cost:', response.cost);
 
       expect(response.content).toBeTruthy();
-      expect(response.provider).toBe('anthropic');
+      expect(response.provider).toBe('google');
       expect(response.usage.totalTokens).toBeGreaterThan(0);
 
       provider.destroy();
     }, 30000);
 
     it.skipIf(!apiKey)('should stream response', async () => {
-      const provider = new AnthropicProvider({
+      const provider = new googleProvider({
         config: {
-          provider: 'anthropic',
+          provider: 'google',
           apiKey,
           model: 'claude-3-5-sonnet-latest',
           maxTokens: 100,
@@ -269,16 +269,16 @@ describe('Provider Integration Tests', () => {
   });
 
   describe('Provider Manager', () => {
-    const anthropicKey = process.env.ANTHROPIC_API_KEY;
+    const googleKey = process.env.google_API_KEY;
     const googleKey = process.env.GOOGLE_GEMINI_API_KEY;
 
-    it.skipIf(!anthropicKey && !googleKey)('should manage multiple providers with failover', async () => {
+    it.skipIf(!googleKey && !googleKey)('should manage multiple providers with failover', async () => {
       const providers: LLMProviderConfig[] = [];
 
-      if (anthropicKey) {
+      if (googleKey) {
         providers.push({
-          provider: 'anthropic',
-          apiKey: anthropicKey,
+          provider: 'google',
+          apiKey: googleKey,
           model: 'claude-3-5-sonnet-latest',
           maxTokens: 100,
         });
@@ -335,11 +335,11 @@ describe('Provider Integration Tests', () => {
       manager.destroy();
     }, 60000);
 
-    it.skipIf(!anthropicKey)('should use cache for repeated requests', async () => {
+    it.skipIf(!googleKey)('should use cache for repeated requests', async () => {
       const manager = await createProviderManager({
         providers: [{
-          provider: 'anthropic',
-          apiKey: anthropicKey,
+          provider: 'google',
+          apiKey: googleKey,
           model: 'claude-3-5-sonnet-latest',
           maxTokens: 50,
         }],
@@ -372,12 +372,12 @@ describe('Provider Integration Tests', () => {
   });
 
   describe('Cost Estimation', () => {
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+    const apiKey = process.env.google_API_KEY;
 
     it.skipIf(!apiKey)('should estimate costs accurately', async () => {
       const manager = await createProviderManager({
         providers: [{
-          provider: 'anthropic',
+          provider: 'google',
           apiKey,
           model: 'claude-3-5-sonnet-latest',
           maxTokens: 100,
@@ -395,7 +395,7 @@ describe('Provider Integration Tests', () => {
       console.log('Actual cost:', response.cost);
 
       // Compare estimate to actual
-      const estimate = estimates.get('anthropic');
+      const estimate = estimates.get('google');
       if (estimate && response.cost) {
         const estimateTotal = estimate.estimatedCost.total;
         const actualTotal = response.cost.totalCost;
@@ -412,15 +412,15 @@ describe('Provider Integration Tests', () => {
 async function runQuickTest() {
   console.log('\n=== Quick Provider Test ===\n');
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.google_API_KEY;
   if (!apiKey) {
-    console.log('No ANTHROPIC_API_KEY found in .env');
+    console.log('No google_API_KEY found in .env');
     return;
   }
 
-  const provider = new AnthropicProvider({
+  const provider = new googleProvider({
     config: {
-      provider: 'anthropic',
+      provider: 'google',
       apiKey,
       model: 'claude-3-5-sonnet-latest',
       maxTokens: 100,

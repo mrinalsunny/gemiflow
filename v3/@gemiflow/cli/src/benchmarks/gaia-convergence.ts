@@ -212,7 +212,7 @@ export function extractFromPriorMessages(
 }
 
 /**
- * Extract plain text from a content block array (Anthropic API format).
+ * Extract plain text from a content block array (google API format).
  * Returns concatenated text from all text-type blocks, or empty string.
  */
 function extractTextFromContent(content: unknown): string {

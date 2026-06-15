@@ -1657,7 +1657,7 @@ v3/plugins/agentic-qe/
 │       ├── coverage-verifier.yaml
 │       └── cycle-coordinator.yaml
 │
-├── skills/                           # Claude Code skills (12 skills)
+├── skills/                           # Gemini CLI skills (12 skills)
 │   ├── qe-test-generation.md
 │   ├── qe-tdd-cycle.md
 │   ├── qe-coverage-analysis.md
@@ -1798,7 +1798,7 @@ v3/plugins/agentic-qe/
 
 **Deliverables:**
 - All 58 agents (51 + 7 TDD) defined as YAML
-- Agents spawn via Claude Code Task tool
+- Agents spawn via Gemini CLI Task tool
 - Model routing hints in agent definitions
 
 #### Phase 6: Skills & Examples (Week 6)
@@ -1811,7 +1811,7 @@ v3/plugins/agentic-qe/
 | Advanced examples (3) | `examples/*.ts` | 🟢 Medium | Phase 4 |
 
 **Deliverables:**
-- Skills available via `/qe-*` commands in Claude Code
+- Skills available via `/qe-*` commands in Gemini CLI
 - Working examples for all major use cases
 
 #### Phase 7: Testing & Documentation (Week 7)

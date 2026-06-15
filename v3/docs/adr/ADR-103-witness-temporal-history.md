@@ -78,7 +78,7 @@ The witness scripts move to `plugins/gemiflow-core/scripts/witness/`:
 | `verify.mjs` | Validate signature + markers against the live tree |
 | `history.mjs` | Query the temporal log: `summary`, `regressions`, `timeline`, `list` |
 
-Plus exposure as Claude Code surface area:
+Plus exposure as Gemini CLI surface area:
 
 | File | Purpose |
 |---|---|

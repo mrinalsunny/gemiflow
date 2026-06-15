@@ -1,7 +1,7 @@
 /**
  * Smoke test: no hardcoded attribution footers in github command files.
  *
- * ADR-127 Phase 4 moves "Generated with Claude Code" strings out of the
+ * ADR-127 Phase 4 moves "Generated with Gemini CLI" strings out of the
  * static markdown templates and into the opt-in attribution path in
  * helpers-generator.ts (gated on options.attribution). Hardcoded footers
  * silently added a third-party Co-Authored-By line to every user's commits
@@ -54,7 +54,7 @@ const SCAN_TARGETS = [
 const allFiles = SCAN_TARGETS.flat();
 
 // Pattern to detect: the emoji + "Generated with" prefix
-// Matches both "Generated with Claude Code" and "Generated with [GemiFlow](…)"
+// Matches both "Generated with Gemini CLI" and "Generated with [GemiFlow](…)"
 const HARDCODED_PATTERN = /🤖\s+Generated with/;
 
 const violations = [];

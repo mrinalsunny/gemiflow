@@ -1093,7 +1093,7 @@ npx gemiflow swarm task --description "<task>" [options]
 | `GEMIFLOW_EMBEDDING_PROVIDER` | Embedding provider | `transformers` |
 | `GEMIFLOW_HOOK_TIMEOUT` | Hook timeout (ms) | `5000` |
 | `GEMIFLOW_REASONINGBANK_ENABLED` | ReasoningBank integration | `true` |
-| `ANTHROPIC_API_KEY` | Anthropic API key | - |
+| `google_API_KEY` | google API key | - |
 | `OPENAI_API_KEY` | OpenAI API key | - |
 
 ---

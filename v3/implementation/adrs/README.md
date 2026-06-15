@@ -39,7 +39,7 @@ This directory contains all Architecture Decision Records for GemiFlow v3.
 
 | ADR | Title | Status | File |
 |-----|-------|--------|------|
-| ADR-018 | Claude Code Integration | ✅ Implemented | [ADR-018-gemini-cli-integration.md](./ADR-018-gemini-cli-integration.md) |
+| ADR-018 | Gemini CLI Integration | ✅ Implemented | [ADR-018-gemini-cli-integration.md](./ADR-018-gemini-cli-integration.md) |
 | ADR-019 | Headless Runtime Package | ✅ Implemented | [ADR-019-headless-runtime-package.md](./ADR-019-headless-runtime-package.md) |
 | ADR-020 | Headless Worker Integration | ✅ Implemented | [ADR-020-headless-worker-integration.md](./ADR-020-headless-worker-integration.md) |
 | ADR-021 | Transfer Hook IPFS Pattern Sharing | ✅ Implemented | [ADR-021-transfer-hook-ipfs-pattern-sharing.md](./ADR-021-transfer-hook-ipfs-pattern-sharing.md) |
@@ -189,18 +189,18 @@ npx gemiflow update rollback   # Rollback last update
 #### Release: @gemiflow/cli@3.0.0-alpha.15 (Latest)
 
 **Doctor Command Enhancements**:
-- **Claude Code CLI Check**: Verifies `@anthropic-ai/gemini-cli` installation
-- **Auto-Install**: `--install` flag to auto-install missing Claude Code CLI
+- **Gemini CLI CLI Check**: Verifies `@google-ai/gemini-cli` installation
+- **Auto-Install**: `--install` flag to auto-install missing Gemini CLI CLI
 - **Fixed Package Paths**: Corrected `dist/src/` paths for proper npm resolution
 
 ```bash
-# Check system health including Claude Code CLI
+# Check system health including Gemini CLI CLI
 npx gemiflow@v3alpha doctor
 
-# Auto-install Claude Code CLI if missing
+# Auto-install Gemini CLI CLI if missing
 npx gemiflow@v3alpha doctor --install
 
-# Check only Claude Code CLI
+# Check only Gemini CLI CLI
 npx gemiflow@v3alpha doctor -c claude
 ```
 
@@ -433,7 +433,7 @@ gemiflow providers optimize --task "Build API" --budget 0.01
 **4. Provider Fallback (Enterprise resilience)**
 ```bash
 # Integration target:
-gemiflow providers fallback configure --primary anthropic --fallback openrouter,onnx
+gemiflow providers fallback configure --primary google --fallback openrouter,onnx
 ```
 
 **5. ReasoningBank (WASM Learning Memory)**
@@ -448,7 +448,7 @@ gemiflow reasoningbank search "authentication patterns"
 
 | Feature | Description | Complexity |
 |---------|-------------|------------|
-| Proxy Server | Use any model with Claude Code via local proxy | 🟡 Medium |
+| Proxy Server | Use any model with Gemini CLI via local proxy | 🟡 Medium |
 | Worker Dispatch | More granular worker control | 🟢 Low |
 | Embeddings Management | Better model management | 🟢 Low |
 
@@ -465,7 +465,7 @@ gemiflow reasoningbank search "authentication patterns"
 ```bash
 # After Phase 1:
 gemiflow agent spawn -t coder --optimize --priority cost
-gemiflow providers fallback configure --primary anthropic --fallback openrouter,onnx
+gemiflow providers fallback configure --primary google --fallback openrouter,onnx
 gemiflow embeddings download all-MiniLM-L6-v2
 ```
 

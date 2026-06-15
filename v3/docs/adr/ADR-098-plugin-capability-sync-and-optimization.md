@@ -8,7 +8,7 @@
 
 ## Context
 
-The `plugins/gemiflow-*` tree is the user-facing surface of GemiFlow on Claude Code — 32 plugins distributed via the GemiFlow marketplace, each bundling agent prompts, skills, slash commands, and (in some cases) hooks. End users install via `/plugin install gemiflow-X@gemiflow` and immediately get the agent / commands.
+The `plugins/gemiflow-*` tree is the user-facing surface of GemiFlow on Gemini CLI — 32 plugins distributed via the GemiFlow marketplace, each bundling agent prompts, skills, slash commands, and (in some cases) hooks. End users install via `/plugin install gemiflow-X@gemiflow` and immediately get the agent / commands.
 
 Recent shipped work (ADR-094, 095, 096, 097) added or modified capabilities that the plugin tree doesn't yet surface:
 

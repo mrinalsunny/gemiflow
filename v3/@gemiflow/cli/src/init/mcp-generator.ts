@@ -1,6 +1,6 @@
 /**
  * MCP Configuration Generator
- * Creates .mcp.json for Claude Code MCP server integration
+ * Creates .mcp.json for Gemini CLI MCP server integration
  * Handles cross-platform compatibility (Windows requires cmd /c wrapper)
  */
 

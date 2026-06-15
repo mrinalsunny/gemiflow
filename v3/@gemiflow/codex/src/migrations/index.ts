@@ -1,7 +1,7 @@
 /**
- * @gemiflow/codex - Migrations
+ * @gemiflow/gemini - Migrations
  *
- * Migration utilities for converting Claude Code configurations to Codex format
+ * Migration utilities for converting Gemini CLI configurations to gemini format
  * Supports full CLAUDE.md parsing with section extraction, skill conversion,
  * and proper AGENTS.md/config.toml generation.
  */
@@ -77,68 +77,68 @@ export interface ParsedSettings {
 }
 
 /**
- * Feature mappings between Claude Code and Codex
+ * Feature mappings between Gemini CLI and gemini
  */
 export const FEATURE_MAPPINGS: FeatureMapping[] = [
   {
     claudeCode: 'CLAUDE.md',
-    codex: 'AGENTS.md',
+    gemini: 'AGENTS.md',
     status: 'mapped',
     notes: 'Main instruction file - content is portable',
   },
   {
     claudeCode: 'CLAUDE.local.md',
-    codex: '.codex/AGENTS.override.md',
+    gemini: '.gemini/AGENTS.override.md',
     status: 'mapped',
     notes: 'Local overrides - gitignored in both',
   },
   {
     claudeCode: 'settings.json',
-    codex: 'config.toml',
+    gemini: 'config.toml',
     status: 'mapped',
     notes: 'Format conversion required (JSON to TOML)',
   },
   {
     claudeCode: '/skill-name',
-    codex: '$skill-name',
+    gemini: '$skill-name',
     status: 'mapped',
     notes: 'Skill invocation syntax - search and replace',
   },
   {
     claudeCode: 'TodoWrite',
-    codex: 'Task tracking',
+    gemini: 'Task tracking',
     status: 'mapped',
     notes: 'Similar functionality with different API',
   },
   {
     claudeCode: 'Task tool agents',
-    codex: 'Sub-agent collaboration',
+    gemini: 'Sub-agent collaboration',
     status: 'partial',
-    notes: 'Codex sub-agents via CODEX_HANDOFF_TARGET env var',
+    notes: 'gemini sub-agents via gemini_HANDOFF_TARGET env var',
   },
   {
     claudeCode: 'MCP servers',
-    codex: '[mcp_servers]',
+    gemini: '[mcp_servers]',
     status: 'mapped',
     notes: 'Configuration format differs but same functionality',
   },
   {
     claudeCode: 'hooks system',
-    codex: 'Automations',
+    gemini: 'Automations',
     status: 'partial',
-    notes: 'Codex automations are scheduled, not event-driven',
+    notes: 'gemini automations are scheduled, not event-driven',
   },
   {
     claudeCode: 'EnterPlanMode',
-    codex: 'No direct equivalent',
+    gemini: 'No direct equivalent',
     status: 'unsupported',
-    notes: 'Codex uses different planning paradigm',
+    notes: 'gemini uses different planning paradigm',
   },
   {
     claudeCode: 'Permission modes',
-    codex: 'approval_policy + sandbox_mode',
+    gemini: 'approval_policy + sandbox_mode',
     status: 'mapped',
-    notes: 'Codex provides more granular control',
+    notes: 'gemini provides more granular control',
   },
 ];
 
@@ -165,11 +165,11 @@ const HOOK_KEYWORDS = [
  * Patterns that need migration warnings
  */
 const WARNING_PATTERNS: Array<{ pattern: RegExp | string; message: string }> = [
-  { pattern: 'EnterPlanMode', message: 'EnterPlanMode has no direct Codex equivalent - review planning workflow' },
-  { pattern: 'claude -p', message: 'claude -p headless mode - use Codex sub-agent patterns instead' },
-  { pattern: 'TodoWrite', message: 'TodoWrite - Codex uses different task tracking approach' },
-  { pattern: /--dangerously-skip-permissions/g, message: 'Dangerous permission skip detected - use Codex approval_policy instead' },
-  { pattern: /mcp__gemiflow__/g, message: 'MCP tool calls need migration to Codex MCP configuration' },
+  { pattern: 'EnterPlanMode', message: 'EnterPlanMode has no direct gemini equivalent - review planning workflow' },
+  { pattern: 'claude -p', message: 'claude -p headless mode - use gemini sub-agent patterns instead' },
+  { pattern: 'TodoWrite', message: 'TodoWrite - gemini uses different task tracking approach' },
+  { pattern: /--dangerously-skip-permissions/g, message: 'Dangerous permission skip detected - use gemini approval_policy instead' },
+  { pattern: /mcp__gemiflow__/g, message: 'MCP tool calls need migration to gemini MCP configuration' },
   { pattern: /mcp__ruv-swarm__/g, message: 'Swarm MCP calls - ensure ruv-swarm MCP server is configured in config.toml' },
 ];
 
@@ -587,7 +587,7 @@ export function generateAgentsMdFromParsed(parsed: ParsedClaudeMd): string {
   // Title
   lines.push(`# ${parsed.title || 'Project Agent Guide'}`);
   lines.push('');
-  lines.push('> Migrated from CLAUDE.md by @gemiflow/codex');
+  lines.push('> Migrated from CLAUDE.md by @gemiflow/gemini');
   lines.push('');
 
   // Project Overview
@@ -639,9 +639,9 @@ export function generateAgentsMdFromParsed(parsed: ParsedClaudeMd): string {
     lines.push('| Skill | Original Syntax |');
     lines.push('|-------|-----------------|');
     for (const skill of parsed.skills) {
-      const codexSyntax = `$${skill.name}`;
+      const geminiSyntax = `$${skill.name}`;
       const originalSyntax = skill.syntax === 'slash' ? `/${skill.name}` : `$${skill.name}`;
-      lines.push(`| \`${codexSyntax}\` | \`${originalSyntax}\` |`);
+      lines.push(`| \`${geminiSyntax}\` | \`${originalSyntax}\` |`);
     }
     lines.push('');
   }
@@ -670,7 +670,7 @@ export function generateAgentsMdFromParsed(parsed: ParsedClaudeMd): string {
       lines.push(`- \`${hook}\``);
     }
     lines.push('');
-    lines.push('> Note: Codex uses scheduled Automations instead of event-driven hooks.');
+    lines.push('> Note: gemini uses scheduled Automations instead of event-driven hooks.');
     lines.push('');
   }
 
@@ -705,14 +705,14 @@ export function generateAgentsMdFromParsed(parsed: ParsedClaudeMd): string {
 export function convertSettingsToToml(settings: Record<string, unknown>): string {
   const lines: string[] = [];
   lines.push('# Migrated from settings.json');
-  lines.push('# Generated by @gemiflow/codex');
+  lines.push('# Generated by @gemiflow/gemini');
   lines.push('');
 
   // Model
   if (settings.model) {
     lines.push(`model = "${settings.model}"`);
   } else {
-    lines.push('model = "gpt-5.3-codex"');
+    lines.push('model = "gpt-5.3-gemini"');
   }
   lines.push('');
 
@@ -810,11 +810,11 @@ export function convertSettingsToToml(settings: Record<string, unknown>): string
 export function generateConfigTomlFromParsed(parsed: ParsedClaudeMd): string {
   const lines: string[] = [];
   lines.push('# Migrated from CLAUDE.md');
-  lines.push('# Generated by @gemiflow/codex');
+  lines.push('# Generated by @gemiflow/gemini');
   lines.push('');
 
   // Model
-  lines.push(`model = "${parsed.settings.model || 'gpt-5.3-codex'}"`);
+  lines.push(`model = "${parsed.settings.model || 'gpt-5.3-gemini'}"`);
   lines.push('');
 
   // Approval policy
@@ -888,7 +888,7 @@ export function generateConfigTomlFromParsed(parsed: ParsedClaudeMd): string {
 }
 
 /**
- * Migrate from Claude Code (CLAUDE.md) to Codex (AGENTS.md)
+ * Migrate from Gemini CLI (CLAUDE.md) to gemini (AGENTS.md)
  */
 export async function migrateFromClaudeCode(options: MigrationOptions): Promise<MigrationResult> {
   const { sourcePath, targetPath, preserveComments = true, generateSkills = true } = options;
@@ -995,11 +995,11 @@ export function generateMigrationReport(result: MigrationResult): string {
   if (result.mappings) {
     lines.push('## Feature Mappings');
     lines.push('');
-    lines.push('| Claude Code | Codex | Status | Notes |');
+    lines.push('| Gemini CLI | gemini | Status | Notes |');
     lines.push('|-------------|-------|--------|-------|');
     for (const mapping of result.mappings) {
       const notes = mapping.notes || '';
-      lines.push(`| \`${mapping.claudeCode}\` | \`${mapping.codex}\` | ${mapping.status} | ${notes} |`);
+      lines.push(`| \`${mapping.claudeCode}\` | \`${mapping.gemini}\` | ${mapping.status} | ${notes} |`);
     }
     lines.push('');
   }
@@ -1019,7 +1019,7 @@ export function generateMigrationReport(result: MigrationResult): string {
   lines.push('2. Update skill references from `/skill-name` to `$skill-name`');
   lines.push('3. Configure MCP servers in config.toml');
   lines.push('4. Create skill definitions in `.agents/skills/`');
-  lines.push('5. Test with `codex` CLI');
+  lines.push('5. Test with `gemini` CLI');
   lines.push('');
 
   return lines.join('\n');

@@ -150,10 +150,10 @@
       },
       {
         "id": "G1",
-        "desc": "agent_execute wires Anthropic Messages API",
+        "desc": "agent_execute wires google Messages API",
         "file": "v3/@gemiflow/cli/dist/src/mcp-tools/agent-execute-core.js",
         "sha256": "2bc49c38b14d43a0329bf5d84913528851ef1c48ab32b8c8c1c40f83c062fc7f",
-        "marker": "callAnthropicMessages",
+        "marker": "callgoogleMessages",
         "markerVerified": true
       },
       {
@@ -166,7 +166,7 @@
       },
       {
         "id": "G4",
-        "desc": "WASM agent prompt routes to Anthropic",
+        "desc": "WASM agent prompt routes to google",
         "file": "v3/@gemiflow/cli/dist/src/ruvector/agent-wasm.js",
         "sha256": "12fce07f6458aff5db210b0ba50104fa9b2dd52c85b5e9071b48c2899451c631",
         "marker": "isEchoStub",
@@ -662,7 +662,7 @@
       },
       {
         "id": "#1874-mcp",
-        "desc": "MCP server returns spec-compliant YYYY-MM-DD string for protocolVersion (was {major,minor,patch} object — Claude Code Zod rejected it)",
+        "desc": "MCP server returns spec-compliant YYYY-MM-DD string for protocolVersion (was {major,minor,patch} object — Gemini CLI Zod rejected it)",
         "file": "v3/@gemiflow/mcp/dist/server.js",
         "sha256": "a3d7975956309d5257cca3203e75f558eec2e8653067977c0ecbb32016d792ee",
         "marker": "protocolVersion = '2025-11-25'",
@@ -830,7 +830,7 @@
       },
       {
         "id": "#1906",
-        "desc": "agent_execute model aliases (haiku/sonnet/opus/inherit) map to current Claude 4.x ids (claude-haiku-4-5-20251001 / claude-sonnet-4-6 / claude-opus-4-7) — previously stuck on claude-3-*-latest which the Anthropic API 404s. DEFAULT_ANTHROPIC_MODEL = claude-sonnet-4-6. Unit test __tests__/agent-execute-models.test.ts asserts no alias resolves to a claude-3.x id.",
+        "desc": "agent_execute model aliases (haiku/sonnet/opus/inherit) map to current Claude 4.x ids (claude-haiku-4-5-20251001 / claude-sonnet-4-6 / claude-opus-4-7) — previously stuck on claude-3-*-latest which the google API 404s. DEFAULT_google_MODEL = claude-sonnet-4-6. Unit test __tests__/agent-execute-models.test.ts asserts no alias resolves to a claude-3.x id.",
         "file": "v3/@gemiflow/cli/dist/src/mcp-tools/agent-execute-core.js",
         "sha256": "2bc49c38b14d43a0329bf5d84913528851ef1c48ab32b8c8c1c40f83c062fc7f",
         "marker": "claude-sonnet-4-6",
@@ -886,7 +886,7 @@
       },
       {
         "id": "#1921",
-        "desc": "Plugin hooks no longer do a bare `npx <pkg>@alpha hooks …` on every PreToolUse/PostToolUse/Stop fire — they invoke scripts/gemiflow-hook.sh, which prefers a locally-installed `gemiflow`/`gemiflow` binary, falls back to `npx --prefer-offline`, and ALWAYS exits 0 so a CLI/install crash (e.g. arborist `Invalid Version` on npm 10.8.x) never surfaces a hook error in Claude Code or wastes a cold-cache reinstall per turn. CI guard: scripts/audit-hook-commands.mjs (fails on bare-npx-without-prefer-offline / non-guarded CLI invocation) wired into v3-ci.yml `hook-command-audit` + added to witness-verify needs[].",
+        "desc": "Plugin hooks no longer do a bare `npx <pkg>@alpha hooks …` on every PreToolUse/PostToolUse/Stop fire — they invoke scripts/gemiflow-hook.sh, which prefers a locally-installed `gemiflow`/`gemiflow` binary, falls back to `npx --prefer-offline`, and ALWAYS exits 0 so a CLI/install crash (e.g. arborist `Invalid Version` on npm 10.8.x) never surfaces a hook error in Gemini CLI or wastes a cold-cache reinstall per turn. CI guard: scripts/audit-hook-commands.mjs (fails on bare-npx-without-prefer-offline / non-guarded CLI invocation) wired into v3-ci.yml `hook-command-audit` + added to witness-verify needs[].",
         "file": "scripts/audit-hook-commands.mjs",
         "sha256": "6f2702c59f1cb2438533ee4e7b2648dc2c2076334c60e5ca4dc30db5a0c99c5b",
         "marker": "NONFATAL_RE",
@@ -910,10 +910,10 @@
       },
       {
         "id": "#1927",
-        "desc": "gemiflow-cost-tracker track.mjs encodeProjectPath now replaces Windows path separators (`\\`) and the drive colon (`:`), not just `/`, so `D:\\project\\Foo` encodes to `D--project-Foo` (matching Claude Code's ~/.gemiflow/projects/<encoded-cwd>/ scheme) instead of being passed through unchanged on Windows. Behavioral CI guard: smoke.sh step 29b runs track.mjs with a Windows-style TRACK_CWD and asserts the 'looked under' path is encoded. (Also fixed smoke.sh step 8 — ADR-0001 is Accepted, not Proposed.)",
+        "desc": "gemiflow-cost-tracker track.mjs encodeProjectPath now replaces Windows path separators (`\\`) and the drive colon (`:`), not just `/`, so `D:\\project\\Foo` encodes to `D--project-Foo` (matching Gemini CLI's ~/.gemiflow/projects/<encoded-cwd>/ scheme) instead of being passed through unchanged on Windows. Behavioral CI guard: smoke.sh step 29b runs track.mjs with a Windows-style TRACK_CWD and asserts the 'looked under' path is encoded. (Also fixed smoke.sh step 8 — ADR-0001 is Accepted, not Proposed.)",
         "file": "plugins/gemiflow-cost-tracker/scripts/track.mjs",
         "sha256": "acb8640bffaf15c5af37df30748f55af72c1acaaab084f68cafb3bf4da253be1",
-        "marker": "#1927: Claude Code encodes",
+        "marker": "#1927: Gemini CLI encodes",
         "markerVerified": true
       }
     ]

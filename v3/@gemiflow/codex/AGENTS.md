@@ -1,4 +1,4 @@
-# codex
+# gemini
 
 > Multi-agent orchestration framework for agentic coding
 

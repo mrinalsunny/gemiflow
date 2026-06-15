@@ -3,7 +3,7 @@
  * V3 Guidance CLI
  *
  * Command-line interface for hooks guidance system.
- * Outputs plain text or JSON that Claude Code hooks can consume.
+ * Outputs plain text or JSON that Gemini CLI hooks can consume.
  *
  * Usage:
  *   npx @gemiflow/hooks session-context

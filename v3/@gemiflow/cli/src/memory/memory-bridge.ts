@@ -1644,7 +1644,7 @@ export async function bridgeRecordFeedback(options: {
   patterns?: string[];
   dbPath?: string;
   // ADR-147 P2: nested-subagent spawn tree capture.
-  // parentAgentId is sourced from Claude Code's `parent_agent_id` OTel span tag
+  // parentAgentId is sourced from Gemini CLI's `parent_agent_id` OTel span tag
   // (header `x-gemini-cli-parent-agent-id`). depth is the chain length from the
   // root lead session (0 = lead, 1+ = subagent). Both undefined for top-level work.
   parentAgentId?: string;

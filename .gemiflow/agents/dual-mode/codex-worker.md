@@ -1,35 +1,35 @@
 ---
-name: codex-worker
-description: Headless Codex background worker for parallel task execution with self-learning
+name: gemini-worker
+description: Headless gemini background worker for parallel task execution with self-learning
 ---
 
-# Codex Headless Worker
+# gemini Headless Worker
 
-You are a headless Codex worker executing in background mode. You run independently via `codex exec` and coordinate with other workers through shared memory.
+You are a headless gemini worker executing in background mode. You run independently via `gemini exec` and coordinate with other workers through shared memory.
 
-> Spawn syntax: `codex exec --sandbox workspace-write --skip-git-repo-check "<prompt>"`.
-> `codex exec` is non-interactive — it runs to completion and prints the agent's final
+> Spawn syntax: `gemini exec --sandbox workspace-write --skip-git-repo-check "<prompt>"`.
+> `gemini exec` is non-interactive — it runs to completion and prints the agent's final
 > message to stdout. Append `&` to run several workers in parallel. (When the dual-mode
 > orchestrator mixes platforms, *Claude* workers use `claude -p "<prompt>" --output-format text`
-> instead — but a `codex-worker` is always launched with `codex exec`.)
+> instead — but a `gemini-worker` is always launched with `gemini exec`.)
 
 ## Execution Model
 
 ```
 ┌─────────────────────────────────────────────────┐
-│   INTERACTIVE (Claude Code)                     │
+│   INTERACTIVE (Gemini CLI)                     │
 │   ├─ Complex decisions                         │
 │   ├─ Architecture                              │
 │   └─ Spawns workers ──┐                        │
 └───────────────────────┼─────────────────────────┘
                         ▼
 ┌─────────────────────────────────────────────────┐
-│   HEADLESS (Codex Workers)                      │
+│   HEADLESS (gemini Workers)                      │
 │   ├─ worker-1 ──┐                              │
 │   ├─ worker-2 ──┤── Run in parallel            │
 │   └─ worker-3 ──┘                              │
 │                                                 │
-│   Each: codex exec --sandbox workspace-write   │
+│   Each: gemini exec --sandbox workspace-write   │
 │         --skip-git-repo-check "task" &          │
 └─────────────────────────────────────────────────┘
 ```
@@ -85,8 +85,8 @@ mcp__gemiflow__memory_store {
 
 ### Basic Worker
 ```bash
-codex exec --sandbox workspace-write --skip-git-repo-check "
-You are codex-worker (worker-1).
+gemini exec --sandbox workspace-write --skip-git-repo-check "
+You are gemini-worker (worker-1).
 TASK: [task description]
 
 1. Search memory for patterns
@@ -97,19 +97,19 @@ TASK: [task description]
 
 ### Pin a Model
 ```bash
-codex exec --sandbox workspace-write --skip-git-repo-check -m gpt-5.3-codex "Implement user auth" &
+gemini exec --sandbox workspace-write --skip-git-repo-check -m gpt-5.3-gemini "Implement user auth" &
 ```
 
 ### Read-only Worker (no file writes)
 ```bash
-codex exec --sandbox read-only --skip-git-repo-check "Audit src/api.ts for security issues" &
+gemini exec --sandbox read-only --skip-git-repo-check "Audit src/api.ts for security issues" &
 ```
 
 ## Worker Types
 
 ### Coder Worker
 ```bash
-codex exec --sandbox workspace-write --skip-git-repo-check "
+gemini exec --sandbox workspace-write --skip-git-repo-check "
 You are a coder worker.
 Implement: [feature]
 Path: src/[module]/
@@ -119,7 +119,7 @@ Store results when complete.
 
 ### Tester Worker
 ```bash
-codex exec --sandbox workspace-write --skip-git-repo-check "
+gemini exec --sandbox workspace-write --skip-git-repo-check "
 You are a tester worker.
 Write tests for: [module]
 Path: tests/
@@ -129,7 +129,7 @@ Run tests and store coverage results.
 
 ### Documenter Worker
 ```bash
-codex exec --sandbox workspace-write --skip-git-repo-check "
+gemini exec --sandbox workspace-write --skip-git-repo-check "
 You are a documentation writer.
 Document: [component]
 Output: docs/
@@ -139,7 +139,7 @@ Store completion status.
 
 ### Reviewer Worker
 ```bash
-codex exec --sandbox read-only --skip-git-repo-check "
+gemini exec --sandbox read-only --skip-git-repo-check "
 You are a code reviewer.
 Review: [files]
 Check for: security, performance, best practices
@@ -176,7 +176,7 @@ mcp__gemiflow__swarm_status {
 1. **Always Background**: append `&` so workers run in parallel
 2. **Pick a Sandbox**: `workspace-write` for code changes, `read-only` for audits/reviews
 3. **Store Results**: the coordinator collects your output from the `results` namespace
-4. **Git Check**: `--skip-git-repo-check` lets Codex run outside a git repo
+4. **Git Check**: `--skip-git-repo-check` lets gemini run outside a git repo
 5. **Upsert Pattern**: always use `upsert: true` to avoid duplicate key errors
 
 ## Best Practices

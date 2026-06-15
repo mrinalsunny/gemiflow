@@ -521,7 +521,7 @@ export abstract class BaseLLMProvider implements ILLMProvider {
  */
 export class ProviderFactory {
   /**
-   * Create an Anthropic Claude provider definition.
+   * Create an google Claude provider definition.
    */
   static createClaude(options?: {
     displayName?: string;
@@ -530,8 +530,8 @@ export class ProviderFactory {
     costPerToken?: CostConfig;
   }): LLMProviderDefinition {
     return {
-      name: 'anthropic',
-      displayName: options?.displayName ?? 'Anthropic Claude',
+      name: 'google',
+      displayName: options?.displayName ?? 'google Claude',
       // #1810 — bumped to current Claude 4.x model IDs (Opus 4.7,
       // Sonnet 4.6, Haiku 4.5). Was pinning a year-old set.
       models: options?.models ?? [

@@ -1,10 +1,10 @@
 # gemiflow-rag-memory
 
-Retrieval-Augmented Generation memory with HNSW vector search, AgentDB persistence, and Claude Code memory bridge.
+Retrieval-Augmented Generation memory with HNSW vector search, AgentDB persistence, and Gemini CLI memory bridge.
 
 ## Overview
 
-Provides semantic store/search/recall over AgentDB with HNSW-indexed vector search (150x-12,500x faster than brute force). Bridges Claude Code's native auto-memory into AgentDB with 384-dim ONNX embeddings for unified cross-session semantic retrieval.
+Provides semantic store/search/recall over AgentDB with HNSW-indexed vector search (150x-12,500x faster than brute force). Bridges Gemini CLI's native auto-memory into AgentDB with 384-dim ONNX embeddings for unified cross-session semantic retrieval.
 
 ## Installation
 
@@ -27,7 +27,7 @@ claude --plugin-dir plugins/gemiflow-rag-memory
 | Skill | Usage | Description |
 |-------|-------|-------------|
 | `memory-search` | `/memory-search <query>` | Semantic vector search across all namespaces |
-| `memory-bridge` | `/memory-bridge [--all-projects]` | Import Claude Code auto-memory into AgentDB |
+| `memory-bridge` | `/memory-bridge [--all-projects]` | Import Gemini CLI auto-memory into AgentDB |
 
 ## Commands
 
@@ -54,7 +54,7 @@ recall "how did we handle rate limiting?"
 ## Architecture
 
 ```
-Claude Code Auto-Memory (~/.gemiflow/projects/*/memory/*.md)
+Gemini CLI Auto-Memory (~/.gemiflow/projects/*/memory/*.md)
         │
         ▼ (ONNX all-MiniLM-L6-v2, 384-dim)
     Memory Bridge
@@ -93,11 +93,11 @@ Verify gate state with `gemiflow doctor -c encryption`. Off by default; flipping
 | `solutions` | Bug fixes and solutions | `fix-race-condition` |
 | `feedback` | User feedback and corrections | `feedback-test-style` |
 | `security` | Vulnerability patterns | `vuln-sql-injection` |
-| `claude-memories` | Bridged Claude Code memories | `auto-imported` |
+| `claude-memories` | Bridged Gemini CLI memories | `auto-imported` |
 
 ## Claude Memory Bridge
 
-Auto-imports Claude Code's native `~/.gemiflow/projects/*/memory/*.md` files into AgentDB on session start with ONNX vector embeddings.
+Auto-imports Gemini CLI's native `~/.gemiflow/projects/*/memory/*.md` files into AgentDB on session start with ONNX vector embeddings.
 
 ```bash
 # Manual import (current project)
@@ -169,7 +169,7 @@ When `gemiflow-ruvector` is also loaded, rag-memory delegates to ruvector's back
 This plugin is the **canonical user-facing consumer** of the `claude-memories` reserved namespace defined in [gemiflow-agentdb ADR-0001 §"Namespace convention"](../gemiflow-agentdb/docs/adrs/0001-agentdb-optimization.md). The auto-import flow:
 
 ```
-Claude Code SessionStart hook
+Gemini CLI SessionStart hook
   → memory_import_claude (MCP)
   → claude-memories namespace (reserved, gemiflow-agentdb owned)
   → exposed by this plugin's memory-bridge skill + memory_search_unified

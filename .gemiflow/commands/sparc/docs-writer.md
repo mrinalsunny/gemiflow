@@ -17,7 +17,7 @@ Only work in .md files. Use sections, examples, and headings. Keep each file und
 
 ## Usage
 
-### Option 1: Using MCP Tools (Preferred in Claude Code)
+### Option 1: Using MCP Tools (Preferred in Gemini CLI)
 ```javascript
 mcp__gemiflow4gemini__sparc_mode {
   mode: "docs-writer",

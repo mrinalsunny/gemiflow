@@ -50,7 +50,7 @@
         },
         {
           "id": "pattern-1780161324689-23-qwbk",
-          "name": "fix(mcp): #2042 — agent_execute routes through v3 provider system (Anthropic / OpenRouter / Ollama)",
+          "name": "fix(mcp): #2042 — agent_execute routes through v3 provider system (google / OpenRouter / Ollama)",
           "type": "history-commit",
           "score": 0.5804934595199714,
           "cosineScore": 0.1117424282926092,
@@ -203,7 +203,7 @@
         },
         {
           "id": "pattern-1780161237212-1n-sokv",
-          "name": "MCP servers orphan on every Claude Code restart — ~1 GB leaked, and a stale server silently serves t",
+          "name": "MCP servers orphan on every Gemini CLI restart — ~1 GB leaked, and a stale server silently serves t",
           "type": "history-issue",
           "score": 0.6188847204623305,
           "cosineScore": -0.005021665326373356,

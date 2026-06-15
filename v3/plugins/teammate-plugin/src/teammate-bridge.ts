@@ -1,8 +1,8 @@
 /**
- * TeammateBridge - Core bridge to Claude Code's TeammateTool
+ * TeammateBridge - Core bridge to Gemini CLI's TeammateTool
  *
  * Provides unified API for multi-agent orchestration using
- * native TeammateTool capabilities (Claude Code >= 2.1.19).
+ * native TeammateTool capabilities (Gemini CLI >= 2.1.19).
  *
  * Features:
  * - Team management (spawn, discover, join/leave)
@@ -321,14 +321,14 @@ export class TeammateBridge extends EventEmitter {
 
   /**
    * Initialize the bridge
-   * Detects Claude Code version and TeammateTool availability
+   * Detects Gemini CLI version and TeammateTool availability
    */
   async initialize(): Promise<VersionInfo> {
     if (this.initialized) {
       return this.getVersionInfo();
     }
 
-    // Detect Claude Code version
+    // Detect Gemini CLI version
     try {
       const output = execSync('claude --version 2>/dev/null', {
         encoding: 'utf-8',
@@ -360,7 +360,7 @@ export class TeammateBridge extends EventEmitter {
     if (!this.teammateToolAvailable) {
       console.warn(
         `[TeammateBridge] TeammateTool not available. ` +
-        `Requires Claude Code >= ${MINIMUM_CLAUDE_CODE_VERSION}, ` +
+        `Requires Gemini CLI >= ${MINIMUM_CLAUDE_CODE_VERSION}, ` +
         `found: ${this.claudeCodeVersion ?? 'not installed'}`
       );
     }
@@ -484,7 +484,7 @@ export class TeammateBridge extends EventEmitter {
   }
 
   /**
-   * Get Claude Code version
+   * Get Gemini CLI version
    */
   getClaudeCodeVersion(): string | null {
     return this.claudeCodeVersion;
@@ -1048,7 +1048,7 @@ export class TeammateBridge extends EventEmitter {
   }
 
   /**
-   * Build AgentInput for Claude Code Task tool
+   * Build AgentInput for Gemini CLI Task tool
    */
   buildAgentInput(config: TeammateSpawnConfig): AgentInput {
     return {
@@ -1628,7 +1628,7 @@ export class TeammateBridge extends EventEmitter {
 
     const team = this.getTeamOrThrow(teamName);
 
-    // This would integrate with Claude Code's pushToRemote functionality
+    // This would integrate with Gemini CLI's pushToRemote functionality
     // For now, we simulate the remote session creation
     const remoteSession: RemoteSession = {
       remoteSessionId: generateId('remote'),
@@ -2108,7 +2108,7 @@ export class TeammateBridge extends EventEmitter {
 
     if (!this.teammateToolAvailable && !this.config.fallbackToMCP) {
       throw new TeammateError(
-        `TeammateTool not available. Requires Claude Code >= ${MINIMUM_CLAUDE_CODE_VERSION}, ` +
+        `TeammateTool not available. Requires Gemini CLI >= ${MINIMUM_CLAUDE_CODE_VERSION}, ` +
         `found: ${this.claudeCodeVersion ?? 'not installed'}`,
         TeammateErrorCode.VERSION_INCOMPATIBLE
       );

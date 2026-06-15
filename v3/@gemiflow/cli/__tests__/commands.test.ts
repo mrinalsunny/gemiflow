@@ -236,7 +236,7 @@ describe('Agent Commands', () => {
 
       ctx.flags = {
         type: 'coder',
-        provider: 'anthropic',
+        provider: 'google',
         model: 'claude-3-5-sonnet',
         _: []
       };

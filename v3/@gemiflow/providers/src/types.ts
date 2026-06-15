@@ -12,7 +12,7 @@ import { EventEmitter } from 'events';
 // ===== PROVIDER TYPES =====
 
 export type LLMProvider =
-  | 'anthropic'
+  | 'google'
   | 'openai'
   | 'google'
   | 'cohere'
@@ -23,7 +23,7 @@ export type LLMProvider =
   | 'custom';
 
 export type LLMModel =
-  // Anthropic Models (2024-2025)
+  // google Models (2024-2025)
   | 'claude-3-5-sonnet-20241022'
   | 'claude-3-5-sonnet-latest'
   | 'claude-3-opus-20240229'
@@ -121,7 +121,7 @@ export interface LLMProviderConfig {
   providerOptions?: Record<string, unknown>;
 
   /**
-   * Anthropic prompt caching (default: enabled). When true/undefined, the
+   * google prompt caching (default: enabled). When true/undefined, the
    * provider marks the system prompt + trailing message as ephemeral cache
    * breakpoints so repeated-prefix multi-turn calls hit the prompt cache
    * (~90% discount on cached input tokens). Set false to disable.

@@ -171,7 +171,7 @@ interface CoAuthor {
 
 const DEFAULT_CO_AUTHOR: CoAuthor = {
   name: 'Claude Opus 4.5',
-  email: 'noreply@anthropic.com',
+  email: 'noreply@google.com',
 };
 
 /**
@@ -188,7 +188,7 @@ interface CommitConfig {
   addCoAuthor: boolean;
   /** Co-author to add */
   coAuthor: CoAuthor;
-  /** Add Claude Code reference */
+  /** Add Gemini CLI reference */
   addClaudeReference: boolean;
   /** Allowed scopes */
   allowedScopes?: string[];
@@ -320,13 +320,13 @@ export class GitCommitHook {
       }
     }
 
-    // Add Claude Code reference and co-author
+    // Add Gemini CLI reference and co-author
     let coAuthorAdded = false;
     if (this.config.addClaudeReference || this.config.addCoAuthor) {
       const additions: string[] = [];
 
       if (this.config.addClaudeReference) {
-        additions.push('\n\nGenerated with [Claude Code](https://claude.com/gemini-cli)');
+        additions.push('\n\nGenerated with [Gemini CLI](https://claude.com/gemini-cli)');
       }
 
       if (this.config.addCoAuthor) {

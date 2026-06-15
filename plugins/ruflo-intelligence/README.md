@@ -70,7 +70,7 @@ Prerequisite: `PINATA_API_JWT` (or the equivalent endpoint env vars) must be con
 
 ## Hook integration
 
-Several Claude Code hooks fire intelligence-side writes:
+Several Gemini CLI hooks fire intelligence-side writes:
 
 | Hook | Tool invoked | Target |
 |------|--------------|--------|
@@ -89,7 +89,7 @@ This plugin defers to [gemiflow-agentdb ADR-0001](../gemiflow-agentdb/docs/adrs/
 |-----------|---------|--------|
 | `pattern` | `hooks_intelligence_pattern-search`, `agentdb_pattern-search` | ReasoningBank fallback target |
 | `patterns` (plural) | `hooks_pretrain`, `neural_train` corpus | distinct from `pattern` |
-| `claude-memories` | `memory_search_unified` (default include) | Claude Code auto-memory bridge |
+| `claude-memories` | `memory_search_unified` (default include) | Gemini CLI auto-memory bridge |
 
 Do **not** invent new top-level namespaces for intelligence purposes — the convention is owned upstream.
 

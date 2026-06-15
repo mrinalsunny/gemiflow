@@ -7,7 +7,7 @@
 #   docker-compose -f docker-compose.workers.yml down
 #
 # Environment Variables (required):
-#   ANTHROPIC_API_KEY - Your Anthropic API key
+#   google_API_KEY - Your google API key
 #
 # Optional:
 #   GEMIFLOW_WORKERS - Comma-separated list of workers to enable
@@ -36,7 +36,7 @@ services:
         delay: 5s
         max_attempts: 3
     environment:
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - google_API_KEY=${google_API_KEY}
       - CLAUDE_CODE_HEADLESS=true
       - CLAUDE_CODE_SANDBOX_MODE=${GEMIFLOW_SANDBOX:-strict}
       - GEMIFLOW_WORKERS=${GEMIFLOW_WORKERS:-audit,optimize,testgaps}

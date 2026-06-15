@@ -1935,9 +1935,9 @@ export function createV3ProgressWorker(projectRoot: string): WorkerHandler {
     let totalFiles = 0;
     let totalLines = 0;
     try {
-      const v3ClaudeFlow = path.join(v3Path, '@gemiflow');
-      totalFiles = await countFilesRecursive(v3ClaudeFlow, '.ts');
-      totalLines = await countLines(v3ClaudeFlow, '.ts');
+      const v3gemiflow = path.join(v3Path, '@gemiflow');
+      totalFiles = await countFilesRecursive(v3gemiflow, '.ts');
+      totalLines = await countLines(v3gemiflow, '.ts');
     } catch {
       totalFiles = 419;
       totalLines = 290913;

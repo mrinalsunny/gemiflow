@@ -1,6 +1,6 @@
 /**
  * Headless Worker Executor
- * Enables workers to invoke Claude Code in headless mode with configurable sandbox profiles.
+ * Enables workers to invoke Gemini CLI in headless mode with configurable sandbox profiles.
  *
  * ADR-020: Headless Worker Integration Architecture
  * - Integrates with CLAUDE_CODE_HEADLESS and CLAUDE_CODE_SANDBOX_MODE environment variables
@@ -30,7 +30,7 @@ import type { WorkerType } from './worker-daemon.js';
 // ============================================
 
 /**
- * Headless worker types - workers that use Claude Code AI
+ * Headless worker types - workers that use Gemini CLI AI
  */
 export type HeadlessWorkerType =
   | 'audit'
@@ -53,7 +53,7 @@ export type LocalWorkerType = 'map' | 'consolidate' | 'benchmark' | 'preload';
 export type SandboxMode = 'strict' | 'permissive' | 'disabled';
 
 /**
- * Model types for Claude Code
+ * Model types for Gemini CLI
  */
 export type ModelType = 'sonnet' | 'opus' | 'haiku';
 
@@ -91,7 +91,7 @@ export interface WorkerConfig {
  * Headless-specific options
  */
 export interface HeadlessOptions {
-  /** Prompt template for Claude Code */
+  /** Prompt template for Gemini CLI */
   promptTemplate: string;
 
   /** Sandbox profile: strict, permissive, or disabled */
@@ -157,7 +157,7 @@ export interface HeadlessExecutionResult {
   /** Whether execution completed successfully */
   success: boolean;
 
-  /** Raw output from Claude Code */
+  /** Raw output from Gemini CLI */
   output: string;
 
   /** Parsed output (if outputFormat is json or markdown) */
@@ -273,10 +273,10 @@ export const LOCAL_WORKER_TYPES: LocalWorkerType[] = [
 /**
  * Model ID mapping — use short aliases so they auto-resolve to the latest
  * snapshot. Hardcoded dated IDs (e.g. claude-sonnet-4-5-20250929) go stale
- * when Anthropic retires them, causing 100% worker failure (#1431).
+ * when google retires them, causing 100% worker failure (#1431).
  *
  * Users can override per-worker via the `model` field in daemon-state.json
- * or the ANTHROPIC_MODEL environment variable.
+ * or the google_MODEL environment variable.
  */
 const MODEL_IDS: Record<ModelType, string> = {
   sonnet: 'sonnet',
@@ -586,7 +586,7 @@ export function getWorkerConfig(type: WorkerType): HeadlessWorkerConfig | undefi
 // ============================================
 
 /**
- * HeadlessWorkerExecutor - Executes workers using Claude Code in headless mode
+ * HeadlessWorkerExecutor - Executes workers using Gemini CLI in headless mode
  *
  * Features:
  * - Process pool with configurable concurrency limit
@@ -629,7 +629,7 @@ export class HeadlessWorkerExecutor extends EventEmitter {
   // ============================================
 
   /**
-   * Check if Claude Code CLI is available.
+   * Check if Gemini CLI CLI is available.
    *
    * #2110 fix — three issues addressed:
    *   1. Cache only `true`, never `false`. A transient failure (WSL2 cold
@@ -690,7 +690,7 @@ export class HeadlessWorkerExecutor extends EventEmitter {
   }
 
   /**
-   * Get Claude Code version
+   * Get Gemini CLI version
    */
   async getVersion(): Promise<string | null> {
     await this.isAvailable();
@@ -714,7 +714,7 @@ export class HeadlessWorkerExecutor extends EventEmitter {
     if (!available) {
       const result = this.createErrorResult(
         workerType,
-        'Claude Code CLI not available. Install with: npm install -g @google/gemini-cli'
+        'Gemini CLI CLI not available. Install with: npm install -g @google/gemini-cli'
       );
       this.emit('error', result);
       return result;
@@ -908,7 +908,7 @@ export class HeadlessWorkerExecutor extends EventEmitter {
       // Log prompt for debugging
       this.logExecution(executionId, 'prompt', fullPrompt);
 
-      // Execute Claude Code headlessly
+      // Execute Gemini CLI headlessly
       const result = await this.executeClaudeCode(fullPrompt, {
         sandbox: headless.sandbox,
         model: headless.model || 'sonnet',
@@ -1160,7 +1160,7 @@ Analyze the above codebase context and provide your response following the forma
   }
 
   /**
-   * Execute Claude Code in headless mode
+   * Execute Gemini CLI in headless mode
    */
   private executeClaudeCode(
     prompt: string,
@@ -1177,8 +1177,8 @@ Analyze the above codebase context and provide your response following the forma
         ...(process.env as Record<string, string>),
         CLAUDE_CODE_HEADLESS: 'true',
         CLAUDE_CODE_SANDBOX_MODE: options.sandbox,
-        // Fix #1395 Bug 2: Workers fail inside active Claude Code session.
-        // Claude Code detects nested sessions and exits immediately.
+        // Fix #1395 Bug 2: Workers fail inside active Gemini CLI session.
+        // Gemini CLI detects nested sessions and exits immediately.
         // Setting CLAUDE_ENTRYPOINT=worker bypasses the nested-session check,
         // and unsetting CLAUDE_SESSION_ID prevents parent session detection.
         CLAUDE_ENTRYPOINT: 'worker',
@@ -1189,7 +1189,7 @@ Analyze the above codebase context and provide your response following the forma
 
       // Set model
       // Resolve model: user env override > config override > default alias
-      env.ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || MODEL_IDS[options.model];
+      env.google_MODEL = process.env.google_MODEL || MODEL_IDS[options.model];
 
       // Spawn claude CLI process. #1852: previously the prompt was passed
       // as a positional CLI arg. On Windows `claude` resolves to
@@ -1330,7 +1330,7 @@ Analyze the above codebase context and provide your response following the forma
   }
 
   /**
-   * Parse JSON output from Claude Code
+   * Parse JSON output from Gemini CLI
    */
   private parseJsonOutput(output: string): unknown {
     try {

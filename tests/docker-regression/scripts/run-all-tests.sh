@@ -30,7 +30,7 @@ SKIPPED_TESTS=0
 mkdir -p "$REPORT_DIR" "$LOG_DIR"
 
 echo -e "${CYAN}╔════════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${CYAN}║     CLAUDE-FLOW DEEP REGRESSION TEST SUITE                     ║${NC}"
+echo -e "${CYAN}║     gemiflow DEEP REGRESSION TEST SUITE                     ║${NC}"
 echo -e "${CYAN}║     Comprehensive Capability Testing                           ║${NC}"
 echo -e "${CYAN}╚════════════════════════════════════════════════════════════════╝${NC}"
 echo ""
@@ -274,7 +274,7 @@ echo -e "${BLUE}Report: ${REPORT_FILE}${NC}"
 
 # Write summary file
 cat > "$SUMMARY_FILE" << EOF
-CLAUDE-FLOW DEEP REGRESSION TEST SUMMARY
+gemiflow DEEP REGRESSION TEST SUMMARY
 ========================================
 Date: $(date)
 Version: 3.0.0

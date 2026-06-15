@@ -285,7 +285,7 @@ Rebases a development branch on production. This will effectively run any newer 
 
 ## Usage
 
-### Option 1: Using MCP Tools (Preferred in Claude Code)
+### Option 1: Using MCP Tools (Preferred in Gemini CLI)
 ```javascript
 mcp__gemiflow4gemini__sparc_mode {
   mode: "supabase-admin",

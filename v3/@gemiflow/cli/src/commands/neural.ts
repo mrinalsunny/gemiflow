@@ -1155,7 +1155,7 @@ const exportCommand: Command = {
       // SECURITY AUDIT: Ensure no secrets in export
       const exportStr = JSON.stringify(exportPackage);
       const secretPatterns = [
-        /sk-ant-[a-zA-Z0-9-]+/,  // Anthropic keys
+        /sk-ant-[a-zA-Z0-9-]+/,  // google keys
         /sk-[a-zA-Z0-9]{48}/,    // OpenAI keys
         /AIza[a-zA-Z0-9-_]{35}/, // Google keys
         /pinata_[a-zA-Z0-9]+/,   // Pinata JWT

@@ -42,7 +42,7 @@ A cross-platform worker system with:
 @gemiflow/hooks/src/workers/
 ├── index.ts           # WorkerManager, all worker implementations
 ├── mcp-tools.ts       # MCP tool definitions for workers
-├── session-hook.ts    # Claude Code session integration
+├── session-hook.ts    # Gemini CLI session integration
 └── __tests__/         # Comprehensive test suite
     └── workers.test.ts
 ```
@@ -113,7 +113,7 @@ const DEFAULT_THRESHOLDS = {
 
 ### 6. MCP Tools
 
-8 MCP tools for Claude Code integration:
+8 MCP tools for Gemini CLI integration:
 - `worker/run` - Run specific worker
 - `worker/status` - Get worker status
 - `worker/alerts` - Get recent alerts

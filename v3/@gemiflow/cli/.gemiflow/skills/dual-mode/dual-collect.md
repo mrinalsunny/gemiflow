@@ -1,11 +1,11 @@
 ---
 name: dual-collect
-description: Collect results from headless Codex workers
+description: Collect results from headless gemini workers
 ---
 
 # Dual Collect Skill
 
-Collect and aggregate results from headless Codex workers stored in shared memory.
+Collect and aggregate results from headless gemini workers stored in shared memory.
 
 ## Usage
 

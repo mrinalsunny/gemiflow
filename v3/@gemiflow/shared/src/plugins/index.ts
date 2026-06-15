@@ -12,7 +12,7 @@ export type {
   PluginContext,
   PluginEvent,
   PluginEventHandler,
-  ClaudeFlowPlugin,
+  gemiflowPlugin,
   PluginMetadata,
   IPluginRegistry,
   IPluginLoader,

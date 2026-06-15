@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
- * Patch: Aggressive Text Pruning for Claude Code
+ * Patch: Aggressive Text Pruning for Gemini CLI
  *
- * Extends Claude Code's micro-compaction (Vd function) to also prune old
+ * Extends Gemini CLI's micro-compaction (Vd function) to also prune old
  * user/assistant TEXT content, not just tool results. This keeps context
  * lean and prevents full compaction from ever being needed.
  *
@@ -40,7 +40,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const PROJECT_ROOT = join(__dirname, '../..');
-const CLI_PATH = join(PROJECT_ROOT, 'node_modules/@anthropic-ai/claude-agent-sdk/cli.js');
+const CLI_PATH = join(PROJECT_ROOT, 'node_modules/@google-ai/claude-agent-sdk/cli.js');
 const BACKUP_PATH = CLI_PATH + '.backup';
 
 const PATCH_MARKER = '/*AGGRESSIVE_TEXT_PRUNE_PATCH*/';
@@ -137,7 +137,7 @@ function apply() {
   // Verify the injection point exists
   if (!src.includes(VD_CALL_PATTERN)) {
     console.error('ERROR: Could not find Vd() call pattern in cli.js.');
-    console.error('Claude Code may have been updated. Pattern expected:');
+    console.error('Gemini CLI may have been updated. Pattern expected:');
     console.error('  ' + VD_CALL_PATTERN);
     process.exit(1);
   }
@@ -164,13 +164,13 @@ function apply() {
   console.log('  CLAUDE_TEXT_PRUNE_THRESHOLD=60000 # Start pruning above this token count');
   console.log('  CLAUDE_TEXT_PRUNE_MAX_CHARS=150  # Truncate old text to this many chars');
   console.log('');
-  console.log('Restart Claude Code for the patch to take effect.');
+  console.log('Restart Gemini CLI for the patch to take effect.');
 }
 
 function revert() {
   if (!existsSync(BACKUP_PATH)) {
     console.error('No backup found at:', BACKUP_PATH);
-    console.error('Cannot revert. Reinstall with: npm install @anthropic-ai/claude-agent-sdk');
+    console.error('Cannot revert. Reinstall with: npm install @google-ai/claude-agent-sdk');
     process.exit(1);
   }
 

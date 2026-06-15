@@ -395,8 +395,8 @@ const runCommand: Command = {
 
     // Resolve the API key once (shared across all per-question agent calls).
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { resolveAnthropicApiKey } = (await import(benchmarksBase + 'gaia-agent.js')) as any;
-    const apiKey: string = resolveAnthropicApiKey();
+    const { resolvegoogleApiKey } = (await import(benchmarksBase + 'gaia-agent.js')) as any;
+    const apiKey: string = resolvegoogleApiKey();
 
     for (const model of models) {
       log(output.bold(`Running model: ${model}`));

@@ -6,7 +6,7 @@
 
 ## Executive summary
 
-**`gemiflow-goals` v0.2.0** is a Claude Code plugin providing GOAP-based planning, multi-source research, long-horizon tracking, and (new in 0.2.0) recursive parallel investigation. It ships **4 agents** + **5 skills** + **1 slash command** in 654 lines across 12 files. The plugin is structured as siblings — `goal-planner` (planning), `deep-researcher` (questions), `horizon-tracker` (long objectives), and `dossier-investigator` (seeds) — with a documented selection guide. ADR-099 (this dossier's instigator) added the dossier-investigator capability inspired by maigret's recursive-parallel pattern, reusing only gemiflow-native tools (no external dependencies).
+**`gemiflow-goals` v0.2.0** is a Gemini CLI plugin providing GOAP-based planning, multi-source research, long-horizon tracking, and (new in 0.2.0) recursive parallel investigation. It ships **4 agents** + **5 skills** + **1 slash command** in 654 lines across 12 files. The plugin is structured as siblings — `goal-planner` (planning), `deep-researcher` (questions), `horizon-tracker` (long objectives), and `dossier-investigator` (seeds) — with a documented selection guide. ADR-099 (this dossier's instigator) added the dossier-investigator capability inspired by maigret's recursive-parallel pattern, reusing only gemiflow-native tools (no external dependencies).
 
 ## Entity table
 

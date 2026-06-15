@@ -51,7 +51,7 @@ GemiFlow is a high-performance multi-agent swarm orchestration framework:
   - `@gemiflow/memory` — SQLite + AgentDB + HNSW backend
   - `@gemiflow/security` — Input validation (Zod) and path traversal protection
   - `@gemiflow/hooks` — Lifecycle hooks and background daemons
-  - `@gemiflow/codex` — Dual-mode Claude + OpenAI Codex workers
+  - `@gemiflow/gemini` — Dual-mode Claude + OpenAI gemini workers
 
 ---
 

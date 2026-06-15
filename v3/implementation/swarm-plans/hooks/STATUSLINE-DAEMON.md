@@ -8,7 +8,7 @@ Real-time statusline updates powered by SQLite-backed daemon processes that moni
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Claude Code Session                       │
+│                    Gemini CLI Session                       │
 ├─────────────────────────────────────────────────────────────┤
 │  SessionStart Hook                                           │
 │  └─> daemon-manager.sh start                                │
@@ -136,7 +136,7 @@ Real-time process detection for active agents.
 
 ### 4. Statusline (`statusline.sh`)
 
-On-demand status display for Claude Code.
+On-demand status display for Gemini CLI.
 
 **Output Format:**
 ```

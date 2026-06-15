@@ -26,7 +26,7 @@ naming exactly what fired and what didn't.
 ## 1) Train on a single task completion
 
 ```bash
-# Via the MCP tool (most common — Claude Code agents use this)
+# Via the MCP tool (most common — Gemini CLI agents use this)
 mcp__gemiflow__hooks_task-completed {
   taskId: 'fix-2245-stub',
   success: true,

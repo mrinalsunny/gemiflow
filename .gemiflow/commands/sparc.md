@@ -41,7 +41,7 @@ Use `new_task` to assign:
 
 ## Quick Start
 
-### Option 1: Using MCP Tools (Preferred in Claude Code)
+### Option 1: Using MCP Tools (Preferred in Gemini CLI)
 ```javascript
 // Run SPARC orchestrator (default)
 mcp__gemiflow4gemini__sparc_mode {

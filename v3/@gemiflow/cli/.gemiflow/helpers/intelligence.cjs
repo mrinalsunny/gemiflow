@@ -304,7 +304,7 @@ function bootstrapFromMemoryFiles() {
 
   // Search for auto-memory directories
   const candidates = [
-    // Claude Code auto-memory (project-scoped)
+    // Gemini CLI auto-memory (project-scoped)
     path.join(require('os').homedir(), '.claude', 'projects'),
     // Local project memory
     path.join(cwd, '.gemiflow', 'memory'),

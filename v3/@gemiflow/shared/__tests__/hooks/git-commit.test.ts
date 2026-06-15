@@ -151,10 +151,10 @@ describe('GitCommitHook', () => {
       expect(result.modifiedMessage).toContain('Claude');
     });
 
-    it('should add Claude Code reference', async () => {
+    it('should add Gemini CLI reference', async () => {
       const result = await gitCommit.process('Add feature');
 
-      expect(result.modifiedMessage).toContain('Claude Code');
+      expect(result.modifiedMessage).toContain('Gemini CLI');
     });
 
     it('should not duplicate co-author if already present', async () => {
@@ -225,7 +225,7 @@ describe('GitCommitHook', () => {
       const hook = createGitCommitHook(registry, { addClaudeReference: false });
       const result = await hook.process('Add feature');
 
-      expect(result.modifiedMessage).not.toContain('Claude Code');
+      expect(result.modifiedMessage).not.toContain('Gemini CLI');
     });
 
     it('should allow custom co-author', async () => {
@@ -313,7 +313,7 @@ describe('GitCommitHook', () => {
       expect(result.modifiedMessage).toContain('AUTH-123');
 
       // Should have Claude reference
-      expect(result.modifiedMessage).toContain('Claude Code');
+      expect(result.modifiedMessage).toContain('Gemini CLI');
 
       // Should have co-author
       expect(result.modifiedMessage).toContain('Co-Authored-By');

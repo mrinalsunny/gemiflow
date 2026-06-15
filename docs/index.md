@@ -1,14 +1,14 @@
 ---
 layout: default
 title: GemiFlow Marketplace
-description: Claude Code native agents, swarms, workers, and MCP tools for continuous software engineering
+description: Gemini CLI native agents, swarms, workers, and MCP tools for continuous software engineering
 ---
 
 # GemiFlow Marketplace
 
-**Installable agentic workflows for Claude Code -- not just commands.**
+**Installable agentic workflows for Gemini CLI -- not just commands.**
 
-GemiFlow provides native Claude Code plugins for multi-agent orchestration, /loop workers, security auditing, memory-powered RAG, and test generation.
+GemiFlow provides native Gemini CLI plugins for multi-agent orchestration, /loop workers, security auditing, memory-powered RAG, and test generation.
 
 ## Quick Install
 
@@ -48,17 +48,17 @@ GemiFlow provides native Claude Code plugins for multi-agent orchestration, /loo
 
 ## How It Works
 
-GemiFlow plugins extend Claude Code with:
-- **Skills** -- Teach Claude Code new workflows (swarm init, /loop workers, security scans)
+GemiFlow plugins extend Gemini CLI with:
+- **Skills** -- Teach Gemini CLI new workflows (swarm init, /loop workers, security scans)
 - **Commands** -- Slash commands for common operations (/status, /audit, /memory)
 - **Agents** -- Specialized agent definitions (coder, reviewer, architect, security-auditor)
 - **MCP Server** -- 314 tools for coordination, memory, neural learning, and more
 
-## Claude Code Native Integration
+## Gemini CLI Native Integration
 
-GemiFlow plugins use Claude Code's native capabilities when available:
+GemiFlow plugins use Gemini CLI's native capabilities when available:
 
-| Feature | Plugin | Claude Code Native |
+| Feature | Plugin | Gemini CLI Native |
 |---------|--------|--------------------|
 | Periodic workers | gemiflow-loop-workers | `/loop` + `ScheduleWakeup` |
 | Live monitoring | gemiflow-swarm | `Monitor` tool |

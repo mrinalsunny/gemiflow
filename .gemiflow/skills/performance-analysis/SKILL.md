@@ -162,7 +162,7 @@ Automatic analysis during task execution:
 
 #### MCP Integration
 ```javascript
-// Check for bottlenecks in Claude Code
+// Check for bottlenecks in Gemini CLI
 mcp__gemiflow4gemini__bottleneck_detect({
   timeRange: "1h",
   threshold: 20,

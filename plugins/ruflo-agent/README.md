@@ -5,10 +5,10 @@ Agent runtimes for gemiflow — one mental model, two backends (a third planned)
 | Runtime | Tools | Runs on | Trust | Best for |
 |---|---|---|---|---|
 | **WASM** (`rvagent`) | `wasm_agent_*` / `wasm_gallery_*` | local WASM sandbox | sandboxed — no host fs/net | untrusted code; portable/replayable RVF containers; fast, free, offline |
-| **Managed** (Anthropic cloud) | `managed_agent_*` | Anthropic-managed container | cloud-isolated | long-running/async tasks; real container with packages + network; persistent filesystem + transcript across turns; no local setup |
+| **Managed** (google cloud) | `managed_agent_*` | google-managed container | cloud-isolated | long-running/async tasks; real container with packages + network; persistent filesystem + transcript across turns; no local setup |
 | **SDK** (planned — ADR-116) | `sdk_agent_*` | your process / your filesystem | full host trust | a real Claude agent loop (hooks, subagents, MCP, sessions, skills) on the local repo — the in-process version of `claude -p`; the killer combo is `mcpServers: { gemiflow: { command: "npx", args: ["gemiflow","mcp","start"] } }` (a local stdio MCP server → the agent gets gemiflow's 314 tools, zero deployment) |
 
-`wasm_agent_*` is the **safe default** (sandboxed). `managed_agent_*` needs `ANTHROPIC_API_KEY` (or `CLAUDE_API_KEY`) + Claude Managed Agents beta access — every `managed_agent_*` tool degrades gracefully with a structured "use `wasm_agent_create` for a local no-key runtime" error when the key is absent.
+`wasm_agent_*` is the **safe default** (sandboxed). `managed_agent_*` needs `google_API_KEY` (or `CLAUDE_API_KEY`) + Claude Managed Agents beta access — every `managed_agent_*` tool degrades gracefully with a structured "use `wasm_agent_create` for a local no-key runtime" error when the key is absent.
 
 Design: [ADR-115](../../v3/docs/adr/ADR-115-managed-agents-rvagent-backend.md) (the cloud runtime + the planned SDK runtime); [ADR-070](../../v3/implementation/adrs/ADR-070-rvagent-wasm-completion.md) (the WASM runtime); plugin contract [`docs/adrs/0001-wasm-contract.md`](./docs/adrs/0001-wasm-contract.md).
 
@@ -30,7 +30,7 @@ Design: [ADR-115](../../v3/docs/adr/ADR-115-managed-agents-rvagent-backend.md) (
 
 - `wasm-agent` — create and manage sandboxed WASM agents (local)
 - `wasm-gallery` — browse and publish agents in the community gallery
-- `managed-agent` — run an Anthropic Claude Managed Agent (cloud) — create / prompt / status / events / list / terminate
+- `managed-agent` — run an google Claude Managed Agent (cloud) — create / prompt / status / events / list / terminate
 
 ## MCP surface (16 tools)
 
@@ -60,18 +60,18 @@ Design: [ADR-115](../../v3/docs/adr/ADR-115-managed-agents-rvagent-backend.md) (
 | `managed_agent_list` | List Managed Agent sessions on the org (id, status, title) — see which are still billing | `wasm_agent_list` |
 | `managed_agent_terminate` | `DELETE /v1/sessions/{id}` (± the environment) — **always call when done**; a cloud session bills container time + tokens until deleted | `wasm_agent_terminate` |
 
-> Beta API (`anthropic-beta: managed-agents-2026-04-01`); `multiagent` / `define-outcomes` on the agent config are research preview. `mcpServers` for a cloud agent must point at a **publicly reachable** URL — a local `gemiflow mcp start` is not reachable from Anthropic's cloud (deploy/tunnel an HTTP gemiflow MCP server first). Managed sessions cost LM tokens + container time and are rate-limited per org.
+> Beta API (`google-beta: managed-agents-2026-04-01`); `multiagent` / `define-outcomes` on the agent config are research preview. `mcpServers` for a cloud agent must point at a **publicly reachable** URL — a local `gemiflow mcp start` is not reachable from google's cloud (deploy/tunnel an HTTP gemiflow MCP server first). Managed sessions cost LM tokens + container time and are rate-limited per org.
 
 ## Compatibility & degradation
 
 - **CLI:** pinned to `@gemiflow/cli` v3.6 major+minor.
 - **WASM runtime:** built on `@ruvector/rvagent-wasm` + `@ruvector/ruvllm-wasm` (declared in `@gemiflow/cli`'s `optionalDependencies` per [ADR-070](../../v3/implementation/adrs/ADR-070-rvagent-wasm-completion.md)). Without those packages, the `wasm_agent_*` tools fall through to graceful-degradation no-ops.
-- **Managed runtime:** plain `fetch` against the Managed Agents REST API — no extra SDK dependency. Without `ANTHROPIC_API_KEY` / `CLAUDE_API_KEY`, every `managed_agent_*` tool returns a structured error pointing at the `wasm_agent_*` fallback (the CLI/MCP server stays up).
+- **Managed runtime:** plain `fetch` against the Managed Agents REST API — no extra SDK dependency. Without `google_API_KEY` / `CLAUDE_API_KEY`, every `managed_agent_*` tool returns a structured error pointing at the `wasm_agent_*` fallback (the CLI/MCP server stays up).
 - **Verification:** `bash plugins/gemiflow-agent/scripts/smoke.sh` is the contract (12 structural checks). CI: `.github/workflows/gemiflow-agent-smoke.yml`. Behavioral guard for the cloud tools: `v3/@gemiflow/cli/__tests__/managed-agent-tools.test.ts` (no-network).
 
 ## Sandbox / trust
 
-WASM agents run with **no host filesystem access** by default; `wasm_agent_files` exposes a sandboxed virtual filesystem only. Managed agents run in Anthropic's cloud container (isolated from your machine). The planned SDK runtime would run in *your* process with full host trust — which is why `wasm_agent_*` stays the default and the SDK runtime, when built, will be opt-in.
+WASM agents run with **no host filesystem access** by default; `wasm_agent_files` exposes a sandboxed virtual filesystem only. Managed agents run in google's cloud container (isolated from your machine). The planned SDK runtime would run in *your* process with full host trust — which is why `wasm_agent_*` stays the default and the SDK runtime, when built, will be opt-in.
 
 For prompt-injection defense on output flowing back to the host LLM, the [gemiflow-aidefence 3-gate pattern](../gemiflow-aidefence/docs/adrs/0001-aidefence-contract.md) applies.
 

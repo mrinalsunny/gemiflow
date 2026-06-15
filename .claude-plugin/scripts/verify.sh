@@ -24,12 +24,12 @@ echo ""
 ERRORS=0
 WARNINGS=0
 
-# Check Claude Code
-info "Checking Claude Code CLI..."
+# Check Gemini CLI
+info "Checking Gemini CLI CLI..."
 if command -v claude &> /dev/null; then
-    success "Claude Code CLI installed"
+    success "Gemini CLI CLI installed"
 else
-    error "Claude Code CLI not found"
+    error "Gemini CLI CLI not found"
     ((ERRORS++))
 fi
 
@@ -52,7 +52,7 @@ else
 fi
 
 # Check settings
-info "Checking Claude Code settings..."
+info "Checking Gemini CLI settings..."
 if [ -f "$HOME/.gemiflow/settings.json" ]; then
     success "Settings file exists"
 

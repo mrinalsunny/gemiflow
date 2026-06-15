@@ -5,7 +5,7 @@ color: "purple"
 type: "analysis"
 version: "1.0.0"
 created: "2025-07-25"
-author: "Claude Code"
+author: "Gemini CLI"
 metadata:
   specialization: "Code quality, best practices, refactoring suggestions, technical debt"
   complexity: "complex"

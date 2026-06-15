@@ -8,7 +8,7 @@
 
 Successfully implemented MCP-first API design for GemiFlow V3. CLI commands now call MCP tools rather than implementing functionality directly, following the principle:
 
-> **"MCP coordinates, Claude Code creates!"**
+> **"MCP coordinates, Gemini CLI creates!"**
 
 ## Implementation Details
 
@@ -494,7 +494,7 @@ All MCP tools now exposed via CLI commands in `@gemiflow/cli@3.0.0-alpha.7`:
    - Affected: 3 functions in `executor.ts` (lines 465, 584, 778)
    - Result: Init now correctly populates 91 agents, 29 skills, 10 commands, 38 helpers
 
-4. **Mac Settings Validation** (alpha.89) - Fixed Claude Code settings.json validation errors on macOS
+4. **Mac Settings Validation** (alpha.89) - Fixed Gemini CLI settings.json validation errors on macOS
    - Issue: `PermissionRequest` hook type not recognized; permission patterns required `:*` syntax
    - Fix: Removed `PermissionRequest` hook block; changed patterns from `*` to `:*` (e.g., `Bash(npx gemiflow:*)`)
    - Affected: `settings-generator.ts`, `types.ts`, `.gemiflow/settings.json`

@@ -91,7 +91,7 @@ Ephemeral workflows (wisps) that run in loops for Refinery, Witness, and Deacon.
 - Self-sustaining orchestration
 
 #### 5. Seance
-Workers can communicate with their predecessors via Claude Code's `/resume` feature.
+Workers can communicate with their predecessors via Gemini CLI's `/resume` feature.
 - Useful for handoff continuity
 - Recovers lost context from crashed sessions
 
@@ -295,7 +295,7 @@ Yegge's evolution chart is useful for positioning:
 | 2 | IDE agent, permissions on | Cursor, Copilot |
 | 3 | IDE agent, YOLO mode | Trust enabled |
 | 4 | IDE wide agent | Full screen agent |
-| 5 | CLI single agent | Claude Code |
+| 5 | CLI single agent | Gemini CLI |
 | 6 | CLI multi-agent | 3-5 parallel |
 | 7 | 10+ agents, hand-managed | Power user |
 | 8 | Building orchestrator | Gas Town, GemiFlow |

@@ -85,7 +85,7 @@ mcp__gemiflow__task_orchestrate {
 // Create standardized repository template
 mcp__github__create_repository {
   name: "claude-project-template",
-  description: "Standardized template for Claude Code projects with ruv-swarm integration",
+  description: "Standardized template for Gemini CLI projects with ruv-swarm integration",
   private: false,
   autoInit: true
 }
@@ -131,7 +131,7 @@ mcp__github__push_files {
       content: JSON.stringify({
         name: "claude-project-template",
         version: "1.0.0",
-        description: "Claude Code project with ruv-swarm integration",
+        description: "Gemini CLI project with ruv-swarm integration",
         engines: { node: ">=20.0.0" },
         dependencies: {
           "ruv-swarm": "^1.0.11"

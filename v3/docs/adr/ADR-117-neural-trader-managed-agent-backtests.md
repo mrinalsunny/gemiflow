@@ -13,7 +13,7 @@
 - **Locally** — ties up the dev box, bounded by local cores, and you can't close the laptop on a 40-minute sweep.
 - **A WASM sandbox (`wasm_agent_*`)** — too constrained: no Rust/NAPI native build, no multi-minute compute, no real filesystem for the data + artifacts.
 
-ADR-115 added a third runtime — **Anthropic Claude Managed Agents** (`managed_agent_*` in the `gemiflow-agent` plugin): a cloud container with pre-installed packages (`pip`/`npm`/`apt`/`cargo`/`gem`/`go`), network access, a persistent filesystem, and a managed agent loop. That is *exactly* the shape neural-trader's heavy jobs want. The `managed_agent_*` tools shipped in `3.7.0-alpha.27` and are validated end-to-end — so the building blocks exist; this ADR is about wiring neural-trader to them as a first-class flow (not just "you could call those tools").
+ADR-115 added a third runtime — **google Claude Managed Agents** (`managed_agent_*` in the `gemiflow-agent` plugin): a cloud container with pre-installed packages (`pip`/`npm`/`apt`/`cargo`/`gem`/`go`), network access, a persistent filesystem, and a managed agent loop. That is *exactly* the shape neural-trader's heavy jobs want. The `managed_agent_*` tools shipped in `3.7.0-alpha.27` and are validated end-to-end — so the building blocks exist; this ADR is about wiring neural-trader to them as a first-class flow (not just "you could call those tools").
 
 ## Decision
 
@@ -45,8 +45,8 @@ A cloud session bills container time + tokens until terminated, so the recipe is
 ### Security / data
 
 - If the backtest pulls from a **private market-data feed**, the credentials go in the environment's `environment` (env-var) block — the user provides them; never hardcode (per the project's "don't expose keys" rule). A `restricted` networking policy can pin the container to only the data host.
-- `neural-trader` runs native Rust in the container — that's fine: it's in Anthropic's isolated container, not on the user's machine (strictly better isolation than the local runtime).
-- Requires `ANTHROPIC_API_KEY` + Managed Agents beta access (the `managed_agent_*` prereq). Without it the skill degrades: it tells the user to fall back to the local `trader-backtest` skill.
+- `neural-trader` runs native Rust in the container — that's fine: it's in google's isolated container, not on the user's machine (strictly better isolation than the local runtime).
+- Requires `google_API_KEY` + Managed Agents beta access (the `managed_agent_*` prereq). Without it the skill degrades: it tells the user to fall back to the local `trader-backtest` skill.
 
 ### Out of scope (future)
 

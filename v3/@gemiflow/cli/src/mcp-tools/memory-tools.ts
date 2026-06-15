@@ -126,11 +126,11 @@ function globToRegex(pattern: string): RegExp {
 }
 
 // #1883 — resolve the Claude-Code project memory directory for the *current*
-// project. Claude Code hashes the project path differently per host OS, and
+// project. Gemini CLI hashes the project path differently per host OS, and
 // our previous logic only POSIX-slash-replaced cwd, which breaks for:
-//   - WSL bridges where cwd is `/mnt/<drive>/...` but Claude Code is on Windows
-//   - paths containing spaces (Claude Code replaces spaces with dashes)
-//   - any leading slash on POSIX (Claude Code strips it)
+//   - WSL bridges where cwd is `/mnt/<drive>/...` but Gemini CLI is on Windows
+//   - paths containing spaces (Gemini CLI replaces spaces with dashes)
+//   - any leading slash on POSIX (Gemini CLI strips it)
 // Strategy: try several candidate hashes and return the first one with a
 // memory dir that exists. An explicit `projectPathOverride` short-circuits
 // the heuristics for callers that know the canonical project path.
@@ -157,16 +157,16 @@ function resolveProjectMemoryDir(claudeProjectsDir: string, projectPathOverride?
       candidates.add(`${drive}-${rest}`);
     }
 
-    // Candidate 3: POSIX hash with leading dash stripped (Claude Code on macOS/Linux)
+    // Candidate 3: POSIX hash with leading dash stripped (Gemini CLI on macOS/Linux)
     const stripped = source.replace(/\//g, '-').replace(/^-+/, '');
     candidates.add(stripped);
 
-    // Candidate 4: spaces replaced with dashes (Claude Code's space rule)
+    // Candidate 4: spaces replaced with dashes (Gemini CLI's space rule)
     candidates.add(source.replace(/\//g, '-').replace(/ /g, '-'));
 
-    // Candidate 5 (#1939): native Win32 path on a Win32 Claude Code install.
+    // Candidate 5 (#1939): native Win32 path on a Win32 Gemini CLI install.
     // `C:\Users\tobia\OneDrive\Desktop\Claude Stuff` →
-    // `C--Users-tobia-OneDrive-Desktop-Claude-Stuff`. Claude Code's on-disk
+    // `C--Users-tobia-OneDrive-Desktop-Claude-Stuff`. Gemini CLI's on-disk
     // slug replaces drive-colon AND backslashes AND whitespace with `-`.
     // The earlier candidates only handled forward slashes, so a Win32+Win32
     // setup never matched.
@@ -247,7 +247,7 @@ async function getMemoryFunctions() {
 /**
  * Ensure memory database is initialized and migrate legacy data if needed.
  * #1606: Wrapped in try/catch to prevent process-level crashes that kill
- * the stdio MCP transport on Windows/Codex.
+ * the stdio MCP transport on Windows/gemini.
  */
 async function ensureInitialized(): Promise<void> {
   try {
@@ -778,18 +778,18 @@ export const memoryTools: MCPTool[] = [
     },
   },
 
-  // ===== Claude Code Memory Bridge Tools =====
+  // ===== Gemini CLI Memory Bridge Tools =====
 
   {
     name: 'memory_import_claude',
-    description: 'Import Claude Code auto-memory files into AgentDB with ONNX vector embeddings. Reads ~/.gemiflow/projects/*/memory/*.md files, parses YAML frontmatter, splits into sections, and stores with 384-dim embeddings for semantic search. Use allProjects=true to import from ALL Claude projects. Pass projectPath to override cwd-based detection (#1883 — required when GemiFlow runs in WSL but Claude Code is on Windows). Pass excludeFilePatterns (glob list) or excludeFiles (absolute path list) to skip voice-load-bearing, PII, or persona-restricted files (#1937). Use when native Read/Write is wrong because you need (a) cross-session retrieval by semantic similarity (vector embeddings) not by file path, (b) namespacing across projects without managing directory layout, or (c) the .swarm/memory.db audit trail. For one-shot file I/O, native Read/Write is fine.',
+    description: 'Import Gemini CLI auto-memory files into AgentDB with ONNX vector embeddings. Reads ~/.gemiflow/projects/*/memory/*.md files, parses YAML frontmatter, splits into sections, and stores with 384-dim embeddings for semantic search. Use allProjects=true to import from ALL Claude projects. Pass projectPath to override cwd-based detection (#1883 — required when GemiFlow runs in WSL but Gemini CLI is on Windows). Pass excludeFilePatterns (glob list) or excludeFiles (absolute path list) to skip voice-load-bearing, PII, or persona-restricted files (#1937). Use when native Read/Write is wrong because you need (a) cross-session retrieval by semantic similarity (vector embeddings) not by file path, (b) namespacing across projects without managing directory layout, or (c) the .swarm/memory.db audit trail. For one-shot file I/O, native Read/Write is fine.',
     category: 'memory',
     inputSchema: {
       type: 'object',
       properties: {
         allProjects: { type: 'boolean', description: 'Import from all Claude projects (default: current project only)' },
         namespace: { type: 'string', description: 'Target namespace (default: "claude-memories")' },
-        projectPath: { type: 'string', description: '#1883 — explicit project path to hash, used when cwd does not match Claude Code\'s view (e.g. WSL bridge to Windows host). Pass the canonical project root as Claude Code sees it.' },
+        projectPath: { type: 'string', description: '#1883 — explicit project path to hash, used when cwd does not match Gemini CLI\'s view (e.g. WSL bridge to Windows host). Pass the canonical project root as Gemini CLI sees it.' },
         excludeFilePatterns: {
           type: 'array',
           items: { type: 'string' },
@@ -863,7 +863,7 @@ export const memoryTools: MCPTool[] = [
 
       let imported = 0;
       let skipped = 0;
-      // #1791.8 — Claude Code's `~/.gemiflow/projects/` accumulates historical
+      // #1791.8 — Gemini CLI's `~/.gemiflow/projects/` accumulates historical
       // project_id directories (truncated forms, sandbox cwds, renamed
       // workspaces) that all contain copies of the same memory files. The
       // previous import indexed each copy under a different `project_id`
@@ -953,7 +953,7 @@ export const memoryTools: MCPTool[] = [
 
   {
     name: 'memory_bridge_status',
-    description: 'Show Claude Code memory bridge status — AgentDB vectors, SONA learning, intelligence patterns, and connection health. Use when native Read/Write is wrong because you need (a) cross-session retrieval by semantic similarity (vector embeddings) not by file path, (b) namespacing across projects without managing directory layout, or (c) the .swarm/memory.db audit trail. For one-shot file I/O, native Read/Write is fine.',
+    description: 'Show Gemini CLI memory bridge status — AgentDB vectors, SONA learning, intelligence patterns, and connection health. Use when native Read/Write is wrong because you need (a) cross-session retrieval by semantic similarity (vector embeddings) not by file path, (b) namespacing across projects without managing directory layout, or (c) the .swarm/memory.db audit trail. For one-shot file I/O, native Read/Write is fine.',
     category: 'memory',
     inputSchema: { type: 'object', properties: {} },
     handler: async () => {
@@ -1049,7 +1049,7 @@ export const memoryTools: MCPTool[] = [
 
   {
     name: 'memory_search_unified',
-    description: 'Search across both Claude Code memories and AgentDB entries using semantic vector similarity. Returns merged, deduplicated results from all namespaces. Use when native Read/Write is wrong because you need (a) cross-session retrieval by semantic similarity (vector embeddings) not by file path, (b) namespacing across projects without managing directory layout, or (c) the .swarm/memory.db audit trail. For one-shot file I/O, native Read/Write is fine.',
+    description: 'Search across both Gemini CLI memories and AgentDB entries using semantic vector similarity. Returns merged, deduplicated results from all namespaces. Use when native Read/Write is wrong because you need (a) cross-session retrieval by semantic similarity (vector embeddings) not by file path, (b) namespacing across projects without managing directory layout, or (c) the .swarm/memory.db audit trail. For one-shot file I/O, native Read/Write is fine.',
     category: 'memory',
     inputSchema: {
       type: 'object',
@@ -1303,7 +1303,7 @@ export const memoryTools: MCPTool[] = [
     // #1916: `gemiflow memory import <file>` referenced an unregistered tool.
     // Reads a gemiflow-memory-export JSON and re-stores each entry.
     name: 'memory_import',
-    description: 'Import memory entries from a JSON export file (produced by memory_export) into .swarm/memory.db, re-embedding values. Use when native Read is wrong because the data must be re-stored as memory rows (with new embeddings), not just read. For importing Claude Code\'s own memory files use memory_import_claude. Pair with memory_export on the source.',
+    description: 'Import memory entries from a JSON export file (produced by memory_export) into .swarm/memory.db, re-embedding values. Use when native Read is wrong because the data must be re-stored as memory rows (with new embeddings), not just read. For importing Gemini CLI\'s own memory files use memory_import_claude. Pair with memory_export on the source.',
     category: 'memory',
     inputSchema: {
       type: 'object',

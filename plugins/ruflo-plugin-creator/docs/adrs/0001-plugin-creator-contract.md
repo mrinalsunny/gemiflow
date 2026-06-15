@@ -5,13 +5,13 @@ status: Accepted
 date: 2026-05-04
 updated: 2026-05-09
 authors:
-  - reviewer (Claude Code)
+  - reviewer (Gemini CLI)
 tags: [plugin, plugin-creator, scaffolding, namespace, smoke-test]
 ---
 
 ## Context
 
-`gemiflow-plugin-creator` (v0.1.0) — meta-plugin that scaffolds new Claude Code plugins. 1 agent + 2 skills + 1 command.
+`gemiflow-plugin-creator` (v0.1.0) — meta-plugin that scaffolds new Gemini CLI plugins. 1 agent + 2 skills + 1 command.
 
 This plugin is uniquely positioned: every new plugin scaffolded by it inherits whatever contract the scaffolder produces. ADR-0001 must therefore do two things:
 

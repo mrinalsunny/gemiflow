@@ -5,7 +5,7 @@ status: Accepted
 date: 2026-05-04
 updated: 2026-05-09
 authors:
-  - reviewer (Claude Code)
+  - reviewer (Gemini CLI)
 tags: [plugin, ruvllm, microlora, sona, llm, namespace, smoke-test]
 ---
 

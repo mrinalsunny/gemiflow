@@ -1,7 +1,7 @@
 /**
  * Session Start Hook Integration
  *
- * Auto-starts workers when Claude Code session begins.
+ * Auto-starts workers when Gemini CLI session begins.
  */
 
 import { WorkerManager, createWorkerManager } from './index.js';
@@ -97,9 +97,9 @@ export async function onSessionEnd(manager: WorkerManager): Promise<void> {
 }
 
 /**
- * Generate session start output for Claude Code hooks
+ * Generate session start output for Gemini CLI hooks
  *
- * Returns formatted output suitable for Claude Code SessionStart hook.
+ * Returns formatted output suitable for Gemini CLI SessionStart hook.
  */
 export function formatSessionStartOutput(result: SessionHookResult): string {
   const lines: string[] = [];

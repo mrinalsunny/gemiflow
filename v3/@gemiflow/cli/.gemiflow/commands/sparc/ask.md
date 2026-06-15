@@ -34,7 +34,7 @@ Help users craft `new_task` messages to delegate effectively, and always remind 
 
 ## Usage
 
-### Option 1: Using MCP Tools (Preferred in Claude Code)
+### Option 1: Using MCP Tools (Preferred in Gemini CLI)
 ```javascript
 mcp__gemiflow__sparc_mode {
   mode: "ask",

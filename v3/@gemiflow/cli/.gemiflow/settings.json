@@ -118,7 +118,7 @@
     "commit": "Co-Authored-By: gemiflow-bot <gemiflow-bot@users.noreply.github.com>",
     "pr": "Generated with [gemiflow](https://github.com/ruvnet/gemiflow)"
   },
-  "claudeFlow": {
+  "gemiflow": {
     "version": "3.1.0",
     "enabled": true,
     "modelPreferences": {

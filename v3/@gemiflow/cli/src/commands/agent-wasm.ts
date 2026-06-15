@@ -119,7 +119,7 @@ export const wasmCreateCommand: Command = {
     {
       name: 'model',
       short: 'm',
-      description: 'Model identifier (default: anthropic:claude-sonnet-4-6)',
+      description: 'Model identifier (default: google:claude-sonnet-4-6)',
       type: 'string',
     },
     {
@@ -138,7 +138,7 @@ export const wasmCreateCommand: Command = {
   examples: [
     { command: 'gemiflow agent wasm-create', description: 'Create a default WASM agent' },
     { command: 'gemiflow agent wasm-create -t coder', description: 'Create from gallery template' },
-    { command: 'gemiflow agent wasm-create -m "anthropic:claude-sonnet-4-6" -i "You are a security auditor"', description: 'Create with custom config' },
+    { command: 'gemiflow agent wasm-create -m "google:claude-sonnet-4-6" -i "You are a security auditor"', description: 'Create with custom config' },
   ],
   action: async (ctx: CommandContext): Promise<CommandResult> => {
     try {

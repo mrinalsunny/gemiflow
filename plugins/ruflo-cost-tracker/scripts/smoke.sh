@@ -212,15 +212,15 @@ F="$ROOT/skills/cost-benchmark/SKILL.md"
 miss=""
 [[ -f "$F" ]] || miss="$miss missing-file"
 grep -q "bench.mjs" "$F" || miss="$miss bench-ref"
-grep -q "BENCH_ANTHROPIC" "$F" || miss="$miss anthropic-flag"
+grep -q "BENCH_google" "$F" || miss="$miss google-flag"
 grep -qE "winRate|win rate" "$F" || miss="$miss win-rate-mention"
 grep -q '^allowed-tools:[[:space:]]*\*' "$F" && miss="$miss wildcard"
 [[ -z "$miss" ]] && ok || bad "$miss"
 
 step "26. gemiflow-cost.md documents 'cost benchmark' subcommand"
 F="$ROOT/commands/gemiflow-cost.md"
-grep -q "cost benchmark" "$F" && grep -q -- "--anthropic" "$F" \
-  && ok || bad "missing subcommand or anthropic flag"
+grep -q "cost benchmark" "$F" && grep -q -- "--google" "$F" \
+  && ok || bad "missing subcommand or google flag"
 
 step "27. cost-report reads benchmark runs/latest.json"
 F="$ROOT/skills/cost-report/SKILL.md"
@@ -401,7 +401,7 @@ miss=""
 grep -q "smoke\.sh" "$WF" || miss="$miss smoke-not-invoked"
 grep -q "bench\.mjs" "$WF" || miss="$miss bench-not-invoked"
 grep -q "winRate" "$WF" || miss="$miss no-regression-gate"
-grep -q "BENCH_ANTHROPIC\|BENCH_LLM_BASELINE" "$WF" && miss="$miss llm-cost-in-CI"
+grep -q "BENCH_google\|BENCH_LLM_BASELINE" "$WF" && miss="$miss llm-cost-in-CI"
 [[ -z "$miss" ]] && ok || bad "$miss"
 
 # ─── Consistency invariants (prevent README/agent drift) ─────────────────────

@@ -2,7 +2,7 @@
 /**
  * Hook-handler prompt-resolution audit — regression guard for #1944.
  *
- * Claude Code sends `pre-bash`/`pre-edit`/etc. hooks a JSON payload like
+ * Gemini CLI sends `pre-bash`/`pre-edit`/etc. hooks a JSON payload like
  * `{"tool_input":{"command":"ls"},"tool_name":"Bash"}` on stdin. The hook
  * handler in `helpers/hook-handler.cjs` (and its template in
  * `helpers-generator.ts`) builds a single `prompt` string from a fallback
@@ -83,5 +83,5 @@ for (const o of offenders) {
   console.error(`      match:   ${o.match}`);
   console.error(`      context: ${o.context}`);
 }
-console.error('\n  Fix: replace `|| <…>toolInput` with `|| <…>toolInput.command` (or pull `.command` off whichever stdin shape Claude Code sent — `tool_input.command` / `toolInput.command`).');
+console.error('\n  Fix: replace `|| <…>toolInput` with `|| <…>toolInput.command` (or pull `.command` off whichever stdin shape Gemini CLI sent — `tool_input.command` / `toolInput.command`).');
 process.exit(1);

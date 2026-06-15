@@ -75,7 +75,7 @@
     "@ruvector/sona": "^0.1.5",
     "agentdb": "^3.0.0-alpha.16",
     "agentic-flow": "^2.0.13",
-    "@gemiflow/codex": "workspace:*",
+    "@gemiflow/gemini": "workspace:*",
     "@gemiflow/plugin-gastown-bridge": "workspace:*"
   },
   "overrides": {
@@ -110,7 +110,7 @@
     "ws": ">=8.18.4"
   },
   "devDependencies": {
-    "@openai/codex": "^0.98.0",
+    "@openai/gemini": "^0.98.0",
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20.0.0",
     "eslint": "^8.0.0",

@@ -1,7 +1,7 @@
 /**
- * Agent-Scoped Memory - Support for Claude Code's 3-scope agent memory directories
+ * Agent-Scoped Memory - Support for Gemini CLI's 3-scope agent memory directories
  *
- * Claude Code organizes agent memory into three scopes:
+ * Gemini CLI organizes agent memory into three scopes:
  * - **project**: Shared across all collaborators (checked into git)
  * - **local**: Machine-specific, not shared (gitignored)
  * - **user**: Global per-user, spans all projects
@@ -24,7 +24,7 @@ import type {
 
 // ===== Types =====
 
-/** Claude Code's 3-scope agent memory system */
+/** Gemini CLI's 3-scope agent memory system */
 export type AgentMemoryScope = 'project' | 'local' | 'user';
 
 /** Configuration for agent-scoped memory bridge */
@@ -99,7 +99,7 @@ function listAgentsInDir(dir: string): string[] {
 /**
  * Resolve the agent memory directory for a given agent name, scope, and working directory.
  *
- * Path resolution matches Claude Code binary behavior:
+ * Path resolution matches Gemini CLI binary behavior:
  * ```
  * project: <gitRoot>/.gemiflow/agent-memory/<agentName>/
  * local:   <gitRoot>/.gemiflow/agent-memory-local/<agentName>/

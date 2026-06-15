@@ -100,7 +100,7 @@ Cache gate results by hashing the input and returning cached decisions. Rejected
 Block tool calls once a cumulative budget (diff lines, tool call count, duration) is exceeded. Rejected for now because it risks blocking legitimate long-running tasks. The passive approach (evaluate after, optimize rules) is less disruptive. Active enforcement is planned as a future gate.
 
 ### 3. JSON Schema validation for tool parameters
-Validate tool call parameters against a schema before execution. Rejected because Claude Code already validates tool parameters against its own schemas. Adding a second validation layer would be redundant. The guidance layer focuses on policy (should this tool be used?) not schema (are the parameters well-formed?).
+Validate tool call parameters against a schema before execution. Rejected because Gemini CLI already validates tool parameters against its own schemas. Adding a second validation layer would be redundant. The guidance layer focuses on policy (should this tool be used?) not schema (are the parameters well-formed?).
 
 ## References
 

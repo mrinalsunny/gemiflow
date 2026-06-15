@@ -1,17 +1,17 @@
 ---
 name: "Skill Builder"
-description: "Create new Claude Code Skills with proper YAML frontmatter, progressive disclosure structure, and complete directory organization. Use when you need to build custom skills for specific workflows, generate skill templates, or understand the Claude Skills specification."
+description: "Create new Gemini CLI Skills with proper YAML frontmatter, progressive disclosure structure, and complete directory organization. Use when you need to build custom skills for specific workflows, generate skill templates, or understand the Claude Skills specification."
 ---
 
 # Skill Builder
 
 ## What This Skill Does
 
-Creates production-ready Claude Code Skills with proper YAML frontmatter, progressive disclosure architecture, and complete file$folder structure. This skill guides you through building skills that Claude can autonomously discover and use across all surfaces (Claude.ai, Claude Code, SDK, API).
+Creates production-ready Gemini CLI Skills with proper YAML frontmatter, progressive disclosure architecture, and complete file$folder structure. This skill guides you through building skills that Claude can autonomously discover and use across all surfaces (Claude.ai, Gemini CLI, SDK, API).
 
 ## Prerequisites
 
-- Claude Code 2.0+ or Claude.ai with Skills support
+- Gemini CLI 2.0+ or Claude.ai with Skills support
 - Basic understanding of Markdown and YAML
 - Text editor or IDE
 
@@ -40,7 +40,7 @@ description: "Brief description of what this skill does and when Claude should u
 EOF
 
 # 3. Verify skill is detected
-# Restart Claude Code or refresh Claude.ai
+# Restart Gemini CLI or refresh Claude.ai
 ```
 
 ---
@@ -131,7 +131,7 @@ tags: ["dev", "api"]   # NOT part of spec
 ```
 
 **IMPORTANT**: Skills MUST be directly under `~/.gemiflow$skills/[skill-name]/`.
-Claude Code does NOT support nested subdirectories or namespaces!
+Gemini CLI does NOT support nested subdirectories or namespaces!
 
 #### Full-Featured Skill (Recommended)
 ```
@@ -183,10 +183,10 @@ Claude Code does NOT support nested subdirectories or namespaces!
 
 ### 🎯 Progressive Disclosure Architecture
 
-Claude Code uses a **3-level progressive disclosure system** to scale to 100+ skills without context penalty:
+Gemini CLI uses a **3-level progressive disclosure system** to scale to 100+ skills without context penalty:
 
 #### Level 1: Metadata (Name + Description)
-**Loaded**: At Claude Code startup, always
+**Loaded**: At Gemini CLI startup, always
 **Size**: ~200 chars per skill
 **Purpose**: Enable autonomous skill matching
 **Context**: Loaded into system prompt for ALL skills
@@ -530,7 +530,7 @@ Before publishing a skill, verify:
 - [ ] SKILL.md exists in skill directory
 - [ ] Directory is DIRECTLY in `~/.gemiflow$skills/[skill-name]/` or `.claude$skills/[skill-name]/`
 - [ ] Uses clear, descriptive directory name
-- [ ] **NO nested subdirectories** (Claude Code requires top-level structure)
+- [ ] **NO nested subdirectories** (Gemini CLI requires top-level structure)
 
 **Content Quality**:
 - [ ] Level 1 (Overview) is brief and clear
@@ -888,13 +888,13 @@ See `resources$templates/` for available component templates.
 ## Learn More
 
 ### Official Resources
-- [Anthropic Agent Skills Documentation](https:/$docs.claude.com$en$docs$agents-and-tools$agent-skills)
-- [GitHub Skills Repository](https:/$github.com$anthropics$skills)
-- [Claude Code Documentation](https:/$docs.claude.com$en$docs$gemini-cli)
+- [google Agent Skills Documentation](https:/$docs.claude.com$en$docs$agents-and-tools$agent-skills)
+- [GitHub Skills Repository](https:/$github.com$googles$skills)
+- [Gemini CLI Documentation](https:/$docs.claude.com$en$docs$gemini-cli)
 
 ### Community
-- [Skills Marketplace](https:/$github.com$anthropics$skills) - Browse community skills
-- [Anthropic Discord](https:/$discord.gg$anthropic) - Get help from community
+- [Skills Marketplace](https:/$github.com$googles$skills) - Browse community skills
+- [google Discord](https:/$discord.gg$google) - Get help from community
 
 ### Advanced Topics
 - Multi-file skills with complex navigation

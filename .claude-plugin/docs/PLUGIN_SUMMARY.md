@@ -47,7 +47,7 @@ gemiflow/
 # Install plugin
 /plugin add ruvnet/gemiflow
 
-# Restart Claude Code
+# Restart Gemini CLI
 /restart
 
 # Verify installation
@@ -177,7 +177,7 @@ cd gemiflow
 | docs/QUICKSTART.md | 5-minute quickstart guide |
 | docs/PLUGIN_SUMMARY.md | Status overview (this file) |
 
-All documentation follows official Claude Code plugin guidelines.
+All documentation follows official Gemini CLI plugin guidelines.
 
 ---
 
@@ -186,8 +186,8 @@ All documentation follows official Claude Code plugin guidelines.
 ### Plugin Manifest
 - **Format**: `.claude-plugin/plugin.json` (plugin configuration)
 - **Marketplace**: `.claude-plugin/marketplace.json` (distribution metadata)
-- **Schema**: Official Claude Code plugin specification
-- **Compatibility**: Claude Code >= 2.0.0
+- **Schema**: Official Gemini CLI plugin specification
+- **Compatibility**: Gemini CLI >= 2.0.0
 - **Node.js**: >= 20.0.0
 
 ### Commands
@@ -251,7 +251,7 @@ git pull
 ## ✅ Quality Assurance
 
 ### Compliance Checklist
-- ✓ Official Claude Code plugin specification
+- ✓ Official Gemini CLI plugin specification
 - ✓ Marketplace.json format validation
 - ✓ Command and agent format standards
 - ✓ MCP integration best practices
@@ -312,7 +312,7 @@ Should show `gemiflow` as active.
 
 ✅ **Ready For:**
 - GitHub repository hosting
-- Claude Code plugin marketplace distribution
+- Gemini CLI plugin marketplace distribution
 - Production deployment
 - Enterprise use
 - Team collaboration
@@ -358,4 +358,4 @@ Users install with:
 **Plugin Status**: PRODUCTION READY
 **Last Updated**: 2025-10-09
 **Version**: 2.5.0
-**Specification**: Claude Code Official Plugin Format
+**Specification**: Gemini CLI Official Plugin Format

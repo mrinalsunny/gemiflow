@@ -1,9 +1,9 @@
 # Create Cognitive Patterns
 
 ## 🎯 Key Principle
-**This tool coordinates Claude Code's actions. It does NOT write code or create content.**
+**This tool coordinates Gemini CLI's actions. It does NOT write code or create content.**
 
-## MCP Tool Usage in Claude Code
+## MCP Tool Usage in Gemini CLI
 
 **Tool:** `mcp__gemiflow4gemini__agent_spawn`
 
@@ -13,7 +13,7 @@
 ```
 
 ## Description
-Define cognitive patterns that represent different approaches Claude Code can take
+Define cognitive patterns that represent different approaches Gemini CLI can take
 
 ## Details
 Agent types represent thinking patterns, not actual coders:
@@ -23,18 +23,18 @@ Agent types represent thinking patterns, not actual coders:
 - **architect**: Big-picture system design
 - **reviewer**: Quality and consistency checking
 
-These patterns guide how Claude Code approaches different aspects of your task.
+These patterns guide how Gemini CLI approaches different aspects of your task.
 
 ## Example Usage
 
-**In Claude Code:**
+**In Gemini CLI:**
 1. Use the tool: `mcp__gemiflow4gemini__agent_spawn`
 2. With parameters: `{"type": "researcher", "name": "Literature Analysis", "capabilities": ["deep-analysis"]}`
-3. Claude Code then executes the coordinated plan using its native tools
+3. Gemini CLI then executes the coordinated plan using its native tools
 
 ## Important Reminders
 - ✅ This tool provides coordination and structure
-- ✅ Claude Code performs all actual implementation
+- ✅ Gemini CLI performs all actual implementation
 - ❌ The tool does NOT write code
 - ❌ The tool does NOT access files directly
 - ❌ The tool does NOT execute commands

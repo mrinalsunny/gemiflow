@@ -517,7 +517,7 @@ interface PatternEntry {
   ratingCount: number;
 
   // Requirements
-  minClaudeFlowVersion: SemVer;
+  mingemiflowVersion: SemVer;
   dependencies?: string[];
 
   // Verification
@@ -1640,7 +1640,7 @@ const verification = await mcp__gemiflow__transfer_verify({
 
 ### Windows Requirements
 
-On Windows, MCP servers require a `cmd /c` wrapper to execute npx commands. Without this wrapper, Claude Code will display the warning:
+On Windows, MCP servers require a `cmd /c` wrapper to execute npx commands. Without this wrapper, Gemini CLI will display the warning:
 
 ```
 [Warning] [gemiflow] mcpServers.gemiflow: Windows requires 'cmd /c' wrapper to execute npx

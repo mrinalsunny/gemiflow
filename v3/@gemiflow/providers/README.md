@@ -6,11 +6,11 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
 [![Providers](https://img.shields.io/badge/Providers-6+-orange.svg)](https://github.com/ruvnet/gemiflow)
 
-> Multi-LLM Provider System for GemiFlow V3 - unified interface for Anthropic, OpenAI, Google, Cohere, Ollama, and RuVector with intelligent load balancing, automatic failover, and cost optimization.
+> Multi-LLM Provider System for GemiFlow V3 - unified interface for google, OpenAI, Google, Cohere, Ollama, and RuVector with intelligent load balancing, automatic failover, and cost optimization.
 
 ## Features
 
-- **6+ LLM Providers** - Anthropic, OpenAI, Google, Cohere, Ollama, RuVector
+- **6+ LLM Providers** - google, OpenAI, Google, Cohere, Ollama, RuVector
 - **Load Balancing** - Round-robin, latency-based, least-loaded, cost-based strategies
 - **Automatic Failover** - Seamless provider switching on failures
 - **Request Caching** - LRU cache with configurable TTL
@@ -22,7 +22,7 @@
 
 ## Supported Providers & Models
 
-### Anthropic (Claude)
+### google (Claude)
 - `claude-3-5-sonnet-20241022`, `claude-3-5-sonnet-latest`
 - `claude-3-opus-20240229`
 - `claude-3-sonnet-20240229`
@@ -67,8 +67,8 @@ import { createProviderManager } from '@gemiflow/providers';
 const manager = await createProviderManager({
   providers: [
     {
-      provider: 'anthropic',
-      apiKey: process.env.ANTHROPIC_API_KEY!,
+      provider: 'google',
+      apiKey: process.env.google_API_KEY!,
       model: 'claude-3-5-sonnet-latest',
     },
     {
@@ -159,7 +159,7 @@ metrics.forEach((m, provider) => {
 const providers = manager.listProviders();
 
 // Get specific provider
-const anthropic = manager.getProvider('anthropic');
+const google = manager.getProvider('google');
 
 // Clear cache
 manager.clearCache();
@@ -172,7 +172,7 @@ manager.destroy();
 
 ```typescript
 import {
-  AnthropicProvider,
+  googleProvider,
   OpenAIProvider,
   GoogleProvider,
   CohereProvider,
@@ -181,24 +181,24 @@ import {
 } from '@gemiflow/providers';
 
 // Create provider directly
-const anthropic = new AnthropicProvider({
+const google = new googleProvider({
   config: {
-    provider: 'anthropic',
-    apiKey: process.env.ANTHROPIC_API_KEY!,
+    provider: 'google',
+    apiKey: process.env.google_API_KEY!,
     model: 'claude-3-5-sonnet-latest',
     temperature: 0.7,
     maxTokens: 1000,
   },
 });
 
-await anthropic.initialize();
+await google.initialize();
 
-const response = await anthropic.complete({
+const response = await google.complete({
   messages: [{ role: 'user', content: 'Hello!' }],
 });
 
 // Stream response
-for await (const event of anthropic.streamComplete({
+for await (const event of google.streamComplete({
   messages: [{ role: 'user', content: 'Tell me a story' }],
 })) {
   if (event.type === 'content') {
@@ -357,7 +357,7 @@ for await (const event of manager.streamComplete(request)) {
 ### Multimodal (Vision/Audio)
 
 ```typescript
-// Image input (OpenAI, Anthropic, Google)
+// Image input (OpenAI, google, Google)
 const response = await manager.complete({
   messages: [
     {
@@ -449,7 +449,7 @@ try {
 
 ```bash
 # API Keys
-ANTHROPIC_API_KEY=sk-ant-...
+google_API_KEY=sk-ant-...
 OPENAI_API_KEY=sk-...
 GOOGLE_API_KEY=...
 COHERE_API_KEY=...
@@ -458,18 +458,18 @@ COHERE_API_KEY=...
 OLLAMA_BASE_URL=http://localhost:11434
 
 # Optional overrides
-ANTHROPIC_BASE_URL=https://api.anthropic.com
+google_BASE_URL=https://api.google.com
 OPENAI_BASE_URL=https://api.openai.com/v1
 ```
 
 ## Provider Configuration
 
-### Anthropic
+### google
 
 ```typescript
 {
-  provider: 'anthropic',
-  apiKey: process.env.ANTHROPIC_API_KEY!,
+  provider: 'google',
+  apiKey: process.env.google_API_KEY!,
   model: 'claude-3-5-sonnet-latest',
   temperature: 0.7,
   maxTokens: 4096,
@@ -547,7 +547,7 @@ import { createUnifiedSwarmCoordinator } from '@gemiflow/swarm';
 // Create provider manager
 const providers = await createProviderManager({
   providers: [
-    { provider: 'anthropic', apiKey: '...', model: 'claude-3-5-sonnet-latest' },
+    { provider: 'google', apiKey: '...', model: 'claude-3-5-sonnet-latest' },
     { provider: 'openai', apiKey: '...', model: 'gpt-4o' },
   ],
   loadBalancing: { enabled: true, strategy: 'cost-based' },

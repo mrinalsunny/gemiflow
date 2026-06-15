@@ -353,6 +353,6 @@ All CI jobs gate `publish`. A regression in any layer blocks the release on the 
 - [Public gist](https://gist.github.com/ruvnet/ee7763c36f7a9a1c1886da783abc872b) — external-friendly version
 - [ADR-102](../v3/docs/adr/ADR-102-plugin-hook-cli-flag-regression-ci-guard.md) — smoke harness pattern + flag-priority CLI convention
 - [ADR-103](../v3/docs/adr/ADR-103-witness-temporal-history.md) — JSONL history layer + plugin distribution
-- [`plugins/gemiflow-core/skills/witness/SKILL.md`](../plugins/gemiflow-core/skills/witness/SKILL.md) — Claude Code skill workflow
+- [`plugins/gemiflow-core/skills/witness/SKILL.md`](../plugins/gemiflow-core/skills/witness/SKILL.md) — Gemini CLI skill workflow
 - [`plugins/gemiflow-core/agents/witness-curator.md`](../plugins/gemiflow-core/agents/witness-curator.md) — curator agent definition
 - [`.github/workflows/v3-ci.yml`](../.github/workflows/v3-ci.yml) — `smoke-install-no-bsqlite`, `plugin-hooks-smoke`, `witness-verify` jobs

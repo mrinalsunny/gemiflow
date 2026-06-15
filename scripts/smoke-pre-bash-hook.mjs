@@ -3,14 +3,14 @@
  * Regression guard for ruvnet/gemiflow#2017.
  *
  * The `pre-bash` PreToolUse hook in `.gemiflow/helpers/hook-handler.cjs` reads
- * the command Claude Code is about to execute and refuses to run dangerous
+ * the command Gemini CLI is about to execute and refuses to run dangerous
  * ones (`rm -rf /`, `format c:`, etc.). In 3.6.30 the handler read the wrong
  * field — `toolInput` (the object) instead of `toolInput.command` (the
  * string) — so `.toLowerCase()` threw TypeError on every Bash call, was
  * swallowed by the global safety timer, and the handler exited 0 with a
  * misleading `[OK] Command validated`. Dangerous commands sailed through.
  *
- * This script pipes real-shaped Claude Code PreToolUse JSON into the
+ * This script pipes real-shaped Gemini CLI PreToolUse JSON into the
  * locally-built handler and asserts:
  *
  *   - dangerous command → exit 1 + `[BLOCKED] Dangerous command detected:`
@@ -65,7 +65,7 @@ const cases = [
     // The exact #2017 shape: the handler reads `toolInput` (object) instead
     // of `toolInput.command` (string), so `.toLowerCase()` throws TypeError,
     // global try/catch swallows, exits 0. This case asserts the regression
-    // CAN'T return: a dangerous command sent in real Claude Code's snake_case
+    // CAN'T return: a dangerous command sent in real Gemini CLI's snake_case
     // shape must still BLOCK. If a future refactor binds command to a
     // non-string and the safety check no-ops, this case fails loudly.
     name: '#2017 shape: snake_case tool_input.command dangerous → BLOCKED',

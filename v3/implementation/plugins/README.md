@@ -14,9 +14,9 @@ The V3 Plugin System implements a **microkernel architecture** enabling modular 
 ## Quick Start
 
 ```typescript
-import { ClaudeFlowPlugin, PluginContext } from '@gemiflow/shared';
+import { gemiflowPlugin, PluginContext } from '@gemiflow/shared';
 
-class MyPlugin implements ClaudeFlowPlugin {
+class MyPlugin implements gemiflowPlugin {
   readonly name = 'my-plugin';
   readonly version = '1.0.0';
 
@@ -57,12 +57,12 @@ class MyPlugin implements ClaudeFlowPlugin {
 
 ## Core Components
 
-### 1. ClaudeFlowPlugin Interface
+### 1. gemiflowPlugin Interface
 
 All plugins must implement this interface:
 
 ```typescript
-interface ClaudeFlowPlugin {
+interface gemiflowPlugin {
   // Required
   readonly name: string;
   readonly version: string;
@@ -272,7 +272,7 @@ uninitialized → initializing → initialized → shutting-down → shutdown
 Plugins can declare dependencies on other plugins:
 
 ```typescript
-class DependentPlugin implements ClaudeFlowPlugin {
+class DependentPlugin implements gemiflowPlugin {
   readonly name = 'dependent-plugin';
   readonly version = '1.0.0';
   readonly dependencies = ['base-plugin', 'auth-plugin'];

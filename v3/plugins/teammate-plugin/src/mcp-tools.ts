@@ -1,7 +1,7 @@
 /**
  * MCP Tools for TeammateTool Integration
  *
- * Exposes 21 MCP tools for multi-agent orchestration via Claude Code:
+ * Exposes 21 MCP tools for multi-agent orchestration via Gemini CLI:
  * - 16 core TeammateTool integration tools
  * - 5 BMSSP optimization tools (10-15x faster with WASM)
  *
@@ -76,7 +76,7 @@ export const TEAMMATE_MCP_TOOLS: MCPTool[] = [
     name: 'teammate_spawn_team',
     description:
       'Create a new team for multi-agent collaboration using native TeammateTool. ' +
-      'Requires Claude Code >= 2.1.19.',
+      'Requires Gemini CLI >= 2.1.19.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -122,7 +122,7 @@ export const TEAMMATE_MCP_TOOLS: MCPTool[] = [
   {
     name: 'teammate_spawn',
     description:
-      'Spawn a new teammate in a team. Returns AgentInput for Claude Code Task tool.',
+      'Spawn a new teammate in a team. Returns AgentInput for Gemini CLI Task tool.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -594,7 +594,7 @@ export async function handleMCPTool(
           data: {
             teammate,
             agentInput,
-            instruction: 'Pass agentInput to Claude Code Task tool to spawn the teammate',
+            instruction: 'Pass agentInput to Gemini CLI Task tool to spawn the teammate',
           },
         };
       }

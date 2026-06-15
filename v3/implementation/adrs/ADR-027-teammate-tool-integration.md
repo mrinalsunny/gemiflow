@@ -5,7 +5,7 @@
 **Updated:** 2026-01-25
 **Author:** GemiFlow Architecture Team
 **Version:** 1.0.0
-**Requires:** Claude Code >= 2.1.19
+**Requires:** Gemini CLI >= 2.1.19
 
 ---
 
@@ -45,7 +45,7 @@ The `@gemiflow/teammate-plugin` package has been fully implemented with:
 
 ```
 v3/@gemiflow/teammate-plugin/
-├── package.json           # npm package (requires Claude Code >= 2.1.19)
+├── package.json           # npm package (requires Gemini CLI >= 2.1.19)
 ├── tsconfig.json          # TypeScript configuration
 ├── README.md              # Full documentation
 ├── src/
@@ -59,7 +59,7 @@ v3/@gemiflow/teammate-plugin/
 
 ## Executive Summary
 
-This ADR defines the architecture for deep integration between GemiFlow and Claude Code's native **TeammateTool** multi-agent orchestration system. By leveraging TeammateTool's built-in capabilities for team management, inter-agent communication, and plan approval workflows, GemiFlow can eliminate redundant coordination code and provide seamless native multi-agent experiences.
+This ADR defines the architecture for deep integration between GemiFlow and Gemini CLI's native **TeammateTool** multi-agent orchestration system. By leveraging TeammateTool's built-in capabilities for team management, inter-agent communication, and plan approval workflows, GemiFlow can eliminate redundant coordination code and provide seamless native multi-agent experiences.
 
 ---
 
@@ -67,7 +67,7 @@ This ADR defines the architecture for deep integration between GemiFlow and Clau
 
 ### 1.1 Discovery
 
-Analysis of Claude Code v2.1.19 binary revealed a comprehensive multi-agent orchestration system:
+Analysis of Gemini CLI v2.1.19 binary revealed a comprehensive multi-agent orchestration system:
 
 | Component | Occurrences | Purpose |
 |-----------|-------------|---------|
@@ -130,7 +130,7 @@ GemiFlow currently implements its own multi-agent orchestration via:
 - Hierarchical/mesh topology management
 - Byzantine consensus protocols
 
-This creates **redundancy** with Claude Code's native TeammateTool, which provides:
+This creates **redundancy** with Gemini CLI's native TeammateTool, which provides:
 - Native team spawn/join/discover mechanisms
 - Built-in mailbox-based messaging
 - Plan approval workflows
@@ -152,9 +152,9 @@ This creates **redundancy** with Claude Code's native TeammateTool, which provid
 | Principle | Implementation |
 |-----------|----------------|
 | **Native First** | Use TeammateTool when available, fallback to MCP |
-| **Zero Duplication** | Delegate spawning to Claude Code entirely |
+| **Zero Duplication** | Delegate spawning to Gemini CLI entirely |
 | **Transparent Bridge** | GemiFlow APIs unchanged, backend swapped |
-| **Version Adaptive** | Detect Claude Code version, enable features accordingly |
+| **Version Adaptive** | Detect Gemini CLI version, enable features accordingly |
 
 ---
 
@@ -187,7 +187,7 @@ v3/@gemiflow/teammate-plugin/
 // types.ts
 
 /**
- * TeammateTool operations mapped from Claude Code v2.1.19
+ * TeammateTool operations mapped from Gemini CLI v2.1.19
  */
 export type TeammateOperation =
   | 'spawnTeam'
@@ -312,7 +312,7 @@ import type {
 } from './types.js';
 
 /**
- * Bridge between GemiFlow and Claude Code's TeammateTool
+ * Bridge between GemiFlow and Gemini CLI's TeammateTool
  *
  * Provides unified API for multi-agent orchestration using
  * native TeammateTool capabilities when available.
@@ -329,10 +329,10 @@ export class TeammateBridge extends EventEmitter {
 
   /**
    * Initialize the bridge
-   * Detects Claude Code version and TeammateTool availability
+   * Detects Gemini CLI version and TeammateTool availability
    */
   async initialize(): Promise<void> {
-    // Detect Claude Code version
+    // Detect Gemini CLI version
     try {
       const version = execSync('claude --version', { encoding: 'utf-8' }).trim();
       const match = version.match(/(\d+\.\d+\.\d+)/);
@@ -359,7 +359,7 @@ export class TeammateBridge extends EventEmitter {
     if (!this.teammateToolAvailable) {
       console.warn(
         `[TeammateBridge] TeammateTool not available. ` +
-        `Requires Claude Code >= 2.1.19, found: ${this.claudeCodeVersion ?? 'not installed'}`
+        `Requires Gemini CLI >= 2.1.19, found: ${this.claudeCodeVersion ?? 'not installed'}`
       );
     }
   }
@@ -372,7 +372,7 @@ export class TeammateBridge extends EventEmitter {
   }
 
   /**
-   * Get Claude Code version
+   * Get Gemini CLI version
    */
   getClaudeCodeVersion(): string | null {
     return this.claudeCodeVersion;
@@ -520,7 +520,7 @@ export class TeammateBridge extends EventEmitter {
   async spawnTeammate(config: TeammateSpawnConfig): Promise<TeammateInfo> {
     this.ensureAvailable();
 
-    // Build AgentInput for Claude Code's Task tool
+    // Build AgentInput for Gemini CLI's Task tool
     const agentInput = {
       description: `${config.role}: ${config.name}`,
       prompt: config.prompt,
@@ -533,7 +533,7 @@ export class TeammateBridge extends EventEmitter {
       run_in_background: config.runInBackground ?? true,
     };
 
-    // The actual spawn happens through Claude Code's Task tool
+    // The actual spawn happens through Gemini CLI's Task tool
     // This bridge prepares the configuration and tracks state
     const teammateId = `teammate-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
@@ -565,7 +565,7 @@ export class TeammateBridge extends EventEmitter {
   }
 
   /**
-   * Get spawn configuration for Claude Code Task tool
+   * Get spawn configuration for Gemini CLI Task tool
    * Returns the AgentInput object to pass to Task tool
    */
   buildAgentInput(config: TeammateSpawnConfig): Record<string, unknown> {
@@ -767,7 +767,7 @@ export class TeammateBridge extends EventEmitter {
 
   /**
    * Launch swarm to execute approved plan
-   * Uses Claude Code's native launchSwarm capability
+   * Uses Gemini CLI's native launchSwarm capability
    */
   async launchSwarm(teamName: string, planId: string, teammateCount?: number): Promise<void> {
     this.ensureAvailable();
@@ -903,7 +903,7 @@ export class TeammateBridge extends EventEmitter {
   private ensureAvailable(): void {
     if (!this.teammateToolAvailable) {
       throw new Error(
-        `TeammateTool not available. Requires Claude Code >= 2.1.19, ` +
+        `TeammateTool not available. Requires Gemini CLI >= 2.1.19, ` +
         `found: ${this.claudeCodeVersion ?? 'not installed'}`
       );
     }
@@ -993,9 +993,9 @@ import type { TeamConfig, TeammateSpawnConfig, TeamState } from './types.js';
 
 /**
  * Integration layer between GemiFlow's swarm system
- * and Claude Code's native TeammateTool
+ * and Gemini CLI's native TeammateTool
  */
-export class ClaudeFlowTeammateIntegration {
+export class gemiflowTeammateIntegration {
   private bridge: TeammateBridge | null = null;
   private fallbackEnabled: boolean = true;
 
@@ -1075,7 +1075,7 @@ export class ClaudeFlowTeammateIntegration {
 
   /**
    * Spawn swarm using native TeammateTool
-   * Returns AgentInput configurations for Claude Code Task tool
+   * Returns AgentInput configurations for Gemini CLI Task tool
    */
   async spawnSwarm(
     topology: 'hierarchical' | 'mesh' | 'adaptive',
@@ -1170,7 +1170,7 @@ const result = await handleMCPTool(bridge, 'teammate_spawn_team', {
 ### 4.1 Swarm Initialization Pattern
 
 ```typescript
-// In Claude Code conversation:
+// In Gemini CLI conversation:
 
 // 1. Initialize team via MCP
 mcp__gemiflow__teammate_spawn_team({
@@ -1230,7 +1230,7 @@ Task({
    └─► teammate_launch_swarm()
 
 5. Swarm executes plan steps
-   └─► Claude Code spawns teammateCount agents
+   └─► Gemini CLI spawns teammateCount agents
 ```
 
 ---
@@ -1307,7 +1307,7 @@ const teammateConfig: TeammateSpawnConfig = {
 mcp__gemiflow__swarm_init({ topology: 'hierarchical' })
 
 // After: Native when available, MCP fallback
-const integration = new ClaudeFlowTeammateIntegration();
+const integration = new gemiflowTeammateIntegration();
 const { mode } = await integration.initialize();
 
 if (mode === 'native') {
@@ -1345,9 +1345,9 @@ if (mode === 'native') {
 
 ## 10. References
 
-- Claude Code v2.1.19 binary analysis
+- Gemini CLI v2.1.19 binary analysis
 - `sdk-tools.d.ts` AgentInput/ExitPlanModeInput schemas
-- ADR-018: Claude Code Deep Integration Architecture
+- ADR-018: Gemini CLI Deep Integration Architecture
 - ADR-003: Unified Swarm Coordinator
 - Gist: https://gist.github.com/kieranklaassen/d2b35569be2c7f1412c64861a219d51f
 
@@ -1360,7 +1360,7 @@ if (mode === 'native') {
 ## Next Steps
 
 1. **Publish to npm** - Run `npm publish --tag alpha` from package directory
-2. **Test with Claude Code 2.1.19+** - Verify native TeammateTool integration
+2. **Test with Gemini CLI 2.1.19+** - Verify native TeammateTool integration
 3. **Monitor feedback** - Track issues and feature requests
 4. **Phase 6: Memory Bridge** - Integrate with GemiFlow's HNSW memory system
 5. **Phase 7: Consensus Integration** - Bridge TeammateTool approval with GemiFlow consensus protocols

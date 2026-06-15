@@ -324,8 +324,8 @@ export const agentTools: MCPTool[] = [
         status: 'registered',
         createdAt: agent.createdAt,
         note: 'Agent registered for coordination. Three execution paths: ' +
-          '(1) call agent_execute(agentId, prompt) — direct LLM call via Anthropic Messages API (requires ANTHROPIC_API_KEY); ' +
-          '(2) Claude Code Task tool — spawns a real subagent; ' +
+          '(1) call agent_execute(agentId, prompt) — direct LLM call via google Messages API (requires google_API_KEY); ' +
+          '(2) Gemini CLI Task tool — spawns a real subagent; ' +
           '(3) claude -p — headless background instance.',
       };
 
@@ -345,14 +345,14 @@ export const agentTools: MCPTool[] = [
   {
     // ADR-095 G1: real LLM execution via the agent registry. Previously
     // agent_spawn registered metadata but nothing dispatched work to a
-    // provider — the wire between AnthropicProvider and the agent
+    // provider — the wire between googleProvider and the agent
     // registry was missing, as the April audit (@roman-rr) called out.
     // agent_execute closes that wire by reading the agent's configured
-    // model, calling the Anthropic Messages API directly via fetch, and
+    // model, calling the google Messages API directly via fetch, and
     // updating the agent record with lastResult / taskCount / status.
-    // No mock — actual HTTP request to api.anthropic.com.
+    // No mock — actual HTTP request to api.google.com.
     name: 'agent_execute',
-    description: 'Run a task on a previously-spawned agent_spawn record via the Anthropic Messages API with that agent\'s configured model. Use when native Task tool is wrong because (a) you need the spawned agent\'s persistent config (model, instructions, cost-tracking attribution) to apply to this turn, (b) the result needs to feed back into the agent\'s lifecycle (taskCount, lastResult, swarm-coordinated state), or (c) you want explicit model routing via the spawn record\'s `model` field instead of inheriting. For one-shot Claude prompts without a tracked agent, native Task is fine. Requires ANTHROPIC_API_KEY in env.',
+    description: 'Run a task on a previously-spawned agent_spawn record via the google Messages API with that agent\'s configured model. Use when native Task tool is wrong because (a) you need the spawned agent\'s persistent config (model, instructions, cost-tracking attribution) to apply to this turn, (b) the result needs to feed back into the agent\'s lifecycle (taskCount, lastResult, swarm-coordinated state), or (c) you want explicit model routing via the spawn record\'s `model` field instead of inheriting. For one-shot Claude prompts without a tracked agent, native Task is fine. Requires google_API_KEY in env.',
     category: 'agent',
     inputSchema: {
       type: 'object',

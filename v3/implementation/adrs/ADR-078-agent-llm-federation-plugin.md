@@ -454,7 +454,7 @@ v3/@gemiflow/plugin-agent-federation/
   vitest.config.ts
   src/
     index.ts                           # Plugin entry point
-    plugin.ts                          # FederationPlugin class (ClaudeFlowPlugin)
+    plugin.ts                          # FederationPlugin class (gemiflowPlugin)
 
     domain/
       entities/
@@ -515,7 +515,7 @@ v3/@gemiflow/plugin-agent-federation/
 ### 5.2 Plugin Registration
 
 ```typescript
-export class AgentFederationPlugin implements ClaudeFlowPlugin {
+export class AgentFederationPlugin implements gemiflowPlugin {
   readonly id = 'agent-federation';
   readonly name = '@gemiflow/plugin-agent-federation';
   readonly version = '1.0.0-alpha.1';
@@ -596,7 +596,7 @@ federation_consensus     # Propose federated consensus
 **Goal:** Plugin skeleton, keypair management, PII pipeline, audit logging.
 
 **Deliverables:**
-- Plugin structure with `ClaudeFlowPlugin` implementation
+- Plugin structure with `gemiflowPlugin` implementation
 - ed25519 keypair generation and storage
 - PII pipeline service with all 14 PII types
 - Policy engine with configurable per-type/per-trust-level policies
@@ -616,7 +616,7 @@ federation_consensus     # Propose federated consensus
 - `@gemiflow/aidefence` -- `hasPII()`, `detect()`, PII_PATTERNS
 - `@gemiflow/security` -- `TokenGenerator`, `PasswordHasher`
 - `@gemiflow/memory` -- AgentDB for audit storage
-- `@gemiflow/shared` -- `ClaudeFlowPlugin`, `PluginContext`
+- `@gemiflow/shared` -- `gemiflowPlugin`, `PluginContext`
 
 ### Phase 2: Transport & Handshake (Weeks 4-6) -- "Two Nodes"
 
@@ -726,7 +726,7 @@ Existing multi-agent frameworks share these limitations that this plugin address
 
 | Component | Existing File | Integration |
 |-----------|--------------|-------------|
-| Plugin interface | `shared/src/plugin-interface.ts` | Implements `ClaudeFlowPlugin` |
+| Plugin interface | `shared/src/plugin-interface.ts` | Implements `gemiflowPlugin` |
 | Plugin loader | `shared/src/plugin-loader.ts` | Loaded via `PluginLoader.loadPlugin()` |
 | AI Defence | `aidefence/src/index.ts` | Extends for PII stripping |
 | Threat detection | `aidefence/src/domain/services/threat-detection-service.ts` | Extends `PII_PATTERNS` |

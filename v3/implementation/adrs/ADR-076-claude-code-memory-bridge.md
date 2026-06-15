@@ -1,4 +1,4 @@
-# ADR-076: Bridge Claude Code Auto-Memory to AgentDB Vector Search
+# ADR-076: Bridge Gemini CLI Auto-Memory to AgentDB Vector Search
 
 **Status**: Implemented (Phase 1: helper hook) / Proposed (Phase 2: MCP tools)
 **Date**: 2026-04-07
@@ -7,9 +7,9 @@
 
 ## Context
 
-Claude Code's auto-memory system stores project knowledge in `~/.gemiflow/projects/*/memory/MEMORY.md` files with YAML frontmatter. GemiFlow's AgentDB stores data in sql.js with ONNX embeddings (all-MiniLM-L6-v2, 384d) for semantic vector search. These two systems were disconnected.
+Gemini CLI's auto-memory system stores project knowledge in `~/.gemiflow/projects/*/memory/MEMORY.md` files with YAML frontmatter. GemiFlow's AgentDB stores data in sql.js with ONNX embeddings (all-MiniLM-L6-v2, 384d) for semantic vector search. These two systems were disconnected.
 
-[ruDevolution](https://github.com/ruvnet/rudevolution) research (`07-context-and-session-management.md`) documents Claude Code's memory internals: auto-memory paths, env vars (`autoMemoryEnabled`, `CLAUDE_CODE_DISABLE_AUTO_MEMORY`), session persistence, dream mode, and compaction system.
+[ruDevolution](https://github.com/ruvnet/rudevolution) research (`07-context-and-session-management.md`) documents Gemini CLI's memory internals: auto-memory paths, env vars (`autoMemoryEnabled`, `CLAUDE_CODE_DISABLE_AUTO_MEMORY`), session persistence, dream mode, and compaction system.
 
 ## Decision
 
@@ -17,7 +17,7 @@ Two-phase approach:
 
 ### Phase 1: Helper Hook (Implemented)
 
-The existing `auto-memory-hook.mjs` (SessionStart/SessionEnd) bridges Claude Code memory to AgentDB:
+The existing `auto-memory-hook.mjs` (SessionStart/SessionEnd) bridges Gemini CLI memory to AgentDB:
 
 - **import**: Reads MEMORY.md → JSON backend → stores into sql.js with ONNX embeddings
 - **import-all**: Imports ALL Claude memories across ALL projects into AgentDB
@@ -53,11 +53,11 @@ gemiflow memory search --unified       # Search both stores
 - Testable via CLI
 - Works via `npx gemiflow` without file path dependencies
 - Composable with other MCP tools (swarm, hooks, hive-mind)
-- Claude Code can call them directly through the MCP server
+- Gemini CLI can call them directly through the MCP server
 
 ### Phase 3: MicroLoRA Embedding Adaptation (Future)
 
-Once `@ruvector/learning-wasm` MicroLoRA is functional (currently identity pass-through due to zero-initialized weights), adapt the base MiniLM-L6-v2 embeddings for Claude Code's domain vocabulary:
+Once `@ruvector/learning-wasm` MicroLoRA is functional (currently identity pass-through due to zero-initialized weights), adapt the base MiniLM-L6-v2 embeddings for Gemini CLI's domain vocabulary:
 
 - Tool names, agent types, MCP concepts cluster closer
 - Successful trajectory patterns reinforce embedding neighborhoods
@@ -110,7 +110,7 @@ Not available mid-session              MCP Tool: memory_search_unified
 
 ## References
 
-- [ruDevolution](https://github.com/ruvnet/rudevolution) — Claude Code internals via decompilation
+- [ruDevolution](https://github.com/ruvnet/rudevolution) — Gemini CLI internals via decompilation
 - `07-context-and-session-management.md` — auto-memory paths, env vars, session persistence
 - `13-extension-points.md` — hooks, MCP, agents, skills integration catalog
 - ADR-048: AutoMemoryBridge design

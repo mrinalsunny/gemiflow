@@ -4,7 +4,7 @@
 
 import { describe, it, expect, beforeEach } from 'vitest';
 import {
-  ClaudeFlowMemoryAdapter,
+  gemiflowMemoryAdapter,
   BrowserMemoryManager,
   createMemoryManager,
   getMemoryAdapter,
@@ -12,11 +12,11 @@ import {
 } from '../src/infrastructure/memory-integration.js';
 import type { BrowserTrajectory, Snapshot } from '../src/domain/types.js';
 
-describe('ClaudeFlowMemoryAdapter', () => {
-  let adapter: ClaudeFlowMemoryAdapter;
+describe('gemiflowMemoryAdapter', () => {
+  let adapter: gemiflowMemoryAdapter;
 
   beforeEach(() => {
-    adapter = new ClaudeFlowMemoryAdapter('test-browser');
+    adapter = new gemiflowMemoryAdapter('test-browser');
   });
 
   describe('store and retrieve', () => {

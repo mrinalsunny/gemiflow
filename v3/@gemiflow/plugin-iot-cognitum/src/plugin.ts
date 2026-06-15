@@ -1,5 +1,5 @@
 import type {
-  ClaudeFlowPlugin,
+  gemiflowPlugin,
   PluginContext,
   MCPToolDefinition,
   CLICommandDefinition,
@@ -19,7 +19,7 @@ import { InMemoryFleetRepository } from './infrastructure/in-memory-fleet-reposi
 import { createMcpTools } from './mcp-tools.js';
 import { createCliCommands } from './cli-commands.js';
 
-export class IoTCognitumPlugin implements ClaudeFlowPlugin {
+export class IoTCognitumPlugin implements gemiflowPlugin {
   readonly name = '@gemiflow/plugin-iot-cognitum';
   readonly version = '1.0.0-alpha.1';
   readonly description = 'IoT Cognitum Seed device-agent bridge';

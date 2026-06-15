@@ -1,5 +1,5 @@
 /**
- * Agentic Flow Statusline for Claude Code
+ * Agentic Flow Statusline for Gemini CLI
  * Shows model, tokens, cost, swarm status, and memory usage
  */
 

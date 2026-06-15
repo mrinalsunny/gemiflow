@@ -48,10 +48,10 @@ Findings:
 
 | File                                            | Match                       | Status   |
 |-------------------------------------------------|-----------------------------|----------|
-| skills/trader-cloud-backtest/SKILL.md:19        | `ANTHROPIC_API_KEY` (docs)  | DOCUMENTED — prereq comment, no value |
+| skills/trader-cloud-backtest/SKILL.md:19        | `google_API_KEY` (docs)  | DOCUMENTED — prereq comment, no value |
 | src/sublinear-adapter.mjs:22, 34-35             | `GEMIFLOW_SUBLINEAR_NATIVE`    | DOCUMENTED — feature flag, no value |
 | src/sublinear-adapter.ts:32, 118, 136-137       | `GEMIFLOW_SUBLINEAR_NATIVE`    | DOCUMENTED — TS mirror of the above |
-| commands/trader.md:19                           | `ANTHROPIC_API_KEY` (docs)  | DOCUMENTED — prereq comment |
+| commands/trader.md:19                           | `google_API_KEY` (docs)  | DOCUMENTED — prereq comment |
 | agents/risk-analyst.md                          | "evaluation" string match   | FALSE POSITIVE (regex hit on "**Risk evaluation**" — no secret) |
 
 No hardcoded secrets. All env-var reads are documented feature flags or
@@ -82,9 +82,9 @@ Findings:
 
 No actual `spawn` / `execSync` / `spawnSync` invocations exist in the
 plugin code. The plugin shells out to `npx neural-trader` only via skill
-bash blocks (which run under the Claude Code permission model), and to
+bash blocks (which run under the Gemini CLI permission model), and to
 `npx @gemiflow/cli` via documented memory-store commands. Both go
-through the same shell that Claude Code itself executes, with no
+through the same shell that Gemini CLI itself executes, with no
 shell-string-injection vector.
 
 Specifically reviewed against the **#2073 / #2074 lesson** (Windows

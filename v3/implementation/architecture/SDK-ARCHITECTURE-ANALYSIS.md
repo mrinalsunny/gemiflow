@@ -379,7 +379,7 @@ const config = await optimizer.getOptimization(
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Claude Code Event                         │
+│                    Gemini CLI Event                         │
 │                   (PreToolUse, etc.)                        │
 └─────────────────────┬───────────────────────────────────────┘
                       │
@@ -638,15 +638,15 @@ GemiFlow v3 will be architected as a **modular constellation of npm packages** s
 // Package: @gemiflow/core
 // Size: ~50KB (no dependencies on other @gemiflow/* packages)
 
-export interface ClaudeFlowConfig {
+export interface gemiflowConfig {
   enabledModules: string[];
   sharedConfig: SharedConfig;
   eventBus: EventBus;
 }
 
-export class ClaudeFlowCore {
+export class gemiflowCore {
   // Module registry
-  register(module: ClaudeFlowModule): void;
+  register(module: gemiflowModule): void;
   unregister(moduleId: string): void;
 
   // Cross-module communication
@@ -654,7 +654,7 @@ export class ClaudeFlowCore {
   on(event: string, handler: EventHandler): void;
 
   // Unified configuration
-  configure(config: Partial<ClaudeFlowConfig>): void;
+  configure(config: Partial<gemiflowConfig>): void;
 
   // Module discovery
   getModule<T>(id: string): T | undefined;
@@ -662,8 +662,8 @@ export class ClaudeFlowCore {
 }
 
 // Usage:
-import { ClaudeFlowCore } from '@gemiflow/core';
-const core = new ClaudeFlowCore();
+import { gemiflowCore } from '@gemiflow/core';
+const core = new gemiflowCore();
 ```
 
 **Key Features:**
@@ -677,7 +677,7 @@ const core = new ClaudeFlowCore();
 
 #### @gemiflow/hooks
 
-**Purpose:** Claude Code event hooks for pre/post operations with intelligent routing.
+**Purpose:** Gemini CLI event hooks for pre/post operations with intelligent routing.
 
 ```typescript
 // Package: @gemiflow/hooks
@@ -696,7 +696,7 @@ const dispatcher = createHookDispatcher();
 dispatcher.register('PreToolUse', preEditHook);
 
 // With core integration
-import { ClaudeFlowCore } from '@gemiflow/core';
+import { gemiflowCore } from '@gemiflow/core';
 import { HooksModule } from '@gemiflow/hooks';
 core.register(new HooksModule());
 ```
@@ -1087,7 +1087,7 @@ npm install @gemiflow/core
 ```bash
 npm install @gemiflow/hooks
 # Works standalone, no core required
-# 200KB, Claude Code hook integration
+# 200KB, Gemini CLI hook integration
 ```
 
 #### Learning Stack
@@ -1215,12 +1215,12 @@ dispatcher.on('postEdit', async (data) => {
 **Integrated (With Core):**
 ```typescript
 // Automatic cross-module communication
-import { ClaudeFlowCore } from '@gemiflow/core';
+import { gemiflowCore } from '@gemiflow/core';
 import { HooksModule } from '@gemiflow/hooks';
 import { LearningModule } from '@gemiflow/learning';
 import { SwarmModule } from '@gemiflow/swarm';
 
-const core = new ClaudeFlowCore();
+const core = new gemiflowCore();
 core.register(new HooksModule());
 core.register(new LearningModule());
 core.register(new SwarmModule());
@@ -1243,10 +1243,10 @@ core.register(new SwarmModule());
 // Dependencies: None
 
 // Core interfaces
-export interface ClaudeFlowModule {
+export interface gemiflowModule {
   id: string;
   version: string;
-  initialize(core?: ClaudeFlowCore): Promise<void>;
+  initialize(core?: gemiflowCore): Promise<void>;
   shutdown(): Promise<void>;
 }
 
@@ -1422,15 +1422,15 @@ describe('HookDispatcher', () => {
 
 ```typescript
 // packages/integration-tests/core-hooks.test.ts
-import { ClaudeFlowCore } from '@gemiflow/core';
+import { gemiflowCore } from '@gemiflow/core';
 import { HooksModule } from '@gemiflow/hooks';
 import { LearningModule } from '@gemiflow/learning';
 
 describe('Core + Hooks + Learning Integration', () => {
-  let core: ClaudeFlowCore;
+  let core: gemiflowCore;
 
   beforeEach(async () => {
-    core = new ClaudeFlowCore();
+    core = new gemiflowCore();
     core.register(new HooksModule());
     core.register(new LearningModule({ profile: 'realtime' }));
     await core.initialize();
@@ -1495,7 +1495,7 @@ export const createMockLearningEngine = () => ({
 
 ```typescript
 // @gemiflow/core error types
-export class ClaudeFlowError extends Error {
+export class gemiflowError extends Error {
   constructor(
     message: string,
     public code: ErrorCode,
@@ -1504,7 +1504,7 @@ export class ClaudeFlowError extends Error {
     public cause?: Error
   ) {
     super(message);
-    this.name = 'ClaudeFlowError';
+    this.name = 'gemiflowError';
   }
 }
 
@@ -1538,7 +1538,7 @@ export enum ErrorCode {
 
 ```typescript
 // @gemiflow/core graceful degradation
-class ClaudeFlowCore {
+class gemiflowCore {
   async safeGetModule<T>(id: string): Promise<T | null> {
     try {
       return this.getModule<T>(id) ?? null;
@@ -1562,7 +1562,7 @@ class ClaudeFlowCore {
     try {
       return await primary();
     } catch (error) {
-      if (error instanceof ClaudeFlowError && errorCodes.includes(error.code)) {
+      if (error instanceof gemiflowError && errorCodes.includes(error.code)) {
         this.emit('error:fallback', { error, using: 'fallback' });
         return await fallback();
       }
@@ -1592,7 +1592,7 @@ class CircuitBreaker {
       if (Date.now() - this.lastFailure > this.config.resetTimeout) {
         this.state = 'half-open';
       } else {
-        throw new ClaudeFlowError('Circuit open', ErrorCode.MODULE_INIT_FAILED, 'circuit', true);
+        throw new gemiflowError('Circuit open', ErrorCode.MODULE_INIT_FAILED, 'circuit', true);
       }
     }
 
@@ -1638,7 +1638,7 @@ class SecretsManager {
   async validate(required: string[]): Promise<boolean> {
     for (const key of required) {
       if (!(await this.get(key))) {
-        throw new ClaudeFlowError(
+        throw new gemiflowError(
           `Missing required secret: ${key}`,
           ErrorCode.MODULE_INIT_FAILED,
           'secrets',
@@ -1761,10 +1761,10 @@ class Telemetry {
 }
 ```
 
-#### Claude Code Compatible Metrics
+#### Gemini CLI Compatible Metrics
 
 ```typescript
-// Export format compatible with Claude Code telemetry
+// Export format compatible with Gemini CLI telemetry
 interface ClaudeCodeMetrics {
   // Session metrics
   session_id: string;
@@ -1828,8 +1828,8 @@ class SwarmTracer {
 
 | v2 API | v3 API | Migration |
 |--------|--------|-----------|
-| `require('gemiflow')` | `import { ClaudeFlowCore } from '@gemiflow/core'` | ESM only |
-| `gemiflow.init()` | `new ClaudeFlowCore()` | Constructor-based |
+| `require('gemiflow')` | `import { gemiflowCore } from '@gemiflow/core'` | ESM only |
+| `gemiflow.init()` | `new gemiflowCore()` | Constructor-based |
 | `gemiflow.swarm.create()` | `import { createSwarm } from '@gemiflow/swarm'` | Modular import |
 | `gemiflow.memory.store()` | `memoryModule.store()` | Module instance |
 | Callbacks | Promises/async-await | All async |
@@ -1862,7 +1862,7 @@ export default function transformer(file, api) {
     arguments: [{ value: 'gemiflow' }]
   }).replaceWith(() =>
     j.importDeclaration(
-      [j.importSpecifier(j.identifier('ClaudeFlowCore'))],
+      [j.importSpecifier(j.identifier('gemiflowCore'))],
       j.literal('@gemiflow/core')
     )
   );
@@ -1875,16 +1875,16 @@ export default function transformer(file, api) {
 
 ```typescript
 // @gemiflow/compat - Temporary v2 compatibility
-import { ClaudeFlowCore } from '@gemiflow/core';
+import { gemiflowCore } from '@gemiflow/core';
 import { HooksModule } from '@gemiflow/hooks';
 import { SwarmModule } from '@gemiflow/swarm';
 import { MemoryModule } from '@gemiflow/memory';
 
 // v2-style API
-export function createClaudeFlow(config?: any) {
+export function creategemiflow(config?: any) {
   console.warn('[@gemiflow/compat] Deprecated: Migrate to v3 modular imports');
 
-  const core = new ClaudeFlowCore();
+  const core = new gemiflowCore();
 
   return {
     init: async () => {
@@ -1920,13 +1920,13 @@ export function createClaudeFlow(config?: any) {
 
 ```typescript
 // @gemiflow/core plugin system
-interface ClaudeFlowPlugin {
+interface gemiflowPlugin {
   name: string;
   version: string;
 
   // Lifecycle hooks
-  onCoreInit?(core: ClaudeFlowCore): Promise<void>;
-  onModuleRegister?(module: ClaudeFlowModule): void;
+  onCoreInit?(core: gemiflowCore): Promise<void>;
+  onModuleRegister?(module: gemiflowModule): void;
   onEvent?(event: string, data: any): void;
   onShutdown?(): Promise<void>;
 
@@ -1944,7 +1944,7 @@ core.use(myPlugin);
 
 ```typescript
 // Third-party hook example
-const securityPlugin: ClaudeFlowPlugin = {
+const securityPlugin: gemiflowPlugin = {
   name: 'security-scanner',
   version: '1.0.0',
 
@@ -1978,7 +1978,7 @@ const customAgent: AgentDefinition = {
 };
 
 // Register via plugin
-const analyzerPlugin: ClaudeFlowPlugin = {
+const analyzerPlugin: gemiflowPlugin = {
   name: 'custom-analyzer',
   version: '1.0.0',
   agents: [customAgent]
@@ -2216,7 +2216,7 @@ class FeatureDetector {
 
   async checkNetwork(): Promise<boolean> {
     try {
-      await fetch('https://api.anthropic.com/health', { method: 'HEAD' });
+      await fetch('https://api.google.com/health', { method: 'HEAD' });
       return true;
     } catch {
       return false;
@@ -2300,7 +2300,7 @@ const DEFAULT_DEGRADED: DegradedModeConfig = {
 | Package | Purpose | Size | Standalone |
 |---------|---------|------|------------|
 | `@gemiflow/core` | Central connector | ~50KB | ✅ |
-| `@gemiflow/hooks` | Claude Code events | ~200KB | ✅ |
+| `@gemiflow/hooks` | Gemini CLI events | ~200KB | ✅ |
 | `@gemiflow/learning` | Self-optimization | ~2MB | ✅ |
 | `@gemiflow/swarm` | Multi-agent coordination | ~1MB | ✅ |
 | `@gemiflow/memory` | Persistent storage | ~500KB | ✅ |
@@ -2323,7 +2323,7 @@ const DEFAULT_DEGRADED: DegradedModeConfig = {
 
 **Phase 1: Core Packages**
 - `@gemiflow/core` - Event bus, configuration, module registry
-- `@gemiflow/hooks` - Claude Code event mapping
+- `@gemiflow/hooks` - Gemini CLI event mapping
 - `@gemiflow/cli` - Basic CLI with init/status
 
 **Phase 2: Learning Stack**
@@ -2770,13 +2770,13 @@ export {
 
 ### 13.8 Integration with v3 Hooks
 
-Workers can be triggered from Claude Code hooks:
+Workers can be triggered from Gemini CLI hooks:
 
 ```typescript
 import { HooksModule } from '@gemiflow/hooks';
 import { WorkersModule } from '@gemiflow/workers';
 
-const core = new ClaudeFlowCore();
+const core = new gemiflowCore();
 core.register(new HooksModule());
 core.register(new WorkersModule());
 

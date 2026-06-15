@@ -1,6 +1,6 @@
 /**
  * Dual-Mode Module
- * Collaborative execution of Claude Code + Codex workers
+ * Collaborative execution of Gemini CLI + gemini workers
  */
 
 export { DualModeOrchestrator, CollaborationTemplates } from './orchestrator.js';

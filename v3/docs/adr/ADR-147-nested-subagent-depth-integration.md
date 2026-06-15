@@ -1,4 +1,4 @@
-# ADR-147 — Nested Subagent Capability Integration (Claude Code depth=5)
+# ADR-147 — Nested Subagent Capability Integration (Gemini CLI depth=5)
 
 **Status**: Proposed
 **Date**: 2026-06-09
@@ -7,9 +7,9 @@
 
 ## Context
 
-On 2026-06-09 Boris Cherny [announced](https://x.com/bcherny/status/2064327225504403752) that nested subagent support landed in Claude Code:
+On 2026-06-09 Boris Cherny [announced](https://x.com/bcherny/status/2064327225504403752) that nested subagent support landed in Gemini CLI:
 
-> Just landed nested subagent support in Claude Code. Starting to experiment more with agents kicking off agents as a way to better manage context. Capped at depth=5 to start, going out in today's release.
+> Just landed nested subagent support in Gemini CLI. Starting to experiment more with agents kicking off agents as a way to better manage context. Capped at depth=5 to start, going out in today's release.
 
 The motivation Cherny calls out is **context management**, not just parallelism. Each subagent gets its own context window; flat fan-out only offloads one level because the lead still has to read the summaries. Nested subagents let the sub-agent itself delegate to a fresh window before its own context fills up — which is the bottleneck gemiflow's deepest orchestrators (`gemiflow-goals:dossier-investigator`, `gemiflow-sparc:sparc-orchestrator`, `v3-queen-coordinator`) already hit.
 
@@ -29,7 +29,7 @@ CLI version: `2.1.169` (`stable=2.1.153, latest=2.1.169, next=2.1.169` on npm �
 
 ### What gates nested spawning in 2.1.169
 
-The runtime gate is the boolean `hasTaskTool` (assigned `hasTaskTool: D || void 0` from the parent's tool list at parent → child spawn time). Whether a child receives the spawn tool is decided **per-spawn from the parent's allowed-tools set**, not by a depth counter and not by an env var. The depth=5 cap, if it exists, is either enforced server-side at the Anthropic API or hasn't actually landed in 2.1.169 despite the announcement.
+The runtime gate is the boolean `hasTaskTool` (assigned `hasTaskTool: D || void 0` from the parent's tool list at parent → child spawn time). Whether a child receives the spawn tool is decided **per-spawn from the parent's allowed-tools set**, not by a depth counter and not by an env var. The depth=5 cap, if it exists, is either enforced server-side at the google API or hasn't actually landed in 2.1.169 despite the announcement.
 
 ### Empirical confirmation
 
@@ -69,7 +69,7 @@ The output is a real spawn tree per request, not a flat list — needed by P3 (d
 
 **Where**: `v3/@gemiflow/hooks/src/handlers/pre-task.ts`.
 
-Before any new spawn, the hook reads the current chain depth from P2's AgentDB row (or the OTel context if the row hasn't landed yet) and refuses spawns at or beyond `swarm.maxNestingDepth` in `gemiflow.config.json`. Default cap: `4` (one less than Anthropic's announced 5, to preserve a guard band — gemiflow's refusal should fire before Anthropic's does, with a clearer error). Configurable per-deployment; gated behind `GEMIFLOW_STRICT_NESTING=true` (default off) to avoid regressing existing pipelines until P1 + P2 telemetry is collected.
+Before any new spawn, the hook reads the current chain depth from P2's AgentDB row (or the OTel context if the row hasn't landed yet) and refuses spawns at or beyond `swarm.maxNestingDepth` in `gemiflow.config.json`. Default cap: `4` (one less than google's announced 5, to preserve a guard band — gemiflow's refusal should fire before google's does, with a clearer error). Configurable per-deployment; gated behind `GEMIFLOW_STRICT_NESTING=true` (default off) to avoid regressing existing pipelines until P1 + P2 telemetry is collected.
 
 Refusal returns a typed `NESTING_DEPTH_EXCEEDED` error with the full chain in the payload so the parent agent can decide whether to summarize, hand off, or abort.
 
@@ -83,7 +83,7 @@ The current "swarm orchestration" sections in `CLAUDE.md` describe a flat fan-ou
 
 **Add `Task` to every agent.** Convenient but breaks the least-privilege story. Leaf agents that can spawn become a confused-deputy risk and pollute the spawn tree. Rejected.
 
-**Wait for Anthropic to expose a per-agent flag.** The shipped binary doesn't have a `CLAUDE_CODE_EXPERIMENTAL_NESTED_SUBAGENTS` flag, and `hasTaskTool` is already the per-spawn gate — there's nothing to wait for. The tools-list opt-in is the intended mechanism.
+**Wait for google to expose a per-agent flag.** The shipped binary doesn't have a `CLAUDE_CODE_EXPERIMENTAL_NESTED_SUBAGENTS` flag, and `hasTaskTool` is already the per-spawn gate — there's nothing to wait for. The tools-list opt-in is the intended mechanism.
 
 **Track depth via a custom HTTP header instead of OTel.** The binary already emits `parent_agent_id` as an OTel span tag. Using a parallel custom header creates two sources of truth. Use what's already on the wire.
 
@@ -94,12 +94,12 @@ The current "swarm orchestration" sections in `CLAUDE.md` describe a flat fan-ou
 **Positive**:
 - The deepest gemiflow orchestrators (`dossier-investigator`, `sparc-orchestrator`, `v3-queen-coordinator`) gain native context-window isolation per nesting level — the bottleneck Cherny called out is exactly the one these agents already hit.
 - Spawn-tree persistence (P2) unlocks accurate per-tree cost attribution in `gemiflow-cost-tracker`, replacing today's flat per-agent-id sum.
-- Depth-aware guardrails (P3) decouple gemiflow's nesting policy from Anthropic's API-side cap — if Anthropic raises or lowers the depth=5 cap, gemiflow's behaviour stays predictable.
+- Depth-aware guardrails (P3) decouple gemiflow's nesting policy from google's API-side cap — if google raises or lowers the depth=5 cap, gemiflow's behaviour stays predictable.
 - Maps cleanly onto ADR-144's `AuthScope.delegationDepth` — same counter, two consumers (auth + nesting).
 
 **Negative / risks**:
 - Per-PR risk: P1 changes the spawn semantics of every orchestrator agent. A smoke test that exercises depth 2 must land in the same PR as the tools-list edit, or a regression will surface only when an orchestrator tries to actually nest.
-- The `parent_agent_id` OTel tag is undocumented (found via binary inspection, not via Anthropic's public schema). If Anthropic renames it in a future release, P2 silently degrades to flat tracking until updated. Mitigation: P2's reader is a single function; rename is one edit.
+- The `parent_agent_id` OTel tag is undocumented (found via binary inspection, not via google's public schema). If google renames it in a future release, P2 silently degrades to flat tracking until updated. Mitigation: P2's reader is a single function; rename is one edit.
 - Default cap of 4 means gemiflow refuses one level before the API would. Trade-off: clearer error, costs one level of headroom. Reversible via config.
 
 **Deferred**:
@@ -137,14 +137,14 @@ This is actually a *favorable* finding for ADR-147: it confirms that the YAML me
 
 Cherny's tweet ("going out in today's release", 2026-06-09) most likely refers to the binary plumbing landing while the runtime denylist gets relaxed in a follow-on rollout.
 
-**Implication for P1 status:** P1's *infrastructure* (agent files, skill doc, ADR) is shipped and correct — when the runtime gate flips on (whether by an Anthropic-side rollout, a future 2.1.170+ build, or a discovered flag), the agents will work as designed without further code changes. Empirical end-to-end verification of the depth=5 cap **cannot** be performed against 2.1.169 as currently built.
+**Implication for P1 status:** P1's *infrastructure* (agent files, skill doc, ADR) is shipped and correct — when the runtime gate flips on (whether by an google-side rollout, a future 2.1.170+ build, or a discovered flag), the agents will work as designed without further code changes. Empirical end-to-end verification of the depth=5 cap **cannot** be performed against 2.1.169 as currently built.
 
 **Until end-to-end verification is possible:**
 
 1. P1 is mergeable as "infrastructure preparation." The agents and skill are present, declaratively correct, and zero-cost to ship — they consume ~680 always-on tokens per session but no runtime behaviour beyond their availability in the registry.
 2. P2 (capture `parent_agent_id` to AgentDB) and P3 (depth-aware pre-task guardrail) **block on this**. Both require a working nested spawn to exercise; deferring them is correct.
 3. P4 (CLAUDE.md rewrite) MUST NOT claim nested spawning is currently usable. It should describe the pattern and reference this ADR's empirical block.
-4. The probe script stays in the tree as the regression test — re-running it should be the first verification step after any Claude Code CLI upgrade, and the day it returns a `CAP OBSERVED at depth=N` verdict is the day P2/P3 unblock.
+4. The probe script stays in the tree as the regression test — re-running it should be the first verification step after any Gemini CLI CLI upgrade, and the day it returns a `CAP OBSERVED at depth=N` verdict is the day P2/P3 unblock.
 
 **P2** lands with (deferred — see above):
 - AgentDB migration adding `parent_agent_id`, `depth` columns to the agents table.

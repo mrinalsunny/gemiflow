@@ -59,7 +59,7 @@ export {
 
 // Memory integration (HNSW semantic search)
 export {
-  ClaudeFlowMemoryAdapter,
+  gemiflowMemoryAdapter,
   BrowserMemoryManager,
   createMemoryManager,
   getMemoryAdapter,

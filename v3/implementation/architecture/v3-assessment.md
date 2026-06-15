@@ -569,7 +569,7 @@ src/
 
 ```typescript
 // Plugin interface
-interface ClaudeFlowPlugin {
+interface gemiflowPlugin {
   name: string;
   version: string;
   initialize(context: PluginContext): Promise<void>;
@@ -598,7 +598,7 @@ interface ClaudeFlowPlugin {
 
 **Plugin Loading:**
 ```typescript
-const core = new ClaudeFlowCore();
+const core = new gemiflowCore();
 
 // Load required plugins
 await core.loadPlugin(new AgentLifecyclePlugin());

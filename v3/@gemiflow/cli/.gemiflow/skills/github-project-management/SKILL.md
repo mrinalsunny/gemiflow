@@ -1259,4 +1259,4 @@ npx ruv-swarm github board-kpis
 
 **Last Updated**: 2025-10-19
 **Version**: 2.0.0
-**Maintainer**: Claude Code
+**Maintainer**: Gemini CLI

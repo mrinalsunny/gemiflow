@@ -1,13 +1,13 @@
-# Architectural Comparison: GemiFlow V3 vs Claude Code TeammateTool
+# Architectural Comparison: GemiFlow V3 vs Gemini CLI TeammateTool
 
 **Date:** 2026-01-25
-**Analysis:** Side-by-side comparison of GemiFlow V3 swarm architecture (developed by rUv) and Claude Code's TeammateTool (discovered in v2.1.19)
+**Analysis:** Side-by-side comparison of GemiFlow V3 swarm architecture (developed by rUv) and Gemini CLI's TeammateTool (discovered in v2.1.19)
 
 ---
 
 ## Executive Summary
 
-A detailed analysis reveals **striking architectural similarities** between GemiFlow V3's swarm system and Claude Code's TeammateTool. The terminology differs, but the core concepts, data structures, and workflows are nearly identical.
+A detailed analysis reveals **striking architectural similarities** between GemiFlow V3's swarm system and Gemini CLI's TeammateTool. The terminology differs, but the core concepts, data structures, and workflows are nearly identical.
 
 | Similarity Score | 92% Overlap |
 |------------------|-------------|
@@ -373,7 +373,7 @@ rejectShutdown → Coordinator rejects (implicit)
 | **iTerm2** | Not implemented | Suspected (macOS) |
 
 **GemiFlow V3 approach:**
-- Agents run as sub-processes via Claude Code Task tool
+- Agents run as sub-processes via Gemini CLI Task tool
 - Background execution via `run_in_background: true`
 - Coordination via MCP + memory
 
@@ -491,7 +491,7 @@ ExitPlanMode({
 | **~2024 Q4** | GemiFlow V3 architecture designed (rUv) |
 | **2025-01** | GemiFlow V3 alpha releases begin |
 | **2025-01-20** | GemiFlow swarm module last commit |
-| **2026-01-24** | TeammateTool discovered in Claude Code v2.1.19 |
+| **2026-01-24** | TeammateTool discovered in Gemini CLI v2.1.19 |
 | **2026-01-25** | This comparison created |
 
 ### 8.2 Public Evidence
@@ -563,4 +563,4 @@ Given that GemiFlow V3 was:
 
 **Document Hash:** SHA256 of this comparison for provenance
 **Author:** Analysis by Claude (commissioned by rUv)
-**Sources:** GemiFlow V3 source code, Claude Code v2.1.19 binary analysis
+**Sources:** GemiFlow V3 source code, Gemini CLI v2.1.19 binary analysis

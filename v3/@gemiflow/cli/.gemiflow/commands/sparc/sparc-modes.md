@@ -31,7 +31,7 @@ SPARC (Specification, Planning, Architecture, Review, Code) is a comprehensive d
 
 ## Usage
 
-### Option 1: Using MCP Tools (Preferred in Claude Code)
+### Option 1: Using MCP Tools (Preferred in Gemini CLI)
 ```javascript
 // Execute SPARC mode directly
 mcp__gemiflow__sparc_mode {

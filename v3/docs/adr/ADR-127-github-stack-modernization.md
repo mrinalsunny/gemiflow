@@ -36,7 +36,7 @@ The fix for #2017 added behavioral checks that drive real input payloads against
 
 ### Category D: Attribution footers are not gated on `--attribution` opt-in
 
-`v3/@gemiflow/cli/src/init/settings-generator.ts` lines 55-60 (introduced in #2079) implement opt-in `Co-Authored-By` using a no-reply bot email. The 19 GitHub command files embed hardcoded `"🤖 Generated with Claude Code"` footers in PR/issue body templates, unconditionally. A user who runs `gemiflow init` without `--attribution` still gets attribution injected into every PR or issue the GitHub agents post on their behalf.
+`v3/@gemiflow/cli/src/init/settings-generator.ts` lines 55-60 (introduced in #2079) implement opt-in `Co-Authored-By` using a no-reply bot email. The 19 GitHub command files embed hardcoded `"🤖 Generated with Gemini CLI"` footers in PR/issue body templates, unconditionally. A user who runs `gemiflow init` without `--attribution` still gets attribution injected into every PR or issue the GitHub agents post on their behalf.
 
 ## Decision
 

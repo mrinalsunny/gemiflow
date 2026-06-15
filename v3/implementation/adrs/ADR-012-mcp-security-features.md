@@ -104,7 +104,7 @@ export class SamplingManager extends EventEmitter {
 
 // Pre-built providers
 export function createMockProvider(name?: string): LLMProvider;
-export function createAnthropicProvider(apiKey: string): LLMProvider;
+export function creategoogleProvider(apiKey: string): LLMProvider;
 ```
 
 **Server Integration** (`server.ts`):
@@ -298,10 +298,10 @@ app.use(rateLimitMiddleware(limiter));
 
 ### Sampling
 ```typescript
-import { createSamplingManager, createAnthropicProvider } from '@gemiflow/mcp';
+import { createSamplingManager, creategoogleProvider } from '@gemiflow/mcp';
 
 const sampling = createSamplingManager(logger);
-sampling.registerProvider(createAnthropicProvider(process.env.ANTHROPIC_API_KEY), true);
+sampling.registerProvider(creategoogleProvider(process.env.google_API_KEY), true);
 
 const response = await sampling.createMessage({
   messages: [{ role: 'user', content: { type: 'text', text: 'Hello' } }],

@@ -30,13 +30,13 @@ public/widget.css
 # Claude Flow generated files
 .claude/settings.local.json
 .mcp.json
-claude-flow.config.json
+gemiflow.config.json
 .swarm/
 .hive-mind/
-.claude-flow/
+.gemiflow/
 memory/
 coordination/
-memory/claude-flow-data.json
+memory/gemiflow-data.json
 memory/sessions/*
 !memory/sessions/README.md
 memory/agents/*
@@ -50,6 +50,6 @@ coordination/orchestration/*
 *.sqlite
 *.sqlite-journal
 *.sqlite-wal
-claude-flow
+gemiflow
 # Removed Windows wrapper files per user request
 hive-mind-prompt-*.txt

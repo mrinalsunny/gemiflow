@@ -20,7 +20,7 @@ Audit files for clarity, modularity, and size. Break large components (>500 line
 
 ## Usage
 
-### Option 1: Using MCP Tools (Preferred in Claude Code)
+### Option 1: Using MCP Tools (Preferred in Gemini CLI)
 ```javascript
 mcp__gemiflow__sparc_mode {
   mode: "refinement-optimization-mode",

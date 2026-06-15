@@ -161,7 +161,7 @@ describe.skipIf(__SKIP_WASM_TESTS)('agent-wasm integration', () => {
       agentId = info.id;
       expect(info.id).toMatch(/^wasm-agent-/);
       expect(info.state).toBe('idle');
-      expect(info.model).toBe('anthropic:claude-sonnet-4-6');
+      expect(info.model).toBe('google:claude-sonnet-4-6');
       expect(info.fileCount).toBe(0);
       expect(info.isStopped).toBe(false);
     });
@@ -336,7 +336,7 @@ describe.skipIf(__SKIP_WASM_TESTS)('agent-wasm integration', () => {
       // inherit the current default. Pin the assertion here so a
       // future regression of the default surfaces in the gallery path
       // too, not just in the bare `createWasmAgent` path.
-      expect(info.model).toBe('anthropic:claude-sonnet-4-6');
+      expect(info.model).toBe('google:claude-sonnet-4-6');
       terminateWasmAgent(info.id);
     });
 

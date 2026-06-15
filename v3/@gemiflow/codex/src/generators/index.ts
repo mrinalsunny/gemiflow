@@ -1,5 +1,5 @@
 /**
- * @gemiflow/codex - Generators
+ * @gemiflow/gemini - Generators
  *
  * Template generation functions for AGENTS.md, SKILL.md, and config.toml
  */

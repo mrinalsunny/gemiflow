@@ -131,10 +131,10 @@ describe('RvfaBuilder', () => {
 
 describe('encryptApiKeys / decryptApiKeys', () => {
   it('round-trips correctly', () => {
-    const envPath = writeEnvFile('ANTHROPIC_API_KEY=sk-ant-xxx\nOPENAI_API_KEY=sk-yyy');
+    const envPath = writeEnvFile('google_API_KEY=sk-ant-xxx\nOPENAI_API_KEY=sk-yyy');
     const encrypted = encryptApiKeys(envPath, 'my-secret');
     const decrypted = decryptApiKeys(encrypted, 'my-secret');
-    assert.equal(decrypted['ANTHROPIC_API_KEY'], 'sk-ant-xxx');
+    assert.equal(decrypted['google_API_KEY'], 'sk-ant-xxx');
     assert.equal(decrypted['OPENAI_API_KEY'], 'sk-yyy');
   });
 

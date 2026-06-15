@@ -61,12 +61,12 @@ pub fn batch_process(ops_json: &str) -> String {
                 format!(r#"{{"hash":"{}"}}"#, hash)
             }
             "sign_envelope" => {
-                let key = op.key.as_deref().unwrap_or("claude-flow-guidance-default-key");
+                let key = op.key.as_deref().unwrap_or("gemiflow-guidance-default-key");
                 let sig = proof::hmac_sha256_hex(key, &op.payload);
                 format!(r#"{{"signature":"{}"}}"#, sig)
             }
             "verify_chain" => {
-                let result = proof::verify_chain_json(&op.payload, op.key.as_deref().unwrap_or("claude-flow-guidance-default-key"));
+                let result = proof::verify_chain_json(&op.payload, op.key.as_deref().unwrap_or("gemiflow-guidance-default-key"));
                 format!(r#"{{"valid":{}}}"#, result)
             }
             "scan_secrets" => {

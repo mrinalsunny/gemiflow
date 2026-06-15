@@ -107,7 +107,7 @@ gh release create $(npm pkg get version) \
 
 ### Quick Integration Example
 ```javascript
-// Simple release preparation in Claude Code
+// Simple release preparation in Gemini CLI
 [Single Message]:
   // Update version files
   Edit("package.json", { old: '"version": "1.0.0"', new: '"version": "2.0.0"' })

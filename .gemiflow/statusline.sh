@@ -2,10 +2,10 @@
 # GemiFlow V3 Development Status Line
 # Shows DDD architecture progress, security status, and performance targets
 
-# Read Claude Code JSON input from stdin (if available)
+# Read Gemini CLI JSON input from stdin (if available)
 CLAUDE_INPUT=$(cat 2>/dev/null || echo "{}")
 
-# Get project directory from Claude Code input or use current directory
+# Get project directory from Gemini CLI input or use current directory
 PROJECT_DIR=$(echo "$CLAUDE_INPUT" | jq -r '.workspace.project_dir // ""' 2>/dev/null)
 if [ -z "$PROJECT_DIR" ] || [ "$PROJECT_DIR" = "null" ]; then
   PROJECT_DIR=$(pwd)
@@ -168,7 +168,7 @@ if [ -x "$SWARM_COMMS" ]; then
   QUEUE_PENDING=$(echo "$COMMS_STATS" | jq -r '.queue // 0' 2>/dev/null || echo "0")
 fi
 
-# Get context window usage from Context Autopilot state (primary) or Claude Code input (fallback)
+# Get context window usage from Context Autopilot state (primary) or Gemini CLI input (fallback)
 CONTEXT_PCT=0
 CONTEXT_TOKENS=""
 CONTEXT_COLOR="${DIM}"
@@ -196,7 +196,7 @@ if [ -f "$AUTOPILOT_STATE" ]; then
     AUTOPILOT_STATUS="${BRIGHT_GREEN}⊘${RESET}"
   fi
 elif [ "$CLAUDE_INPUT" != "{}" ]; then
-  # Fallback: read from Claude Code input JSON
+  # Fallback: read from Gemini CLI input JSON
   CONTEXT_REMAINING=$(echo "$CLAUDE_INPUT" | jq '.context_window.remaining_percentage // null' 2>/dev/null)
 
   if [ "$CONTEXT_REMAINING" != "null" ] && [ -n "$CONTEXT_REMAINING" ]; then
@@ -313,7 +313,7 @@ if [ "$INTEGRATION_STATUS" = "●" ]; then
   INTEGRATION_COLOR="${BRIGHT_CYAN}"
 fi
 
-# Get model name from Claude Code input
+# Get model name from Gemini CLI input
 MODEL_NAME=""
 if [ "$CLAUDE_INPUT" != "{}" ]; then
   MODEL_NAME=$(echo "$CLAUDE_INPUT" | jq -r '.model.display_name // ""' 2>/dev/null)

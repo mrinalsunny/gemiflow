@@ -117,7 +117,7 @@
     "agentic-flow": "^3.0.0-alpha.1",
     "ruvector": "^0.2.27",
     "@gemiflow/aidefence": "^3.0.2",
-    "@gemiflow/codex": "^3.0.0-alpha.8",
+    "@gemiflow/gemini": "^3.0.0-alpha.8",
     "@gemiflow/embeddings": "^3.0.0-alpha.18",
     "@gemiflow/guidance": "^3.0.0-alpha.1",
     "@gemiflow/memory": "^3.0.0-alpha.20",

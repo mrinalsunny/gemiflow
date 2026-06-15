@@ -43,13 +43,13 @@ echo -e "${NC}"
 # Check prerequisites
 info "Checking prerequisites..."
 
-# Check Claude Code
+# Check Gemini CLI
 if ! command -v claude &> /dev/null; then
-    error "Claude Code CLI not found. Please install it first:"
+    error "Gemini CLI CLI not found. Please install it first:"
     echo "  Visit: https://claude.com/code"
     exit 1
 fi
-success "Claude Code CLI detected"
+success "Gemini CLI CLI detected"
 
 # Check Node.js version
 if command -v node &> /dev/null; then
@@ -206,7 +206,7 @@ echo ""
 
 info "Next Steps:"
 echo ""
-echo "  1. Restart Claude Code to load the plugin"
+echo "  1. Restart Gemini CLI to load the plugin"
 echo "  2. Verify installation:"
 echo "     $ claude --version"
 echo ""
@@ -214,7 +214,7 @@ echo "  3. Try a command:"
 echo "     /coordination-swarm-init"
 echo ""
 echo "  4. Test MCP integration:"
-echo "     In Claude Code, check available MCP tools"
+echo "     In Gemini CLI, check available MCP tools"
 echo ""
 
 info "Available Commands:"

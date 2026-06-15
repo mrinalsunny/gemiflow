@@ -1,41 +1,41 @@
-# @gemiflow/codex
+# @gemiflow/gemini
 
 <p align="center">
-  <strong>OpenAI Codex CLI Adapter for GemiFlow V3</strong><br/>
+  <strong>OpenAI gemini CLI Adapter for GemiFlow V3</strong><br/>
   <em>Self-learning multi-agent orchestration following the <a href="https://agentics.org">Agentics Foundation</a> standard</em>
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@gemiflow/codex"><img src="https://img.shields.io/npm/v/@gemiflow/codex?label=npm&color=blue" alt="npm version"></a>
-  <a href="https://www.npmjs.com/package/@gemiflow/codex"><img src="https://img.shields.io/npm/dm/@gemiflow/codex?label=downloads&color=cb3837" alt="npm downloads"></a>
+  <a href="https://www.npmjs.com/package/@gemiflow/gemini"><img src="https://img.shields.io/npm/v/@gemiflow/gemini?label=npm&color=blue" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/@gemiflow/gemini"><img src="https://img.shields.io/npm/dm/@gemiflow/gemini?label=downloads&color=cb3837" alt="npm downloads"></a>
   <a href="https://github.com/ruvnet/gemiflow"><img src="https://img.shields.io/badge/license-MIT-green" alt="license"></a>
   <a href="https://agentics.org"><img src="https://img.shields.io/badge/standard-Agentics-purple" alt="Agentics Standard"></a>
 </p>
 
 ---
 
-## Why @gemiflow/codex?
+## Why @gemiflow/gemini?
 
-Transform OpenAI Codex CLI into a **self-improving AI development system**. While Codex executes code, gemiflow orchestrates, coordinates, and **learns from every interaction**.
+Transform OpenAI gemini CLI into a **self-improving AI development system**. While gemini executes code, gemiflow orchestrates, coordinates, and **learns from every interaction**.
 
-| Traditional Codex | With GemiFlow |
+| Traditional gemini | With GemiFlow |
 |-------------------|------------------|
 | Stateless execution | Persistent vector memory |
 | Single-agent | Multi-agent swarms (up to 15) |
 | Manual coordination | Automatic orchestration |
 | No learning | Self-learning patterns (HNSW) |
-| One platform | Dual-mode (Claude Code + Codex) |
+| One platform | Dual-mode (Gemini CLI + gemini) |
 
 ## Key Concept: Execution Model
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │  GEMIFLOW = ORCHESTRATOR (tracks state, stores memory)       │
-│  CODEX = EXECUTOR (writes code, runs commands, implements)      │
+│  gemini = EXECUTOR (writes code, runs commands, implements)      │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-**Codex does the work. Claude-flow coordinates and learns.**
+**gemini does the work. gemiflow coordinates and learns.**
 
 ### The Self-Learning Loop
 
@@ -51,8 +51,8 @@ Transform OpenAI Codex CLI into a **self-improving AI development system**. Whil
     └──────┬───────┘
            │
     ┌──────▼───────┐
-    │   EXECUTE    │ ──→ Codex writes code, runs commands
-    │   codex      │
+    │   EXECUTE    │ ──→ gemini writes code, runs commands
+    │   gemini      │
     └──────┬───────┘
            │
     ┌──────▼───────┐
@@ -64,13 +64,13 @@ Transform OpenAI Codex CLI into a **self-improving AI development system**. Whil
 ## Quick Start
 
 ```bash
-# Initialize for Codex (recommended)
-npx gemiflow@alpha init --codex
+# Initialize for gemini (recommended)
+npx gemiflow@alpha init --gemini
 
 # Full setup with all 137+ skills
-npx gemiflow@alpha init --codex --full
+npx gemiflow@alpha init --gemini --full
 
-# Dual mode (both Claude Code and Codex)
+# Dual mode (both Gemini CLI and gemini)
 npx gemiflow@alpha init --dual
 ```
 
@@ -83,11 +83,11 @@ npx gemiflow@alpha init --dual
 
 | Feature | Description |
 |---------|-------------|
-| **AGENTS.md Generation** | Creates project instructions for Codex |
+| **AGENTS.md Generation** | Creates project instructions for gemini |
 | **MCP Integration** | Self-learning via memory and vector search |
 | **137+ Skills** | Invoke with `$skill-name` syntax |
 | **Vector Memory** | Semantic pattern search (384-dim embeddings) |
-| **Dual Platform** | Supports both Claude Code and Codex |
+| **Dual Platform** | Supports both Gemini CLI and gemini |
 | **Auto-Registration** | MCP server registered during init |
 | **HNSW Search** | 150x-12,500x faster pattern matching |
 | **Self-Learning** | Learn from successes, remember patterns |
@@ -103,11 +103,11 @@ npx gemiflow@alpha init --dual
 
 ### Automatic Registration
 
-When you run `init --codex`, the MCP server is **automatically registered** with Codex:
+When you run `init --gemini`, the MCP server is **automatically registered** with gemini:
 
 ```bash
 # Verify MCP is registered
-codex mcp list
+gemini mcp list
 
 # Expected output:
 # Name         Command  Args                   Status
@@ -119,7 +119,7 @@ codex mcp list
 If MCP is not present, add manually:
 
 ```bash
-codex mcp add gemiflow -- npx gemiflow mcp start
+gemini mcp add gemiflow -- npx gemiflow mcp start
 ```
 
 ### MCP Tools Reference
@@ -174,7 +174,7 @@ codex mcp add gemiflow -- npx gemiflow mcp start
 ```
 1. LEARN:    memory_search(query="task keywords") → Find similar patterns
 2. COORD:    swarm_init(topology="hierarchical") → Set up coordination
-3. EXECUTE:  YOU write code, run commands        → Codex does real work
+3. EXECUTE:  YOU write code, run commands        → gemini does real work
 4. REMEMBER: memory_store(key, value, upsert=true) → Save for future
 ```
 
@@ -225,7 +225,7 @@ YOU execute all code. MCP tools are for learning only.
 
 ```
 project/
-├── AGENTS.md                    # Main project instructions (Codex format)
+├── AGENTS.md                    # Main project instructions (gemini format)
 ├── .agents/
 │   ├── config.toml              # Project configuration
 │   ├── skills/                  # 137+ skills
@@ -237,7 +237,7 @@ project/
 │   │   │   └── SKILL.md
 │   │   └── ...
 │   └── README.md                # Directory documentation
-├── .codex/                      # Local overrides (gitignored)
+├── .gemini/                      # Local overrides (gitignored)
 │   ├── config.toml              # Local development settings
 │   └── AGENTS.override.md       # Local instruction overrides
 └── .gemiflow/                # Runtime data
@@ -251,9 +251,9 @@ project/
 
 | File | Purpose |
 |------|---------|
-| `AGENTS.md` | Main instructions for Codex (required) |
+| `AGENTS.md` | Main instructions for gemini (required) |
 | `.agents/config.toml` | Project-wide configuration |
-| `.codex/config.toml` | Local overrides (gitignored) |
+| `.gemini/config.toml` | Local overrides (gitignored) |
 | `.gemiflow/data/memory.db` | Vector memory database |
 
 </details>
@@ -276,13 +276,13 @@ project/
 
 ```bash
 # Minimal (fastest init)
-npx gemiflow@alpha init --codex --minimal
+npx gemiflow@alpha init --gemini --minimal
 
 # Default
-npx gemiflow@alpha init --codex
+npx gemiflow@alpha init --gemini
 
 # Full (all skills)
-npx gemiflow@alpha init --codex --full
+npx gemiflow@alpha init --gemini --full
 ```
 
 ### Template Contents
@@ -310,16 +310,16 @@ npx gemiflow@alpha init --codex --full
 ---
 
 <details>
-<summary><b>Platform Comparison (Claude Code vs Codex)</b></summary>
+<summary><b>Platform Comparison (Gemini CLI vs gemini)</b></summary>
 
-| Feature | Claude Code | OpenAI Codex |
+| Feature | Gemini CLI | OpenAI gemini |
 |---------|-------------|--------------|
 | Config File | `CLAUDE.md` | `AGENTS.md` |
 | Skills Dir | `.gemiflow/skills/` | `.agents/skills/` |
 | Skill Syntax | `/skill-name` | `$skill-name` |
 | Settings | `settings.json` | `config.toml` |
-| MCP | Native | Via `codex mcp add` |
-| Overrides | `.claude.local.md` | `.codex/config.toml` |
+| MCP | Native | Via `gemini mcp add` |
+| Overrides | `.claude.local.md` | `.gemini/config.toml` |
 
 ### Dual Mode
 
@@ -330,8 +330,8 @@ npx gemiflow@alpha init --dual
 ```
 
 This creates:
-- `CLAUDE.md` for Claude Code users
-- `AGENTS.md` for Codex users
+- `CLAUDE.md` for Gemini CLI users
+- `AGENTS.md` for gemini users
 - Shared `.gemiflow/` runtime
 - Cross-compatible skills
 
@@ -344,7 +344,7 @@ This creates:
 
 ### Syntax
 
-In OpenAI Codex CLI, invoke skills with `$` prefix:
+In OpenAI gemini CLI, invoke skills with `$` prefix:
 
 ```
 $swarm-orchestration
@@ -442,7 +442,7 @@ $performance-optimization
 | Skill | Syntax | Description |
 |-------|--------|-------------|
 | Pair Programming | `$pair-programming` | AI-assisted pair programming |
-| Skill Builder | `$skill-builder` | Create new Claude Code Skills |
+| Skill Builder | `$skill-builder` | Create new Gemini CLI Skills |
 | Verification Quality | `$verification-quality` | Truth scoring and quality verification |
 | Performance Analysis | `$performance-analysis` | Bottleneck detection and optimization |
 | Agentic Jujutsu | `$agentic-jujutsu` | Quantum-resistant version control |
@@ -502,9 +502,9 @@ $performance-optimization
 
 | Skill | Syntax | Description |
 |-------|--------|-------------|
-| Dual Spawn | `$dual-spawn` | Spawn parallel Codex workers from Claude Code |
-| Dual Coordinate | `$dual-coordinate` | Coordinate Claude Code + Codex execution |
-| Dual Collect | `$dual-collect` | Collect results from parallel Codex instances |
+| Dual Spawn | `$dual-spawn` | Spawn parallel gemini workers from Gemini CLI |
+| Dual Coordinate | `$dual-coordinate` | Coordinate Gemini CLI + gemini execution |
+| Dual Collect | `$dual-collect` | Collect results from parallel gemini instances |
 
 ### Custom Skills
 
@@ -530,15 +530,15 @@ Invoke with `$my-skill`
 ---
 
 <details>
-<summary><b>Dual-Mode Integration (Claude Code + Codex)</b></summary>
+<summary><b>Dual-Mode Integration (Gemini CLI + gemini)</b></summary>
 
 ### Hybrid Execution Model
 
-Run Claude Code for interactive development and spawn headless Codex workers for parallel background tasks:
+Run Gemini CLI for interactive development and spawn headless gemini workers for parallel background tasks:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  CLAUDE CODE (interactive)  ←→  CODEX WORKERS (headless)        │
+│  CLAUDE CODE (interactive)  ←→  gemini WORKERS (headless)        │
 │  - Main conversation         - Parallel background execution    │
 │  - Complex reasoning         - Bulk code generation            │
 │  - Architecture decisions    - Test execution                   │
@@ -553,14 +553,14 @@ Run Claude Code for interactive development and spawn headless Codex workers for
 npx gemiflow@alpha init --dual
 
 # Creates both:
-# - CLAUDE.md (Claude Code configuration)
-# - AGENTS.md (Codex configuration)
+# - CLAUDE.md (Gemini CLI configuration)
+# - AGENTS.md (gemini configuration)
 # - Shared .gemiflow/ runtime
 ```
 
-### Spawning Parallel Codex Workers
+### Spawning Parallel gemini Workers
 
-From Claude Code, spawn headless Codex instances:
+From Gemini CLI, spawn headless gemini instances:
 
 ```bash
 # Spawn workers in parallel (each runs independently)
@@ -574,41 +574,41 @@ wait  # Wait for all to complete
 
 | Skill | Platform | Description |
 |-------|----------|-------------|
-| `$dual-spawn` | Codex | Spawn parallel workers from orchestrator |
+| `$dual-spawn` | gemini | Spawn parallel workers from orchestrator |
 | `$dual-coordinate` | Both | Coordinate cross-platform execution |
-| `$dual-collect` | Claude Code | Collect results from Codex workers |
+| `$dual-collect` | Gemini CLI | Collect results from gemini workers |
 
 ### Dual-Mode Agents
 
 | Agent | Type | Execution |
 |-------|------|-----------|
-| `codex-worker` | Worker | Headless background execution |
-| `codex-coordinator` | Coordinator | Manage parallel worker pool |
+| `gemini-worker` | Worker | Headless background execution |
+| `gemini-coordinator` | Coordinator | Manage parallel worker pool |
 | `dual-orchestrator` | Orchestrator | Route tasks to appropriate platform |
 
 ### Task Routing Rules
 
 | Task Complexity | Platform | Reason |
 |----------------|----------|--------|
-| Simple (1-2 files) | Codex Headless | Fast, parallel |
-| Medium (3-5 files) | Claude Code | Needs context |
-| Complex (architecture) | Claude Code | Reasoning required |
-| Bulk operations | Codex Workers | Parallelize |
-| Final review | Claude Code | Integration |
+| Simple (1-2 files) | gemini Headless | Fast, parallel |
+| Medium (3-5 files) | Gemini CLI | Needs context |
+| Complex (architecture) | Gemini CLI | Reasoning required |
+| Bulk operations | gemini Workers | Parallelize |
+| Final review | Gemini CLI | Integration |
 
 ### Example Workflow
 
 ```
-1. Claude Code receives complex feature request
+1. Gemini CLI receives complex feature request
 2. Designs architecture and creates plan
-3. Spawns 4 Codex workers:
+3. Spawns 4 gemini workers:
    - Worker 1: Implement data models
    - Worker 2: Create API endpoints
    - Worker 3: Write unit tests
    - Worker 4: Generate documentation
 4. Workers execute in parallel (headless)
-5. Claude Code collects and integrates results
-6. Final review and refinement in Claude Code
+5. Gemini CLI collects and integrates results
+6. Final review and refinement in Gemini CLI
 ```
 
 ### Memory Sharing
@@ -635,56 +635,56 @@ Both platforms share the same `.gemiflow/` runtime:
 
 ### CLI Commands (NEW in v3.0.0-alpha.8)
 
-The `@gemiflow/codex` package now includes built-in dual-mode orchestration:
+The `@gemiflow/gemini` package now includes built-in dual-mode orchestration:
 
 ```bash
 # List available collaboration templates
-npx gemiflow-codex dual templates
+npx gemiflow-gemini dual templates
 
 # Run a feature development swarm
-npx gemiflow-codex dual run --template feature --task "Add user authentication"
+npx gemiflow-gemini dual run --template feature --task "Add user authentication"
 
 # Run a security audit swarm
-npx gemiflow-codex dual run --template security --task "src/auth/"
+npx gemiflow-gemini dual run --template security --task "src/auth/"
 
 # Run a refactoring swarm
-npx gemiflow-codex dual run --template refactor --task "src/legacy/"
+npx gemiflow-gemini dual run --template refactor --task "src/legacy/"
 
 # Check collaboration status
-npx gemiflow-codex dual status
+npx gemiflow-gemini dual status
 ```
 
-### Codex Loop Runner
+### gemini Loop Runner
 
-Codex does not expose Claude Code's `ScheduleWakeup`, so `@gemiflow/codex` provides a process-based equivalent:
+gemini does not expose Gemini CLI's `ScheduleWakeup`, so `@gemiflow/gemini` provides a process-based equivalent:
 
 ```bash
-# Run Codex repeatedly until it creates .codex/loop/default.complete or reaches 10 iterations
-npx gemiflow-codex loop run "Fix failing tests and create the completion marker when done"
+# Run gemini repeatedly until it creates .gemini/loop/default.complete or reaches 10 iterations
+npx gemiflow-gemini loop run "Fix failing tests and create the completion marker when done"
 
 # Use command mode for recurring GemiFlow workers or custom scripts
-npx gemiflow-codex loop run --name testgaps --interval 270 --max-iterations 0 \
+npx gemiflow-gemini loop run --name testgaps --interval 270 --max-iterations 0 \
   --command "npx gemiflow hooks worker dispatch --trigger testgaps"
 
 # Inspect or stop a loop from another terminal
-npx gemiflow-codex loop status --name testgaps
-npx gemiflow-codex loop stop --name testgaps
+npx gemiflow-gemini loop status --name testgaps
+npx gemiflow-gemini loop stop --name testgaps
 ```
 
-Loop state is stored in `.codex/loop/<name>.json`; `loop stop` writes `.codex/loop/<name>.stop`, which the runner observes between iterations.
+Loop state is stored in `.gemini/loop/<name>.json`; `loop stop` writes `.gemini/loop/<name>.stop`, which the runner observes between iterations.
 
 ### Pre-Built Templates
 
 | Template | Pipeline | Platforms |
 |----------|----------|-----------|
-| **feature** | architect → coder → tester → reviewer | Claude (architect, reviewer) + Codex (coder, tester) |
-| **security** | scanner → analyzer → fixer | Codex (scanner, fixer) + Claude (analyzer) |
-| **refactor** | analyzer → planner → refactorer → validator | Claude (analyzer, planner) + Codex (refactorer, validator) |
+| **feature** | architect → coder → tester → reviewer | Claude (architect, reviewer) + gemini (coder, tester) |
+| **security** | scanner → analyzer → fixer | gemini (scanner, fixer) + Claude (analyzer) |
+| **refactor** | analyzer → planner → refactorer → validator | Claude (analyzer, planner) + gemini (refactorer, validator) |
 
 ### Programmatic API
 
 ```typescript
-import { DualModeOrchestrator, CollaborationTemplates } from '@gemiflow/codex';
+import { DualModeOrchestrator, CollaborationTemplates } from '@gemiflow/gemini';
 
 // Create orchestrator
 const orchestrator = new DualModeOrchestrator({
@@ -749,7 +749,7 @@ path = ".agents/skills/sparc-methodology"
 enabled = true
 ```
 
-### .codex/config.toml (Local Overrides)
+### .gemini/config.toml (Local Overrides)
 
 ```toml
 # Local development overrides (gitignored)
@@ -772,7 +772,7 @@ GEMIFLOW_CONFIG=./gemiflow.config.json
 GEMIFLOW_MEMORY_PATH=./.gemiflow/data
 
 # Provider keys
-ANTHROPIC_API_KEY=sk-ant-...
+google_API_KEY=sk-ant-...
 OPENAI_API_KEY=sk-...
 
 # MCP settings
@@ -828,42 +828,42 @@ memory_search({ query: "user profile API", namespace: "tasks" })
 <details>
 <summary><b>API Reference</b></summary>
 
-### CodexInitializer Class
+### geminiInitializer Class
 
 ```typescript
-import { CodexInitializer } from '@gemiflow/codex';
+import { geminiInitializer } from '@gemiflow/gemini';
 
-class CodexInitializer {
+class geminiInitializer {
   /**
-   * Initialize a Codex project
+   * Initialize a gemini project
    */
-  async initialize(options: CodexInitOptions): Promise<CodexInitResult>;
+  async initialize(options: geminiInitOptions): Promise<geminiInitResult>;
 
   /**
    * Preview what would be created without writing files
    */
-  async dryRun(options: CodexInitOptions): Promise<string[]>;
+  async dryRun(options: geminiInitOptions): Promise<string[]>;
 }
 ```
 
-### initializeCodexProject Function
+### initializegeminiProject Function
 
 ```typescript
-import { initializeCodexProject } from '@gemiflow/codex';
+import { initializegeminiProject } from '@gemiflow/gemini';
 
 /**
  * Quick initialization helper
  */
-async function initializeCodexProject(
+async function initializegeminiProject(
   projectPath: string,
-  options?: Partial<CodexInitOptions>
-): Promise<CodexInitResult>;
+  options?: Partial<geminiInitOptions>
+): Promise<geminiInitResult>;
 ```
 
 ### Types
 
 ```typescript
-interface CodexInitOptions {
+interface geminiInitOptions {
   /** Project directory path */
   projectPath: string;
   /** Template to use */
@@ -872,11 +872,11 @@ interface CodexInitOptions {
   skills?: string[];
   /** Overwrite existing files */
   force?: boolean;
-  /** Enable dual mode (Claude Code + Codex) */
+  /** Enable dual mode (Gemini CLI + gemini) */
   dual?: boolean;
 }
 
-interface CodexInitResult {
+interface geminiInitResult {
   /** Whether initialization succeeded */
   success: boolean;
   /** List of files created */
@@ -895,10 +895,10 @@ interface CodexInitResult {
 ### Programmatic Usage
 
 ```typescript
-import { CodexInitializer, initializeCodexProject } from '@gemiflow/codex';
+import { geminiInitializer, initializegeminiProject } from '@gemiflow/gemini';
 
 // Quick initialization
-const result = await initializeCodexProject('/path/to/project', {
+const result = await initializegeminiProject('/path/to/project', {
   template: 'full',
   force: true,
   dual: false,
@@ -909,7 +909,7 @@ console.log(`Skills: ${result.skillsGenerated.length}`);
 console.log(`MCP registered: ${result.mcpRegistered}`);
 
 // Or use the class directly
-const initializer = new CodexInitializer();
+const initializer = new geminiInitializer();
 const result = await initializer.initialize({
   projectPath: '/path/to/project',
   template: 'enterprise',
@@ -928,12 +928,12 @@ if (result.warnings?.length) {
 ---
 
 <details>
-<summary><b>Migration from Claude Code</b></summary>
+<summary><b>Migration from Gemini CLI</b></summary>
 
 ### Convert CLAUDE.md to AGENTS.md
 
 ```typescript
-import { migrate } from '@gemiflow/codex';
+import { migrate } from '@gemiflow/gemini';
 
 const result = await migrate({
   sourcePath: './CLAUDE.md',
@@ -952,7 +952,7 @@ console.log(`Skills generated: ${result.skillsGenerated.length}`);
 2. **Move skills**: `.gemiflow/skills/` → `.agents/skills/`
 3. **Update syntax**: `/skill-name` → `$skill-name`
 4. **Convert settings**: `settings.json` → `config.toml`
-5. **Register MCP**: `codex mcp add gemiflow -- npx gemiflow mcp start`
+5. **Register MCP**: `gemini mcp add gemiflow -- npx gemiflow mcp start`
 
 ### Dual Mode Alternative
 
@@ -975,11 +975,11 @@ This keeps both `CLAUDE.md` and `AGENTS.md` in sync.
 
 ```bash
 # Check if registered
-codex mcp list
+gemini mcp list
 
 # Re-register
-codex mcp remove gemiflow
-codex mcp add gemiflow -- npx gemiflow mcp start
+gemini mcp remove gemiflow
+gemini mcp add gemiflow -- npx gemiflow mcp start
 
 # Test connection
 npx gemiflow mcp test
@@ -1008,7 +1008,7 @@ ls -la .agents/skills/
 cat .agents/config.toml | grep skills
 
 # Rebuild skills
-npx gemiflow@alpha init --codex --force
+npx gemiflow@alpha init --gemini --force
 ```
 
 ### Vector Search Slow

@@ -150,10 +150,10 @@ grep -qE "SHOULD NOT contain.+:.+colon|colon.+delimiter" "$F" || \
 grep -qE "200 chars|≤200" "$F" || miss="$miss length-cap"
 [[ -z "$miss" ]] && ok || bad "guardrail set incomplete:$miss"
 
-# 11. Auto-memory bridge mechanics documented (Claude Code populates claude-memories)
+# 11. Auto-memory bridge mechanics documented (Gemini CLI populates claude-memories)
 step "11. auto-memory bridge mechanics documented (memory_import_claude + auto-memory-hook.mjs)"
 F="$ROOT/README.md"
-if grep -q "How Claude Code populates AgentDB" "$F" \
+if grep -q "How Gemini CLI populates AgentDB" "$F" \
    && grep -q "memory_import_claude" "$F" \
    && grep -q "auto-memory-hook.mjs" "$F" \
    && grep -q "memory_bridge_status" "$F" \

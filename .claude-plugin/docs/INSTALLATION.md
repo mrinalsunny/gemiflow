@@ -4,7 +4,7 @@
 
 ### Method 1: Install from GitHub (Recommended)
 
-In Claude Code:
+In Gemini CLI:
 
 ```
 /plugin add ruvnet/gemiflow
@@ -26,11 +26,11 @@ If you've cloned the repository:
 git clone https://github.com/ruvnet/gemiflow.git
 cd gemiflow
 
-# In Claude Code, install the plugin
+# In Gemini CLI, install the plugin
 /plugin add .
 ```
 
-### Step 2: Restart Claude Code
+### Step 2: Restart Gemini CLI
 
 Restart to activate the plugin:
 
@@ -147,7 +147,7 @@ MCP servers are automatically configured when you install the plugin.
 
 ### Check Plugin Status
 
-In Claude Code:
+In Gemini CLI:
 ```
 /plugin list
 ```
@@ -156,7 +156,7 @@ Look for `gemiflow` in the list with status "active".
 
 ### Test Commands
 
-Type `/` in Claude Code and look for:
+Type `/` in Gemini CLI and look for:
 - Commands starting with `coordination-`
 - Commands starting with `sparc-`
 - Commands starting with `github-`
@@ -164,7 +164,7 @@ Type `/` in Claude Code and look for:
 
 ### Test Agents
 
-Agents are automatically available for Claude Code to delegate to when appropriate.
+Agents are automatically available for Gemini CLI to delegate to when appropriate.
 
 ---
 
@@ -191,7 +191,7 @@ ls -la .claude-plugin/
 ls -la commands/
 ls -la agents/
 
-# Restart Claude Code
+# Restart Gemini CLI
 /restart
 ```
 

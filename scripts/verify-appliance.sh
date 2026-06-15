@@ -448,7 +448,7 @@ if should_run "vault"; then
   if [ "${SKIP_NETWORK:-0}" = "1" ]; then
     check_skip "vault: connectivity" "SKIP_NETWORK=1"
   else
-    check_warn "vault: provider test (anthropic)" $GEMIFLOW_CMD providers test anthropic
+    check_warn "vault: provider test (google)" $GEMIFLOW_CMD providers test google
     check_warn "vault: provider test (openai)" $GEMIFLOW_CMD providers test openai
     check_warn "vault: providers list" $GEMIFLOW_CMD providers list
   fi

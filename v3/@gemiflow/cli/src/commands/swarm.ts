@@ -541,7 +541,7 @@ const startCommand: Command = {
     output.writeln();
     output.printSuccess(`Swarm ${swarmId} initialized with ${totalAgents} agent slots`);
     output.writeln(output.dim('  This CLI coordinates agent state. Execution happens via:'));
-    output.writeln(output.dim('  - Claude Code Agent tool (interactive)'));
+    output.writeln(output.dim('  - Gemini CLI Agent tool (interactive)'));
     output.writeln(output.dim('  - claude -p (headless background)'));
     output.writeln(output.dim('  - hive-mind spawn --claude (autonomous)'));
     output.writeln(output.dim(`  Monitor: gemiflow swarm status ${swarmId}`));
@@ -847,7 +847,7 @@ const coordinateCommand: Command = {
     }
 
     output.writeln();
-    output.writeln(output.dim('Note: Use Claude Code Task tool or hive-mind spawn --claude to'));
+    output.writeln(output.dim('Note: Use Gemini CLI Task tool or hive-mind spawn --claude to'));
     output.writeln(output.dim('drive actual agent execution. This command sets up the topology.'));
 
     return { success: true, data: { agents: v3Agents, count: agentCount } };

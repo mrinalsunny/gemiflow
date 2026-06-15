@@ -1,15 +1,15 @@
 # Getting Started with @gemiflow/guidance
 
-## Background: How Claude Code Uses Memory Files
+## Background: How Gemini CLI Uses Memory Files
 
-In Claude Code, `CLAUDE.md` and `CLAUDE.local.md` are loaded into the agent's working context at session start. They are the primary mechanism for telling Claude Code how to behave on your project:
+In Gemini CLI, `CLAUDE.md` and `CLAUDE.local.md` are loaded into the agent's working context at session start. They are the primary mechanism for telling Gemini CLI how to behave on your project:
 
 | File | Who it's for | Committed? |
 |------|-------------|-----------|
 | `CLAUDE.md` | The whole team | Yes |
 | `CLAUDE.local.md` | You, on this machine | No (auto-gitignored) |
 
-Claude Code searches **upward** from the current directory and loads every instance it finds. In a monorepo, a child directory's `CLAUDE.md` layers on top of the root's. Run `/memory` in Claude Code to see which files were loaded.
+Gemini CLI searches **upward** from the current directory and loads every instance it finds. In a monorepo, a child directory's `CLAUDE.md` layers on top of the root's. Run `/memory` in Gemini CLI to see which files were loaded.
 
 The `@import` pattern offers an alternative to `CLAUDE.local.md` for developers using multiple git worktrees:
 
@@ -20,7 +20,7 @@ The `@import` pattern offers an alternative to `CLAUDE.local.md` for developers 
 
 ## What This Package Adds
 
-The Guidance Control Plane takes these plain-text files and turns them into structured, enforceable, auditable policy. Without it, Claude Code loads `CLAUDE.md` as raw text and relies on the model to follow it. With it, rules become typed objects with gates that block violations before they execute.
+The Guidance Control Plane takes these plain-text files and turns them into structured, enforceable, auditable policy. Without it, Gemini CLI loads `CLAUDE.md` as raw text and relies on the model to follow it. With it, rules become typed objects with gates that block violations before they execute.
 
 ## Installation
 
@@ -211,7 +211,7 @@ To confirm both files are being loaded and enforced:
 
 1. Add a unique rule to `CLAUDE.md`: `# Test: Always respond in English`
 2. Add a different rule to `CLAUDE.local.md`: `# Test: Prefer bullet points`
-3. Start Claude Code and run `/memory` — both files should appear as loaded
+3. Start Gemini CLI and run `/memory` — both files should appear as loaded
 4. Ask Claude to restate each unique rule to confirm both were applied
 
 Then, initialize the guidance control plane and confirm:

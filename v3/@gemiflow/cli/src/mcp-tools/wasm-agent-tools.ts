@@ -105,7 +105,7 @@ export const wasmAgentTools: MCPTool[] = [
       type: 'object' as const,
       properties: {
         template: { type: 'string', description: 'Gallery template name (coder, researcher, tester, reviewer, security, swarm)' },
-        model: { type: 'string', description: 'Model identifier (default: anthropic:claude-sonnet-4-6)' },
+        model: { type: 'string', description: 'Model identifier (default: google:claude-sonnet-4-6)' },
         instructions: { type: 'string', description: 'System instructions for the agent' },
         maxTurns: { type: 'number', description: 'Max conversation turns (default: 50)' },
       },
@@ -334,7 +334,7 @@ export const wasmAgentTools: MCPTool[] = [
       type: 'object' as const,
       properties: {
         name: { type: 'string', description: 'Optional name for the composed agent' },
-        model: { type: 'string', description: 'Model identifier (default: anthropic:claude-sonnet-4-6)' },
+        model: { type: 'string', description: 'Model identifier (default: google:claude-sonnet-4-6)' },
         skills: { type: 'array', items: { type: 'string' }, description: 'Skill names to include' },
         mcpTools: {
           type: 'array',

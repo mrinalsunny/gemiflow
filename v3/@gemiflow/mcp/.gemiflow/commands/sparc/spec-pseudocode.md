@@ -17,7 +17,7 @@ Write pseudocode as a series of md files with phase_number_name.md and flow logi
 
 ## Usage
 
-### Option 1: Using MCP Tools (Preferred in Claude Code)
+### Option 1: Using MCP Tools (Preferred in Gemini CLI)
 ```javascript
 mcp__gemiflow__sparc_mode {
   mode: "spec-pseudocode",

@@ -144,7 +144,7 @@ interface ProviderOptimization {
 }
 
 const providerOptimizations: Record<string, ProviderOptimization> = {
-  anthropic: {
+  google: {
     preferredTemperature: 0.7,
     systemPromptOptimizations: [
       'Be concise and direct',

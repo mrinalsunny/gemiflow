@@ -59,8 +59,8 @@ function mockErrorResponse(status: number): ReturnType<MockFetchResponder> {
   };
 }
 
-/** Build a minimal Anthropic Messages API response shape. */
-function anthropicTextResponse(text: string, inputTokens = 100, outputTokens = 50): unknown {
+/** Build a minimal google Messages API response shape. */
+function googleTextResponse(text: string, inputTokens = 100, outputTokens = 50): unknown {
   return {
     id: 'msg_test',
     type: 'message',
@@ -100,7 +100,7 @@ async function runSmoke(): Promise<void> {
   console.log('\n=== gaia-decomposer smoke (mocked, $0) ===\n');
 
   // Set a fake API key so resolveApiKey() doesn't throw
-  process.env.ANTHROPIC_API_KEY = 'sk-ant-test-key';
+  process.env.google_API_KEY = 'sk-ant-test-key';
 
   // ─────────────────────────────────────────────────────────────────────────
   // Test 1: Atomic question → decomposed=false, single sub-question
@@ -112,7 +112,7 @@ async function runSmoke(): Promise<void> {
       subQuestions: ['What year was the Eiffel Tower built?'],
       synthesisHint: 'Use directly.',
     };
-    installFetchMock(() => mockSuccessResponse(anthropicTextResponse(JSON.stringify(atomicPayload))));
+    installFetchMock(() => mockSuccessResponse(googleTextResponse(JSON.stringify(atomicPayload))));
 
     const result = await decomposeQuestion('What year was the Eiffel Tower built?');
 
@@ -135,7 +135,7 @@ async function runSmoke(): Promise<void> {
       ],
       synthesisHint: 'The answer to sub-question 3 is the final answer.',
     };
-    installFetchMock(() => mockSuccessResponse(anthropicTextResponse(JSON.stringify(complexPayload))));
+    installFetchMock(() => mockSuccessResponse(googleTextResponse(JSON.stringify(complexPayload))));
 
     const question = 'Who directed the highest-grossing film of the decade the Eiffel Tower was built?';
     const result = await decomposeQuestion(question);
@@ -152,7 +152,7 @@ async function runSmoke(): Promise<void> {
   console.log('\n-- Test 3: Malformed JSON fallback --');
   {
     installFetchMock(() =>
-      mockSuccessResponse(anthropicTextResponse('This is not JSON at all { broken')),
+      mockSuccessResponse(googleTextResponse('This is not JSON at all { broken')),
     );
 
     const question = 'What is the capital of France?';
@@ -214,7 +214,7 @@ async function runSmoke(): Promise<void> {
       finalAnswer: 'Georges Méliès',
       reasoning: 'The highest-grossing film of the 1880s was X. Its director was Georges Méliès.',
     };
-    installFetchMock(() => mockSuccessResponse(anthropicTextResponse(JSON.stringify(synthPayload))));
+    installFetchMock(() => mockSuccessResponse(googleTextResponse(JSON.stringify(synthPayload))));
 
     const decomposed: DecomposedQuestion = {
       originalQuestion: 'Who directed the highest-grossing film of the decade the Eiffel Tower was built?',
@@ -244,7 +244,7 @@ async function runSmoke(): Promise<void> {
   console.log('\n-- Test 7: synthesize — malformed JSON fallback --');
   {
     installFetchMock(() =>
-      mockSuccessResponse(anthropicTextResponse('{ bad json here ]]}')),
+      mockSuccessResponse(googleTextResponse('{ bad json here ]]}')),
     );
 
     const decomposed: DecomposedQuestion = {

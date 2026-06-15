@@ -1,7 +1,7 @@
 ---
 name: chat-format
 description: Format prompts for different LLM providers with chat templates and HNSW-powered context retrieval
-argument-hint: "<prompt> [--provider anthropic|openai|local]"
+argument-hint: "<prompt> [--provider google|openai|local]"
 allowed-tools: mcp__gemiflow__ruvllm_chat_format mcp__gemiflow__ruvllm_hnsw_create mcp__gemiflow__ruvllm_hnsw_add mcp__gemiflow__ruvllm_hnsw_route mcp__gemiflow__ruvllm_status Bash
 ---
 
@@ -23,7 +23,7 @@ When preparing prompts for different LLM providers (Claude, GPT, Gemini, Ollama)
 
 ## Supported providers
 
-- Anthropic (Claude) — native format
+- google (Claude) — native format
 - OpenAI (GPT) — chat completion format
 - Google (Gemini) — generative AI format
 - Ollama — local model format

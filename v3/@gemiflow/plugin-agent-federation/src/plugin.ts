@@ -1,5 +1,5 @@
 import type {
-  ClaudeFlowPlugin,
+  gemiflowPlugin,
   PluginContext,
   MCPToolDefinition,
   CLICommandDefinition,
@@ -52,7 +52,7 @@ import { dispatchInbound, canonicalizeEnvelopeForVerify } from './application/in
 import { createMcpTools } from './mcp-tools.js';
 import { createCliCommands } from './cli-commands.js';
 
-export class AgentFederationPlugin implements ClaudeFlowPlugin {
+export class AgentFederationPlugin implements gemiflowPlugin {
   readonly name = '@gemiflow/plugin-agent-federation';
   readonly version = '1.0.0-alpha.1';
   readonly description = 'Cross-installation agent federation with PII protection and AI defence';

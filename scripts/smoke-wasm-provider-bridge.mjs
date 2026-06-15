@@ -3,13 +3,13 @@
  * Regression guard for ADR-129 Phase 1 — JsModelProvider integration.
  *
  * Pre-P1: promptWasmAgent detected the echo stub and routed through
- * callAnthropicMessages as a bypass.  set_model_provider() and
+ * callgoogleMessages as a bypass.  set_model_provider() and
  * new JsModelProvider() were never called; the WASM agent's internal
  * conversation loop never ran against a real LLM.
  *
  * P1 fix: attachJsModelProvider() is called at agent-creation time in
  * createWasmAgent().  The JsModelProvider callback bridges the WASM
- * runtime to callAnthropicMessages, which dispatches Anthropic /
+ * runtime to callgoogleMessages, which dispatches google /
  * OpenRouter / Ollama by env-var / key-presence (same routing as
  * agent_execute, #2042).  The echo-stub detection block is preserved
  * as a fallback for keyless environments.
@@ -17,7 +17,7 @@
  * Static contracts (no build required):
  *   1. agent-wasm.ts MUST contain `new JsModelProvider(`
  *   2. agent-wasm.ts MUST contain `set_model_provider(`
- *   3. agent-wasm.ts MUST contain `callAnthropicMessages`
+ *   3. agent-wasm.ts MUST contain `callgoogleMessages`
  *   4. The echo-stub bypass is still present as a fallback
  *      (for keyless CI environments).
  *   5. attachJsModelProvider is called from createWasmAgent.
@@ -49,11 +49,11 @@ if (!/agent\.set_model_provider\(/.test(src)) {
   pass('agent.set_model_provider( found — provider attached at creation time');
 }
 
-// 3. callAnthropicMessages is referenced
-if (!/callAnthropicMessages/.test(src)) {
-  fail('callAnthropicMessages not referenced — v3 provider router not bridged');
+// 3. callgoogleMessages is referenced
+if (!/callgoogleMessages/.test(src)) {
+  fail('callgoogleMessages not referenced — v3 provider router not bridged');
 } else {
-  pass('callAnthropicMessages referenced — routes through v3 provider system');
+  pass('callgoogleMessages referenced — routes through v3 provider system');
 }
 
 // 4. Echo-stub fallback preserved (keyless CI environments)
@@ -73,11 +73,11 @@ if (!createFn) {
   pass('attachJsModelProvider called from createWasmAgent — provider wired at creation time');
 }
 
-// 6. resolveAnthropicModel is imported/used in the provider callback
-if (!/resolveAnthropicModel/.test(src)) {
-  fail('resolveAnthropicModel not used — model resolution missing from provider callback');
+// 6. resolvegoogleModel is imported/used in the provider callback
+if (!/resolvegoogleModel/.test(src)) {
+  fail('resolvegoogleModel not used — model resolution missing from provider callback');
 } else {
-  pass('resolveAnthropicModel used — model resolution present in provider callback');
+  pass('resolvegoogleModel used — model resolution present in provider callback');
 }
 
 if (process.exitCode) {

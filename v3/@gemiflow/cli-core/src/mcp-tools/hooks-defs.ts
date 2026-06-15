@@ -23,7 +23,7 @@ export const hooksToolDefs: MCPToolDef[] = [
   {
     name: 'hooks_route',
     description:
-      'Get a 3-tier routing recommendation for a task: Tier 1 (Agent Booster, 0ms / $0 — for var-to-const, add-types, etc.), Tier 2 (Haiku — simple), Tier 3 (Sonnet/Opus — complex). Use this BEFORE spawning an agent to avoid sending simple transforms to Sonnet. Native tools have no equivalent — Claude Code does not introspect its own model-selection cost. Returns the recommended model + a `[AGENT_BOOSTER_AVAILABLE]` literal when the WASM bypass applies.',
+      'Get a 3-tier routing recommendation for a task: Tier 1 (Agent Booster, 0ms / $0 — for var-to-const, add-types, etc.), Tier 2 (Haiku — simple), Tier 3 (Sonnet/Opus — complex). Use this BEFORE spawning an agent to avoid sending simple transforms to Sonnet. Native tools have no equivalent — Gemini CLI does not introspect its own model-selection cost. Returns the recommended model + a `[AGENT_BOOSTER_AVAILABLE]` literal when the WASM bypass applies.',
     category: 'hooks',
     inputSchema: {
       type: 'object',
@@ -52,7 +52,7 @@ export const hooksToolDefs: MCPToolDef[] = [
   {
     name: 'hooks_post-task',
     description:
-      'Record task completion outcome — success/failure flag, optional results — so future routing decisions learn from this trajectory. Pair with hooks_pre-task: the (start, end) pair feeds the SONA neural router so subsequent similar tasks pick a better tier next time. No native equivalent — Claude Code does not have a learning loop.',
+      'Record task completion outcome — success/failure flag, optional results — so future routing decisions learn from this trajectory. Pair with hooks_pre-task: the (start, end) pair feeds the SONA neural router so subsequent similar tasks pick a better tier next time. No native equivalent — Gemini CLI does not have a learning loop.',
     category: 'hooks',
     inputSchema: {
       type: 'object',

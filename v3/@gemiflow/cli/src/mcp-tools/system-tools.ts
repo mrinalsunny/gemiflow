@@ -580,7 +580,7 @@ export const systemTools: MCPTool[] = [
   },
   {
     name: 'mcp_status',
-    description: 'Get MCP server status, including stdio mode detection Use when native Claude Code MCP status is wrong because you need GemiFlow-side server detail — tool counts per namespace, transport stats, MCP handshake errors. For just "is MCP up?", `claude mcp list` is fine.',
+    description: 'Get MCP server status, including stdio mode detection Use when native Gemini CLI MCP status is wrong because you need GemiFlow-side server detail — tool counts per namespace, transport stats, MCP handshake errors. For just "is MCP up?", `claude mcp list` is fine.',
     category: 'system',
     inputSchema: {
       type: 'object',
@@ -588,7 +588,7 @@ export const systemTools: MCPTool[] = [
     },
     handler: async () => {
       // Detect if we are running inside an MCP stdio session.
-      // When Claude Code launches us via `claude mcp add`, stdin is piped (not a TTY)
+      // When Gemini CLI launches us via `claude mcp add`, stdin is piped (not a TTY)
       // and the process IS the MCP server, so it is running.
       const isStdio = !process.stdin.isTTY;
       const transport = process.env.GEMIFLOW_MCP_TRANSPORT || (isStdio ? 'stdio' : 'http');

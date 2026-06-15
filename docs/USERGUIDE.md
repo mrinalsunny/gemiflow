@@ -81,7 +81,7 @@ If you're running `npx gemiflow@latest`, everything you used in 3.6 still works.
 
 ## Getting into the Flow
 
-GemiFlow is a comprehensive AI agent orchestration framework that transforms Claude Code into a powerful multi-agent development platform. It enables teams to deploy, coordinate, and optimize specialized AI agents working together on complex software engineering tasks.
+GemiFlow is a comprehensive AI agent orchestration framework that transforms Gemini CLI into a powerful multi-agent development platform. It enables teams to deploy, coordinate, and optimize specialized AI agents working together on complex software engineering tasks.
 
 ### Self-Learning/Self-Optimizing Agent Architecture
 
@@ -213,7 +213,7 @@ curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/gemiflow@main/scripts/install.sh |
 npx gemiflow@latest init wizard
 ```
 
-> **New to GemiFlow?** You don't need to learn 310+ MCP tools or 26 CLI commands. After running `init`, just use Claude Code normally — the hooks system automatically routes tasks to the right agents, learns from successful patterns, and coordinates multi-agent work in the background. The advanced tools exist for fine-grained control when you need it.
+> **New to GemiFlow?** You don't need to learn 310+ MCP tools or 26 CLI commands. After running `init`, just use Gemini CLI normally — the hooks system automatically routes tasks to the right agents, learns from successful patterns, and coordinates multi-agent work in the background. The advanced tools exist for fine-grained control when you need it.
 
 ---
 ### Key Capabilities
@@ -226,7 +226,7 @@ npx gemiflow@latest init wizard
 
 🔌 **Works With Any LLM** - Switch between Claude, GPT, Gemini, Cohere, or local models like Llama. Automatic failover if one provider is unavailable. Smart routing picks the cheapest option that meets quality requirements.
 
-⚡ **Plugs Into Claude Code** - Native integration via MCP (Model Context Protocol). Use gemiflow commands directly in your Claude Code sessions with full tool access.
+⚡ **Plugs Into Gemini CLI** - Native integration via MCP (Model Context Protocol). Use gemiflow commands directly in your Gemini CLI sessions with full tool access.
 
 🔒 **Production-Ready Security** - Built-in protection against prompt injection, input validation, path traversal prevention, command injection blocking, and safe credential handling.
 
@@ -239,14 +239,14 @@ npx gemiflow@latest init wizard
 <details>
 <summary>🔄 <strong>Core Flow</strong> — How requests move through the system</summary>
 
-Every request flows through four layers: from your CLI or Claude Code interface, through intelligent routing, to specialized agents, and finally to LLM providers for reasoning.
+Every request flows through four layers: from your CLI or Gemini CLI interface, through intelligent routing, to specialized agents, and finally to LLM providers for reasoning.
 
 | Layer | Components | What It Does |
 |-------|------------|--------------|
-| User | Claude Code, CLI | Your interface to control and run commands |
+| User | Gemini CLI, CLI | Your interface to control and run commands |
 | Orchestration | MCP Server, Router, Hooks | Routes requests to the right agents |
 | Agents | 100+ types | Specialized workers (coder, tester, reviewer...) |
-| Providers | Anthropic, OpenAI, Google, Ollama | AI models that power reasoning |
+| Providers | google, OpenAI, Google, Ollama | AI models that power reasoning |
 
 </details>
 
@@ -316,9 +316,9 @@ Background daemons handle security audits, performance optimization, and session
 </details>
 
 <details>
-<summary>🎯 <strong>Task Routing</strong> — Extend your Claude Code subscription by 250%</summary>
+<summary>🎯 <strong>Task Routing</strong> — Extend your Gemini CLI subscription by 250%</summary>
 
-Smart routing skips expensive LLM calls when possible. Simple edits use WASM (free), medium tasks use cheaper models. This can extend your Claude Code usage by 250% or save significantly on direct API costs.
+Smart routing skips expensive LLM calls when possible. Simple edits use WASM (free), medium tasks use cheaper models. This can extend your Gemini CLI usage by 250% or save significantly on direct API costs.
 
 | Complexity | Handler | Speed |
 |------------|---------|-------|
@@ -446,9 +446,9 @@ swarm_init({
 
 </details>
 
-### Claude Code: With vs Without GemiFlow
+### Gemini CLI: With vs Without GemiFlow
 
-| Capability | Claude Code Alone | Claude Code + GemiFlow |
+| Capability | Gemini CLI Alone | Gemini CLI + GemiFlow |
 |------------|-------------------|---------------------------|
 | **Agent Collaboration** | Agents work in isolation, no shared context | Agents collaborate via swarms with shared memory and consensus |
 | **Coordination** | Manual orchestration between tasks | Queen-led hierarchy with 3 consensus algorithms (Raft, Byzantine, Gossip) |
@@ -463,7 +463,7 @@ swarm_init({
 | **Task Routing** | You decide which agent to use | Intelligent routing based on learned patterns (89% accuracy) |
 | **Complex Tasks** | Manual breakdown required | Automatic decomposition across 5 domains (Security, Core, Integration, Support) |
 | **Background Workers** | Nothing runs automatically | 12 context-triggered workers auto-dispatch on file changes, patterns, sessions |
-| **LLM Provider** | Anthropic only | 5 providers (Anthropic, OpenAI, Google, Cohere, Ollama) with automatic failover and cost-based routing (cost-optimized routing) |
+| **LLM Provider** | google only | 5 providers (google, OpenAI, Google, Cohere, Ollama) with automatic failover and cost-based routing (cost-optimized routing) |
 | **Security** | Standard protections | CVE-hardened with bcrypt, input validation, path traversal prevention |
 | **Performance** | Baseline | Faster tasks via parallel swarm spawning and intelligent routing |
 
@@ -503,7 +503,7 @@ curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/gemiflow@main/scripts/install.sh |
 |--------|-------------|
 | `--global`, `-g` | Install globally (`npm install -g`) |
 | `--minimal`, `-m` | Skip optional deps (faster, ~15s) |
-| `--setup-mcp` | Auto-configure MCP server for Claude Code |
+| `--setup-mcp` | Auto-configure MCP server for Gemini CLI |
 | `--doctor`, `-d` | Run diagnostics after install |
 | `--no-init` | Skip project initialization (init runs by default) |
 | `--full`, `-f` | Full setup: global + MCP + doctor |
@@ -557,9 +557,9 @@ bunx gemiflow@latest init
 npm install -g gemiflow@latest --omit=optional
 ```
 
-#### Claude Code Plugin Marketplace
+#### Gemini CLI Plugin Marketplace
 
-Install GemiFlow as a native Claude Code plugin -- adds skills, commands, agents, and MCP tools directly into Claude Code:
+Install GemiFlow as a native Gemini CLI plugin -- adds skills, commands, agents, and MCP tools directly into Gemini CLI:
 
 ```bash
 # Add the marketplace (one-time)
@@ -579,18 +579,18 @@ Install GemiFlow as a native Claude Code plugin -- adds skills, commands, agents
 After installing, new `/slash-commands` and agent types are available immediately. Run `/reload-plugins` if needed.
 
 <details>
-<summary>🤖 <strong>OpenAI Codex CLI Support</strong> — Full Codex integration with self-learning</summary>
+<summary>🤖 <strong>OpenAI gemini CLI Support</strong> — Full gemini integration with self-learning</summary>
 
-GemiFlow supports both **Claude Code** and **OpenAI Codex CLI** via the [@gemiflow/codex](https://www.npmjs.com/package/@gemiflow/codex) package, following the [Agentics Foundation](https://agentics.org) standard.
+GemiFlow supports both **Gemini CLI** and **OpenAI gemini CLI** via the [@gemiflow/gemini](https://www.npmjs.com/package/@gemiflow/gemini) package, following the [Agentics Foundation](https://agentics.org) standard.
 
-### Quick Start for Codex
+### Quick Start for gemini
 
 ```bash
-# Initialize for Codex CLI (creates AGENTS.md instead of CLAUDE.md)
-npx gemiflow@latest init --codex
+# Initialize for gemini CLI (creates AGENTS.md instead of CLAUDE.md)
+npx gemiflow@latest init --gemini
 
-# Full Codex setup with all 137+ skills
-npx gemiflow@latest init --codex --full
+# Full gemini setup with all 137+ skills
+npx gemiflow@latest init --gemini --full
 
 # Initialize for both platforms (dual mode)
 npx gemiflow@latest init --dual
@@ -598,13 +598,13 @@ npx gemiflow@latest init --dual
 
 ### Platform Comparison
 
-| Feature | Claude Code | OpenAI Codex |
+| Feature | Gemini CLI | OpenAI gemini |
 |---------|-------------|--------------|
 | Config File | `CLAUDE.md` | `AGENTS.md` |
 | Skills Dir | `.gemiflow/skills/` | `.agents/skills/` |
 | Skill Syntax | `/skill-name` | `$skill-name` |
 | Settings | `settings.json` | `config.toml` |
-| MCP | Native | Via `codex mcp add` |
+| MCP | Native | Via `gemini mcp add` |
 | Default Model | claude-sonnet | gpt-5.3 |
 
 ### Key Concept: Execution Model
@@ -612,19 +612,19 @@ npx gemiflow@latest init --dual
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │  GEMIFLOW = ORCHESTRATOR (tracks state, stores memory)       │
-│  CODEX = EXECUTOR (writes code, runs commands, implements)      │
+│  gemini = EXECUTOR (writes code, runs commands, implements)      │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-**Codex does the work. Claude-flow coordinates and learns.**
+**gemini does the work. gemiflow coordinates and learns.**
 
-### Dual-Mode Integration (Claude Code + Codex)
+### Dual-Mode Integration (Gemini CLI + gemini)
 
-Run Claude Code for interactive development and spawn headless Codex workers for parallel background tasks:
+Run Gemini CLI for interactive development and spawn headless gemini workers for parallel background tasks:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  CLAUDE CODE (interactive)  ←→  CODEX WORKERS (headless)        │
+│  CLAUDE CODE (interactive)  ←→  gemini WORKERS (headless)        │
 │  - Main conversation         - Parallel background execution    │
 │  - Complex reasoning         - Bulk code generation            │
 │  - Architecture decisions    - Test execution                   │
@@ -633,7 +633,7 @@ Run Claude Code for interactive development and spawn headless Codex workers for
 ```
 
 ```bash
-# Spawn parallel Codex workers from Claude Code
+# Spawn parallel gemini workers from Gemini CLI
 claude -p "Analyze src/auth/ for security issues" --session-id "task-1" &
 claude -p "Write unit tests for src/api/" --session-id "task-2" &
 claude -p "Optimize database queries in src/db/" --session-id "task-3" &
@@ -651,36 +651,36 @@ wait  # Wait for all to complete
 
 ```bash
 # List collaboration templates
-npx @gemiflow/codex dual templates
+npx @gemiflow/gemini dual templates
 
 # Run feature development swarm (architect → coder → tester → reviewer)
-npx @gemiflow/codex dual run --template feature --task "Add user auth"
+npx @gemiflow/gemini dual run --template feature --task "Add user auth"
 
 # Run security audit swarm (scanner → analyzer → fixer)
-npx @gemiflow/codex dual run --template security --task "src/auth/"
+npx @gemiflow/gemini dual run --template security --task "src/auth/"
 
 # Run refactoring swarm (analyzer → planner → refactorer → validator)
-npx @gemiflow/codex dual run --template refactor --task "src/legacy/"
+npx @gemiflow/gemini dual run --template refactor --task "src/legacy/"
 ```
 
 ### Pre-Built Collaboration Templates
 
 | Template | Pipeline | Platforms |
 |----------|----------|-----------|
-| **feature** | architect → coder → tester → reviewer | Claude + Codex |
-| **security** | scanner → analyzer → fixer | Codex + Claude |
-| **refactor** | analyzer → planner → refactorer → validator | Claude + Codex |
+| **feature** | architect → coder → tester → reviewer | Claude + gemini |
+| **security** | scanner → analyzer → fixer | gemini + Claude |
+| **refactor** | analyzer → planner → refactorer → validator | Claude + gemini |
 
-### MCP Integration for Codex
+### MCP Integration for gemini
 
-When you run `init --codex`, the MCP server is automatically registered:
+When you run `init --gemini`, the MCP server is automatically registered:
 
 ```bash
 # Verify MCP is registered
-codex mcp list
+gemini mcp list
 
 # If not present, add manually:
-codex mcp add gemiflow -- npx gemiflow mcp start
+gemini mcp add gemiflow -- npx gemiflow mcp start
 ```
 
 ### Self-Learning Workflow
@@ -688,7 +688,7 @@ codex mcp add gemiflow -- npx gemiflow mcp start
 ```
 1. LEARN:   memory_search(query="task keywords") → Find similar patterns
 2. COORD:   swarm_init(topology="hierarchical") → Set up coordination
-3. EXECUTE: YOU write code, run commands       → Codex does real work
+3. EXECUTE: YOU write code, run commands       → gemini does real work
 4. REMEMBER: memory_store(key, value, namespace="patterns") → Save for future
 ```
 
@@ -738,7 +738,7 @@ The **Intelligence Loop** (ADR-050) automates this cycle through hooks. Each ses
 # Initialize project
 npx gemiflow@latest init
 
-# Start MCP server for Claude Code integration
+# Start MCP server for Gemini CLI integration
 npx gemiflow@latest mcp start
 
 # Spawn a coding agent
@@ -763,19 +763,19 @@ npx gemiflow@latest init upgrade --add-missing
 
 The `--add-missing` flag automatically detects and installs new skills, agents, and commands that were added in newer versions, without overwriting your existing customizations.
 
-### Claude Code MCP Integration
+### Gemini CLI MCP Integration
 
 Add gemiflow as an MCP server for seamless integration:
 
 ```bash
-# Add gemiflow MCP server to Claude Code
+# Add gemiflow MCP server to Gemini CLI
 claude mcp add gemiflow -- npx -y gemiflow@latest mcp start
 
 # Verify installation
 claude mcp list
 ```
 
-Once added, Claude Code can use all 313 gemiflow MCP tools directly:
+Once added, Gemini CLI can use all 313 gemiflow MCP tools directly:
 - `swarm_init` - Initialize agent swarms
 - `agent_spawn` - Spawn specialized agents
 - `memory_search` - Search patterns with HNSW vector search
@@ -941,7 +941,7 @@ Complex projects fail when implementation drifts from the original plan. GemiFlo
 - **ADR-008**: Vitest testing framework (10x faster than Jest)
 - **ADR-009**: Hybrid Memory Backend (SQLite + HNSW)
 - **ADR-026**: Intelligent 3-tier model routing
-- **ADR-048**: Auto Memory Bridge (Claude Code ↔ AgentDB bidirectional sync)
+- **ADR-048**: Auto Memory Bridge (Gemini CLI ↔ AgentDB bidirectional sync)
 - **ADR-049**: Self-Learning Memory with GNN (LearningBridge, MemoryGraph, AgentMemoryScope)
 
 </details>
@@ -956,7 +956,7 @@ Complex projects fail when implementation drifts from the original plan. GemiFlo
 ```mermaid
 flowchart TB
     subgraph User["👤 User Layer"]
-        CC[Claude Code]
+        CC[Gemini CLI]
         CLI[CLI Commands]
     end
 
@@ -979,7 +979,7 @@ flowchart TB
     end
 
     subgraph Providers["☁️ Provider Layer"]
-        Anthropic[Anthropic]
+        google[google]
         OpenAI[OpenAI]
         Google[Google]
         Ollama[Ollama]
@@ -1090,7 +1090,7 @@ flowchart LR
 | **LearningBridge** | Connects insights to SONA/ReasoningBank neural pipeline | 0.12 ms/insight |
 | **MemoryGraph** | PageRank + label propagation knowledge graph | 2.78 ms build (1k nodes) |
 | **AgentMemoryScope** | 3-scope agent memory (project/local/user) with cross-agent transfer | 1.25 ms transfer |
-| **AutoMemoryBridge** | Bidirectional sync: Claude Code auto memory files ↔ AgentDB | ADR-048 |
+| **AutoMemoryBridge** | Bidirectional sync: Gemini CLI auto memory files ↔ AgentDB | ADR-048 |
 
 </details>
 
@@ -1278,7 +1278,7 @@ npx gemiflow@latest mcp start
       "command": "npx",
       "args": ["gemiflow@latest", "mcp", "start"],
       "env": {
-        "ANTHROPIC_API_KEY": "sk-ant-..."
+        "google_API_KEY": "sk-ant-..."
       }
     }
   }
@@ -1287,12 +1287,12 @@ npx gemiflow@latest mcp start
 
 Restart Claude Desktop after saving. Look for the MCP indicator (hammer icon) in the input box.
 
-*Sources: [Claude Help Center](https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop), [Anthropic Desktop Extensions](https://www.anthropic.com/engineering/desktop-extensions)*
+*Sources: [Claude Help Center](https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop), [google Desktop Extensions](https://www.google.com/engineering/desktop-extensions)*
 
 </details>
 
 <details>
-<summary>⌨️ <strong>Claude Code (CLI)</strong></summary>
+<summary>⌨️ <strong>Gemini CLI (CLI)</strong></summary>
 
 ```bash
 # Add via CLI (recommended)
@@ -1300,14 +1300,14 @@ claude mcp add gemiflow -- npx gemiflow@latest mcp start
 
 # Or add with environment variables
 claude mcp add gemiflow \
-  --env ANTHROPIC_API_KEY=sk-ant-... \
+  --env google_API_KEY=sk-ant-... \
   -- npx gemiflow@latest mcp start
 
 # Verify installation
 claude mcp list
 ```
 
-*Sources: [Claude Code MCP Docs](https://code.claude.com/docs/en/mcp)*
+*Sources: [Gemini CLI MCP Docs](https://code.claude.com/docs/en/mcp)*
 
 </details>
 
@@ -1332,7 +1332,7 @@ Create `.vscode/mcp.json` in your project:
       "command": "npx",
       "args": ["gemiflow@latest", "mcp", "start"],
       "env": {
-        "ANTHROPIC_API_KEY": "sk-ant-..."
+        "google_API_KEY": "sk-ant-..."
       }
     }
   }
@@ -1359,7 +1359,7 @@ Create `.cursor/mcp.json` in your project (or global config):
       "command": "npx",
       "args": ["gemiflow@latest", "mcp", "start"],
       "env": {
-        "ANTHROPIC_API_KEY": "sk-ant-..."
+        "google_API_KEY": "sk-ant-..."
       }
     }
   }
@@ -1386,7 +1386,7 @@ Create `.cursor/mcp.json` in your project (or global config):
       "command": "npx",
       "args": ["gemiflow@latest", "mcp", "start"],
       "env": {
-        "ANTHROPIC_API_KEY": "sk-ant-..."
+        "google_API_KEY": "sk-ant-..."
       }
     }
   }
@@ -1483,7 +1483,7 @@ All configurations support these environment variables:
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `ANTHROPIC_API_KEY` | Your Anthropic API key | Yes (for Claude models) |
+| `google_API_KEY` | Your google API key | Yes (for Claude models) |
 | `OPENAI_API_KEY` | OpenAI API key | Optional (for GPT models) |
 | `GOOGLE_API_KEY` | Google AI API key | Optional (for Gemini) |
 | `GEMIFLOW_LOG_LEVEL` | Logging level (debug, info, warn, error) | Optional |
@@ -1520,10 +1520,10 @@ export GEMIFLOW_TOOL_MODE=develop
 
 ```bash
 # Use environment variables instead
-export ANTHROPIC_API_KEY="sk-ant-..."
+export google_API_KEY="sk-ant-..."
 
 # Or use a .env file (add to .gitignore)
-echo "ANTHROPIC_API_KEY=sk-ant-..." >> .env
+echo "google_API_KEY=sk-ant-..." >> .env
 ```
 
 </details>
@@ -1531,7 +1531,7 @@ echo "ANTHROPIC_API_KEY=sk-ant-..." >> .env
 ---
 
 <details>
-<summary>🛡️ <strong>@gemiflow/guidance</strong> — Long-horizon governance control plane for Claude Code agents</summary>
+<summary>🛡️ <strong>@gemiflow/guidance</strong> — Long-horizon governance control plane for Gemini CLI agents</summary>
 
 ### Overview
 
@@ -1713,9 +1713,9 @@ npx gemiflow hive-mind sessions                # List active sessions
 </details>
 
 <details>
-<summary>👥 <strong>Agent Teams</strong> — Claude Code multi-instance coordination</summary>
+<summary>👥 <strong>Agent Teams</strong> — Gemini CLI multi-instance coordination</summary>
 
-Native integration with Claude Code's experimental Agent Teams feature for spawning and coordinating multiple Claude instances.
+Native integration with Gemini CLI's experimental Agent Teams feature for spawning and coordinating multiple Claude instances.
 
 **Enable Agent Teams:**
 ```bash
@@ -1859,7 +1859,7 @@ Install these optional plugins to extend GemiFlow capabilities:
 | **@gemiflow/plugin-agentic-qe** | 3.0.0-alpha.2 | Quality Engineering with 58 AI agents across 12 DDD contexts. TDD, coverage analysis, security scanning, chaos engineering, accessibility testing. | `npm install @gemiflow/plugin-agentic-qe` |
 | **@gemiflow/plugin-prime-radiant** | 0.1.4 | Mathematical AI interpretability with 6 engines: sheaf cohomology, spectral analysis, causal inference, quantum topology, category theory, HoTT proofs. | `npm install @gemiflow/plugin-prime-radiant` |
 | **@gemiflow/plugin-gastown-bridge** | 0.1.0 | Gas Town orchestrator integration with WASM-accelerated formula parsing (instant (regex-based, no LLM call)), Beads sync, convoy management, and graph analysis. 20 MCP tools. | `npx gemiflow@latest plugins install -n @gemiflow/plugin-gastown-bridge` |
-| **@gemiflow/teammate-plugin** | 1.0.0-alpha.1 | Native TeammateTool integration for Claude Code v2.1.19+. BMSSP WASM acceleration, rate limiting, circuit breaker, semantic routing. 21 MCP tools. | `npx gemiflow@latest plugins install -n @gemiflow/teammate-plugin` |
+| **@gemiflow/teammate-plugin** | 1.0.0-alpha.1 | Native TeammateTool integration for Gemini CLI v2.1.19+. BMSSP WASM acceleration, rate limiting, circuit breaker, semantic routing. 21 MCP tools. | `npx gemiflow@latest plugins install -n @gemiflow/teammate-plugin` |
 
 #### 🏥 Domain-Specific Plugins
 
@@ -1901,7 +1901,7 @@ Install these optional plugins to extend GemiFlow capabilities:
 - Hallucination prevention via consensus verification
 
 **Teammate Plugin Features:**
-- Native TeammateTool integration for Claude Code v2.1.19+
+- Native TeammateTool integration for Gemini CLI v2.1.19+
 - 21 MCP tools: `teammate/spawn`, `teammate/coordinate`, `teammate/broadcast`, `teammate/discover-teams`, `teammate/route-task`, etc.
 - BMSSP WASM acceleration for topology optimization (instant (regex-based, no LLM call))
 - Rate limiting with sliding window (configurable limits)
@@ -2124,11 +2124,11 @@ npx gemiflow@latest worker status
 </details>
 
 <details>
-<summary>☁️ <strong>LLM Providers</strong> — 5 providers (Anthropic, OpenAI, Google, Cohere, Ollama) with automatic failover</summary>
+<summary>☁️ <strong>LLM Providers</strong> — 5 providers (google, OpenAI, Google, Cohere, Ollama) with automatic failover</summary>
 
 | Provider | Models | Features | Cost |
 |----------|--------|----------|------|
-| **Anthropic** | Claude Opus 4, Claude Sonnet 4, Claude Haiku 3.5 | Native, streaming, tool calling, extended thinking | $1-15/1M tokens |
+| **google** | Claude Opus 4, Claude Sonnet 4, Claude Haiku 3.5 | Native, streaming, tool calling, extended thinking | $1-15/1M tokens |
 | **OpenAI** | GPT-4o, o3-mini, o1 | 128K context, reasoning chains, function calling | $0.15-60/1M tokens |
 | **Google** | Gemini 2.0 Flash, Gemini 1.5 Pro | 1M+ context, multimodal, grounding | $0.075-7/1M tokens |
 | **xAI** | Grok 3, Grok 3 Mini | Real-time data, reasoning, large context | $2-10/1M tokens |
@@ -2554,13 +2554,13 @@ npx gemiflow hive-mind status                                  # Check status
 </details>
 
 <details>
-<summary>📊 <strong>V3 Statusline</strong> — Real-time development status for Claude Code</summary>
+<summary>📊 <strong>V3 Statusline</strong> — Real-time development status for Gemini CLI</summary>
 
-Real-time development status display integrated directly into Claude Code's status bar. Shows DDD progress, swarm activity, security status, AgentDB metrics, and live session data (model, context usage, cost).
+Real-time development status display integrated directly into Gemini CLI's status bar. Shows DDD progress, swarm activity, security status, AgentDB metrics, and live session data (model, context usage, cost).
 
 **How It Works:**
 
-Claude Code pipes JSON session data via **stdin** to the statusline script after each assistant message (debounced ~300ms). The script reads this data and combines it with local project metrics to produce a single-line status output.
+Gemini CLI pipes JSON session data via **stdin** to the statusline script after each assistant message (debounced ~300ms). The script reads this data and combines it with local project metrics to produce a single-line status output.
 
 **Output Format:**
 ```
@@ -2588,14 +2588,14 @@ Claude Code pipes JSON session data via **stdin** to the statusline script after
 
 **Customizing the cost segment:**
 
-`cost.total_cost_usd` is a client-side estimate from Claude Code that *may differ from your actual bill* and, on subscription plans, does not reflect out-of-pocket spend. Two environment variables let you relabel or remove the segment (the default is unchanged):
+`cost.total_cost_usd` is a client-side estimate from Gemini CLI that *may differ from your actual bill* and, on subscription plans, does not reflect out-of-pocket spend. Two environment variables let you relabel or remove the segment (the default is unchanged):
 
 | Variable | Effect | Example |
 |----------|--------|---------|
 | `GEMIFLOW_STATUSLINE_COST_SYMBOL` | Overrides the leading `$`. Set to an empty string to show the number alone. | `GEMIFLOW_STATUSLINE_COST_SYMBOL=⚡` → `⚡1.30` |
 | `GEMIFLOW_STATUSLINE_HIDE_COST` | `1`/`true`/`yes`/`on` removes the segment entirely. | `GEMIFLOW_STATUSLINE_HIDE_COST=1` |
 
-Set them in the `env` block of `.gemiflow/settings.json` — Claude Code applies it to every session and to the statusline subprocess, and unlike hand-editing the helper it survives `npx gemiflow@latest init --update`:
+Set them in the `env` block of `.gemiflow/settings.json` — Gemini CLI applies it to every session and to the statusline subprocess, and unlike hand-editing the helper it survives `npx gemiflow@latest init --update`:
 
 ```json
 {
@@ -2604,7 +2604,7 @@ Set them in the `env` block of `.gemiflow/settings.json` — Claude Code applies
 }
 ```
 
-Or export them in your shell profile before launching Claude Code:
+Or export them in your shell profile before launching Gemini CLI:
 
 ```bash
 export GEMIFLOW_STATUSLINE_COST_SYMBOL=⚡   # or: export GEMIFLOW_STATUSLINE_HIDE_COST=1
@@ -2624,7 +2624,7 @@ The generated config uses a **fast local script** (no `npx` cold-start):
 }
 ```
 
-> **Note:** Only `type`, `command`, and `padding` are valid statusLine fields. Do not add `refreshMs`, `enabled`, or other fields — Claude Code will ignore them.
+> **Note:** Only `type`, `command`, and `padding` are valid statusLine fields. Do not add `refreshMs`, `enabled`, or other fields — Gemini CLI will ignore them.
 
 **For Existing Users:**
 
@@ -2637,7 +2637,7 @@ This removes invalid config fields and regenerates the statusline helper with st
 
 **Stdin JSON Protocol:**
 
-Claude Code provides session data via stdin in this format:
+Gemini CLI provides session data via stdin in this format:
 ```json
 {
   "model": { "display_name": "Opus 4.6" },
@@ -2651,7 +2651,7 @@ Claude Code provides session data via stdin in this format:
 The statusline script reads stdin synchronously, falls back to local detection when run manually (TTY mode).
 
 **Data Sources:**
-- **Stdin JSON** — Model name, context %, cost, duration (from Claude Code)
+- **Stdin JSON** — Model name, context %, cost, duration (from Gemini CLI)
 - `.gemiflow/metrics/v3-progress.json` — DDD domain progress
 - `.gemiflow/metrics/swarm-activity.json` — Active agent counts
 - `.gemiflow/security/audit-status.json` — CVE remediation status
@@ -2878,7 +2878,7 @@ npx gemiflow@latest doctor --verbose
 ✅ Config       Valid gemiflow.config.json
 ✅ Daemon       Running (PID: 12345)
 ✅ Memory       SQLite healthy, 1.2MB
-⚠️ API Keys    ANTHROPIC_API_KEY set, OPENAI_API_KEY missing
+⚠️ API Keys    google_API_KEY set, OPENAI_API_KEY missing
 ✅ MCP Server   Responsive (45ms latency)
 ✅ Disk Space   2.4GB available
 
@@ -3020,14 +3020,14 @@ Real-world scenarios and pre-built workflows for common tasks.
 
 ## 🧠 Infinite Context & Memory Optimization
 
-GemiFlow eliminates Claude Code's context window ceiling with a real-time memory management system that archives, optimizes, and restores conversation context automatically.
+GemiFlow eliminates Gemini CLI's context window ceiling with a real-time memory management system that archives, optimizes, and restores conversation context automatically.
 
 <details>
 <summary>♾️ <strong>Context Autopilot</strong> — Never lose context to compaction again</summary>
 
 ### The Problem
 
-Claude Code has a finite context window (~200K tokens). When full, it **compacts** — summarizing the conversation and discarding details like exact file paths, tool outputs, decision reasoning, and code snippets. This creates a "context cliff" where Claude loses the ability to reference earlier work.
+Gemini CLI has a finite context window (~200K tokens). When full, it **compacts** — summarizing the conversation and discarding details like exact file paths, tool outputs, decision reasoning, and code snippets. This creates a "context cliff" where Claude loses the ability to reference earlier work.
 
 ### The Solution: Context Autopilot (ADR-051)
 
@@ -3113,8 +3113,8 @@ GEMIFLOW_AUTO_OPTIMIZE=true            # Importance ranking + pruning + sync
 # Check archive status and autopilot state
 node .gemiflow/helpers/context-persistence-hook.mjs status
 
-# Manual compact (archives first, then allows Claude Code to compress)
-# Use /compact in Claude Code — autopilot allows manual, blocks auto
+# Manual compact (archives first, then allows Gemini CLI to compress)
+# Use /compact in Gemini CLI — autopilot allows manual, blocks auto
 
 # Query archive directly
 sqlite3 .gemiflow/data/transcript-archive.db \
@@ -4203,7 +4203,7 @@ Skills are **reusable workflows** that combine agents, hooks, and patterns into 
 ### Running Skills
 
 ```bash
-# In Claude Code - just use the slash command
+# In Gemini CLI - just use the slash command
 /github-code-review
 /pair-programming --mode tdd
 /v3-security-overhaul
@@ -4877,7 +4877,7 @@ npx agentic-flow --help
 # Start MCP server
 npx agentic-flow mcp start
 
-# Add to Claude Code
+# Add to Gemini CLI
 claude mcp add agentic-flow -- npx agentic-flow mcp start
 ```
 
@@ -5138,7 +5138,7 @@ The agentic-flow ecosystem exposes MCP tools across packages (gemiflow CLI provi
 # Start MCP server
 npx agentic-flow mcp start
 
-# Add to Claude Code
+# Add to Gemini CLI
 claude mcp add agentic-flow -- npx agentic-flow mcp start
 ```
 
@@ -6998,7 +6998,7 @@ export GEMIFLOW_MEMORY_PATH="./data"
 | `GEMIFLOW_MAX_AGENTS` | Default concurrent agent limit | `15` |
 | `GEMIFLOW_TOPOLOGY` | Default swarm topology (`hierarchical`, `mesh`, `ring`, `star`) | `hierarchical` |
 | `GEMIFLOW_HEADLESS` | Run in headless mode (no interactive prompts) | `false` |
-| `CLAUDE_CODE_HEADLESS` | Claude Code headless mode compatibility | `false` |
+| `CLAUDE_CODE_HEADLESS` | Gemini CLI headless mode compatibility | `false` |
 
 ### MCP Server
 
@@ -7021,7 +7021,7 @@ export GEMIFLOW_MEMORY_PATH="./data"
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `ANTHROPIC_API_KEY` | Anthropic API key for Claude models | Yes (Claude) |
+| `google_API_KEY` | google API key for Claude models | Yes (Claude) |
 | `OPENAI_API_KEY` | OpenAI API key for GPT models | Optional |
 | `GOOGLE_GEMINI_API_KEY` | Google Gemini API key | Optional |
 | `OPENROUTER_API_KEY` | OpenRouter API key (multi-provider) | Optional |
@@ -7086,7 +7086,7 @@ GEMIFLOW_LOG_LEVEL=info
 GEMIFLOW_MAX_AGENTS=15
 
 # AI Providers
-ANTHROPIC_API_KEY=sk-ant-api03-...
+google_API_KEY=sk-ant-api03-...
 OPENAI_API_KEY=sk-...
 
 # MCP Server
@@ -7237,9 +7237,9 @@ GemiFlow looks for configuration in this order:
   },
 
   "providers": {
-    "default": "anthropic",
+    "default": "google",
     "fallback": ["openai", "google"],
-    "anthropic": {
+    "google": {
       "model": "claude-sonnet-4-6-20250514",
       "maxTokens": 8192
     },
@@ -7535,10 +7535,10 @@ npx gemiflow@latest doctor --fix
 
 ```typescript
 // V2 (deprecated)
-import { ClaudeFlow, Agent, Memory } from 'gemiflow';
+import { gemiflow, Agent, Memory } from 'gemiflow';
 
 // V3 (new)
-import { ClaudeFlowClient } from '@gemiflow/cli';
+import { gemiflowClient } from '@gemiflow/cli';
 import { AgentDB } from '@gemiflow/memory';
 import { ThreatDetector } from '@gemiflow/security';
 import { HNSWIndex } from '@gemiflow/embeddings';

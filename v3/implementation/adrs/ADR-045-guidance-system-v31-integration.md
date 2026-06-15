@@ -7,7 +7,7 @@
 
 ## Context
 
-The `@gemiflow/guidance` package (published as `3.0.0-alpha.1`) provides a governance control plane for Claude Code sessions:
+The `@gemiflow/guidance` package (published as `3.0.0-alpha.1`) provides a governance control plane for Gemini CLI sessions:
 
 - **Compile**: CLAUDE.md → Constitution + Rule Shards + Rule Manifest
 - **Enforce**: 4 enforcement gates (ingestion, retrieval, generation, emission)

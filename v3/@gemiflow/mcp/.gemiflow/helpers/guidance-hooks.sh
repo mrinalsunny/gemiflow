@@ -1,6 +1,6 @@
 #!/bin/bash
 # Guidance Hooks for GemiFlow V3
-# Provides context and routing for Claude Code operations
+# Provides context and routing for Gemini CLI operations
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"

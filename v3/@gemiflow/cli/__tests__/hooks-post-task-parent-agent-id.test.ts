@@ -2,7 +2,7 @@
  * ADR-147 P2 — Nested-subagent spawn-tree capture in post-task hook.
  *
  * Verifies that `hooks_post-task` MCP tool accepts the optional
- * `parentAgentId` and `depth` fields (sourced from Claude Code's
+ * `parentAgentId` and `depth` fields (sourced from Gemini CLI's
  * `parent_agent_id` OTel span tag / `x-gemini-cli-parent-agent-id`
  * header) and propagates them through to `bridgeRecordFeedback`.
  *

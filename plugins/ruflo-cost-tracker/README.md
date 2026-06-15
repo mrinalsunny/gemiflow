@@ -24,11 +24,11 @@ claude --plugin-dir plugins/gemiflow-cost-tracker
 |-------|-------|-------------|
 | `cost-report` | `/cost-report [--period today]` | Generate a cost report with token usage and USD costs by tier, model, and agent |
 | `cost-optimize` | `/cost-optimize` | Analyze usage patterns, recommend cost optimizations, and emit `hooks_model-outcome` events |
-| `cost-track` | `/cost-track` | **Auto-capture** per-session token usage from the Claude Code jsonl into `cost-tracking` namespace (producer side) |
+| `cost-track` | `/cost-track` | **Auto-capture** per-session token usage from the Gemini CLI jsonl into `cost-tracking` namespace (producer side) |
 | `cost-budget-check` | `/cost-budget-check [--period today\|week\|month\|all]` | Read totals + budget config, emit 50/75/90/100% alert ladder; exit 1 on HARD_STOP |
 | `cost-booster-route` | `/cost-booster-route <task>` | Route tasks via `hooks_route` and report Agent Booster (Tier 1) bypass utilization |
 | `cost-booster-edit` | `/cost-booster-edit <intent> <file>` | **Apply** a Tier 1 transform via `agent-booster.apply()` (sub-millisecond, $0, deterministic) |
-| `cost-benchmark` | `/cost-benchmark [--llm] [--anthropic]` | Run the corpus benchmark and persist measured-vs-claimed table to `docs/benchmarks/runs/` |
+| `cost-benchmark` | `/cost-benchmark [--llm] [--google]` | Run the corpus benchmark and persist measured-vs-claimed table to `docs/benchmarks/runs/` |
 | `cost-trend` | `/cost-trend` | Read all bench runs and surface drift (win rate, latency, speedup) — flags regressions the smoke gate misses |
 | `cost-conversation` | `/cost-conversation` | Per-conversation cost view (different lens from cost-report's per-agent / per-model) |
 | `cost-export` | `/cost-export [--prometheus <path>] [--webhook <url>]` | Emit cost data as Prometheus textfile or POST to a webhook |
@@ -47,7 +47,7 @@ cost outcome <task> <model> <outcome>     # Emit hooks_model-outcome (success|es
 cost budget set <amount>                  # Set USD budget (real impl, persists to cost-tracking)
 cost budget get                           # Show current budget config
 cost budget check [--period ...]          # Compute utilization + alert; exit 1 on HARD_STOP
-cost benchmark [--llm] [--anthropic]      # Run measured benchmark — booster + optional Gemini/Sonnet/Opus baselines
+cost benchmark [--llm] [--google]      # Run measured benchmark — booster + optional Gemini/Sonnet/Opus baselines
 cost trend                                # Drift across bench runs (win rate, latency, regressions)
 cost conversation                         # Per-conversation cost view
 cost summary [--format json|markdown]     # Programmatic JSON contract for inter-plugin consumption
@@ -144,7 +144,7 @@ bash plugins/gemiflow-cost-tracker/scripts/smoke.sh
 
 CI: see [`.github/workflows/cost-tracker-smoke.yml`](../../.github/workflows/cost-tracker-smoke.yml).
 On every PR touching this plugin, GitHub Actions runs smoke + booster-only bench
-+ regression gate (Tier 1 winRate ≥ 0.80). LLM/Anthropic baselines are NOT run in CI
++ regression gate (Tier 1 winRate ≥ 0.80). LLM/google baselines are NOT run in CI
 — they cost real money per invocation and belong in a manual / scheduled workflow.
 ```
 

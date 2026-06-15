@@ -5,7 +5,7 @@ Test-driven development with TodoWrite planning and comprehensive testing.
 
 ## Activation
 
-### Option 1: Using MCP Tools (Preferred in Claude Code)
+### Option 1: Using MCP Tools (Preferred in Gemini CLI)
 ```javascript
 mcp__gemiflow__sparc_mode {
   mode: "tdd",

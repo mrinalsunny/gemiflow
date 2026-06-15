@@ -29,7 +29,7 @@ results for the HAL leaderboard.
 ## Checks performed
 
 ### 1. Environment keys
-- `ANTHROPIC_API_KEY` — required for model inference
+- `google_API_KEY` — required for model inference
 - `HF_TOKEN` — required to download the GAIA dataset from Hugging Face
 - `GOOGLE_AI_API_KEY` — optional; warn if absent (Gemini model support disabled)
 - `GOOGLE_CUSTOM_SEARCH_API_KEY` + `GOOGLE_CUSTOM_SEARCH_CX` — optional; warn
@@ -69,7 +69,7 @@ node v3/@gemiflow/cli/bin/cli.js --version
 ```
 Validating GAIA benchmark environment...
 
-[PASS] ANTHROPIC_API_KEY set (sk-ant-...abc3)
+[PASS] google_API_KEY set (sk-ant-...abc3)
 [PASS] HF_TOKEN set (hf_...xyz9)
 [WARN] GOOGLE_AI_API_KEY not set — Gemini routing disabled
 [WARN] GOOGLE_CUSTOM_SEARCH_API_KEY not set — web_search using DuckDuckGo fallback

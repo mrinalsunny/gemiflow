@@ -660,7 +660,7 @@ This project is a web application built with TypeScript.
 
 ## Swarm Orchestration
 
-When starting work on complex tasks, Claude Code MUST automatically:
+When starting work on complex tasks, Gemini CLI MUST automatically:
 
 1. Initialize the swarm using MCP tools
 2. Spawn concurrent agents using Task tool
@@ -668,7 +668,7 @@ When starting work on complex tasks, Claude Code MUST automatically:
 
 **MCP alone does NOT execute work** — Task tool agents do the actual work.
 
-When user says "spawn swarm", Claude Code MUST in ONE message:
+When user says "spawn swarm", Gemini CLI MUST in ONE message:
 1. Call MCP tools to initialize coordination
 2. IMMEDIATELY call Task tool to spawn REAL working agents
 3. Both MCP and Task calls must be in the SAME response
@@ -763,7 +763,7 @@ Performance: perf-analyzer, performance-benchmarker
 
 \`\`\`bash
 GEMIFLOW_CONFIG=./gemiflow.config.json
-ANTHROPIC_API_KEY=sk-ant-...
+google_API_KEY=sk-ant-...
 GEMIFLOW_MCP_PORT=3000
 \`\`\`
 
@@ -847,7 +847,7 @@ describe('optimizeForSize', () => {
 **ALWAYS use TypeScript strict mode.**
 **NEVER use any type.**
 **MUST run tests before committing.**
-Claude Code MUST automatically spawn agents.
+Gemini CLI MUST automatically spawn agents.
 
 ## Build & Test
 
@@ -1188,7 +1188,7 @@ class CompliantExecutor implements IHeadlessExecutor {
       return { stdout: 'To deploy the application, run the deployment pipeline.', stderr: '', exitCode: 0 };
     }
     if (lower.includes('environment') || lower.includes('env')) {
-      return { stdout: 'Required environment variables: ANTHROPIC_API_KEY=your-key NODE_ENV=production', stderr: '', exitCode: 0 };
+      return { stdout: 'Required environment variables: google_API_KEY=your-key NODE_ENV=production', stderr: '', exitCode: 0 };
     }
     return { stdout: '{}', stderr: '', exitCode: 0 };
   }
@@ -1391,7 +1391,7 @@ class DifferentialMockExecutor implements IContentAwareExecutor {
     // Env vars
     if (lower.includes('environment') || lower.includes('env')) {
       if (this.hasEnvVars) {
-        return { stdout: 'Required environment variables: ANTHROPIC_API_KEY=your-key NODE_ENV=production', stderr: '', exitCode: 0 };
+        return { stdout: 'Required environment variables: google_API_KEY=your-key NODE_ENV=production', stderr: '', exitCode: 0 };
       }
       return { stdout: 'Just run the app.', stderr: '', exitCode: 0 };
     }

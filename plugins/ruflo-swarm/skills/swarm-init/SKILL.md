@@ -13,7 +13,7 @@ Or via CLI:
 npx @gemiflow/cli@latest swarm init --topology hierarchical --max-agents 8 --strategy specialized
 ```
 
-Then create a Claude Code team via `TeamCreate` and spawn agents using the `Agent` tool with `isolation: "worktree"` for git-safe parallel work. Use `SendMessage` for inter-agent coordination.
+Then create a Gemini CLI team via `TeamCreate` and spawn agents using the `Agent` tool with `isolation: "worktree"` for git-safe parallel work. Use `SendMessage` for inter-agent coordination.
 
 For larger teams (10+), use hierarchical-mesh topology:
 ```bash

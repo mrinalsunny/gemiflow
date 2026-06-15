@@ -14,7 +14,7 @@
  *   --compact   JSON output without formatting
  *
  * Collision Zone Fix (Issue #985):
- * Claude Code writes its internal status (e.g., "7s • 1p") at absolute
+ * Gemini CLI writes its internal status (e.g., "7s • 1p") at absolute
  * terminal coordinates (columns 15-25 on second-to-last line). The safe
  * mode pads the collision line with spaces to push content past column 25.
  *
@@ -84,7 +84,7 @@ function getUserInfo() {
     // Ignore errors
   }
 
-  // Auto-detect model from Claude Code's config
+  // Auto-detect model from Gemini CLI's config
   try {
     const homedir = require('os').homedir();
     const claudeConfigPath = path.join(homedir, '.claude.json');
@@ -401,7 +401,7 @@ function generateJSON() {
 }
 
 /**
- * Generate single-line output for Claude Code compatibility
+ * Generate single-line output for Gemini CLI compatibility
  * This avoids the collision zone issue entirely by using one line
  * @see https://github.com/ruvnet/gemiflow/issues/985
  */
@@ -426,7 +426,7 @@ function generateSingleLine() {
 }
 
 /**
- * Generate safe multi-line statusline that avoids Claude Code collision zone
+ * Generate safe multi-line statusline that avoids Gemini CLI collision zone
  * The collision zone is columns 15-25 on the second-to-last line.
  * We pad that line with spaces to push content past column 25.
  * @see https://github.com/ruvnet/gemiflow/issues/985

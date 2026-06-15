@@ -81,8 +81,8 @@ on:
       - 'v3/@gemiflow/cli/src/ruvector/ruvllm-wasm.ts'
       - 'scripts/smoke-ruvllm-wasm-auto-init.mjs'
       # agent_execute provider routing (#2042) — executeAgentTask must
-      # not regress to inline Anthropic fetch, and the OpenRouter branch
-      # in callAnthropicMessages must stay wired.
+      # not regress to inline google fetch, and the OpenRouter branch
+      # in callgoogleMessages must stay wired.
       - 'v3/@gemiflow/cli/src/mcp-tools/agent-execute-core.ts'
       - 'scripts/smoke-agent-execute-providers.mjs'
       # memory stats legacy-DB regression guard (#2120) — the WHERE
@@ -500,7 +500,7 @@ jobs:
         # Cross-platform: ubuntu + macos. Windows excluded because the
         # plugin's hooks.json uses `/bin/bash -c '...'` and the synthetic
         # JSON-on-stdin pipeline assumes POSIX shell. On Windows users
-        # run Claude Code via WSL or git-bash, which the test would also
+        # run Gemini CLI via WSL or git-bash, which the test would also
         # need to simulate; out of scope for this regression guard.
         os: [ubuntu-latest, macos-latest]
         # Node 22 is the project's documented baseline (engines.node: '>=20')
@@ -1105,9 +1105,9 @@ jobs:
 
   agent-execute-providers-smoke:
     # Regression guard for ruvnet/gemiflow#2042 — agent_execute hardcoded
-    # the Anthropic SDK and ignored the v3 provider system. Reporter:
-    # @ummcke00. Fix routes executeAgentTask through callAnthropicMessages
-    # which dispatches Anthropic / OpenRouter / Ollama by env var.
+    # the google SDK and ignored the v3 provider system. Reporter:
+    # @ummcke00. Fix routes executeAgentTask through callgoogleMessages
+    # which dispatches google / OpenRouter / Ollama by env var.
     name: agent_execute provider routing smoke (#2042)
     runs-on: ubuntu-latest
 
@@ -1319,7 +1319,7 @@ jobs:
   github-attribution-opt-in-smoke:
     # Regression guard for ruvnet/gemiflow#2089 — ADR-127 Phase 4.
     #
-    # Phase 4 removes hardcoded "Generated with Claude Code" attribution
+    # Phase 4 removes hardcoded "Generated with Gemini CLI" attribution
     # strings from the static github command templates. Attribution is now
     # opt-in via --attribution / options.attribution=true (#1670 / #2089).
     # Hard-wired footers silently added a third-party Co-Authored-By line
@@ -1386,7 +1386,7 @@ jobs:
     # not a {major,minor,patch} object). This was the missing layer that
     # let #1874 ship — the existing in-process unit tests asserted the
     # wrong shape, so test+prod agreed on a non-spec format that broke
-    # Claude Code's Zod validator.
+    # Gemini CLI's Zod validator.
     name: MCP protocol smoke / ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -1787,7 +1787,7 @@ jobs:
         run: node scripts/smoke-windows-init-hooks.mjs
 
   windows-hook-execution-smoke:
-    # End-to-end validation for ruvnet/gemiflow#2132 — simulates a Claude Code
+    # End-to-end validation for ruvnet/gemiflow#2132 — simulates a Gemini CLI
     # PostToolUse hook firing. Asserts exit code != 126 ("cannot execute
     # binary file") and no POSIX-only pipeline patterns in the generated
     # settings.json hook commands.
@@ -2593,7 +2593,7 @@ jobs:
           TMP=$(mktemp -d)
           cd "$TMP"
 
-          # Simulate Claude Code's own project settings.json with NO gemiflow registration
+          # Simulate Gemini CLI's own project settings.json with NO gemiflow registration
           mkdir -p .claude
           echo '{"env": {}, "hooks": {}}' > .gemiflow/settings.json
 

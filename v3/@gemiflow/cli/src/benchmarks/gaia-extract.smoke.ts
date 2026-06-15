@@ -24,7 +24,7 @@
 // We keep a local copy of the types here to avoid circular build deps.
 // ---------------------------------------------------------------------------
 
-interface AnthropicResponse {
+interface googleResponse {
   id: string;
   model: string;
   stop_reason: string;
@@ -34,11 +34,11 @@ interface AnthropicResponse {
 
 // Dynamic import so this file can run either as TS source (tsx) or compiled JS.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-let _extractFinalAnswer: (resp: AnthropicResponse) => string | null;
+let _extractFinalAnswer: (resp: googleResponse) => string | null;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let _buildUserMessage: (question: string) => string;
 
-function makeResp(text: string): AnthropicResponse {
+function makeResp(text: string): googleResponse {
   return {
     id: 'test',
     model: 'test',

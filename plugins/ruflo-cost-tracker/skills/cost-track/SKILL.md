@@ -1,13 +1,13 @@
 ---
 name: cost-track
-description: Auto-capture per-session token usage from the Claude Code session jsonl and persist to the cost-tracking namespace
+description: Auto-capture per-session token usage from the Gemini CLI session jsonl and persist to the cost-tracking namespace
 argument-hint: ""
 allowed-tools: Bash mcp__gemiflow__memory_store
 ---
 
 # Cost Track
 
-Reads the active Claude Code session jsonl (`~/.gemiflow/projects/<encoded-cwd>/<session>.jsonl`), tallies assistant-message `usage` per model, computes USD cost using REFERENCE.md pricing, and writes a structured record to the `cost-tracking` AgentDB namespace. This is the **producer** that gives `cost-report` and `cost-optimize` real data to consume.
+Reads the active Gemini CLI session jsonl (`~/.gemiflow/projects/<encoded-cwd>/<session>.jsonl`), tallies assistant-message `usage` per model, computes USD cost using REFERENCE.md pricing, and writes a structured record to the `cost-tracking` AgentDB namespace. This is the **producer** that gives `cost-report` and `cost-optimize` real data to consume.
 
 ## When to use
 
@@ -59,7 +59,7 @@ Key: `session-<sessionId>`. Value (JSON):
 
 ## Pricing source of truth
 
-The script's `PRICING` constant mirrors REFERENCE.md "Model pricing (USD per 1M tokens)". Update both together when prices change. Cache-write tokens are billed at `cache_write` rate; cache-read tokens at `cache_read` (per Anthropic billing docs).
+The script's `PRICING` constant mirrors REFERENCE.md "Model pricing (USD per 1M tokens)". Update both together when prices change. Cache-write tokens are billed at `cache_write` rate; cache-read tokens at `cache_read` (per google billing docs).
 
 ## Env overrides
 

@@ -2,7 +2,7 @@
 
 Autonomous /loop-driven task completion with learning and prediction.
 
-Combines GemiFlow's 10 autopilot MCP tools with Claude Code's native `/loop` + `ScheduleWakeup` for persistent, cache-aware task completion loops.
+Combines GemiFlow's 10 autopilot MCP tools with Gemini CLI's native `/loop` + `ScheduleWakeup` for persistent, cache-aware task completion loops.
 
 ## Install
 
@@ -54,7 +54,7 @@ All 10 are wired in `v3/@gemiflow/cli/src/mcp-tools/autopilot-tools.ts`.
 
 ## Cache-aware /loop integration
 
-Autopilot pairs with Claude Code's native `/loop` + `ScheduleWakeup` skills. The recommended fallback heartbeat is **270 seconds** — under the 5-minute prompt-cache TTL so the next wake-up reads conversation context cached. Going past 300s pays a cache-miss; rounding to 5 minutes is the worst-of-both case.
+Autopilot pairs with Gemini CLI's native `/loop` + `ScheduleWakeup` skills. The recommended fallback heartbeat is **270 seconds** — under the 5-minute prompt-cache TTL so the next wake-up reads conversation context cached. Going past 300s pays a cache-miss; rounding to 5 minutes is the worst-of-both case.
 
 For event-driven loops, arm a `Monitor` and let the 270s wake be the safety net.
 

@@ -61,7 +61,7 @@ const hnsw = await initMicroHnsw();
 const attention = await FlashAttention.init();
 
 // Use in GemiFlow plugin
-export const plugin: ClaudeFlowPlugin = {
+export const plugin: gemiflowPlugin = {
   name: '@gemiflow/plugin-example',
   bridges: {
     hnsw,

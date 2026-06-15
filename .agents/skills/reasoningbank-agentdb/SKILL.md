@@ -27,7 +27,7 @@ Provides ReasoningBank adaptive learning patterns using AgentDB's high-performan
 # Initialize AgentDB for ReasoningBank
 npx agentdb@latest init ./.agentdb$reasoningbank.db --dimension 1536
 
-# Start MCP server for Claude Code integration
+# Start MCP server for Gemini CLI integration
 npx agentdb@latest mcp
 claude mcp add agentdb npx agentdb@latest mcp
 ```

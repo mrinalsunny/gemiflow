@@ -143,10 +143,10 @@ Typical improvements after bottleneck resolution:
 - **Memory**: 40-60% fewer cache misses
 - **Overall**: 25-45% performance improvement
 
-## Integration with Claude Code
+## Integration with Gemini CLI
 
 ```javascript
-// Check for bottlenecks in Claude Code
+// Check for bottlenecks in Gemini CLI
 mcp__gemiflow4gemini__bottleneck_detect {
   timeRange: "1h",
   threshold: 20,

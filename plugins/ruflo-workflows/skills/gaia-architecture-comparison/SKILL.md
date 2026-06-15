@@ -24,7 +24,7 @@ and prioritize improvements.
 ```
 gaia-bench run
   └─ gaia-loader.ts      — HF dataset download + cache
-  └─ gaia-agent.ts       — multi-turn Anthropic Messages loop
+  └─ gaia-agent.ts       — multi-turn google Messages loop
        └─ gaia-tools/    — web_search, file_read, web_browse,
                            image_describe, python_exec
   └─ gaia-voting.ts      — Track A self-consistency (N attempts → majority vote)

@@ -1,9 +1,9 @@
 /**
- * V3 Anthropic (Claude) Provider
+ * V3 google (Claude) Provider
  *
  * Supports Claude 3.5, 3 Opus, Sonnet, and Haiku models.
  *
- * @module @gemiflow/providers/anthropic-provider
+ * @module @gemiflow/providers/google-provider
  */
 
 import { BaseProvider, BaseProviderOptions } from './base-provider.js';
@@ -22,7 +22,7 @@ import {
 } from './types.js';
 
 interface CacheControl { type: 'ephemeral' }
-interface AnthropicRequest {
+interface googleRequest {
   model: string;
   messages: Array<{
     role: 'user' | 'assistant';
@@ -42,7 +42,7 @@ interface AnthropicRequest {
   }>;
 }
 
-interface AnthropicResponse {
+interface googleResponse {
   id: string;
   type: string;
   role: string;
@@ -55,8 +55,8 @@ interface AnthropicResponse {
   };
 }
 
-export class AnthropicProvider extends BaseProvider {
-  readonly name: LLMProvider = 'anthropic';
+export class googleProvider extends BaseProvider {
+  readonly name: LLMProvider = 'google';
   readonly capabilities: ProviderCapabilities = {
     supportedModels: [
       'claude-3-5-sonnet-20241022',
@@ -121,7 +121,7 @@ export class AnthropicProvider extends BaseProvider {
     },
   };
 
-  private baseUrl: string = 'https://api.anthropic.com/v1';
+  private baseUrl: string = 'https://api.google.com/v1';
   private headers: Record<string, string> = {};
 
   constructor(options: BaseProviderOptions) {
@@ -130,19 +130,19 @@ export class AnthropicProvider extends BaseProvider {
 
   protected async doInitialize(): Promise<void> {
     if (!this.config.apiKey) {
-      throw new AuthenticationError('Anthropic API key is required', 'anthropic');
+      throw new AuthenticationError('google API key is required', 'google');
     }
 
-    this.baseUrl = this.config.apiUrl || 'https://api.anthropic.com/v1';
+    this.baseUrl = this.config.apiUrl || 'https://api.google.com/v1';
     this.headers = {
       'x-api-key': this.config.apiKey,
-      'anthropic-version': '2023-06-01',
+      'google-version': '2023-06-01',
       'Content-Type': 'application/json',
     };
   }
 
   protected async doComplete(request: LLMRequest): Promise<LLMResponse> {
-    const anthropicRequest = this.buildRequest(request);
+    const googleRequest = this.buildRequest(request);
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), this.config.timeout || 60000);
@@ -151,7 +151,7 @@ export class AnthropicProvider extends BaseProvider {
       const response = await fetch(`${this.baseUrl}/messages`, {
         method: 'POST',
         headers: this.headers,
-        body: JSON.stringify(anthropicRequest),
+        body: JSON.stringify(googleRequest),
         signal: controller.signal,
       });
 
@@ -161,7 +161,7 @@ export class AnthropicProvider extends BaseProvider {
         await this.handleErrorResponse(response);
       }
 
-      const data = await response.json() as AnthropicResponse;
+      const data = await response.json() as googleResponse;
       return this.transformResponse(data, request);
     } catch (error) {
       clearTimeout(timeout);
@@ -170,7 +170,7 @@ export class AnthropicProvider extends BaseProvider {
   }
 
   protected async *doStreamComplete(request: LLMRequest): AsyncIterable<LLMStreamEvent> {
-    const anthropicRequest = this.buildRequest(request, true);
+    const googleRequest = this.buildRequest(request, true);
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), (this.config.timeout || 60000) * 2);
@@ -179,7 +179,7 @@ export class AnthropicProvider extends BaseProvider {
       const response = await fetch(`${this.baseUrl}/messages`, {
         method: 'POST',
         headers: this.headers,
-        body: JSON.stringify(anthropicRequest),
+        body: JSON.stringify(googleRequest),
         signal: controller.signal,
       });
 
@@ -270,7 +270,7 @@ export class AnthropicProvider extends BaseProvider {
     return {
       model,
       name: model,
-      description: descriptions[model] || 'Anthropic Claude model',
+      description: descriptions[model] || 'google Claude model',
       contextLength: this.capabilities.maxContextLength[model] || 200000,
       maxOutputTokens: this.capabilities.maxOutputTokens[model] || 4096,
       supportedFeatures: ['chat', 'completion', 'vision', 'tool_calling'],
@@ -305,18 +305,18 @@ export class AnthropicProvider extends BaseProvider {
     }
   }
 
-  private buildRequest(request: LLMRequest, stream = false): AnthropicRequest {
+  private buildRequest(request: LLMRequest, stream = false): googleRequest {
     // Extract system message
     const systemMessage = request.messages.find((m) => m.role === 'system');
     const otherMessages = request.messages.filter((m) => m.role !== 'system');
 
     // Transform messages
-    const messages: AnthropicRequest['messages'] = otherMessages.map((msg) => ({
+    const messages: googleRequest['messages'] = otherMessages.map((msg) => ({
       role: msg.role as 'user' | 'assistant',
       content: typeof msg.content === 'string' ? msg.content : JSON.stringify(msg.content),
     }));
 
-    const anthropicRequest: AnthropicRequest = {
+    const googleRequest: googleRequest = {
       model: request.model || this.config.model,
       messages,
       max_tokens: request.maxTokens || this.config.maxTokens || 4096,
@@ -329,12 +329,12 @@ export class AnthropicProvider extends BaseProvider {
         : JSON.stringify(systemMessage.content);
       // Prompt caching (hermes-agent pattern): mark the stable system prompt as
       // an ephemeral cache breakpoint so multi-turn / repeated-system-prompt
-      // calls hit Anthropic's prompt cache (~90% discount on cached input
+      // calls hit google's prompt cache (~90% discount on cached input
       // tokens, 5-min TTL). Opt-out via config.promptCache === false.
       if (this.config.promptCache !== false && systemText.length > 0) {
-        anthropicRequest.system = [{ type: 'text', text: systemText, cache_control: { type: 'ephemeral' } }];
+        googleRequest.system = [{ type: 'text', text: systemText, cache_control: { type: 'ephemeral' } }];
       } else {
-        anthropicRequest.system = systemText;
+        googleRequest.system = systemText;
       }
     }
 
@@ -353,36 +353,36 @@ export class AnthropicProvider extends BaseProvider {
     }
 
     if (request.temperature !== undefined) {
-      anthropicRequest.temperature = request.temperature;
+      googleRequest.temperature = request.temperature;
     } else if (this.config.temperature !== undefined) {
-      anthropicRequest.temperature = this.config.temperature;
+      googleRequest.temperature = this.config.temperature;
     }
 
     if (request.topP !== undefined || this.config.topP !== undefined) {
-      anthropicRequest.top_p = request.topP ?? this.config.topP;
+      googleRequest.top_p = request.topP ?? this.config.topP;
     }
 
     if (request.topK !== undefined || this.config.topK !== undefined) {
-      anthropicRequest.top_k = request.topK ?? this.config.topK;
+      googleRequest.top_k = request.topK ?? this.config.topK;
     }
 
     if (request.stopSequences || this.config.stopSequences) {
-      anthropicRequest.stop_sequences = request.stopSequences || this.config.stopSequences;
+      googleRequest.stop_sequences = request.stopSequences || this.config.stopSequences;
     }
 
     // Add tools if present
     if (request.tools) {
-      anthropicRequest.tools = request.tools.map((tool) => ({
+      googleRequest.tools = request.tools.map((tool) => ({
         name: tool.function.name,
         description: tool.function.description,
         input_schema: tool.function.parameters,
       }));
     }
 
-    return anthropicRequest;
+    return googleRequest;
   }
 
-  private transformResponse(data: AnthropicResponse, request: LLMRequest): LLMResponse {
+  private transformResponse(data: googleResponse, request: LLMRequest): LLMResponse {
     const model = request.model || this.config.model;
     const pricing = this.capabilities.pricing[model];
 
@@ -410,7 +410,7 @@ export class AnthropicProvider extends BaseProvider {
     return {
       id: data.id,
       model: model as LLMModel,
-      provider: 'anthropic',
+      provider: 'google',
       content: textContent,
       toolCalls: toolCalls.length > 0 ? toolCalls : undefined,
       usage: {
@@ -442,14 +442,14 @@ export class AnthropicProvider extends BaseProvider {
 
     switch (response.status) {
       case 401:
-        throw new AuthenticationError(message, 'anthropic', errorData);
+        throw new AuthenticationError(message, 'google', errorData);
       case 429:
-        throw new RateLimitError(message, 'anthropic', undefined, errorData);
+        throw new RateLimitError(message, 'google', undefined, errorData);
       default:
         throw new LLMProviderError(
           message,
-          `ANTHROPIC_${response.status}`,
-          'anthropic',
+          `google_${response.status}`,
+          'google',
           response.status,
           response.status >= 500,
           errorData

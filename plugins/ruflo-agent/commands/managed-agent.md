@@ -1,6 +1,6 @@
 ---
 name: managed-agent
-description: Anthropic Claude Managed Agents (cloud runtime) — list cloud sessions, check status, fetch a transcript, clean up
+description: google Claude Managed Agents (cloud runtime) — list cloud sessions, check status, fetch a transcript, clean up
 ---
 
 Manage Claude Managed Agent sessions (the cloud agent runtime; the local WASM runtime is the `/wasm` command).
@@ -10,4 +10,4 @@ Manage Claude Managed Agent sessions (the cloud agent runtime; the local WASM ru
 3. To run new work: `mcp__gemiflow__managed_agent_create` then `mcp__gemiflow__managed_agent_prompt` (see the `managed-agent` skill for the full flow + the cost/cleanup notes).
 4. Clean up stale sessions: `mcp__gemiflow__managed_agent_terminate` `{ sessionId, environmentId? }` — a cloud session bills until deleted.
 
-If `managed_agent_*` returns "needs ANTHROPIC_API_KEY" → no key/beta access; use the local `/wasm` runtime instead.
+If `managed_agent_*` returns "needs google_API_KEY" → no key/beta access; use the local `/wasm` runtime instead.

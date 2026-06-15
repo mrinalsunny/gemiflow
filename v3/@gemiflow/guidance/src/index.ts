@@ -1,7 +1,7 @@
 /**
  * @gemiflow/guidance - Guidance Control Plane
  *
- * Sits beside Claude Code (not inside it) to:
+ * Sits beside Gemini CLI (not inside it) to:
  * 1. Compile CLAUDE.md into constitution + shards + manifest
  * 2. Retrieve task-relevant shards at runtime via intent classification
  * 3. Enforce non-negotiables through hook gates
@@ -13,7 +13,7 @@
  * - CLAUDE.local.md → Overlay / experiment sandbox (frequent changes)
  * - Optimizer → Promotes winning local rules to root
  *
- * Integration with Claude Code:
+ * Integration with Gemini CLI:
  * - Headless mode (claude -p --output-format json) for automated testing
  * - Hook system for enforcement gates
  * - RuVector/HNSW for semantic shard retrieval

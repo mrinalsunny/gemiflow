@@ -9,7 +9,7 @@
  * Approach:
  *   The production memory backend (AgentDB + HNSW) requires SQLite + ONNX
  *   embedder bootstrap, which is too heavy a dependency surface for a
- *   bench shipped in a Claude Code plugin (no package.json, no build).
+ *   bench shipped in a Gemini CLI plugin (no package.json, no build).
  *   Instead we model the same algorithmic core: cosine-similarity search
  *   over a deterministic-seeded set of 384-dim embeddings, with the same
  *   top-K + threshold logic the skill uses.

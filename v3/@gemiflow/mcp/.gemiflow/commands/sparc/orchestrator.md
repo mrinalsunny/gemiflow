@@ -5,7 +5,7 @@ Multi-agent task orchestration with TodoWrite/TodoRead/Task/Memory using MCP too
 
 ## Activation
 
-### Option 1: Using MCP Tools (Preferred in Claude Code)
+### Option 1: Using MCP Tools (Preferred in Gemini CLI)
 ```javascript
 mcp__gemiflow__sparc_mode {
   mode: "orchestrator",

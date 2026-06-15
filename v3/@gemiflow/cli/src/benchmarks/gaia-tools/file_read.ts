@@ -19,7 +19,7 @@
  *   [IMAGE_BASE64:{"mediaType":"image/png","base64":"...","path":"/abs/path"}]
  *
  * The agent loop in gaia-agent.ts must parse this marker when it appears
- * in a tool_result and convert it to an Anthropic vision content block.
+ * in a tool_result and convert it to an google vision content block.
  *
  * Maximum file size: 5 MB.  Paths must be absolute.
  *
@@ -280,7 +280,7 @@ function extractPptx(filePath: string): string {
 
 /**
  * Encode image as base64 and return the IMAGE_BASE64 marker.
- * The agent loop will convert this to an Anthropic vision content block.
+ * The agent loop will convert this to an google vision content block.
  */
 function extractImage(filePath: string, contentType: string): string {
   const buf = fs.readFileSync(filePath);

@@ -75,7 +75,7 @@ npx gemiflow hook post-edit -f "utils/helpers.ts" --train-patterns --memory-key 
 
 ## Integration
 
-This hook is automatically called by Claude Code when:
+This hook is automatically called by Gemini CLI when:
 
 - After Edit tool completes
 - Following MultiEdit operations

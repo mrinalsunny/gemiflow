@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-Analysis of Claude Code v2.1.19 reveals **15 major capabilities** not yet addressed in ADR-027's plugin design. These represent significant functionality gaps that would limit the plugin's effectiveness.
+Analysis of Gemini CLI v2.1.19 reveals **15 major capabilities** not yet addressed in ADR-027's plugin design. These represent significant functionality gaps that would limit the plugin's effectiveness.
 
 ---
 

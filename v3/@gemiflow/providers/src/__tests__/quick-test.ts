@@ -22,7 +22,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 config({ path: resolve(__dirname, '../../../../../.env') });
 
 import {
-  AnthropicProvider,
+  googleProvider,
   OpenAIProvider,
   GoogleProvider,
   OllamaProvider,
@@ -42,18 +42,18 @@ const createTestRequest = (model?: string): LLMRequest => ({
   requestId: `test-${Date.now()}`,
 });
 
-async function testAnthropic() {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+async function testgoogle() {
+  const apiKey = process.env.google_API_KEY;
   if (!apiKey) {
-    console.log('⏭️  Skipping Anthropic - no API key');
+    console.log('⏭️  Skipping google - no API key');
     return null;
   }
 
-  console.log('\n🔷 Testing Anthropic Claude...');
+  console.log('\n🔷 Testing google Claude...');
 
-  const provider = new AnthropicProvider({
+  const provider = new googleProvider({
     config: {
-      provider: 'anthropic',
+      provider: 'google',
       apiKey,
       model: 'claude-3-haiku-20240307', // Use cheaper, widely-available model
       maxTokens: 100,
@@ -65,14 +65,14 @@ async function testAnthropic() {
     await provider.initialize();
     const response = await provider.complete(createTestRequest());
 
-    console.log('✅ Anthropic Response:', response.content);
+    console.log('✅ google Response:', response.content);
     console.log('   Tokens:', response.usage);
     console.log('   Cost:', response.cost);
 
     provider.destroy();
     return response;
   } catch (error) {
-    console.error('❌ Anthropic Error:', error);
+    console.error('❌ google Error:', error);
     provider.destroy();
     return null;
   }
@@ -244,10 +244,10 @@ async function testProviderManager() {
 
   const providers = [];
 
-  if (process.env.ANTHROPIC_API_KEY) {
+  if (process.env.google_API_KEY) {
     providers.push({
-      provider: 'anthropic' as const,
-      apiKey: process.env.ANTHROPIC_API_KEY,
+      provider: 'google' as const,
+      apiKey: process.env.google_API_KEY,
       model: 'claude-3-haiku-20240307',
       maxTokens: 100,
     });
@@ -316,12 +316,12 @@ async function main() {
 
   console.log('\n📋 Loaded .env from:', resolve(__dirname, '../../../../../.env'));
   console.log('\n🔑 Available API Keys:');
-  console.log('   ANTHROPIC_API_KEY:', process.env.ANTHROPIC_API_KEY ? '✓' : '✗');
+  console.log('   google_API_KEY:', process.env.google_API_KEY ? '✓' : '✗');
   console.log('   GOOGLE_GEMINI_API_KEY:', process.env.GOOGLE_GEMINI_API_KEY ? '✓' : '✗');
   console.log('   OPENROUTER_API_KEY:', process.env.OPENROUTER_API_KEY ? '✓' : '✗');
 
   const results = {
-    anthropic: await testAnthropic(),
+    google: await testgoogle(),
     google: await testGoogle(),
     openrouter: await testOpenRouter(),
     ollama: await testOllama(),

@@ -6,7 +6,7 @@
  */
 
 import type {
-  ClaudeFlowPlugin,
+  gemiflowPlugin,
   PluginInfo,
   PluginLifecycleState,
   PluginContext,
@@ -33,7 +33,7 @@ export class PluginRegistry {
    * Register a plugin in the registry
    */
   registerPlugin(
-    plugin: ClaudeFlowPlugin,
+    plugin: gemiflowPlugin,
     initialState: PluginLifecycleState,
     context: PluginContext
   ): void {

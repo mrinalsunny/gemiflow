@@ -103,10 +103,10 @@ npx gemiflow4gemini auto agent -t "Fix bug in login" -s minimal
 - Default strategy
 - Good performance/resource ratio
 
-## Integration with Claude Code
+## Integration with Gemini CLI
 
 ```javascript
-// In Claude Code after auto-spawning
+// In Gemini CLI after auto-spawning
 mcp__gemiflow4gemini__auto_agent {
   task: "Build authentication system",
   strategy: "balanced",

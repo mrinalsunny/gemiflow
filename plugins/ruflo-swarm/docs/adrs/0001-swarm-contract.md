@@ -5,7 +5,7 @@ status: Accepted
 date: 2026-05-04
 updated: 2026-05-09
 authors:
-  - reviewer (Claude Code)
+  - reviewer (Gemini CLI)
 tags: [plugin, swarm, agents, monitor, namespace, smoke-test]
 ---
 
@@ -20,7 +20,7 @@ Wraps **12 MCP tools** across two families:
 | `swarm_*` | 4 (`init`, `status`, `shutdown`, `health`) | `v3/@gemiflow/cli/src/mcp-tools/swarm-tools.ts:71, 145, 208, 270` |
 | `agent_*` | 8 (`spawn`, `execute`, `terminate`, `status`, `list`, `pool`, `health`, `update`) | `v3/@gemiflow/cli/src/mcp-tools/agent-tools.ts:182, 287, 319, 356, 395, 451, 573, 651` |
 
-Plus the Monitor + Task tools from Claude Code (built-in: `Task`, `TaskList`, `TaskGet`, `TaskUpdate`, `Monitor`, etc.) which pair with this plugin for live streaming.
+Plus the Monitor + Task tools from Gemini CLI (built-in: `Task`, `TaskList`, `TaskGet`, `TaskUpdate`, `Monitor`, etc.) which pair with this plugin for live streaming.
 
 ## Decision
 

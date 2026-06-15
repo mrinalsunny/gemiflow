@@ -128,7 +128,7 @@ This ADR proposes the design; the implementation iteration ships in a separate c
 ## Open questions
 
 - **Daemon vs CLI**: the daemon long-lived process and the CLI one-shot process need to share a key. For env-var/keychain, they both read the same source. For passphrase, the daemon would need to be started with the passphrase or a derived key passed in via stdin. Document the daemon-mode setup explicitly.
-- **MCP server mode**: when started by Claude Code via `claude mcp add`, the MCP server inherits Claude Code's environment. The user has to set `GEMIFLOW_ENCRYPTION_KEY` in the env Claude Code launches with — which is doable but non-obvious. A `~/.gemiflow/encryption.json` config (mode 0600, keychain reference) might be cleaner than env-var-everywhere. Decide in implementation.
+- **MCP server mode**: when started by Gemini CLI via `claude mcp add`, the MCP server inherits Gemini CLI's environment. The user has to set `GEMIFLOW_ENCRYPTION_KEY` in the env Gemini CLI launches with — which is doable but non-obvious. A `~/.gemiflow/encryption.json` config (mode 0600, keychain reference) might be cleaner than env-var-everywhere. Decide in implementation.
 - **AgentDB v3 native encryption**: if AgentDB ever exposes a transparent column-encryption API, switch to it for the memory DB. Until then, file-level on the whole DB blob is correct.
 
 ## Acceptance criteria

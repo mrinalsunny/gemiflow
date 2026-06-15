@@ -26,7 +26,7 @@ Write modular code using clean architecture principles. Never hardcode secrets o
 
 ## Usage
 
-### Option 1: Using MCP Tools (Preferred in Claude Code)
+### Option 1: Using MCP Tools (Preferred in Gemini CLI)
 ```javascript
 mcp__gemiflow4gemini__sparc_mode {
   mode: "code",

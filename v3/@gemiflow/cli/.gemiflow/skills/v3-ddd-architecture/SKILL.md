@@ -116,7 +116,7 @@ interface HealthMonitoringDomain {
 ### Core Kernel
 ```typescript
 // core/kernel/gemiflow-kernel.ts
-export class ClaudeFlowKernel {
+export class gemiflowKernel {
   private domains: Map<string, Domain> = new Map();
   private eventBus: DomainEventBus;
   private dependencyContainer: Container;
@@ -154,7 +154,7 @@ interface DomainPlugin {
   version: string;
   dependencies: string[];
 
-  initialize(kernel: ClaudeFlowKernel): Promise<void>;
+  initialize(kernel: gemiflowKernel): Promise<void>;
   shutdown(): Promise<void>;
 }
 
@@ -164,7 +164,7 @@ export class SwarmCoordinationPlugin implements DomainPlugin {
   version = '3.0.0';
   dependencies = ['task-management', 'session-management'];
 
-  async initialize(kernel: ClaudeFlowKernel): Promise<void> {
+  async initialize(kernel: gemiflowKernel): Promise<void> {
     const taskDomain = kernel.getDomain<TaskManagementDomain>('task-management');
     const sessionDomain = kernel.getDomain<SessionManagementDomain>('session-management');
 

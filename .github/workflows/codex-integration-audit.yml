@@ -1,9 +1,9 @@
-name: codex-integration-audit
+name: gemini-integration-audit
 
-# Guards the Codex ↔ GemiFlow integration invariants (issue #1909):
-# - the `codex` MCP backend uses the real `mcp-server` subcommand
-# - @gemiflow/codex VERSION const tracks its package.json
-# - the dual-mode orchestrator / agent defs drive real `codex exec`
+# Guards the gemini ↔ GemiFlow integration invariants (issue #1909):
+# - the `gemini` MCP backend uses the real `mcp-server` subcommand
+# - @gemiflow/gemini VERSION const tracks its package.json
+# - the dual-mode orchestrator / agent defs drive real `gemini exec`
 # - CLI refs are standardized to `gemiflow`, `dual run` exposes `--worker`,
 #   generated SKILL.md frontmatter is complete, config.toml emits a
 #   working `gemiflow` MCP server.
@@ -14,28 +14,28 @@ on:
   push:
     branches: [main]
     paths:
-      - 'v3/@gemiflow/codex/**'
+      - 'v3/@gemiflow/gemini/**'
       - 'gemiflow/src/mcp-bridge/**'
       - 'gemiflow/src/ruvocal/mcp-bridge/**'
       - '.gemiflow/agents/dual-mode/**'
-      - 'scripts/audit-codex-integration.mjs'
-      - '.github/workflows/codex-integration-audit.yml'
+      - 'scripts/audit-gemini-integration.mjs'
+      - '.github/workflows/gemini-integration-audit.yml'
   pull_request:
     paths:
-      - 'v3/@gemiflow/codex/**'
+      - 'v3/@gemiflow/gemini/**'
       - 'gemiflow/src/mcp-bridge/**'
       - 'gemiflow/src/ruvocal/mcp-bridge/**'
       - '.gemiflow/agents/dual-mode/**'
-      - 'scripts/audit-codex-integration.mjs'
-      - '.github/workflows/codex-integration-audit.yml'
+      - 'scripts/audit-gemini-integration.mjs'
+      - '.github/workflows/gemini-integration-audit.yml'
 
 jobs:
   audit:
-    name: Codex integration audit
+    name: gemini integration audit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: node scripts/audit-codex-integration.mjs
+      - run: node scripts/audit-gemini-integration.mjs

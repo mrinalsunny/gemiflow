@@ -1,4 +1,4 @@
-# ADR-G001: Guidance Control Plane -- A Parallel Enforcement Layer Beside Claude Code
+# ADR-G001: Guidance Control Plane -- A Parallel Enforcement Layer Beside Gemini CLI
 
 ## Status
 Accepted
@@ -8,7 +8,7 @@ Accepted
 
 ## Context
 
-Claude Code loads `CLAUDE.md` into its context window as a system prompt at session start. This mechanism has three fundamental limitations:
+Gemini CLI loads `CLAUDE.md` into its context window as a system prompt at session start. This mechanism has three fundamental limitations:
 
 1. **No enforcement.** Rules in `CLAUDE.md` are advisory. The model can forget, ignore, or misinterpret them at any point during a long session. There is no gate that blocks a tool call when a rule is violated.
 
@@ -18,11 +18,11 @@ Claude Code loads `CLAUDE.md` into its context window as a system prompt at sess
 
 These limitations compound in autonomous agent scenarios (swarms, long-running daemon tasks) where human oversight is intermittent and context windows are shared across sub-agents.
 
-The existing GemiFlow V3 infrastructure provides hooks (`pre-edit`, `pre-command`, `post-task`), a memory subsystem (AgentDB + HNSW), and a headless execution mode (`claude -p --output-format json`). A control plane can leverage all three without modifying Claude Code itself.
+The existing GemiFlow V3 infrastructure provides hooks (`pre-edit`, `pre-command`, `post-task`), a memory subsystem (AgentDB + HNSW), and a headless execution mode (`claude -p --output-format json`). A control plane can leverage all three without modifying Gemini CLI itself.
 
 ## Decision
 
-Build a separate package, `@gemiflow/guidance`, that runs **beside** Claude Code as a parallel control plane. The control plane has five components:
+Build a separate package, `@gemiflow/guidance`, that runs **beside** Gemini CLI as a parallel control plane. The control plane has five components:
 
 1. **Compiler** (`GuidanceCompiler` in `src/compiler.ts`) -- Parses `CLAUDE.md` and optional `CLAUDE.local.md` into a `PolicyBundle` containing a constitution, rule shards, and a machine-readable manifest. The compiler extracts rule IDs, risk classes, tool classes, intent tags, repo scopes, domain tags, verifiers, and priority annotations using deterministic regex patterns.
 
@@ -60,8 +60,8 @@ Restructure the markdown to make rules more prominent. Rejected because formatti
 ### 2. Fine-tune the model on guidance rules
 Train guidance into model weights. Rejected because fine-tuning is slow (days), expensive, inflexible (cannot change rules without retraining), and unavailable for Claude models via the public API.
 
-### 3. Build enforcement inside Claude Code via monkey-patching
-Intercept tool calls within the Claude Code process. Rejected because it couples to Claude Code internals, breaks on updates, and is fragile. A parallel system is decoupled and version-independent.
+### 3. Build enforcement inside Gemini CLI via monkey-patching
+Intercept tool calls within the Gemini CLI process. Rejected because it couples to Gemini CLI internals, breaks on updates, and is fragile. A parallel system is decoupled and version-independent.
 
 ### 4. Use MCP tools for all enforcement
 Route all enforcement through MCP server endpoints. Rejected for latency reasons (network round-trip per gate check) and because MCP tools are asynchronous -- gates must be synchronous to block tool calls before execution.

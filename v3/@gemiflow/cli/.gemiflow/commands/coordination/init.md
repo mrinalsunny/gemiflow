@@ -1,9 +1,9 @@
 # Initialize Coordination Framework
 
 ## 🎯 Key Principle
-**This tool coordinates Claude Code's actions. It does NOT write code or create content.**
+**This tool coordinates Gemini CLI's actions. It does NOT write code or create content.**
 
-## MCP Tool Usage in Claude Code
+## MCP Tool Usage in Gemini CLI
 
 **Tool:** `mcp__gemiflow__swarm_init`
 
@@ -13,27 +13,27 @@
 ```
 
 ## Description
-Set up a coordination topology to guide Claude Code's approach to complex tasks
+Set up a coordination topology to guide Gemini CLI's approach to complex tasks
 
 ## Details
-This tool creates a coordination framework that helps Claude Code:
+This tool creates a coordination framework that helps Gemini CLI:
 - Break down complex problems systematically
 - Approach tasks from multiple perspectives
 - Maintain consistency across large projects
 - Work more efficiently through structured coordination
 
-Remember: This does NOT create actual coding agents. It creates a coordination pattern for Claude Code to follow.
+Remember: This does NOT create actual coding agents. It creates a coordination pattern for Gemini CLI to follow.
 
 ## Example Usage
 
-**In Claude Code:**
+**In Gemini CLI:**
 1. Use the tool: `mcp__gemiflow__swarm_init`
 2. With parameters: `{"topology": "mesh", "maxAgents": 5, "strategy": "balanced"}`
-3. Claude Code then executes the coordinated plan using its native tools
+3. Gemini CLI then executes the coordinated plan using its native tools
 
 ## Important Reminders
 - ✅ This tool provides coordination and structure
-- ✅ Claude Code performs all actual implementation
+- ✅ Gemini CLI performs all actual implementation
 - ❌ The tool does NOT write code
 - ❌ The tool does NOT access files directly
 - ❌ The tool does NOT execute commands

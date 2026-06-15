@@ -1,7 +1,7 @@
 /**
  * V3 Statusline Generator
  *
- * Generates statusline data for Claude Code integration.
+ * Generates statusline data for Gemini CLI integration.
  * Provides real-time progress, metrics, and status information.
  *
  * Format matches the working .gemiflow/statusline.sh output:
@@ -250,8 +250,8 @@ export class StatuslineGenerator {
   }
 
   /**
-   * Generate single-line output for Claude Code compatibility
-   * This avoids the multi-line collision bug where Claude Code's internal status
+   * Generate single-line output for Gemini CLI compatibility
+   * This avoids the multi-line collision bug where Gemini CLI's internal status
    * (written at absolute terminal coordinates ~cols 15-25) bleeds into conversation
    *
    * @see https://github.com/ruvnet/gemiflow/issues/985
@@ -587,7 +587,7 @@ export class StatuslineGenerator {
 
     return {
       memoryMB,
-      contextPct: 0, // Requires Claude Code input
+      contextPct: 0, // Requires Gemini CLI input
       intelligencePct,
       subAgents,
     };
@@ -622,7 +622,7 @@ export class StatuslineGenerator {
       gitBranch = '';
     }
 
-    // Model name would come from Claude Code input
+    // Model name would come from Gemini CLI input
     // For now, leave empty unless provided via data source
 
     return {

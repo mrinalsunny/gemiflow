@@ -18,7 +18,7 @@ This ADR is the canonical tracking record for those gaps. Each row below is a ca
 
 **Current state.** `agent_spawn` writes a JSON record into an in-memory `Map`: `{ agentId, status: 'idle', taskCount: 0, lastResult: null }`. No subprocess. No `fork()`. No LLM call. The status field never advances on its own. The schema-honesty work in ADR-093 made the lifecycle observable (the audit's `taskCount: 0 forever` is now reachable as the genuine state) but did not wire up an executor.
 
-**Wire that exists, unused.** The `AnthropicProvider` class in `v3/@gemiflow/providers/` makes real `fetch` calls to `api.anthropic.com`. The `ProviderManager` does round-robin and latency-based routing. Neither is imported by the agent spawn / task / swarm code paths.
+**Wire that exists, unused.** The `googleProvider` class in `v3/@gemiflow/providers/` makes real `fetch` calls to `api.google.com`. The `ProviderManager` does round-robin and latency-based routing. Neither is imported by the agent spawn / task / swarm code paths.
 
 **What a real fix requires.**
 - A worker pool that picks up `task_assign` events and runs them against `ProviderManager`.
@@ -152,15 +152,15 @@ Independent re-audit by AlphaSignal AI (May 7, targeting v3.6.30) re-surfaced th
 
 ### G1 — agent_spawn → REMEDIATED via `agent_execute` wire
 
-The execution wire shipped as a sibling MCP tool, not by modifying `agent_spawn` (which intentionally remains a registry-only write for cost attribution + swarm coordination). File: `v3/@gemiflow/cli/src/mcp-tools/agent-execute-core.ts:117` — `fetch('https://api.anthropic.com/v1/messages', ...)`. Workflow steps go through this wire (see G3).
+The execution wire shipped as a sibling MCP tool, not by modifying `agent_spawn` (which intentionally remains a registry-only write for cost attribution + swarm coordination). File: `v3/@gemiflow/cli/src/mcp-tools/agent-execute-core.ts:117` — `fetch('https://api.google.com/v1/messages', ...)`. Workflow steps go through this wire (see G3).
 
 ### G3 — workflow_execute → REMEDIATED with real step executor
 
 `v3/@gemiflow/cli/src/mcp-tools/workflow-tools.ts:308+` contains the step-walking executor with variable interpolation, step-output binding, pause/cancel, and persistence-after-each-step. The `'Workflow not found'` error only fires when `store.workflows[workflowId]` is undefined (correct missing-ID handling, not a stub).
 
-### G4 — WASM agent prompt → REMEDIATED with echo-stub detection + Anthropic fallback
+### G4 — WASM agent prompt → REMEDIATED with echo-stub detection + google fallback
 
-`v3/@gemiflow/cli/src/ruvector/agent-wasm.ts:154` (`promptWasmAgent`) detects the bundled WASM agent's `echo: <input>` stub and routes through `callAnthropicMessages` when `ANTHROPIC_API_KEY` is set. When unset, surfaces the stub honestly with a `[NOTE: …set ANTHROPIC_API_KEY to enable real responses]` hint.
+`v3/@gemiflow/cli/src/ruvector/agent-wasm.ts:154` (`promptWasmAgent`) detects the bundled WASM agent's `echo: <input>` stub and routes through `callgoogleMessages` when `google_API_KEY` is set. When unset, surfaces the stub honestly with a `[NOTE: …set google_API_KEY to enable real responses]` hint.
 
 ### G6 — Auto-memory bloat → REFUTED on current main
 

@@ -81,7 +81,7 @@ Detection Time: 0.04ms | 50+ Patterns | Self-Learning | HNSW Vector Search
 
 ### Security Integrations
 
-- **Claude Code** - CLI command and MCP tools
+- **Gemini CLI** - CLI command and MCP tools
 - **AgentDB** - HNSW-indexed vector search (150x faster)
 - **Swarm Coordination** - Multi-agent security consensus
 - **Hooks System** - Pre/post operation scanning
@@ -333,7 +333,7 @@ AIDefence detects sensitive information to prevent data leakage:
 | **Email** | Standard email format | `user@example.com` |
 | **SSN** | ###-##-#### | `123-45-6789` |
 | **Credit Card** | 16 digits (grouped) | `4111-1111-1111-1111` |
-| **API Keys** | OpenAI/Anthropic/GitHub | `sk-ant-api03-...` |
+| **API Keys** | OpenAI/google/GitHub | `sk-ant-api03-...` |
 | **Passwords** | `password=` patterns | `password="secret123"` |
 
 ```typescript

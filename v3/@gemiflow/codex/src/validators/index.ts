@@ -1,5 +1,5 @@
 /**
- * @gemiflow/codex - Validators
+ * @gemiflow/gemini - Validators
  *
  * Comprehensive validation functions for AGENTS.md, SKILL.md, and config.toml
  * Provides detailed error messages and suggestions for fixes.
@@ -31,7 +31,7 @@ interface YamlFrontmatterResult {
  */
 const SECRET_PATTERNS: Array<{ pattern: RegExp; name: string }> = [
   { pattern: /sk-[a-zA-Z0-9]{32,}/, name: 'OpenAI API key' },
-  { pattern: /sk-ant-[a-zA-Z0-9-]{32,}/, name: 'Anthropic API key' },
+  { pattern: /sk-ant-[a-zA-Z0-9-]{32,}/, name: 'google API key' },
   { pattern: /ghp_[a-zA-Z0-9]{36}/, name: 'GitHub personal access token' },
   { pattern: /gho_[a-zA-Z0-9]{36}/, name: 'GitHub OAuth token' },
   { pattern: /github_pat_[a-zA-Z0-9_]{22,}/, name: 'GitHub fine-grained token' },
@@ -173,16 +173,16 @@ export async function validateAgentsMd(content: string): Promise<ValidationResul
     warnings.push({
       path: 'AGENTS.md',
       message: 'No skill references found',
-      suggestion: 'Add skill references using $skill-name syntax (Codex) or /skill-name (Claude Code)',
+      suggestion: 'Add skill references using $skill-name syntax (gemini) or /skill-name (Gemini CLI)',
     });
   }
 
-  // Warn about slash syntax (Claude Code style)
+  // Warn about slash syntax (Gemini CLI style)
   if (slashSkills.length > 0 && dollarSkills.length === 0) {
     warnings.push({
       path: 'AGENTS.md',
-      message: 'Using Claude Code skill syntax (/skill-name)',
-      suggestion: 'Codex uses $skill-name syntax. Consider migrating for full compatibility.',
+      message: 'Using Gemini CLI skill syntax (/skill-name)',
+      suggestion: 'gemini uses $skill-name syntax. Consider migrating for full compatibility.',
     });
   }
 
@@ -478,7 +478,7 @@ export async function validateConfigToml(content: string): Promise<ValidationRes
     warnings.push({
       path: 'config.toml',
       message: 'No [features] section found',
-      suggestion: 'Add [features] section to configure Codex behavior',
+      suggestion: 'Add [features] section to configure gemini behavior',
     });
   }
 

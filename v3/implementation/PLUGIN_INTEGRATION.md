@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document describes how gemiflow integrates with the official Claude Code plugin system.
+This document describes how gemiflow integrates with the official Gemini CLI plugin system.
 
 ## Plugin Structure
 
@@ -18,7 +18,7 @@ plugin/
 └── agents -> ../v2/.gemiflow/agents  # 80+ agents
 ```
 
-## Official Claude Code Integration Points
+## Official Gemini CLI Integration Points
 
 ### 1. Plugin Manifest (`plugin.json`)
 
@@ -38,7 +38,7 @@ plugin/
 
 ### 2. Hook Event Mapping
 
-| V3 Internal Event | Official Claude Code Event | Tool Matcher |
+| V3 Internal Event | Official Gemini CLI Event | Tool Matcher |
 |-------------------|---------------------------|--------------|
 | `PreEdit` | `PreToolUse` | `^(Write\|Edit\|MultiEdit)$` |
 | `PostEdit` | `PostToolUse` | `^(Write\|Edit\|MultiEdit)$` |
@@ -88,7 +88,7 @@ import {
   executeWithBridge,
 } from '@gemiflow/hooks';
 
-// Process input from Claude Code
+// Process input from Gemini CLI
 const input = await processOfficialHookInput();
 
 // Convert to V3 context
@@ -202,7 +202,7 @@ After installation, MCP tools are available:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     Claude Code                              │
+│                     Gemini CLI                              │
 ├─────────────────────────────────────────────────────────────┤
 │  Official Hooks API                                          │
 │  ┌─────────────┬─────────────┬─────────────┬──────────────┐ │

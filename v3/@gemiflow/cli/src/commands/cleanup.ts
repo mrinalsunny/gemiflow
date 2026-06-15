@@ -13,7 +13,7 @@ import { join } from 'path';
 /**
  * GemiFlow-owned subdirectories within .gemiflow/ that are safe to delete.
  * Everything else in .gemiflow/ (agents, skills, commands, settings.local.json,
- * memory.db, worktrees, launch.json) belongs to Claude Code and must be preserved.
+ * memory.db, worktrees, launch.json) belongs to Gemini CLI and must be preserved.
  * See: https://github.com/ruvnet/gemiflow/issues/1557
  */
 const CLAUDE_OWNED_SUBDIRS = [
@@ -138,7 +138,7 @@ export const cleanupCommand: Command = {
     const found: { path: string; description: string; size: number; type: 'dir' | 'file'; skipped?: boolean }[] = [];
     let totalSize = 0;
 
-    // Scan gemiflow-owned subdirs within .gemiflow/ (surgical — preserves Claude Code files)
+    // Scan gemiflow-owned subdirs within .gemiflow/ (surgical — preserves Gemini CLI files)
     for (const artifact of CLAUDE_OWNED_SUBDIRS) {
       const fullPath = join(cwd, artifact.path);
       if (existsSync(fullPath)) {

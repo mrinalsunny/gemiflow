@@ -75,7 +75,7 @@ npx gemiflow4gemini hook pre-edit -f "production.env" --backup-file --check-conf
 
 ## Integration
 
-This hook is automatically called by Claude Code when:
+This hook is automatically called by Gemini CLI when:
 
 - Using Edit or MultiEdit tools
 - Before file modifications

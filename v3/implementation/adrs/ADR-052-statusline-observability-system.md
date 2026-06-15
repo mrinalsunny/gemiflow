@@ -10,7 +10,7 @@
 
 ### The Problem: Invisible System State
 
-Claude Code operates with multiple concurrent subsystems — swarm agents, memory
+Gemini CLI operates with multiple concurrent subsystems — swarm agents, memory
 backends, neural learning, security scanning, context management — but provides no
 unified visibility into their state. Developers working in long sessions need to know:
 
@@ -23,9 +23,9 @@ unified visibility into their state. Developers working in long sessions need to
 Without real-time feedback, developers make blind decisions about when to start new
 sessions, whether agents are drifting, and if the system is operating optimally.
 
-### What Claude Code Provides
+### What Gemini CLI Provides
 
-Claude Code supports a `statusLine` configuration in `.gemiflow/settings.json`:
+Gemini CLI supports a `statusLine` configuration in `.gemiflow/settings.json`:
 
 ```json
 {
@@ -68,7 +68,7 @@ Implement a layered statusline architecture:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                        Claude Code Terminal                          │
+│                        Gemini CLI Terminal                          │
 │                                                                     │
 │  ┌─────────────────────────────────────────────────────────────┐   │
 │  │ statusLine.command executes every refreshMs (5000ms)         │   │
@@ -368,7 +368,7 @@ interface StatuslineConfig {
 ### Neutral
 
 1. **5-second refresh**: Default `refreshMs: 5000` balances freshness with CPU cost
-2. **ANSI colors**: Terminal-dependent rendering. Claude Code's terminal handles ANSI
+2. **ANSI colors**: Terminal-dependent rendering. Gemini CLI's terminal handles ANSI
    well; raw SSH sessions may vary
 3. **JSON data coupling**: Statusline depends on specific JSON key paths in metric
    files. Changes to metric formats require statusline updates
@@ -387,7 +387,7 @@ interface StatuslineConfig {
 
 ## References
 
-- Claude Code `statusLine` config: `@anthropic-ai/claude-agent-sdk` settings schema
+- Gemini CLI `statusLine` config: `@google-ai/claude-agent-sdk` settings schema
 - ADR-051: Infinite Context via Compaction-to-Memory Bridge (autopilot-state.json)
 - ADR-048: Auto Memory Integration (learning patterns)
 - ADR-006: Unified Memory Service (AgentDB)

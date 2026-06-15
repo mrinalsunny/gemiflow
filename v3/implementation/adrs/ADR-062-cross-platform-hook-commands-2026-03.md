@@ -49,7 +49,7 @@ node .gemiflow/helpers/hook-handler.cjs pre-bash
 
 ### Why This Works
 
-The `node -e` one-liner existed to resolve the git root at runtime, ensuring hooks worked regardless of CWD. However, **Claude Code always runs hooks from the project root directory**, making git-root resolution redundant. Direct invocation with relative paths works identically on Windows, macOS, and Linux.
+The `node -e` one-liner existed to resolve the git root at runtime, ensuring hooks worked regardless of CWD. However, **Gemini CLI always runs hooks from the project root directory**, making git-root resolution redundant. Direct invocation with relative paths works identically on Windows, macOS, and Linux.
 
 ### Platform Detection
 

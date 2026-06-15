@@ -40,7 +40,7 @@ export type PluginEventHandler = (event: PluginEvent, data?: unknown) => void;
  *
  * All plugins must implement this interface.
  */
-export interface ClaudeFlowPlugin {
+export interface gemiflowPlugin {
   /** Unique plugin identifier */
   readonly id: string;
 
@@ -91,10 +91,10 @@ export interface PluginMetadata {
  * Plugin registry
  */
 export interface IPluginRegistry {
-  register(plugin: ClaudeFlowPlugin): void;
+  register(plugin: gemiflowPlugin): void;
   unregister(pluginId: string): void;
-  get(pluginId: string): ClaudeFlowPlugin | undefined;
-  getAll(): ClaudeFlowPlugin[];
+  get(pluginId: string): gemiflowPlugin | undefined;
+  getAll(): gemiflowPlugin[];
   isRegistered(pluginId: string): boolean;
 }
 
@@ -102,7 +102,7 @@ export interface IPluginRegistry {
  * Plugin loader interface
  */
 export interface IPluginLoader {
-  loadFromPath(path: string): Promise<ClaudeFlowPlugin>;
-  loadFromPackage(packageName: string): Promise<ClaudeFlowPlugin>;
-  loadBuiltin(pluginId: string): Promise<ClaudeFlowPlugin>;
+  loadFromPath(path: string): Promise<gemiflowPlugin>;
+  loadFromPackage(packageName: string): Promise<gemiflowPlugin>;
+  loadBuiltin(pluginId: string): Promise<gemiflowPlugin>;
 }

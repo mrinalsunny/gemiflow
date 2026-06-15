@@ -80,7 +80,7 @@
           "score": "0.467"
         },
         {
-          "name": "fix(plugins): repository must be string per Claude Code plugin schema (not npm-style objec",
+          "name": "fix(plugins): repository must be string per Gemini CLI plugin schema (not npm-style objec",
           "relevant": false,
           "score": "0.356"
         }
@@ -211,16 +211,16 @@
       ]
     },
     {
-      "q": "Claude Code marketplace plugins",
+      "q": "Gemini CLI marketplace plugins",
       "top1": true,
       "topK": [
         {
-          "name": "feat: Claude Code marketplace + 6 plugins + npm SEO bump",
+          "name": "feat: Gemini CLI marketplace + 6 plugins + npm SEO bump",
           "relevant": true,
           "score": "0.855"
         },
         {
-          "name": "fix(plugins): repository must be string per Claude Code plugin schema (not npm-style objec",
+          "name": "fix(plugins): repository must be string per Gemini CLI plugin schema (not npm-style objec",
           "relevant": true,
           "score": "0.690"
         },
@@ -256,7 +256,7 @@
           "score": "0.520"
         },
         {
-          "name": "fix(plugins): repository must be string per Claude Code plugin schema (not npm-style objec",
+          "name": "fix(plugins): repository must be string per Gemini CLI plugin schema (not npm-style objec",
           "relevant": false,
           "score": "0.456"
         },
@@ -292,7 +292,7 @@
           "score": "0.500"
         },
         {
-          "name": "fix(plugins): repository must be string per Claude Code plugin schema (not npm-style objec",
+          "name": "fix(plugins): repository must be string per Gemini CLI plugin schema (not npm-style objec",
           "relevant": false,
           "score": "0.384"
         },

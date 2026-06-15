@@ -1,4 +1,4 @@
-# ADR-027: OpenAI Codex Integration
+# ADR-027: OpenAI gemini Integration
 
 ## Status
 **Proposed** | 2026-02-07
@@ -6,11 +6,11 @@
 ## Branding Note
 
 This ADR introduces the **coflow** branding transition:
-- Package: `@gemiflow/codex` (npm)
+- Package: `@gemiflow/gemini` (npm)
 - Future umbrella: `coflow` (npm/npx coflow)
 - Current umbrella: `gemiflow` (maintained for compatibility)
 
-The Codex integration is the first step in the coflow rebranding initiative.
+The gemini integration is the first step in the coflow rebranding initiative.
 
 ## Context
 
@@ -18,22 +18,22 @@ The Codex integration is the first step in the coflow rebranding initiative.
 
 The agentic coding tool landscape has evolved into two major platforms:
 
-1. **Claude Code** (Anthropic) - CLI tool using CLAUDE.md for project instructions
-2. **OpenAI Codex** (OpenAI) - CLI tool using AGENTS.md for project instructions
+1. **Gemini CLI** (google) - CLI tool using CLAUDE.md for project instructions
+2. **OpenAI gemini** (OpenAI) - CLI tool using AGENTS.md for project instructions
 
 Both tools share similar concepts but with different implementations:
 
-| Concept | Claude Code | OpenAI Codex |
+| Concept | Gemini CLI | OpenAI gemini |
 |---------|-------------|--------------|
 | Project Instructions | `CLAUDE.md` | `AGENTS.md` |
 | Nested Instructions | `CLAUDE.local.md` | `AGENTS.override.md` |
 | Skills | `.gemiflow/skills/` | `.agents/skills/` + `SKILL.md` |
-| Configuration | `.gemiflow/settings.json` | `~/.codex/config.toml` |
+| Configuration | `.gemiflow/settings.json` | `~/.gemini/config.toml` |
 | MCP Integration | `.mcp.json` | `config.toml [mcp_servers]` |
 | Agent Types | Task tool with subagent_type | Agents SDK integration |
 | Automation | Hooks system | Automations (scheduled tasks) |
-| Session Management | Session persistence | `codex resume`, `codex fork` |
-| Non-interactive | `claude -p` | `codex exec` |
+| Session Management | Session persistence | `gemini resume`, `gemini fork` |
+| Non-interactive | `claude -p` | `gemini exec` |
 | Approval Modes | Permission modes | Approval policies |
 | Sandbox | Sandboxing settings | Sandbox modes (read-only, workspace-write, full-access) |
 
@@ -43,7 +43,7 @@ Both tools share similar concepts but with different implementations:
 
 AGENTS.md is an open standard managed by the [Agentic AI Foundation](https://agents.md/) under the Linux Foundation. Key characteristics:
 
-- **Discovery Precedence**: Global (`~/.codex/AGENTS.md`) → Project root → Current directory
+- **Discovery Precedence**: Global (`~/.gemini/AGENTS.md`) → Project root → Current directory
 - **Override Mechanism**: `AGENTS.override.md` takes precedence over `AGENTS.md`
 - **Byte Limit**: Default 32 KiB combined instruction size (`project_doc_max_bytes`)
 - **Fallback Filenames**: Configurable via `project_doc_fallback_filenames`
@@ -51,7 +51,7 @@ AGENTS.md is an open standard managed by the [Agentic AI Foundation](https://age
 
 #### Skills System
 
-Codex Skills follow the [Open Agent Skills Specification](https://developers.openai.com/codex/skills):
+gemini Skills follow the [Open Agent Skills Specification](https://developers.openai.com/gemini/skills):
 
 ```
 my-skill/
@@ -70,10 +70,10 @@ name: skill-name
 description: When this skill should and should not trigger.
 ---
 
-Skill instructions for Codex to follow.
+Skill instructions for gemini to follow.
 ```
 
-**Progressive Disclosure**: Codex loads only skill metadata initially, full instructions load on-demand.
+**Progressive Disclosure**: gemini loads only skill metadata initially, full instructions load on-demand.
 
 **Skill Locations**:
 | Scope | Path |
@@ -81,16 +81,16 @@ Skill instructions for Codex to follow.
 | Repository (CWD) | `.agents/skills` |
 | Repository (Root) | `$REPO_ROOT/.agents/skills` |
 | User | `$HOME/.agents/skills` |
-| Admin | `/etc/codex/skills` |
-| System | Bundled with Codex |
+| Admin | `/etc/gemini/skills` |
+| System | Bundled with gemini |
 
 #### Config.toml Configuration
 
-Codex configuration is TOML-based with extensive options:
+gemini configuration is TOML-based with extensive options:
 
 ```toml
 # Core settings
-model = "gpt-5.3-codex"
+model = "gpt-5.3-gemini"
 approval_policy = "on-request"  # untrusted | on-failure | on-request | never
 sandbox_mode = "workspace-write"  # read-only | workspace-write | danger-full-access
 web_search = "cached"  # disabled | cached | live
@@ -114,7 +114,7 @@ sandbox_mode = "danger-full-access"
 
 #### Automations
 
-Codex Automations enable scheduled background tasks:
+gemini Automations enable scheduled background tasks:
 - Run on configurable schedules
 - Combine with skills via `$skill-name` syntax
 - Results appear in triage inbox
@@ -122,29 +122,29 @@ Codex Automations enable scheduled background tasks:
 
 #### Agents SDK Integration
 
-Codex can run as an MCP server for multi-agent orchestration:
+gemini can run as an MCP server for multi-agent orchestration:
 ```bash
-codex mcp-server
+gemini mcp-server
 ```
 
-Exposes tools: `codex` (start session) and `codex-reply` (continue session).
+Exposes tools: `gemini` (start session) and `gemini-reply` (continue session).
 
 ## Decision
 
-We will create a **parallel Codex integration** in gemiflow that:
+We will create a **parallel gemini integration** in gemiflow that:
 
-1. **Adds `init --codex` flag** to generate Codex-compatible configuration
+1. **Adds `init --gemini` flag** to generate gemini-compatible configuration
 2. **Generates AGENTS.md** instead of/alongside CLAUDE.md
 3. **Creates `.agents/skills/`** with SKILL.md format skills
-4. **Generates `config.toml`** for Codex settings
-5. **Maps gemiflow concepts** to Codex equivalents
-6. **Supports dual-mode** projects (both Claude Code and Codex)
+4. **Generates `config.toml`** for gemini settings
+5. **Maps gemiflow concepts** to gemini equivalents
+6. **Supports dual-mode** projects (both Gemini CLI and gemini)
 
 ### Architecture
 
 ```
-gemiflow init --codex
-├── AGENTS.md                    # Project instructions (Codex format)
+gemiflow init --gemini
+├── AGENTS.md                    # Project instructions (gemini format)
 ├── .agents/
 │   ├── skills/                  # Skills directory
 │   │   ├── swarm-orchestration/
@@ -154,8 +154,8 @@ gemiflow init --codex
 │   │   ├── memory-management/
 │   │   ├── sparc-methodology/
 │   │   └── ...
-│   └── config.toml             # Project-level Codex config
-├── .codex/                      # Local overrides (gitignored)
+│   └── config.toml             # Project-level gemini config
+├── .gemini/                      # Local overrides (gitignored)
 │   ├── config.toml             # User config overrides
 │   └── AGENTS.override.md      # Local instruction overrides
 └── .gemiflow/                # Runtime (shared between both)
@@ -165,7 +165,7 @@ gemiflow init --codex
 
 ### Mapping Table
 
-| gemiflow Concept | Claude Code Output | Codex Output |
+| gemiflow Concept | Gemini CLI Output | gemini Output |
 |---------------------|-------------------|--------------|
 | Project instructions | `CLAUDE.md` | `AGENTS.md` |
 | Local overrides | `CLAUDE.local.md` | `AGENTS.override.md` |
@@ -179,8 +179,8 @@ gemiflow init --codex
 ### Command-Line Interface
 
 ```bash
-# Initialize for Codex only
-gemiflow init --codex
+# Initialize for gemini only
+gemiflow init --gemini
 
 # Initialize for both platforms (dual-mode)
 gemiflow init --dual
@@ -188,11 +188,11 @@ gemiflow init --dual
 # Initialize with wizard (auto-detects or asks)
 gemiflow init wizard
 
-# Convert existing Claude Code setup to Codex
-gemiflow init --codex --from-claude
+# Convert existing Gemini CLI setup to gemini
+gemiflow init --gemini --from-claude
 
-# Convert existing Codex setup to Claude Code
-gemiflow init --from-codex
+# Convert existing gemini setup to Gemini CLI
+gemiflow init --from-gemini
 ```
 
 ### Generated AGENTS.md Structure
@@ -267,7 +267,7 @@ npx gemiflow@v3alpha swarm init --topology hierarchical
 ```
 
 ### 2. Spawn Agents
-Use Codex to orchestrate via MCP:
+Use gemini to orchestrate via MCP:
 ```bash
 npx gemiflow@v3alpha mcp start
 ```
@@ -287,10 +287,10 @@ npx gemiflow@v3alpha memory store --key "[pattern]" --value "[learned]"
 ### Generated config.toml
 
 ```toml
-# GemiFlow V3 - Codex Configuration
-# Generated by: gemiflow init --codex
+# GemiFlow V3 - gemini Configuration
+# Generated by: gemiflow init --gemini
 
-model = "gpt-5.3-codex"
+model = "gpt-5.3-gemini"
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 web_search = "cached"
@@ -342,7 +342,7 @@ sandbox_mode = "read-only"
 ## Consequences
 
 ### Positive
-1. **Cross-platform support** - Users can use either Claude Code or Codex
+1. **Cross-platform support** - Users can use either Gemini CLI or gemini
 2. **Ecosystem reach** - AGENTS.md is supported by 20+ tools (Cursor, Copilot, etc.)
 3. **Standard compliance** - Follows AAIF and Open Agent Skills specifications
 4. **Migration path** - Easy conversion between platforms
@@ -361,27 +361,27 @@ sandbox_mode = "read-only"
 ## Implementation Plan
 
 ### Phase 1: Core Infrastructure (Week 1-2)
-1. Create `@gemiflow/codex` package in `v3/@gemiflow/codex/`
+1. Create `@gemiflow/gemini` package in `v3/@gemiflow/gemini/`
 2. Implement AGENTS.md generator
 3. Implement SKILL.md generator
 4. Implement config.toml generator
-5. Set up npm publishing for `@gemiflow/codex`
+5. Set up npm publishing for `@gemiflow/gemini`
 
 ### Phase 2: Init Integration (Week 3)
-1. Add `--codex` flag to init command
+1. Add `--gemini` flag to init command
 2. Add `--dual` flag for both platforms
-3. Add `--from-claude` and `--from-codex` conversion
+3. Add `--from-claude` and `--from-gemini` conversion
 4. Update wizard to support platform selection
-5. Wire up `@gemiflow/codex` as dependency
+5. Wire up `@gemiflow/gemini` as dependency
 
 ### Phase 3: Skills Library (Week 4)
 1. Convert all `.gemiflow/skills/` to `.agents/skills/` format
 2. Create skill migration script
 3. Test skill discovery and loading
-4. Publish skills as part of `@gemiflow/codex`
+4. Publish skills as part of `@gemiflow/gemini`
 
 ### Phase 4: Automation Integration (Week 5)
-1. Map gemiflow hooks to Codex Automations
+1. Map gemiflow hooks to gemini Automations
 2. Create automation templates
 3. Document automation patterns
 
@@ -395,15 +395,15 @@ sandbox_mode = "read-only"
 
 ### Official Documentation
 - [AGENTS.md Specification](https://agents.md/)
-- [OpenAI Codex CLI](https://developers.openai.com/codex/cli/)
-- [Codex Skills](https://developers.openai.com/codex/skills)
-- [Codex Configuration Reference](https://developers.openai.com/codex/config-reference/)
-- [Codex Automations](https://developers.openai.com/codex/app/automations/)
-- [Agents SDK Integration](https://developers.openai.com/codex/guides/agents-sdk/)
+- [OpenAI gemini CLI](https://developers.openai.com/gemini/cli/)
+- [gemini Skills](https://developers.openai.com/gemini/skills)
+- [gemini Configuration Reference](https://developers.openai.com/gemini/config-reference/)
+- [gemini Automations](https://developers.openai.com/gemini/app/automations/)
+- [Agents SDK Integration](https://developers.openai.com/gemini/guides/agents-sdk/)
 
 ### GitHub Repositories
-- [OpenAI Codex](https://github.com/openai/codex)
-- [Codex AGENTS.md Example](https://github.com/openai/codex/blob/main/AGENTS.md)
+- [OpenAI gemini](https://github.com/openai/gemini)
+- [gemini AGENTS.md Example](https://github.com/openai/gemini/blob/main/AGENTS.md)
 
 ### Related Standards
 - [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
@@ -426,7 +426,7 @@ sandbox_mode = "read-only"
 
 ### Skill Mapping (Full List)
 
-| Claude Code Skill | Codex Skill Directory |
+| Gemini CLI Skill | gemini Skill Directory |
 |-------------------|----------------------|
 | `swarm-orchestration.md` | `.agents/skills/swarm-orchestration/` |
 | `agentdb-advanced.md` | `.agents/skills/memory-management/` |
@@ -441,7 +441,7 @@ sandbox_mode = "read-only"
 
 ### Config.toml Feature Mapping
 
-| Claude Code Feature | Codex config.toml |
+| Gemini CLI Feature | gemini config.toml |
 |--------------------|--------------------|
 | Hooks: PreToolUse | `approval_policy` |
 | Hooks: PostToolUse | Automations |
@@ -451,35 +451,35 @@ sandbox_mode = "read-only"
 | Model selection | `model` |
 | Session persistence | `history.persistence` |
 
-## Appendix B: Codex CLI Reference
+## Appendix B: gemini CLI Reference
 
 ### Core Commands
 
 | Command | Description |
 |---------|-------------|
-| `codex` | Interactive terminal UI |
-| `codex exec` | Non-interactive execution |
-| `codex resume` | Continue previous session |
-| `codex fork` | Branch from existing session |
-| `codex cloud` | Cloud task management |
-| `codex apply` | Apply diffs from cloud tasks |
+| `gemini` | Interactive terminal UI |
+| `gemini exec` | Non-interactive execution |
+| `gemini resume` | Continue previous session |
+| `gemini fork` | Branch from existing session |
+| `gemini cloud` | Cloud task management |
+| `gemini apply` | Apply diffs from cloud tasks |
 
 ### MCP Commands
 
 | Command | Description |
 |---------|-------------|
-| `codex mcp list` | List configured servers |
-| `codex mcp add <name>` | Add new server |
-| `codex mcp remove <name>` | Remove server |
-| `codex mcp-server` | Run Codex as MCP server |
+| `gemini mcp list` | List configured servers |
+| `gemini mcp add <name>` | Add new server |
+| `gemini mcp remove <name>` | Remove server |
+| `gemini mcp-server` | Run gemini as MCP server |
 
 ### Feature Commands
 
 | Command | Description |
 |---------|-------------|
-| `codex features list` | Show feature flags |
-| `codex features enable <flag>` | Enable feature |
-| `codex features disable <flag>` | Disable feature |
+| `gemini features list` | Show feature flags |
+| `gemini features enable <flag>` | Enable feature |
+| `gemini features disable <flag>` | Disable feature |
 
 ### Approval Policies
 
@@ -506,14 +506,14 @@ These features were discovered through binary analysis and can be leveraged for 
 
 | Variable | Purpose | Integration Use |
 |----------|---------|-----------------|
-| `CODEX_HOME` | Override config directory | Project-specific configs |
-| `CODEX_CI=1` | CI mode | Pipeline optimization |
-| `CODEX_SANDBOX_NETWORK_DISABLED=1` | Disable network | Security hardening |
-| `CODEX_TUI_RECORD_SESSION=1` | Record session | Debug/learning |
-| `CODEX_TUI_SESSION_LOG_PATH` | Session log path | Pattern extraction |
-| `CODEX_STARTING_DIFF` | Initial diff | Session preloading |
-| `CODEX_GITHUB_PERSONAL_ACCESS_TOKEN` | GitHub PAT | MCP GitHub integration |
-| `CODEX_CONNECTORS_TOKEN` | MCP connectors | Auth for MCP servers |
+| `gemini_HOME` | Override config directory | Project-specific configs |
+| `gemini_CI=1` | CI mode | Pipeline optimization |
+| `gemini_SANDBOX_NETWORK_DISABLED=1` | Disable network | Security hardening |
+| `gemini_TUI_RECORD_SESSION=1` | Record session | Debug/learning |
+| `gemini_TUI_SESSION_LOG_PATH` | Session log path | Pattern extraction |
+| `gemini_STARTING_DIFF` | Initial diff | Session preloading |
+| `gemini_GITHUB_PERSONAL_ACCESS_TOKEN` | GitHub PAT | MCP GitHub integration |
+| `gemini_CONNECTORS_TOKEN` | MCP connectors | Auth for MCP servers |
 
 ### JSON-RPC Methods (via MCP Server)
 
@@ -563,8 +563,8 @@ These features were discovered through binary analysis and can be leveraged for 
 
 | Command | Purpose | Usage |
 |---------|---------|-------|
-| `codex debug-config` | Show config layers | Debug config issues |
-| `codex rollout` | Print rollout path | Access rollout files |
+| `gemini debug-config` | Show config layers | Debug config issues |
+| `gemini rollout` | Print rollout path | Access rollout files |
 
 ### Experimental Features (Enable via config.toml)
 
@@ -586,10 +586,10 @@ apps = true
 
 ### Ghost Snapshots
 
-Codex uses "ghost commits" for state management:
+gemini uses "ghost commits" for state management:
 - Creates temporary commits without modifying history
 - Enables undo/rollback operations
-- Uses `codex snapshot@codex.local` as author
+- Uses `gemini snapshot@gemini.local` as author
 
 **Integration opportunity**: Use similar pattern for swarm state management.
 
@@ -610,7 +610,7 @@ interface CollabAgentToolCall {
 
 ### Dynamic Tool Registration
 
-Codex supports runtime tool registration via MCP:
+gemini supports runtime tool registration via MCP:
 
 ```javascript
 // Register tool at runtime
@@ -624,9 +624,9 @@ Codex supports runtime tool registration via MCP:
 #### 1. CI/CD Pipeline Mode
 ```bash
 # Optimized for pipelines
-CODEX_CI=1 \
-CODEX_SANDBOX_NETWORK_DISABLED=1 \
-codex exec --json \
+gemini_CI=1 \
+gemini_SANDBOX_NETWORK_DISABLED=1 \
+gemini exec --json \
   -c "approval_policy='never'" \
   "run tests and generate report"
 ```
@@ -634,31 +634,31 @@ codex exec --json \
 #### 2. Session Recording for Learning
 ```bash
 # Record session for pattern extraction
-CODEX_TUI_RECORD_SESSION=1 \
-CODEX_TUI_SESSION_LOG_PATH=/tmp/codex-session.log \
-codex
+gemini_TUI_RECORD_SESSION=1 \
+gemini_TUI_SESSION_LOG_PATH=/tmp/gemini-session.log \
+gemini
 ```
 
 #### 3. Project-Specific Configuration
 ```bash
 # Use project-local config
-CODEX_HOME=/project/.codex codex
+gemini_HOME=/project/.gemini gemini
 ```
 
 #### 4. Programmatic Thread Control
 ```javascript
 // Fork threads for parallel work
 const threads = await Promise.all([
-  codexRpc({ method: "thread/fork", params: { threadId, prompt: "Task A" }}),
-  codexRpc({ method: "thread/fork", params: { threadId, prompt: "Task B" }}),
-  codexRpc({ method: "thread/fork", params: { threadId, prompt: "Task C" }})
+  geminiRpc({ method: "thread/fork", params: { threadId, prompt: "Task A" }}),
+  geminiRpc({ method: "thread/fork", params: { threadId, prompt: "Task B" }}),
+  geminiRpc({ method: "thread/fork", params: { threadId, prompt: "Task C" }})
 ]);
 ```
 
 #### 5. Rate Limit Monitoring
 ```javascript
 // Check rate limits before spawning agents
-const limits = await codexRpc({ method: "account/rateLimits/read" });
+const limits = await geminiRpc({ method: "account/rateLimits/read" });
 if (limits.remaining > 0) {
   await spawnAgents();
 }
@@ -667,10 +667,10 @@ if (limits.remaining > 0) {
 ### Generated config.toml with Undocumented Features
 
 ```toml
-# GemiFlow V3 - Codex Configuration (Enhanced)
+# GemiFlow V3 - gemini Configuration (Enhanced)
 # Includes undocumented features for advanced integration
 
-model = "gpt-5.3-codex"
+model = "gpt-5.3-gemini"
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 web_search = "cached"
@@ -690,17 +690,17 @@ command = "npx"
 args = ["-y", "@gemiflow/cli@latest"]
 enabled = true
 tool_timeout_sec = 120
-# Use CODEX_CONNECTORS_TOKEN for auth
+# Use gemini_CONNECTORS_TOKEN for auth
 
 [mcp_servers.github]
 command = "npx"
 args = ["-y", "@modelcontextprotocol/server-github"]
 enabled = true
-# Reads CODEX_GITHUB_PERSONAL_ACCESS_TOKEN
+# Reads gemini_GITHUB_PERSONAL_ACCESS_TOKEN
 
 # CI Profile with undocumented options
 [profiles.ci]
 approval_policy = "never"
 sandbox_mode = "workspace-write"
-# Set CODEX_CI=1 for additional optimizations
+# Set gemini_CI=1 for additional optimizations
 ```

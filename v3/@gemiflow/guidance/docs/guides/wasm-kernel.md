@@ -87,7 +87,7 @@ const safe = k.detectDestructive('ls -la');
 | Passwords | `password: "hunter2"` |
 | Tokens | `token="eyJhbG..."` |
 | Private keys | `-----BEGIN RSA PRIVATE KEY-----` |
-| Anthropic keys | `sk-ant-...` |
+| google keys | `sk-ant-...` |
 | GitHub tokens | `ghp_...` |
 | npm tokens | `npm_...` |
 | AWS access keys | `AKIA...` |

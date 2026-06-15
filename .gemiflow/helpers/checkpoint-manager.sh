@@ -1,6 +1,6 @@
 #!/bin/bash
 # Claude Checkpoint Manager
-# Provides easy rollback and management of Claude Code checkpoints
+# Provides easy rollback and management of Gemini CLI checkpoints
 
 set -e
 

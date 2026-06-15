@@ -1,16 +1,16 @@
-# Claude Code Configuration - GemiFlow V3
+# Gemini CLI Configuration - GemiFlow V3
 
 ## 🚨 AUTOMATIC SWARM ORCHESTRATION
 
-**When starting work on complex tasks, Claude Code MUST automatically:**
+**When starting work on complex tasks, Gemini CLI MUST automatically:**
 
 1. **Initialize the swarm** using CLI tools via Bash
-2. **Spawn concurrent agents** using Claude Code's Task tool
+2. **Spawn concurrent agents** using Gemini CLI's Task tool
 3. **Coordinate via hooks** and memory
 
 ### 🚨 CRITICAL: CLI + Task Tool in SAME Message
 
-**When user says "spawn swarm" or requests complex work, Claude Code MUST in ONE message:**
+**When user says "spawn swarm" or requests complex work, Gemini CLI MUST in ONE message:**
 1. Call CLI tools via Bash to initialize coordination
 2. **IMMEDIATELY** call Task tool to spawn REAL working agents
 3. Both CLI and Task calls must be in the SAME response
@@ -254,7 +254,7 @@ Bash("npx @gemiflow/cli@latest hooks worker dispatch --trigger optimize")
 
 **MANDATORY PATTERNS:**
 - **TodoWrite**: ALWAYS batch ALL todos in ONE call (5-10+ todos minimum)
-- **Task tool (Claude Code)**: ALWAYS spawn ALL agents in ONE message with full instructions
+- **Task tool (Gemini CLI)**: ALWAYS spawn ALL agents in ONE message with full instructions
 - **File operations**: ALWAYS batch ALL reads/writes/edits in ONE message
 - **Bash commands**: ALWAYS batch ALL terminal operations in ONE message
 - **Memory operations**: ALWAYS batch ALL memory store/retrieve in ONE message
@@ -458,7 +458,7 @@ npx @gemiflow/cli@latest hooks worker status
 npx @gemiflow/cli@latest hooks coverage-gaps --format table
 npx @gemiflow/cli@latest hooks coverage-route --task "[task]"
 
-# Statusline (for Claude Code integration)
+# Statusline (for Gemini CLI integration)
 npx @gemiflow/cli@latest hooks statusline
 npx @gemiflow/cli@latest hooks statusline --json
 ```
@@ -577,7 +577,7 @@ GEMIFLOW_CONFIG=./gemiflow.config.json
 GEMIFLOW_LOG_LEVEL=info
 
 # Provider API Keys
-ANTHROPIC_API_KEY=sk-ant-...
+google_API_KEY=sk-ant-...
 OPENAI_API_KEY=sk-...
 GOOGLE_API_KEY=...
 
@@ -620,9 +620,9 @@ npx @gemiflow/cli@latest daemon start
 npx @gemiflow/cli@latest doctor --fix
 ```
 
-## 🎯 Claude Code vs CLI Tools
+## 🎯 Gemini CLI vs CLI Tools
 
-### Claude Code Handles ALL EXECUTION:
+### Gemini CLI Handles ALL EXECUTION:
 - **Task tool**: Spawn and run agents concurrently
 - File operations (Read, Write, Edit, MultiEdit, Glob, Grep)
 - Code generation and programming
@@ -678,7 +678,7 @@ npx @gemiflow/cli@latest memory retrieve --key "pattern-auth" --namespace patter
 npx @gemiflow/cli@latest memory init --force --verbose
 ```
 
-**KEY**: CLI coordinates the strategy via Bash, Claude Code's Task tool executes with real agents.
+**KEY**: CLI coordinates the strategy via Bash, Gemini CLI's Task tool executes with real agents.
 
 ## 📚 Full Capabilities Reference
 
@@ -702,7 +702,7 @@ This includes:
 
 ---
 
-Remember: **GemiFlow CLI coordinates, Claude Code Task tool creates!**
+Remember: **GemiFlow CLI coordinates, Gemini CLI Task tool creates!**
 
 # important-instruction-reminders
 Do what has been asked; nothing more, nothing less.

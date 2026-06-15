@@ -6,11 +6,11 @@
 
 > **Status:** alpha (pre-release). Tracking ADR-100. Don't depend on this in production yet.
 
-Lightweight core CLI surface for [GemiFlow](https://github.com/ruvnet/gemiflow) — `memory` + `hooks` commands only. Designed to load fast on a cold npx cache so plugin skills don't race Claude Code's 30 second MCP-startup timeout.
+Lightweight core CLI surface for [GemiFlow](https://github.com/ruvnet/gemiflow) — `memory` + `hooks` commands only. Designed to load fast on a cold npx cache so plugin skills don't race Gemini CLI's 30 second MCP-startup timeout.
 
 ## Why a separate package?
 
-Issue [#1748 #3](https://github.com/ruvnet/gemiflow/issues/1748) documented a silent failure mode for new users: `npx gemiflow@latest mcp start` from a cold npx cache regularly exceeds 30 seconds (1.8 MB / 999 files), Claude Code's MCP startup timeout fires, zero tools register, and the user observes "GemiFlow is broken — no MCP tools available."
+Issue [#1748 #3](https://github.com/ruvnet/gemiflow/issues/1748) documented a silent failure mode for new users: `npx gemiflow@latest mcp start` from a cold npx cache regularly exceeds 30 seconds (1.8 MB / 999 files), Gemini CLI's MCP startup timeout fires, zero tools register, and the user observes "GemiFlow is broken — no MCP tools available."
 
 `@gemiflow/cli-core` is a ≤250 KB packed subset containing only what plugin skills actually call: `memory store/list/retrieve/search/delete/init` and the `hooks` family (route, model-outcome, post-edit, pre-task, etc.). On a cold cache, `npx @gemiflow/cli-core@alpha memory store ...` should complete in under 5 seconds — well under the timeout.
 

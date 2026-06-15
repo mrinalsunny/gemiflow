@@ -1,7 +1,7 @@
 /**
  * Statusline session-cost display configuration.
  *
- * Claude Code's `cost.total_cost_usd` is documented as a client-side estimate
+ * Gemini CLI's `cost.total_cost_usd` is documented as a client-side estimate
  * that "may differ from your actual bill", and on subscription plans it reads as
  * misleading (token usage is not billed per dollar). The statusline therefore
  * lets each user relabel or hide the cost segment without changing the default:
@@ -13,7 +13,7 @@
  *   1. Generator contract — the emitted script wires the env vars and keeps '$'
  *      as the default, so the customization can never silently regress.
  *   2. Runtime behavior — the generated script renders the right thing for each
- *      configuration when fed a Claude Code stdin payload.
+ *      configuration when fed a Gemini CLI stdin payload.
  *   3. Drift guard — the committed `.gemiflow/helpers/statusline.cjs` artifact stays
  *      byte-identical to the generator output for the default options.
  */
@@ -35,7 +35,7 @@ const stripAnsi = (s: string): string =>
   s.replace(/\x1b\[[0-9;]*m/g, '');
 
 /**
- * Run the generated statusline against a Claude Code stdin payload. PATH is
+ * Run the generated statusline against a Gemini CLI stdin payload. PATH is
  * neutered so the script's `npx`/`git` probes fail instantly and fall back to
  * local data — the cost segment comes purely from stdin, so this stays offline
  * and deterministic. Returns the first (header) line with ANSI stripped.

@@ -3,7 +3,7 @@
 Workflow automation across **two complementary surfaces**:
 
 1. **MCP `workflow_*` tools** — declarative, persisted workflow definitions with a full state-machine lifecycle (create → run ↔ pause → complete/cancel). Best for long-lived, resumable, human-gated pipelines.
-2. **Native Claude Code `Workflow` JS** — imperative orchestration scripts (`.gemiflow/workflows/*.js`) that fan subagents out deterministically via `agent` / `parallel` / `pipeline` / `phase`. Best for comprehensive fan-out: review, audit, migration, research.
+2. **Native Gemini CLI `Workflow` JS** — imperative orchestration scripts (`.gemiflow/workflows/*.js`) that fan subagents out deterministically via `agent` / `parallel` / `pipeline` / `phase`. Best for comprehensive fan-out: review, audit, migration, research.
 
 Neither subsumes the other — see [Choosing a surface](#choosing-a-surface).
 
@@ -73,7 +73,7 @@ created ──run──→ running ──pause──→ paused ──resume─�
 
 `workflow_execute` is the **stateless** path — fire-and-forget, no persisted state machine.
 
-## Native Workflow Orchestration (Claude Code `Workflow` tool)
+## Native Workflow Orchestration (Gemini CLI `Workflow` tool)
 
 The native surface runs a JavaScript orchestration script that fans subagents out deterministically. Scripts live in **`.gemiflow/workflows/*.js`** and each begins with a **pure-literal** `export const meta` block — the `meta.name` makes it an invocable **named workflow**.
 
@@ -139,7 +139,7 @@ bash plugins/gemiflow-workflows/scripts/smoke.sh
 ## Architecture Decisions
 
 - [`ADR-0001` — gemiflow-workflows plugin contract (10-tool MCP surface, lifecycle state machine, smoke as contract)](./docs/adrs/0001-workflows-contract.md)
-- [`ADR-0002` — native Claude Code Workflow orchestration (`.gemiflow/workflows/*.js` fan-out) alongside the MCP surface](./docs/adrs/0002-native-workflow-orchestration.md)
+- [`ADR-0002` — native Gemini CLI Workflow orchestration (`.gemiflow/workflows/*.js` fan-out) alongside the MCP surface](./docs/adrs/0002-native-workflow-orchestration.md)
 
 ## Related Plugins
 

@@ -165,7 +165,7 @@ describe('#2207 — init detector accepts both server keys', () => {
   });
 
   it('does NOT false-positive on a bare .gemiflow/settings.json with no MCP registration', async () => {
-    // Simulate Claude Code's own project settings.json (no MCP keys at all)
+    // Simulate Gemini CLI's own project settings.json (no MCP keys at all)
     const projectDir = mkdtempSync(path.join(tmpdir(), 'wizard-2207-fp-'));
     try {
       mkdirSync(path.join(projectDir, '.gemiflow'), { recursive: true });

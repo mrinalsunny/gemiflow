@@ -1,6 +1,6 @@
 /**
  * V3 Init Module
- * Comprehensive initialization system for Claude Code integration
+ * Comprehensive initialization system for Gemini CLI integration
  */
 
 // Types

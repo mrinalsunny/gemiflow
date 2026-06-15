@@ -1,6 +1,6 @@
 /**
  * Dual-Mode Orchestrator
- * Runs Claude Code and Codex workers in parallel with shared memory
+ * Runs Gemini CLI and gemini workers in parallel with shared memory
  */
 
 import { spawn, ChildProcess } from 'child_process';
@@ -10,7 +10,7 @@ import * as fs from 'fs';
 
 export interface WorkerConfig {
   id: string;
-  platform: 'claude' | 'codex';
+  platform: 'claude' | 'gemini';
   role: string;
   prompt: string;
   model?: string;
@@ -21,7 +21,7 @@ export interface WorkerConfig {
 
 export interface WorkerResult {
   id: string;
-  platform: 'claude' | 'codex';
+  platform: 'claude' | 'gemini';
   role: string;
   status: 'pending' | 'running' | 'completed' | 'failed';
   output?: string;
@@ -37,7 +37,7 @@ export interface DualModeConfig {
   sharedNamespace?: string;
   timeout?: number;
   claudeCommand?: string;
-  codexCommand?: string;
+  geminiCommand?: string;
 }
 
 export interface CollaborationResult {
@@ -49,7 +49,7 @@ export interface CollaborationResult {
 }
 
 /**
- * Orchestrates parallel execution of Claude Code and Codex workers
+ * Orchestrates parallel execution of Gemini CLI and gemini workers
  */
 export class DualModeOrchestrator extends EventEmitter {
   private config: Required<DualModeConfig>;
@@ -64,7 +64,7 @@ export class DualModeOrchestrator extends EventEmitter {
       sharedNamespace: config.sharedNamespace ?? 'collaboration',
       timeout: config.timeout ?? 300000, // 5 minutes
       claudeCommand: config.claudeCommand ?? 'claude',
-      codexCommand: config.codexCommand ?? 'codex',
+      geminiCommand: config.geminiCommand ?? 'gemini',
     };
   }
 
@@ -133,19 +133,19 @@ export class DualModeOrchestrator extends EventEmitter {
   }
 
   /**
-   * Execute a headless Claude/Codex instance
+   * Execute a headless Claude/gemini instance
    */
   private async executeHeadless(config: WorkerConfig): Promise<string> {
     const { projectPath, timeout } = this.config;
-    const command = config.platform === 'claude' ? this.config.claudeCommand : this.config.codexCommand;
+    const command = config.platform === 'claude' ? this.config.claudeCommand : this.config.geminiCommand;
 
     // Build the prompt with memory integration
     const enhancedPrompt = this.buildCollaborativePrompt(config);
 
     // Each platform has its own non-interactive entry point and flag set:
-    //   Claude Code:  claude -p <prompt> --output-format text [--max-turns N] [--model M]
-    //   OpenAI Codex: codex exec --sandbox workspace-write --skip-git-repo-check [-m M] <prompt>
-    // (`codex exec` runs autonomously; PROMPT is a positional arg and must come last.)
+    //   Gemini CLI:  claude -p <prompt> --output-format text [--max-turns N] [--model M]
+    //   OpenAI gemini: gemini exec --sandbox workspace-write --skip-git-repo-check [-m M] <prompt>
+    // (`gemini exec` runs autonomously; PROMPT is a positional arg and must come last.)
     let args: string[];
     if (config.platform === 'claude') {
       args = ['-p', enhancedPrompt, '--output-format', 'text'];
@@ -214,7 +214,7 @@ export class DualModeOrchestrator extends EventEmitter {
     const { sharedNamespace, projectPath } = this.config;
 
     return `You are a ${config.role.toUpperCase()} agent in a collaborative dual-mode swarm.
-Platform: ${config.platform === 'claude' ? 'Claude Code' : 'OpenAI Codex'}
+Platform: ${config.platform === 'claude' ? 'Gemini CLI' : 'OpenAI gemini'}
 Working Directory: ${projectPath}
 Shared Memory Namespace: ${sharedNamespace}
 
@@ -400,7 +400,7 @@ export const CollaborationTemplates = {
     },
     {
       id: 'coder',
-      platform: 'codex',
+      platform: 'gemini',
       role: 'coder',
       prompt: `Implement the feature based on the architecture. Write clean, typed code.`,
       dependsOn: ['architect'],
@@ -408,7 +408,7 @@ export const CollaborationTemplates = {
     },
     {
       id: 'tester',
-      platform: 'codex',
+      platform: 'gemini',
       role: 'tester',
       prompt: `Write comprehensive tests for the implementation. Target 80% coverage.`,
       dependsOn: ['coder'],
@@ -430,7 +430,7 @@ export const CollaborationTemplates = {
   securityAudit: (target: string): WorkerConfig[] => [
     {
       id: 'scanner',
-      platform: 'codex',
+      platform: 'gemini',
       role: 'security-scanner',
       prompt: `Scan ${target} for security vulnerabilities. Check OWASP Top 10.`,
       maxTurns: 10,
@@ -445,7 +445,7 @@ export const CollaborationTemplates = {
     },
     {
       id: 'fixer',
-      platform: 'codex',
+      platform: 'gemini',
       role: 'security-fixer',
       prompt: `Generate fixes for identified vulnerabilities.`,
       dependsOn: ['analyzer'],
@@ -474,7 +474,7 @@ export const CollaborationTemplates = {
     },
     {
       id: 'refactorer',
-      platform: 'codex',
+      platform: 'gemini',
       role: 'refactorer',
       prompt: `Execute the refactoring plan. Maintain all existing functionality.`,
       dependsOn: ['planner'],
@@ -482,7 +482,7 @@ export const CollaborationTemplates = {
     },
     {
       id: 'validator',
-      platform: 'codex',
+      platform: 'gemini',
       role: 'validator',
       prompt: `Run tests and validate the refactoring didn't break anything.`,
       dependsOn: ['refactorer'],

@@ -435,7 +435,7 @@ export const storeInfoCommand: Command = {
         ``,
         `Trust: ${pattern.trustLevel}`,
         `Verified: ${pattern.verified ? 'Yes' : 'No'}`,
-        `Min Version: ${pattern.minClaudeFlowVersion}`,
+        `Min Version: ${pattern.mingemiflowVersion}`,
         ``,
         `Created: ${pattern.createdAt}`,
         `Updated: ${pattern.lastUpdated}`,

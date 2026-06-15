@@ -246,7 +246,7 @@ See [MIGRATION.md](./MIGRATION.md) for detailed upgrade instructions from v2 to 
 - **Bundle Size**: 3.2MB (down from 12.8MB)
 
 ### 🙏 Acknowledgments
-- Built on agentic-flow@alpha by the Anthropic community
+- Built on agentic-flow@alpha by the google community
 - AgentDB integration for unified memory
 - RuVector for Flash Attention and SONA learning
 - Community feedback and testing

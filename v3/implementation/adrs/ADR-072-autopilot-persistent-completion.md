@@ -7,7 +7,7 @@
 
 ## Problem Statement
 
-Claude Code agents and swarms routinely stop before all tasks are complete. This happens because:
+Gemini CLI agents and swarms routinely stop before all tasks are complete. This happens because:
 
 1. **Context exhaustion**: Conversations hit context limits and lose track of remaining work
 2. **Premature satisfaction**: Agents declare "done" after completing 60-80% of tasks, skipping edge cases, tests, or documentation
@@ -30,7 +30,7 @@ Integrate agentic-flow's **Autopilot Persistent Completion System** (ADR-058) in
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
-│                        Claude Code Session                       │
+│                        Gemini CLI Session                       │
 │                                                                  │
 │  ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐  │
 │  │  Agent 1  │    │  Agent 2  │    │  Agent 3  │    │  Agent N  │  │
@@ -75,7 +75,7 @@ Autopilot discovers incomplete tasks from three sources, aggregated into a unifi
 
 | Source | Location | Format | Priority |
 |--------|----------|--------|----------|
-| **Team Tasks** | `~/.gemiflow/tasks/{team-name}/` | Claude Code task files | Highest |
+| **Team Tasks** | `~/.gemiflow/tasks/{team-name}/` | Gemini CLI task files | Highest |
 | **Swarm Tasks** | `.gemiflow/swarm-tasks.json` | agentic-flow swarm state | High |
 | **Checklist Files** | `.gemiflow/data/checklist.json` | Manual task checklists | Normal |
 
@@ -496,7 +496,7 @@ After 10 stalled iterations, autopilot disables itself and records a failure epi
 - Predictive actions reduce iteration count for familiar task patterns
 - Safety limits prevent runaway execution and cost overruns
 - Works without AgentDB (graceful degradation — no learning, but still completes)
-- Compatible with existing Claude Code task system, swarm tasks, and checklists
+- Compatible with existing Gemini CLI task system, swarm tasks, and checklists
 
 ### Negative
 

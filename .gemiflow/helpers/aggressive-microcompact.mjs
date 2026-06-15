@@ -2,7 +2,7 @@
 /**
  * Aggressive Micro-Compaction Preload
  *
- * Claude Code's micro-compaction (Vd function) only prunes old tool results
+ * Gemini CLI's micro-compaction (Vd function) only prunes old tool results
  * when context is above the warning threshold (~80%) and only if it can save
  * at least 20K tokens. These hardcoded thresholds mean context can grow large
  * before any pruning happens.

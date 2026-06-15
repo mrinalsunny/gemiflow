@@ -5,39 +5,39 @@ import {
   loadLoopState,
   requestLoopStop,
   resolveLoopPaths,
-  runCodexLoop,
+  rungeminiLoop,
   type LoopState,
 } from './index.js';
 
 export function createLoopCommand(): Command {
   const loop = new Command('loop')
-    .description('Run Codex in a bounded /loop-compatible iteration cycle');
+    .description('Run gemini in a bounded /loop-compatible iteration cycle');
 
   loop
     .command('run')
-    .description('Start a Codex loop')
-    .argument('[prompt...]', 'Prompt for Codex. Omit when using --command.')
+    .description('Start a gemini loop')
+    .argument('[prompt...]', 'Prompt for gemini. Omit when using --command.')
     .option('-n, --name <name>', 'Loop name', 'default')
     .option('-p, --path <path>', 'Project path', process.cwd())
     .option('-i, --interval <seconds>', 'Seconds between iterations', '270')
     .option('-m, --max-iterations <count>', 'Maximum iterations; 0 means unbounded', '10')
     .option('--timeout <ms>', 'Per-iteration timeout in milliseconds', '1800000')
-    .option('--until-file <path>', 'Stop when this file exists. Defaults to .codex/loop/<name>.complete')
-    .option('--command <command>', 'Run a shell command each iteration instead of codex exec')
-    .option('--codex-command <command>', 'Codex executable', 'codex')
-    .option('--model <model>', 'Model passed to codex exec')
-    .option('--sandbox <mode>', 'Sandbox passed to codex exec', 'workspace-write')
-    .option('--no-skip-git-repo-check', 'Do not pass --skip-git-repo-check to codex exec')
+    .option('--until-file <path>', 'Stop when this file exists. Defaults to .gemini/loop/<name>.complete')
+    .option('--command <command>', 'Run a shell command each iteration instead of gemini exec')
+    .option('--gemini-command <command>', 'gemini executable', 'gemini')
+    .option('--model <model>', 'Model passed to gemini exec')
+    .option('--sandbox <mode>', 'Sandbox passed to gemini exec', 'workspace-write')
+    .option('--no-skip-git-repo-check', 'Do not pass --skip-git-repo-check to gemini exec')
     .option('--dry-run', 'Write planned state and print what would run without executing')
     .action(async (promptParts: string[], options) => {
       try {
         const prompt = promptParts.join(' ').trim();
-        const state = await runCodexLoop({
+        const state = await rungeminiLoop({
           name: options.name,
           projectPath: options.path,
           prompt,
           command: options.command,
-          codexCommand: options.codexCommand,
+          geminiCommand: options.geminiCommand,
           model: options.model,
           sandbox: options.sandbox,
           skipGitRepoCheck: options.skipGitRepoCheck,

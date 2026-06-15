@@ -22,7 +22,7 @@ This security audit identified **7 high-priority vulnerabilities**, **13 depende
 **Location:** `package.json`
 **Severity:** HIGH
 **CVE/Advisory:**
-- **@anthropic-ai/gemini-cli** (v2.0.1): GHSA-7mv8-j34q-vp7q - Sed Command Validation Bypass (CWE-78)
+- **@google-ai/gemini-cli** (v2.0.1): GHSA-7mv8-j34q-vp7q - Sed Command Validation Bypass (CWE-78)
 - **@modelcontextprotocol/sdk** (v1.0.4): GHSA-w48q-cv73-mx4w - DNS Rebinding vulnerability (CWE-350, CWE-1188)
 
 **Impact:**
@@ -33,7 +33,7 @@ This security audit identified **7 high-priority vulnerabilities**, **13 depende
 **Recommendation:**
 ```bash
 # Immediate fix required
-npm update @anthropic-ai/gemini-cli@^2.0.31
+npm update @google-ai/gemini-cli@^2.0.31
 npm update @modelcontextprotocol/sdk@^1.24.0
 npm audit fix --force
 ```
@@ -479,7 +479,7 @@ private async authenticateOAuth(credentials: unknown): Promise<AuthResult> {
 
 1. **Fix Critical Vulnerabilities:**
    ```bash
-   npm update @anthropic-ai/gemini-cli@^2.0.31
+   npm update @google-ai/gemini-cli@^2.0.31
    npm update @modelcontextprotocol/sdk@^1.24.0
    npm audit fix --force
    ```

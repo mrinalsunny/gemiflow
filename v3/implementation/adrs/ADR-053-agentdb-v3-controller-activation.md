@@ -62,7 +62,7 @@ The following capabilities are fully wired **inside AgentDB** and available to c
 |---------|-----------|----------|
 | `SemanticRouter` | `@ruvector/router` | Keyword frequency matching |
 | `SonaTrajectoryService` | `@ruvector/sona` | In-memory trajectory storage + frequency-based prediction |
-| `LLMRouter` | API keys (OpenRouter/Gemini/Anthropic) | Local ONNX models or template-based |
+| `LLMRouter` | API keys (OpenRouter/Gemini/google) | Local ONNX models or template-based |
 | `GraphTransformerService` | `@ruvector/graph-transformer` | JS math implementations |
 
 **5. AgentDB.ts Controller Wiring (lines 45-127)**
@@ -132,7 +132,7 @@ The following capabilities are fully wired **inside AgentDB** and available to c
 | `SonaTrajectoryService` | Yes (since alpha.5) | No | — |
 | `AgentMemoryScope` | Yes | No | #1227 |
 
-Additionally, the `HybridBackend` facade (#1212) does not proxy new v3 methods (`recordFeedback`, `verifyWitnessChain`, `getWitnessChain`), and the hook handler (#1211) ignores stdin on Claude Code 2.x, making all hooks non-functional.
+Additionally, the `HybridBackend` facade (#1212) does not proxy new v3 methods (`recordFeedback`, `verifyWitnessChain`, `getWitnessChain`), and the hook handler (#1211) ignores stdin on Gemini CLI 2.x, making all hooks non-functional.
 
 ### Root Cause
 
@@ -150,7 +150,7 @@ Implement a **phased controller activation plan** organized by dependency order,
 |-----------|--------|-------------|
 | **Eliminate dual memory system** | — | Refactor CLI to use `@gemiflow/memory` → `HybridBackend` → AgentDB v3 instead of raw `sql.js` in `memory-initializer.js`. This is the single largest blocker. |
 | **Hook stdin fix** | #1211 | Read JSON from stdin in `hook-handler.cjs` instead of environment variables. Without this, all hook-based wiring is non-functional. |
-| **Init hook config fix** | #1230 | Remove invalid `TaskCompleted`/`TeammateIdle` keys from generated hook config that cause Claude Code settings warnings. |
+| **Init hook config fix** | #1230 | Remove invalid `TaskCompleted`/`TeammateIdle` keys from generated hook config that cause Gemini CLI settings warnings. |
 | **HybridBackend proxy** | #1212 | Add `recordFeedback()`, `verifyWitnessChain()`, `getWitnessChain()` proxy methods to `HybridBackend`. |
 | **Config consumption** | #1204 | Wire the 12 dead config.json keys into their respective runtime consumers. |
 | **Topology alignment** | #1202, #1206 | Replace all 5 stale `--topology hierarchical` references with `hierarchical-mesh`. |

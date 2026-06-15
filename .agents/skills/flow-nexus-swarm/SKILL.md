@@ -595,7 +595,7 @@ npx flow-nexus@latest register
 # Login
 npx flow-nexus@latest login
 
-# Add MCP server to Claude Code
+# Add MCP server to Gemini CLI
 claude mcp add flow-nexus npx flow-nexus@latest mcp start
 ```
 

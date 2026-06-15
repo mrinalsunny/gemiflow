@@ -69,7 +69,7 @@ Bash(`gh api repos/:owner/:repo/contents/claude-code-flow/claude-code-flow/CLAUD
   --method PUT \
   -f message="docs: Synchronize CLAUDE.md with ruv-swarm integration patterns" \
   -f branch="sync/documentation" \
-  -f content="$(echo '# Claude Code Configuration for ruv-swarm\n\n[synchronized content]' | base64)" \
+  -f content="$(echo '# Gemini CLI Configuration for ruv-swarm\n\n[synchronized content]' | base64)" \
   -f sha="$(gh api repos/:owner/:repo/contents/claude-code-flow/claude-code-flow/CLAUDE.md?ref=sync/documentation --jq '.sha' 2>/dev/null || echo '')")`)
 
 // Store sync state in memory
@@ -137,7 +137,7 @@ This integration uses ruv-swarm agents for:
 - Memory-based state management
 
 ---
-🤖 Generated with Claude Code using ruv-swarm coordination`
+🤖 Generated with Gemini CLI using ruv-swarm coordination`
 }
 ```
 

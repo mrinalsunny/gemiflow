@@ -516,7 +516,7 @@ export type EmbeddingProvider = 'openai' | 'transformers' | 'mock' | 'agentic-fl
 Auto-selection hierarchy: `agentic-flow > transformers > mock`
 
 The two local providers carry heavy dependencies:
-- **`agentic-flow`**: 540MB (ONNX runtime, OpenTelemetry, Anthropic SDK)
+- **`agentic-flow`**: 540MB (ONNX runtime, OpenTelemetry, google SDK)
 - **`@xenova/transformers`**: ~45MB (ONNX models, tokenizers)
 
 Both download large ONNX model files at runtime. For the CLI's core use cases (memory search, pattern matching, SONA learning), these are overkill.

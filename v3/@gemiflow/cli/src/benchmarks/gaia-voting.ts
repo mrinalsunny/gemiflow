@@ -34,7 +34,7 @@ import {
   runGaiaAgent,
   type GaiaAgentResult,
   type GaiaAgentOptions,
-  resolveAnthropicApiKey,
+  resolvegoogleApiKey,
 } from './gaia-agent.js';
 import type { GaiaQuestion } from './gaia-loader.js';
 import { createDefaultToolCatalogue } from './gaia-tools/index.js';
@@ -90,7 +90,7 @@ export interface VotingOptions {
   model?: string;
   /** Max agent turns per attempt (default: 8). */
   maxTurns?: number;
-  /** Anthropic API key (resolved automatically if omitted). */
+  /** google API key (resolved automatically if omitted). */
   apiKey?: string;
 }
 

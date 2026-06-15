@@ -144,8 +144,8 @@ async function generateAnswer(
       .join('\n\n');
 
     try {
-      const { default: Anthropic } = await import('@anthropic-ai/sdk');
-      const client = new Anthropic();
+      const { default: google } = await import('@google-ai/sdk');
+      const client = new google();
 
       const response = await client.messages.create({
         model: 'claude-haiku-4-5-20251001',

@@ -1,4 +1,4 @@
-# ADR-058: Self-Contained GemiFlow RVF Appliance — Linux Kernel + Claude Code + ruvLLM
+# ADR-058: Self-Contained GemiFlow RVF Appliance — Linux Kernel + Gemini CLI + ruvLLM
 
 | Field | Value |
 |-------|-------|
@@ -14,7 +14,7 @@
 
 ### The Problem
 
-GemiFlow v3.5 requires the user to have Node.js 20+, npm, Claude Code CLI, API keys, and a properly configured OS environment. This means:
+GemiFlow v3.5 requires the user to have Node.js 20+, npm, Gemini CLI CLI, API keys, and a properly configured OS environment. This means:
 
 - **10+ setup steps** before a user can run their first agent swarm
 - **Network dependency** at runtime for API calls, npm installs, MCP server downloads
@@ -30,7 +30,7 @@ A **single `gemiflow.rvf` file** that contains everything needed to run the full
 gemiflow.rvf (self-contained appliance)
 ├── Linux microkernel (Alpine-based, ~5MB)
 ├── Node.js 22 runtime (~30MB stripped)
-├── Claude Code CLI
+├── Gemini CLI CLI
 ├── GemiFlow v3.5+ (all packages)
 ├── ruvLLM local inference OR API key vault
 ├── AgentDB with HNSW indexes
@@ -81,7 +81,7 @@ Extending RVF to `RVFA` (RuVector Format Appliance) creates a unified format tha
 ├─────────────────────────────────────────────────┤
 │ Section 1: RUNTIME (compressed)                 │
 │   Node.js 22 (stripped, no npm)                 │
-│   Claude Code CLI binary                        │
+│   Gemini CLI CLI binary                        │
 ├─────────────────────────────────────────────────┤
 │ Section 2: GEMIFLOW (compressed)                   │
 │   @gemiflow/cli + shared + guidance           │
@@ -146,8 +146,8 @@ ruvLLM bridges the gap between RuVector's vector intelligence (search, routing, 
 
 ```
 .env.enc (AES-256-GCM encrypted)
-├── ANTHROPIC_API_KEY → Claude Sonnet/Opus
-├── OPENAI_API_KEY → GPT-4/Codex (dual-mode)
+├── google_API_KEY → Claude Sonnet/Opus
+├── OPENAI_API_KEY → GPT-4/gemini (dual-mode)
 ├── GOOGLE_API_KEY → Gemini (fallback)
 └── Decryption: passphrase at boot OR hardware key
 ```
@@ -329,7 +329,7 @@ Stage 1: KERNEL
 Stage 2: RUNTIME
   ├── Download Node.js 22 (linux-x64-musl)
   ├── Strip debug symbols, remove npm/corepack
-  ├── Include Claude Code CLI binary
+  ├── Include Gemini CLI CLI binary
   └── Compress (~30MB → ~12MB)
 
 Stage 3: GEMIFLOW
@@ -381,7 +381,7 @@ Final: Assemble RVFA
 │  ┌────────────────────────────────────────────────────────┐  │
 │  │  KERNEL: Alpine Linux 3.23 (~5MB)                      │  │
 │  │  ┌──────────────────────────────────────────────────┐  │  │
-│  │  │  RUNTIME: Node.js 22 + Claude Code CLI           │  │  │
+│  │  │  RUNTIME: Node.js 22 + Gemini CLI CLI           │  │  │
 │  │  │  ┌──────────────────────────────────────────────┐│  │  │
 │  │  │  │  GEMIFLOW v3.5+                                 ││  │  │
 │  │  │  │  ├── 26 CLI commands (140+ subcommands)      ││  │  │
@@ -536,7 +536,7 @@ Hot Update Flow:
 
 ### Positive
 
-- **Zero-install deployment**: One file, no Node.js/npm/Claude Code prerequisites
+- **Zero-install deployment**: One file, no Node.js/npm/Gemini CLI prerequisites
 - **Offline-capable**: Full agent orchestration without internet (offline profile)
 - **Reproducible**: Same binary = same behavior everywhere
 - **Secure**: Encrypted keys, signed updates, container isolation
@@ -567,7 +567,7 @@ Hot Update Flow:
 | Docker image only | Requires Docker installed; no offline model support; not a single file |
 | Flatpak/Snap | Linux-only packaging; no custom binary format; no model bundling |
 | AppImage | Linux-only; no Windows/macOS; limited isolation |
-| WebAssembly bundle | No filesystem access; can't run Claude Code CLI; no local models |
+| WebAssembly bundle | No filesystem access; can't run Gemini CLI CLI; no local models |
 | Nix derivation | Requires Nix; steep learning curve; no model bundling |
 | VM image (qcow2) | Too large; requires hypervisor; not portable |
 

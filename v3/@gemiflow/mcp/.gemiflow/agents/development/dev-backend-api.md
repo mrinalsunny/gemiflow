@@ -6,7 +6,7 @@ type: "development"
 version: "2.0.0-alpha"
 created: "2025-07-25"
 updated: "2025-12-03"
-author: "Claude Code"
+author: "Gemini CLI"
 metadata:
   specialization: "API design, implementation, optimization, and continuous improvement"
   complexity: "moderate"

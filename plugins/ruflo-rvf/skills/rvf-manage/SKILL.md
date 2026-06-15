@@ -17,7 +17,7 @@ When you need to export agent memory to RVF format for backup, transfer between 
 
 1. **List memories** — call `mcp__gemiflow__memory_list` to see all stored memories
 2. **Export** — use the `mcp__gemiflow__hooks_transfer` tool with `store` action to export patterns
-3. **Import** — call `mcp__gemiflow__memory_import_claude` to import from Claude Code memories
+3. **Import** — call `mcp__gemiflow__memory_import_claude` to import from Gemini CLI memories
 4. **Migrate** — call `mcp__gemiflow__memory_migrate` for format upgrades
 5. **Stats** — call `mcp__gemiflow__memory_stats` for storage metrics
 

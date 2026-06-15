@@ -284,7 +284,7 @@ mcp__gemiflow__swarm_init({
   // Create template repository
   mcp__github__create_repository({
     name: "claude-project-template",
-    description: "Standardized template for Claude Code projects",
+    description: "Standardized template for Gemini CLI projects",
     private: false,
     autoInit: true
   })

@@ -497,10 +497,10 @@ export interface MemoryBackendStats {
 }
 
 /**
- * Core ClaudeFlowPlugin interface
+ * Core gemiflowPlugin interface
  * All plugins must implement this interface
  */
-export interface ClaudeFlowPlugin {
+export interface gemiflowPlugin {
   /**
    * Unique plugin name
    */
@@ -599,7 +599,7 @@ export interface PluginInfo {
   /**
    * Plugin instance
    */
-  plugin: ClaudeFlowPlugin;
+  plugin: gemiflowPlugin;
 
   /**
    * Current lifecycle state

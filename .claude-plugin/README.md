@@ -2,7 +2,7 @@
 
 [![Version](https://img.shields.io/badge/version-2.5.0-blue.svg)](https://github.com/ruvnet/gemiflow)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-%3E%3D2.0.0-purple.svg)](https://claude.com/code)
+[![Gemini CLI](https://img.shields.io/badge/Claude%20Code-%3E%3D2.0.0-purple.svg)](https://claude.com/code)
 
 > **Enterprise-grade AI agent orchestration plugin with 150+ commands, 74+ specialized agents, SPARC methodology, swarm coordination, GitHub integration, and neural training capabilities**
 
@@ -25,7 +25,7 @@
 
 ## 🌟 Overview
 
-GemiFlow is the most comprehensive Claude Code plugin for enterprise AI agent orchestration. It provides a complete ecosystem for:
+GemiFlow is the most comprehensive Gemini CLI plugin for enterprise AI agent orchestration. It provides a complete ecosystem for:
 
 - **Multi-Agent Coordination**: 74+ specialized agents with swarm intelligence
 - **SPARC Methodology**: Systematic development with 18 specialized modes
@@ -277,9 +277,9 @@ GemiFlow is the most comprehensive Claude Code plugin for enterprise AI agent or
 
 ## 🚀 Quick Start
 
-### 1. Install Claude Code Plugin
+### 1. Install Gemini CLI Plugin
 
-In Claude Code:
+In Gemini CLI:
 
 ```
 /plugin add ruvnet/gemiflow
@@ -292,12 +292,12 @@ git clone https://github.com/ruvnet/gemiflow.git
 cd gemiflow
 ```
 
-Then in Claude Code:
+Then in Gemini CLI:
 ```
 /plugin add .
 ```
 
-### 2. Restart Claude Code
+### 2. Restart Gemini CLI
 
 ```
 /restart
@@ -306,7 +306,7 @@ Then in Claude Code:
 ### 3. Configure MCP Servers (Optional)
 
 ```bash
-# Add MCP servers to Claude Code
+# Add MCP servers to Gemini CLI
 claude mcp add gemiflow npx gemiflow@alpha mcp start
 claude mcp add ruv-swarm npx ruv-swarm mcp start  # Optional
 claude mcp add flow-nexus npx flow-nexus@latest mcp start  # Optional
@@ -319,7 +319,7 @@ claude mcp add flow-nexus npx flow-nexus@latest mcp start  # Optional
 claude plugin list
 
 # Test a command
-# In Claude Code, type:
+# In Gemini CLI, type:
 /coordination-swarm-init
 ```
 
@@ -329,14 +329,14 @@ claude plugin list
 
 ### Prerequisites
 
-- **Claude Code CLI** >= 2.0.0
+- **Gemini CLI CLI** >= 2.0.0
 - **Node.js** >= 20.0.0
 - **Git** (for GitHub integration features)
 - Read/write permissions in project directory
 
 ### Method 1: Direct Installation (Recommended)
 
-In Claude Code:
+In Gemini CLI:
 ```
 /plugin add ruvnet/gemiflow
 /restart
@@ -717,4 +717,4 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 **Made with ❤️ by rUv**
 
-*Enterprise AI Agent Orchestration for Claude Code*
+*Enterprise AI Agent Orchestration for Gemini CLI*

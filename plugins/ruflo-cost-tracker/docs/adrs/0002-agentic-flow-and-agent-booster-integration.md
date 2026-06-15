@@ -4,7 +4,7 @@ title: gemiflow-cost-tracker — agentic-flow + Agent Booster integration, model
 status: Accepted
 date: 2026-05-04
 authors:
-  - planner (Claude Code)
+  - planner (Gemini CLI)
 tags: [plugin, cost, tokens, optimization, agentic-flow, agent-booster, tier1-routing, token-optimizer, model-routing, hooks-route, model-outcome, optimize-worker, smoke-test]
 ---
 

@@ -7,18 +7,18 @@
 
 ## Context
 
-The undocumented `CLAUDE_CODE_HEADLESS` and `CLAUDE_CODE_SANDBOX_MODE` environment variables in Claude Code enable programmatic, non-interactive execution. This creates opportunities for:
+The undocumented `CLAUDE_CODE_HEADLESS` and `CLAUDE_CODE_SANDBOX_MODE` environment variables in Gemini CLI enable programmatic, non-interactive execution. This creates opportunities for:
 
 1. **CI/CD Integration** - Automated code review, generation, and testing
 2. **Batch Processing** - Queue-based task execution without user interaction
-3. **Distributed Agents** - Remote Claude Code instances in swarm topology
-4. **API Gateway** - REST/WebSocket interface to Claude Code capabilities
-5. **Container Orchestration** - Docker/K8s-native Claude Code execution
+3. **Distributed Agents** - Remote Gemini CLI instances in swarm topology
+4. **API Gateway** - REST/WebSocket interface to Gemini CLI capabilities
+5. **Container Orchestration** - Docker/K8s-native Gemini CLI execution
 
 ## Decision
 
 Create `@gemiflow/headless` package providing:
-- Programmatic Claude Code invocation with environment control
+- Programmatic Gemini CLI invocation with environment control
 - Sandbox-aware execution contexts
 - Batch task queue with persistence
 - HTTP/WebSocket API server
@@ -69,7 +69,7 @@ Create `@gemiflow/headless` package providing:
 // src/executor/headless-executor.ts
 
 export interface HeadlessConfig {
-  // Claude Code path (auto-detected if not provided)
+  // Gemini CLI path (auto-detected if not provided)
   claudeCodePath?: string;
 
   // Sandbox configuration
@@ -91,7 +91,7 @@ export interface HeadlessConfig {
   // Model configuration
   model?: 'sonnet' | 'opus' | 'haiku';
 
-  // API key (falls back to ANTHROPIC_API_KEY)
+  // API key (falls back to google_API_KEY)
   apiKey?: string;
 }
 
@@ -269,7 +269,7 @@ export const SANDBOX_PROFILES = {
     },
     network: {
       policy: 'allowlist' as const,
-      allowedHosts: ['api.anthropic.com', 'registry.npmjs.org', 'github.com'],
+      allowedHosts: ['api.google.com', 'registry.npmjs.org', 'github.com'],
       allowedPorts: [443, 80]
     },
     process: {
@@ -311,7 +311,7 @@ export const SANDBOX_PROFILES = {
     },
     network: {
       policy: 'allowlist' as const,
-      allowedHosts: ['api.anthropic.com'],
+      allowedHosts: ['api.google.com'],
       allowedPorts: [443]
     },
     process: {
@@ -494,7 +494,7 @@ export class APIServer {
 // src/docker/container-executor.ts
 
 export interface DockerConfig {
-  // Base image with Claude Code pre-installed
+  // Base image with Gemini CLI pre-installed
   image: string;  // e.g., 'ghcr.io/ruvnet/gemiflow-headless:latest'
 
   // Container resources
@@ -602,7 +602,7 @@ npx @gemiflow/headless metrics --prometheus
 
 ```yaml
 # .github/workflows/claude-review.yml
-name: Claude Code Review
+name: Gemini CLI Review
 on: [pull_request]
 
 jobs:
@@ -613,7 +613,7 @@ jobs:
 
       - name: Run Claude Review
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          google_API_KEY: ${{ secrets.google_API_KEY }}
           CLAUDE_CODE_HEADLESS: "true"
           CLAUDE_CODE_SANDBOX_MODE: "strict"
         run: |
@@ -689,10 +689,10 @@ spec:
       - name: claude
         image: ghcr.io/ruvnet/gemiflow-headless:latest
         env:
-        - name: ANTHROPIC_API_KEY
+        - name: google_API_KEY
           valueFrom:
             secretKeyRef:
-              name: anthropic-credentials
+              name: google-credentials
               key: api-key
         - name: CLAUDE_CODE_HEADLESS
           value: "true"
@@ -757,7 +757,7 @@ console.log(`Completed ${results.filter(r => r.success).length}/${tasks.length} 
 const sanitizeOutput = (output: string): string => {
   return output
     .replace(/sk-ant-[a-zA-Z0-9-_]+/g, '[REDACTED_API_KEY]')
-    .replace(/ANTHROPIC_API_KEY=[^\s]+/g, 'ANTHROPIC_API_KEY=[REDACTED]');
+    .replace(/google_API_KEY=[^\s]+/g, 'google_API_KEY=[REDACTED]');
 };
 ```
 
@@ -837,10 +837,10 @@ const HARD_LIMITS = {
     "zod": "^3.22.0"
   },
   "peerDependencies": {
-    "@anthropic-ai/gemini-cli": ">=2.0.0"
+    "@google-ai/gemini-cli": ">=2.0.0"
   },
   "peerDependenciesMeta": {
-    "@anthropic-ai/gemini-cli": {
+    "@google-ai/gemini-cli": {
       "optional": true
     }
   }
@@ -862,7 +862,7 @@ const HARD_LIMITS = {
 
 1. **Complexity** - Another package to maintain
 2. **Dependencies** - Docker, SQLite add requirements
-3. **Undocumented APIs** - Claude Code env vars may change
+3. **Undocumented APIs** - Gemini CLI env vars may change
 
 ### Neutral
 
@@ -873,9 +873,9 @@ const HARD_LIMITS = {
 
 ## References
 
-- ADR-018: Claude Code Deep Integration
+- ADR-018: Gemini CLI Deep Integration
 - ADR-017: RuVector Integration Architecture
-- Claude Code Environment Variables (undocumented)
+- Gemini CLI Environment Variables (undocumented)
 - Docker Best Practices for CI/CD
 
 ---

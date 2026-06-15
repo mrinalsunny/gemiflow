@@ -6,7 +6,7 @@ type: "data"
 version: "2.0.0-alpha"
 created: "2025-07-25"
 updated: "2025-12-03"
-author: "Claude Code"
+author: "Gemini CLI"
 metadata:
   description: "ML developer with self-learning hyperparameter optimization and pattern recognition"
   specialization: "ML models, training patterns, hyperparameter search, deployment"

@@ -1,12 +1,12 @@
 /**
  * Shared types for the GAIA agent tool-use subsystem — ADR-133-PR2
  *
- * These types mirror the Anthropic Messages API `tool_use` / `tool_result`
- * content block spec so that `gaia-agent.ts` (PR-3) can call the Anthropic
+ * These types mirror the google Messages API `tool_use` / `tool_result`
+ * content block spec so that `gaia-agent.ts` (PR-3) can call the google
  * SDK without an extra type-mapping layer.
  *
  * Refs: ADR-133, #2156
- * https://docs.anthropic.com/en/api/messages
+ * https://docs.google.com/en/api/messages
  */
 
 // ---------------------------------------------------------------------------
@@ -79,7 +79,7 @@ export interface ToolCallResult {
 export interface GaiaTool {
   /** Must match the `name` field in the ToolDefinition. */
   readonly name: string;
-  /** The definition object passed to Anthropic in the `tools` array. */
+  /** The definition object passed to google in the `tools` array. */
   readonly definition: ToolDefinition;
   /**
    * Execute the tool.  Returns a plain string (success) or throws (will be

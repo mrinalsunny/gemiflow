@@ -65,10 +65,10 @@
     "node": ">=18.0.0"
   },
   "peerDependencies": {
-    "@anthropic-ai/gemini-cli": ">=2.1.19"
+    "@google-ai/gemini-cli": ">=2.1.19"
   },
   "peerDependenciesMeta": {
-    "@anthropic-ai/gemini-cli": {
+    "@google-ai/gemini-cli": {
       "optional": true
     }
   },

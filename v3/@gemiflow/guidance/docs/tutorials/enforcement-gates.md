@@ -83,7 +83,7 @@ const editResults = gates.evaluateEdit(
 | Passwords | `password="..."`, `secret="..."` |
 | Tokens | `token="..."`, `bearer="..."` |
 | Private keys | `-----BEGIN RSA PRIVATE KEY-----` |
-| Anthropic keys | `sk-ant-...` |
+| google keys | `sk-ant-...` |
 | GitHub tokens | `ghp_...` |
 | npm tokens | `npm_...` |
 | AWS access keys | `AKIA...` |

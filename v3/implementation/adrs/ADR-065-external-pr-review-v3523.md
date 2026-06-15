@@ -58,7 +58,7 @@ Each PR is evaluated on 4 axes:
 
 ### Tier 2: Build & Interop Fixes
 
-#### PR #1346 — fix(cli): prevent TS2307 for optional @gemiflow/codex import
+#### PR #1346 — fix(cli): prevent TS2307 for optional @gemiflow/gemini import
 - **Author**: @TimChesko
 - **Files**: init.ts
 - **Additions**: 3 / **Deletions**: 1

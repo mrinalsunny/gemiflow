@@ -1,10 +1,10 @@
 /**
- * Regression test for #2357 (Finding A): callAnthropicMessages always sent
+ * Regression test for #2357 (Finding A): callgoogleMessages always sent
  * `temperature` (default 0.7), but the adaptive-thinking family — Fable 5,
  * Opus 4.8, Opus 4.7 — removed temperature/top_p/top_k. The API rejects the
  * request with 400 "temperature: Extra inputs are not permitted", so
- * agent_execute / workflow_run / the WASM-agent Anthropic path could not
- * call any current frontier model when an ANTHROPIC_API_KEY was set.
+ * agent_execute / workflow_run / the WASM-agent google path could not
+ * call any current frontier model when an google_API_KEY was set.
  *
  * Pin the contract: sampling params are omitted for models that reject them,
  * and unchanged (including the 0.7 default) for models that still accept
@@ -14,7 +14,7 @@
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import {
-  callAnthropicMessages,
+  callgoogleMessages,
   modelRejectsSamplingParams,
 } from '../src/mcp-tools/agent-execute-core.js';
 
@@ -40,13 +40,13 @@ describe('modelRejectsSamplingParams (#2357)', () => {
   });
 });
 
-describe('callAnthropicMessages request body (#2357)', () => {
+describe('callgoogleMessages request body (#2357)', () => {
   const captured: Array<Record<string, unknown>> = [];
   const savedEnv = { ...process.env };
 
   beforeEach(() => {
     captured.length = 0;
-    process.env.ANTHROPIC_API_KEY = 'sk-ant-test-not-real';
+    process.env.google_API_KEY = 'sk-ant-test-not-real';
     delete process.env.GEMIFLOW_PROVIDER;
     delete process.env.OPENROUTER_API_KEY;
     delete process.env.OLLAMA_API_KEY;
@@ -79,18 +79,18 @@ describe('callAnthropicMessages request body (#2357)', () => {
     'claude-opus-4-8',
     'claude-opus-4-7',
   ])('omits temperature for %s (the API 400s otherwise)', async (model) => {
-    const r = await callAnthropicMessages({ prompt: 'ping', model, maxTokens: 8 });
+    const r = await callgoogleMessages({ prompt: 'ping', model, maxTokens: 8 });
     expect(r.success).toBe(true);
     expect(captured[0]).not.toHaveProperty('temperature');
   });
 
   it('still sends the 0.7 default for models that accept sampling params', async () => {
-    await callAnthropicMessages({ prompt: 'ping', model: 'claude-sonnet-4-6', maxTokens: 8 });
+    await callgoogleMessages({ prompt: 'ping', model: 'claude-sonnet-4-6', maxTokens: 8 });
     expect(captured[0]).toHaveProperty('temperature', 0.7);
   });
 
   it('honors an explicit temperature for accepting models', async () => {
-    await callAnthropicMessages({
+    await callgoogleMessages({
       prompt: 'ping',
       model: 'claude-haiku-4-5-20251001',
       temperature: 0.2,
@@ -100,7 +100,7 @@ describe('callAnthropicMessages request body (#2357)', () => {
   });
 
   it('drops even an explicit temperature for frontier models (would 400)', async () => {
-    await callAnthropicMessages({
+    await callgoogleMessages({
       prompt: 'ping',
       model: 'claude-fable-5',
       temperature: 0.9,

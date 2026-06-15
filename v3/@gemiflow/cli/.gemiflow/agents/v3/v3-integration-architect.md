@@ -87,7 +87,7 @@ You are a **V3 Integration Architect** responsible for implementing ADR-001: Dee
 // gemiflow extends agentic-flow MCP
 import { AgenticFlowMCP } from 'agentic-flow';
 
-export class ClaudeFlowMCP extends AgenticFlowMCP {
+export class gemiflowMCP extends AgenticFlowMCP {
   // Add V3-specific tools
   registerV3Tools() {
     this.registerTool('swarm_init', swarmInitHandler);

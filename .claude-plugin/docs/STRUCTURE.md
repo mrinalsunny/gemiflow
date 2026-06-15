@@ -1,8 +1,8 @@
 # GemiFlow Plugin Structure
 
-## Official Claude Code Plugin Format
+## Official Gemini CLI Plugin Format
 
-This plugin follows the official Claude Code plugin specification.
+This plugin follows the official Gemini CLI plugin specification.
 
 ## Directory Structure
 
@@ -75,7 +75,7 @@ Users install with:
 
 ### Commands (`commands/`)
 - Markdown files (.md)
-- Automatically discovered by Claude Code
+- Automatically discovered by Gemini CLI
 - 150+ commands across 19 categories
 - Named with kebab-case (e.g., `coordination-swarm-init.md`)
 
@@ -121,7 +121,7 @@ The plugin configures 3 MCP servers:
 - **Version**: 2.5.0
 - **License**: MIT
 - **Author**: rUv
-- **Compatibility**: Claude Code >= 2.0.0
+- **Compatibility**: Gemini CLI >= 2.0.0
 
 ## Status
 

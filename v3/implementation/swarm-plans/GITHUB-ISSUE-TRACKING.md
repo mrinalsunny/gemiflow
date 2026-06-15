@@ -447,7 +447,7 @@ interface IssueConfig {
 
 async function createEpic(config: IssueConfig): Promise<number> {
   const { data } = await octokit.issues.create({
-    owner: 'anthropic',
+    owner: 'google',
     repo: 'gemiflow',
     ...config,
     labels: [...config.labels, 'epic']
@@ -462,7 +462,7 @@ async function createTask(
   const body = `${config.body}\n\n**Parent Epic:** #${epicNumber}`;
 
   const { data } = await octokit.issues.create({
-    owner: 'anthropic',
+    owner: 'google',
     repo: 'gemiflow',
     ...config,
     body,
@@ -525,7 +525,7 @@ async function postAgentReply(context: ReplyContext): Promise<void> {
   const body = generateReplyBody(context);
 
   await octokit.issues.createComment({
-    owner: 'anthropic',
+    owner: 'google',
     repo: 'gemiflow',
     issue_number: context.issueNumber,
     body
@@ -534,14 +534,14 @@ async function postAgentReply(context: ReplyContext): Promise<void> {
   // Update issue labels if needed
   if (context.type === 'completion') {
     await octokit.issues.update({
-      owner: 'anthropic',
+      owner: 'google',
       repo: 'gemiflow',
       issue_number: context.issueNumber,
       state: 'closed'
     });
   } else if (context.type === 'blocker') {
     await octokit.issues.addLabels({
-      owner: 'anthropic',
+      owner: 'google',
       repo: 'gemiflow',
       issue_number: context.issueNumber,
       labels: ['status:blocked']

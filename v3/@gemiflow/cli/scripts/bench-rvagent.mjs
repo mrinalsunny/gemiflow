@@ -129,15 +129,15 @@ try {
 // P1 — Provider routing latency
 //
 // Baseline: echo-stub path (no keys set) — measures raw WASM call overhead.
-// Provider: createWasmAgent with a fake ANTHROPIC_API_KEY. The key is 401'd
-// by the Anthropic API before any tokens are billed, but the routing
+// Provider: createWasmAgent with a fake google_API_KEY. The key is 401'd
+// by the google API before any tokens are billed, but the routing
 // logic (attachJsModelProvider, JsModelProvider instantiation, provider
 // lookup) runs synchronously before the network call. We measure the
 // in-process portion only by timing createWasmAgent + promptWasmAgent
 // with a deliberately short input and catching the 401 network error.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const originalKey = process.env.ANTHROPIC_API_KEY;
+const originalKey = process.env.google_API_KEY;
 
 console.log('\nADR-129 rvagent benchmark suite');
 console.log('================================');
@@ -146,7 +146,7 @@ console.log('');
 
 // P1a — echo-stub baseline (no key)
 console.log('P1a: provider routing — echo-stub baseline (keyless)...');
-delete process.env.ANTHROPIC_API_KEY;
+delete process.env.google_API_KEY;
 delete process.env.OPENROUTER_API_KEY;
 delete process.env.OLLAMA_API_KEY;
 
@@ -160,7 +160,7 @@ const r_p1_echo = await bench('P1-echo-stub: createWasmAgent (keyless)', async (
 
 // P1b — provider-path: fake key triggers attachJsModelProvider logic
 console.log('P1b: provider routing — with fake key (measures attach overhead)...');
-process.env.ANTHROPIC_API_KEY = 'sk-ant-bench-fake-key-00000000000000000000000000';
+process.env.google_API_KEY = 'sk-ant-bench-fake-key-00000000000000000000000000';
 
 const r_p1_provider = await bench('P1-provider-path: createWasmAgent (fake key)', async () => {
   if (!wasmMod) return;
@@ -172,9 +172,9 @@ const r_p1_provider = await bench('P1-provider-path: createWasmAgent (fake key)'
 
 // Restore original key state
 if (originalKey !== undefined) {
-  process.env.ANTHROPIC_API_KEY = originalKey;
+  process.env.google_API_KEY = originalKey;
 } else {
-  delete process.env.ANTHROPIC_API_KEY;
+  delete process.env.google_API_KEY;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

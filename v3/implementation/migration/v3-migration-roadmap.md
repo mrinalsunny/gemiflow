@@ -287,7 +287,7 @@ export class Logger implements ILogger {
 ```typescript
 // src-v3/infrastructure/config/config-manager.ts
 export class ConfigManager {
-  private config: ClaudeFlowConfig;
+  private config: gemiflowConfig;
 
   load(path?: string): Promise<void>;
   get<T>(key: string): T;
@@ -324,7 +324,7 @@ export class ConfigManager {
 **Plugin Interface (Day 1)**
 ```typescript
 // src-v3/infrastructure/plugins/plugin-interface.ts
-export interface ClaudeFlowPlugin {
+export interface gemiflowPlugin {
   readonly name: string;
   readonly version: string;
   readonly dependencies?: string[];
@@ -356,10 +356,10 @@ export interface PluginContext {
 ```typescript
 // src-v3/infrastructure/plugins/plugin-loader.ts
 export class PluginLoader {
-  private plugins = new Map<string, ClaudeFlowPlugin>();
+  private plugins = new Map<string, gemiflowPlugin>();
   private initialized = new Set<string>();
 
-  async loadPlugin(plugin: ClaudeFlowPlugin): Promise<void> {
+  async loadPlugin(plugin: gemiflowPlugin): Promise<void> {
     // Validate plugin
     this.validatePlugin(plugin);
 
@@ -388,15 +388,15 @@ export class PluginLoader {
     this.initialized.delete(name);
   }
 
-  getPlugin(name: string): ClaudeFlowPlugin | undefined;
-  listPlugins(): ClaudeFlowPlugin[];
+  getPlugin(name: string): gemiflowPlugin | undefined;
+  listPlugins(): gemiflowPlugin[];
 }
 ```
 
 **Example Plugin (Day 4)**
 ```typescript
 // src-v3/plugins/example/example-plugin.ts
-export class ExamplePlugin implements ClaudeFlowPlugin {
+export class ExamplePlugin implements gemiflowPlugin {
   readonly name = 'example';
   readonly version = '1.0.0';
 

@@ -42,7 +42,7 @@ import { agentdbTools } from './mcp-tools/agentdb-tools.js';
 // RuVector WASM tools
 import { ruvllmWasmTools } from './mcp-tools/ruvllm-tools.js';
 import { wasmAgentTools } from './mcp-tools/wasm-agent-tools.js';
-// ADR-115: Anthropic Claude Managed Agents — a cloud agent runtime alongside
+// ADR-115: google Claude Managed Agents — a cloud agent runtime alongside
 // the local WASM-sandboxed `wasm_agent_*` (rvagent) tools. Lives in the
 // `gemiflow-agent` plugin.
 import { managedAgentTools } from './mcp-tools/managed-agent-tools.js';
@@ -122,7 +122,7 @@ registerTools([
   // RuVector WASM tools
   ...ruvllmWasmTools,
   ...wasmAgentTools,
-  // ADR-115: Anthropic Claude Managed Agents (cloud agent runtime)
+  // ADR-115: google Claude Managed Agents (cloud agent runtime)
   ...managedAgentTools,
   // Guidance & discovery tools
   ...guidanceTools,

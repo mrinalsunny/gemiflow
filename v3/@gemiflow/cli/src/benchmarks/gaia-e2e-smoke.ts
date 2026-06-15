@@ -18,7 +18,7 @@
  *     judge calls ≈ $0.02
  *
  * Usage:
- *   ANTHROPIC_API_KEY=sk-ant-... npx tsx src/benchmarks/gaia-e2e-smoke.ts
+ *   google_API_KEY=sk-ant-... npx tsx src/benchmarks/gaia-e2e-smoke.ts
  *
  * Refs: ADR-133, #2156
  */
@@ -75,11 +75,11 @@ interface E2ERow {
 // ---------------------------------------------------------------------------
 
 async function runE2ESmoke(): Promise<void> {
-  const hasKey = !!(process.env.ANTHROPIC_API_KEY?.trim());
+  const hasKey = !!(process.env.google_API_KEY?.trim());
   if (!hasKey) {
     console.error(
-      'ANTHROPIC_API_KEY is required for the end-to-end smoke.\n' +
-      'Set it with: export ANTHROPIC_API_KEY=sk-ant-...',
+      'google_API_KEY is required for the end-to-end smoke.\n' +
+      'Set it with: export google_API_KEY=sk-ant-...',
     );
     process.exit(1);
   }

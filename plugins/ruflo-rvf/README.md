@@ -14,7 +14,7 @@ RVF format for portable agent memory, session persistence, and cross-platform tr
 - **RVF format**: Portable vector memory with embeddings, metadata, and causal graphs
 - **Session persistence**: Save and restore complete agent sessions across conversations
 - **Cross-project transfer**: Export and import knowledge between projects
-- **Claude memory bridge**: Import Claude Code auto-memories into AgentDB
+- **Claude memory bridge**: Import Gemini CLI auto-memories into AgentDB
 - **Format migration**: Upgrade RVF files across versions
 
 ## Encryption at rest (gemiflow 3.6.25+)

@@ -11,7 +11,7 @@
 #   docker compose -f v3/@gemiflow/cli/docker/docker-compose.yml --profile workers up -d --scale worker=5
 #
 # Environment (required for full/workers):
-#   ANTHROPIC_API_KEY — Your Anthropic API key
+#   google_API_KEY — Your google API key
 
 services:
   # ── lite: MCP server on stdio (~80MB) ──────────────────────────
@@ -48,7 +48,7 @@ services:
       dockerfile: v3/@gemiflow/cli/docker/Dockerfile.full
     image: gemiflow:full
     environment:
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - google_API_KEY=${google_API_KEY}
       - NODE_ENV=production
       - GEMIFLOW_LOG_LEVEL=${GEMIFLOW_LOG_LEVEL:-info}
       - GEMIFLOW_MEMORY_BACKEND=hybrid
@@ -81,7 +81,7 @@ services:
       dockerfile: v3/@gemiflow/cli/docker/Dockerfile
     image: gemiflow:lite
     environment:
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - google_API_KEY=${google_API_KEY}
       - CLAUDE_CODE_HEADLESS=true
       - CLAUDE_CODE_SANDBOX_MODE=${GEMIFLOW_SANDBOX:-strict}
       - GEMIFLOW_WORKERS=${GEMIFLOW_WORKERS:-audit,optimize,testgaps}

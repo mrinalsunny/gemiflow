@@ -2,7 +2,7 @@
  * Tests for AutoMemoryBridge
  *
  * TDD London School (mock-first) tests for the bidirectional bridge
- * between Claude Code auto memory and AgentDB.
+ * between Gemini CLI auto memory and AgentDB.
  */
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
@@ -97,7 +97,7 @@ describe('resolveAutoMemoryDir', () => {
   });
 
   it('should normalize underscores to dashes (issue #2282)', () => {
-    // Claude Code normalizes both `/` and `_` to `-` when computing the
+    // Gemini CLI normalizes both `/` and `_` to `-` when computing the
     // project key, so paths like /home/phil/A-Project/RX_ERP/ map to
     // -home-phil-A-Project-RX-ERP, not -home-phil-A-Project-RX_ERP.
     const result = resolveAutoMemoryDir('/home/phil/A-Project/RX_ERP');
@@ -169,7 +169,7 @@ Content of section two.
   });
 
   it('should parse YAML frontmatter + body as a single entry (issue #2283)', () => {
-    // Claude Code's auto-memory format: YAML frontmatter + free-text body,
+    // Gemini CLI's auto-memory format: YAML frontmatter + free-text body,
     // no ## sub-headings. Pre-fix this returned [] silently.
     const content = `---
 name: GitHub identity for RX Platform
@@ -727,7 +727,7 @@ Already in DB
 
     // #1556: curateIndex() used to overwrite a hand-curated MEMORY.md with a
     // single-line stub when none of the files in memoryDir matched the
-    // hardcoded DEFAULT_TOPIC_MAPPING filenames (as happens when Claude Code's
+    // hardcoded DEFAULT_TOPIC_MAPPING filenames (as happens when Gemini CLI's
     // native `<type>_<topic>.md` convention is used). The fix is to skip the
     // write entirely when there's nothing to curate.
     it('should not overwrite hand-curated MEMORY.md when no topic files match (#1556)', async () => {
@@ -735,7 +735,7 @@ Already in DB
       const handCurated = '# My Hand-Curated Memory\n\n## Section 1\nImportant notes\n\n## Section 2\nMore notes\n';
       fsSync.writeFileSync(indexPath, handCurated, 'utf-8');
 
-      // Write files using Claude Code's native <type>_<topic>.md convention —
+      // Write files using Gemini CLI's native <type>_<topic>.md convention —
       // none of these filenames appear in DEFAULT_TOPIC_MAPPING.
       fsSync.writeFileSync(path.join(testDir, 'user_role.md'), '# user role\ndata scientist', 'utf-8');
       fsSync.writeFileSync(path.join(testDir, 'session_foo.md'), '# session\nfoo bar', 'utf-8');

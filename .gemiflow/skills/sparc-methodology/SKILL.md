@@ -432,9 +432,9 @@ Knowledge management and context preservation.
 
 ## Activation Methods
 
-### Method 1: MCP Tools (Preferred in Claude Code)
+### Method 1: MCP Tools (Preferred in Gemini CLI)
 
-**Best for**: Integrated Claude Code workflows with full orchestration capabilities
+**Best for**: Integrated Gemini CLI workflows with full orchestration capabilities
 
 ```javascript
 // Basic mode execution

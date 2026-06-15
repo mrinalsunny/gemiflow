@@ -23,7 +23,7 @@ All ADRs are located in [`/v3/implementation/adrs/`](../../implementation/adrs/)
 | [ADR-015](../../implementation/adrs/ADR-015-unified-plugin-system.md) | Unified Plugin System | Complete |
 | [ADR-016](../../implementation/adrs/ADR-016-collaborative-issue-claims.md) | Collaborative Issue Claims | Complete |
 | [ADR-017](../../implementation/adrs/ADR-017-ruvector-integration.md) | RuVector Integration | Complete |
-| [ADR-018](../../implementation/adrs/ADR-018-gemini-cli-integration.md) | Claude Code Integration | Complete |
+| [ADR-018](../../implementation/adrs/ADR-018-gemini-cli-integration.md) | Gemini CLI Integration | Complete |
 | [ADR-019](../../implementation/adrs/ADR-019-headless-runtime-package.md) | Headless Runtime Package | Complete |
 | [ADR-020](../../implementation/adrs/ADR-020-headless-worker-integration.md) | Headless Worker Integration | Complete |
 | [ADR-046](../../implementation/adrs/ADR-046-gemiflow-rebrand.md) | Dual Umbrella: gemiflow + gemiflow | Accepted |

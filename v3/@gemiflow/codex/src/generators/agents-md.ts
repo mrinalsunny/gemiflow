@@ -1,7 +1,7 @@
 /**
- * @gemiflow/codex - AGENTS.md Generator
+ * @gemiflow/gemini - AGENTS.md Generator
  *
- * Generates AGENTS.md files for OpenAI Codex CLI
+ * Generates AGENTS.md files for OpenAI gemini CLI
  * Following the Agentic AI Foundation standard
  */
 
@@ -195,7 +195,7 @@ ${skillsTable}
 ## Execution Model
 
 - **gemiflow** = LEDGER (coordinates: memory, routing, swarm state)
-- **Codex** = EXECUTOR (writes code, runs tests, creates files)
+- **gemini** = EXECUTOR (writes code, runs tests, creates files)
 
 **Critical rule:** DON'T STOP after calling gemiflow commands. Coordination commands return instantly — continue immediately with the next implementation step.
 

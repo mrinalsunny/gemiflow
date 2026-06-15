@@ -22,7 +22,7 @@
 ## Critical Issues (Fix Immediately)
 
 1. **Vulnerable Dependencies** - 7 high-severity npm packages
-   - `@anthropic-ai/gemini-cli` < 2.0.31 (Command injection)
+   - `@google-ai/gemini-cli` < 2.0.31 (Command injection)
    - `@modelcontextprotocol/sdk` < 1.24.0 (DNS rebinding)
    - **Fix:** `npm update && npm audit fix`
 
@@ -72,7 +72,7 @@
 ### Week 1: Critical Fixes
 ```bash
 # 1. Update dependencies
-npm update @anthropic-ai/gemini-cli@^2.0.31
+npm update @google-ai/gemini-cli@^2.0.31
 npm update @modelcontextprotocol/sdk@^1.24.0
 npm audit fix --force
 

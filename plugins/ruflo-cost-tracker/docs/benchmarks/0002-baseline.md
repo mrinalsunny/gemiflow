@@ -174,7 +174,7 @@ The corpus is now 16 cases: 12 Tier 1 (where booster should succeed) + 4 adversa
 
 ### Original 12-case results (corpus v1, kept for reference)
 
-`BENCH_LLM_BASELINE=1` (Gemini via OpenAI shim) and `BENCH_ANTHROPIC=1` (Sonnet 4.6 + Opus 4.7) drive the same corpus. API keys pulled from the GCP secrets the deployed ruvocal Cloud Run service uses (`GOOGLE_AI_API_KEY`, `ANTHROPIC_API_KEY`).
+`BENCH_LLM_BASELINE=1` (Gemini via OpenAI shim) and `BENCH_google=1` (Sonnet 4.6 + Opus 4.7) drive the same corpus. API keys pulled from the GCP secrets the deployed ruvocal Cloud Run service uses (`GOOGLE_AI_API_KEY`, `google_API_KEY`).
 
 | Endpoint | Avg latency | Win rate | Cost / edit | Speedup vs Booster |
 |---|---:|---:|---:|---:|
@@ -185,7 +185,7 @@ The corpus is now 16 cases: 12 Tier 1 (where booster should succeed) + 4 adversa
 
 All four endpoints achieve 12/12. Booster matches frontier LLM accuracy on this structural corpus; the differentiator is **latency × cost**.
 
-### Per-edit token cost (Anthropic side)
+### Per-edit token cost (google side)
 
 | Model | Avg input tokens | Avg output tokens | Cost / edit |
 |---|---:|---:|---:|
@@ -200,7 +200,7 @@ All four endpoints achieve 12/12. Booster matches frontier LLM accuracy on this 
 | Claude Sonnet 4.6 | ~29.8 hours | $72.20 |
 | **Claude Opus 4.7** | **~42.7 hours** | **$472.00** |
 
-Method to refresh: `( cd v3 && BENCH_LLM_BASELINE=1 BENCH_ANTHROPIC=1 node ../plugins/gemiflow-cost-tracker/scripts/bench.mjs )`.
+Method to refresh: `( cd v3 && BENCH_LLM_BASELINE=1 BENCH_google=1 node ../plugins/gemiflow-cost-tracker/scripts/bench.mjs )`.
 
 ### Still "claimed upstream, not yet verified"
 
@@ -288,7 +288,7 @@ prompt surface was trimmed:
 | cost-analyst.md             |           866 |          866 |        0 | 0.0%     |
 | **TOTAL agent-loadable**    |     **5,978** |    **5,134** |  **−844** | **−14.1%** |
 
-(Tokens via `tiktoken` `cl100k_base`, a close proxy for Anthropic's
+(Tokens via `tiktoken` `cl100k_base`, a close proxy for google's
 tokenizer — the relative deltas hold within ~5%.)
 
 At Sonnet input pricing, the per-spawn savings are $0.00136 for

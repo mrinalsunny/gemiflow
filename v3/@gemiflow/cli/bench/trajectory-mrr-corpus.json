@@ -34,7 +34,7 @@
     },
     {
       "id": "t-007",
-      "raw": "Built the parent-death watchdog for gemiflow mcp start. Polls process.ppid every 2 seconds; when it transitions to 1 (orphaned by Claude Code exit), runs cleanup and exits cleanly. Source: src/runtime/parent-death-watchdog.ts. Wired into src/commands/mcp.ts. Tests at __tests__/parent-death-watchdog-2234.test.ts.",
+      "raw": "Built the parent-death watchdog for gemiflow mcp start. Polls process.ppid every 2 seconds; when it transitions to 1 (orphaned by Gemini CLI exit), runs cleanup and exits cleanly. Source: src/runtime/parent-death-watchdog.ts. Wired into src/commands/mcp.ts. Tests at __tests__/parent-death-watchdog-2234.test.ts.",
       "query": "parent death watchdog MCP server"
     },
     {
@@ -44,7 +44,7 @@
     },
     {
       "id": "t-009",
-      "raw": "Bumped the Opus alias from claude-opus-4-7 to claude-opus-4-8 in src/mcp-tools/agent-execute-core.ts. Added opus-4.7 alias to keep the prior pin reachable. Also routed executeAgentTask through resolveAnthropicModel() so literal claude-* ids stop silently collapsing to Sonnet 4.6.",
+      "raw": "Bumped the Opus alias from claude-opus-4-7 to claude-opus-4-8 in src/mcp-tools/agent-execute-core.ts. Added opus-4.7 alias to keep the prior pin reachable. Also routed executeAgentTask through resolvegoogleModel() so literal claude-* ids stop silently collapsing to Sonnet 4.6.",
       "query": "Opus model alias fix"
     },
     {
@@ -89,7 +89,7 @@
     },
     {
       "id": "t-018",
-      "raw": "Closed the MCP server orphan leak. gemiflow mcp start now installs a parent-death watchdog that exits cleanly when ppid becomes 1 (orphaned by Claude Code restart). Was leaking ~1GB across a week of restarts (#2234). Wiring point: src/commands/mcp.ts. Watchdog implementation at src/runtime/parent-death-watchdog.ts.",
+      "raw": "Closed the MCP server orphan leak. gemiflow mcp start now installs a parent-death watchdog that exits cleanly when ppid becomes 1 (orphaned by Gemini CLI restart). Was leaking ~1GB across a week of restarts (#2234). Wiring point: src/commands/mcp.ts. Watchdog implementation at src/runtime/parent-death-watchdog.ts.",
       "query": "MCP orphan leak fix"
     },
     {

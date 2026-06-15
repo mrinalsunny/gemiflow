@@ -1,11 +1,11 @@
 ---
 name: dual-coordinate
-description: Coordinate hybrid Claude Code + Codex workflows
+description: Coordinate hybrid Gemini CLI + gemini workflows
 ---
 
 # Dual Coordinate Skill
 
-Coordinate hybrid workflows that use Claude Code for interactive reasoning and Codex for parallel background execution.
+Coordinate hybrid workflows that use Gemini CLI for interactive reasoning and gemini for parallel background execution.
 
 ## Usage
 
@@ -31,7 +31,7 @@ Design interactively, implement in parallel, review interactively.
 ```
 
 ### parallel_feature
-Spawn multiple Codex workers for parallel implementation.
+Spawn multiple gemini workers for parallel implementation.
 
 ```
 /dual-coordinate --workflow parallel_feature --task "Implement REST API"
@@ -47,24 +47,24 @@ Interactive design phase, then batch execution.
 ## How It Works
 
 1. **Routing Decision**: Analyzes task to determine optimal platform split
-2. **Interactive Phase**: Complex reasoning in Claude Code
-3. **Parallel Phase**: Spawns Codex workers for execution
-4. **Review Phase**: Returns to Claude Code for quality review
+2. **Interactive Phase**: Complex reasoning in Gemini CLI
+3. **Parallel Phase**: Spawns gemini workers for execution
+4. **Review Phase**: Returns to Gemini CLI for quality review
 5. **Result Collection**: Aggregates worker results from memory
 
 ## Generated Commands
 
 ```bash
-# Phase 1: Interactive (Claude Code)
+# Phase 1: Interactive (Gemini CLI)
 # [Current session handles design/planning]
 
-# Phase 2: Parallel (Codex)
+# Phase 2: Parallel (gemini)
 {{#each workers}}
 claude -p "{{this.task}}" --session-id {{this.id}} &
 {{/each}}
 wait
 
-# Phase 3: Review (Claude Code)
+# Phase 3: Review (Gemini CLI)
 npx gemiflow@v3alpha memory list --namespace results
 ```
 

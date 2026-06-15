@@ -18,7 +18,7 @@ import {
  */
 export function createDualModeCommand(): Command {
   const cmd = new Command('dual')
-    .description('Run collaborative dual-mode swarms (Claude Code + Codex)')
+    .description('Run collaborative dual-mode swarms (Gemini CLI + gemini)')
     .addCommand(createRunCommand())
     .addCommand(createTemplateCommand())
     .addCommand(createStatusCommand());
@@ -36,7 +36,7 @@ function createRunCommand(): Command {
     .option('-t, --template <name>', 'Use a pre-built template (feature, security, refactor)')
     .option(
       '-w, --worker <spec>',
-      'Worker spec "<platform>:<role>:<prompt>" (platform = claude|codex). Repeatable. Workers chain sequentially unless --parallel-workers.',
+      'Worker spec "<platform>:<role>:<prompt>" (platform = claude|gemini). Repeatable. Workers chain sequentially unless --parallel-workers.',
       (val: string, acc: string[]) => { acc.push(val); return acc; },
       [] as string[],
     )
@@ -49,7 +49,7 @@ function createRunCommand(): Command {
     .action(async (templateArg: string | undefined, options) => {
       console.log(chalk.cyan('═══════════════════════════════════════════════════════════════'));
       console.log(chalk.cyan.bold('  DUAL-MODE COLLABORATIVE EXECUTION'));
-      console.log(chalk.cyan('  Claude Code + Codex workers with shared memory'));
+      console.log(chalk.cyan('  Gemini CLI + gemini workers with shared memory'));
       console.log(chalk.cyan('═══════════════════════════════════════════════════════════════'));
       console.log();
 
@@ -106,7 +106,7 @@ function createRunCommand(): Command {
         console.log('  refactor - Code refactoring (analyzer -> planner -> refactorer -> validator)');
         console.log();
         console.log('Custom workers:');
-        console.log('  --worker "claude:architect:Design the API" --worker "codex:coder:Implement it"');
+        console.log('  --worker "claude:architect:Design the API" --worker "gemini:coder:Implement it"');
         return;
       }
 
@@ -153,20 +153,20 @@ function createTemplateCommand(): Command {
 
       console.log(chalk.cyan('feature') + ' - Feature Development Swarm');
       console.log('  Pipeline: architect → coder → tester → reviewer');
-      console.log('  Platforms: Claude (architect, reviewer) + Codex (coder, tester)');
-      console.log('  Usage: npx gemiflow-codex dual run --template feature --task "Add user auth"');
+      console.log('  Platforms: Claude (architect, reviewer) + gemini (coder, tester)');
+      console.log('  Usage: npx gemiflow-gemini dual run --template feature --task "Add user auth"');
       console.log();
 
       console.log(chalk.cyan('security') + ' - Security Audit Swarm');
       console.log('  Pipeline: scanner → analyzer → fixer');
-      console.log('  Platforms: Codex (scanner, fixer) + Claude (analyzer)');
-      console.log('  Usage: npx gemiflow-codex dual run --template security --task "src/auth/"');
+      console.log('  Platforms: gemini (scanner, fixer) + Claude (analyzer)');
+      console.log('  Usage: npx gemiflow-gemini dual run --template security --task "src/auth/"');
       console.log();
 
       console.log(chalk.cyan('refactor') + ' - Refactoring Swarm');
       console.log('  Pipeline: analyzer → planner → refactorer → validator');
-      console.log('  Platforms: Claude (analyzer, planner) + Codex (refactorer, validator)');
-      console.log('  Usage: npx gemiflow-codex dual run --template refactor --task "src/legacy/"');
+      console.log('  Platforms: Claude (analyzer, planner) + gemini (refactorer, validator)');
+      console.log('  Usage: npx gemiflow-gemini dual run --template refactor --task "src/legacy/"');
       console.log();
 
       console.log(chalk.gray('Custom configurations can be provided via --config <path.json>'));
@@ -210,7 +210,7 @@ export function parseWorkerSpecs(specs: string[], parallel: boolean): WorkerConf
     const firstColon = spec.indexOf(':');
     const secondColon = firstColon >= 0 ? spec.indexOf(':', firstColon + 1) : -1;
     if (firstColon < 0 || secondColon < 0) {
-      throw new Error(`Invalid --worker spec "${spec}". Expected "<platform>:<role>:<prompt>" (platform = claude|codex).`);
+      throw new Error(`Invalid --worker spec "${spec}". Expected "<platform>:<role>:<prompt>" (platform = claude|gemini).`);
     }
     const platformRaw = spec.slice(0, firstColon).trim().toLowerCase();
     const role = spec.slice(firstColon + 1, secondColon).trim() || `worker-${index + 1}`;
@@ -218,10 +218,10 @@ export function parseWorkerSpecs(specs: string[], parallel: boolean): WorkerConf
     if (!prompt) {
       throw new Error(`Invalid --worker spec "${spec}". Missing prompt after "<platform>:<role>:".`);
     }
-    if (platformRaw !== 'claude' && platformRaw !== 'codex') {
-      throw new Error(`Invalid platform "${platformRaw}" in --worker spec "${spec}". Use "claude" or "codex".`);
+    if (platformRaw !== 'claude' && platformRaw !== 'gemini') {
+      throw new Error(`Invalid platform "${platformRaw}" in --worker spec "${spec}". Use "claude" or "gemini".`);
     }
-    const platform: 'claude' | 'codex' = platformRaw;
+    const platform: 'claude' | 'gemini' = platformRaw;
 
     // Derive a unique id from the role.
     const base = role.replace(/\s+/g, '-');

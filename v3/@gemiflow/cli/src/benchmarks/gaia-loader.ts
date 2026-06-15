@@ -5,7 +5,7 @@
  * validation split, caches it under ~/.cache/gemiflow/gaia/, and exposes
  * a typed `loadGaia()` API consumed by the capability-gaia subcommand.
  *
- * Token resolution order (mirrors performance-capability.ts ANTHROPIC_API_KEY pattern):
+ * Token resolution order (mirrors performance-capability.ts google_API_KEY pattern):
  *   1. $HF_TOKEN env var
  *   2. gcloud secrets versions access latest --secret=huggingface-token
  *   3. Fail with a clear error message

@@ -101,9 +101,9 @@ npx gemiflow github swarm -r owner/repo -a 8 -f triage --issue-labels --auto-pr
 4. Assess documentation completeness
 5. Generate health report
 
-## Integration with Claude Code
+## Integration with Gemini CLI
 
-Use in Claude Code with MCP tools:
+Use in Gemini CLI with MCP tools:
 
 ```javascript
 mcp__gemiflow__github_swarm {

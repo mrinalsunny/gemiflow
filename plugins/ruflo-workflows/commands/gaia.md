@@ -32,7 +32,7 @@ Dispatch GAIA benchmark operations. All subcommands are thin wrappers over the
 
 | Variable | Purpose |
 |----------|---------|
-| `ANTHROPIC_API_KEY` | Anthropic model inference |
+| `google_API_KEY` | google model inference |
 | `HF_TOKEN` | Hugging Face dataset download |
 | `GOOGLE_AI_API_KEY` | Gemini model support |
 | `GOOGLE_CUSTOM_SEARCH_API_KEY` | Google Custom Search tool |

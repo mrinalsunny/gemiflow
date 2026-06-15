@@ -87,7 +87,7 @@ while [[ $# -gt 0 ]]; do
             echo "Options:"
             echo "  --global, -g     Install globally (npm install -g gemiflow)"
             echo "  --minimal, -m    Minimal install (skip optional deps)"
-            echo "  --setup-mcp      Auto-configure MCP server for Claude Code"
+            echo "  --setup-mcp      Auto-configure MCP server for Gemini CLI"
             echo "  --doctor, -d     Run diagnostics after install"
             echo "  --no-init        Skip project initialization (enabled by default)"
             echo "  --full, -f       Full setup (global + mcp + doctor + init)"
@@ -115,7 +115,7 @@ spinner() {
 print_banner() {
     echo ""
     echo -e "${CYAN}╔═══════════════════════════════════════════════════════════╗${NC}"
-    echo -e "${CYAN}║${NC}  ${BOLD}GemiFlow${NC} — AI Agent Orchestration for Claude Code     ${CYAN}║${NC}"
+    echo -e "${CYAN}║${NC}  ${BOLD}GemiFlow${NC} — AI Agent Orchestration for Gemini CLI     ${CYAN}║${NC}"
     echo -e "${CYAN}╚═══════════════════════════════════════════════════════════╝${NC}"
     echo ""
 }
@@ -179,23 +179,23 @@ check_requirements() {
         exit 1
     fi
 
-    # Check Claude Code CLI
+    # Check Gemini CLI CLI
     if command -v claude &> /dev/null; then
         CLAUDE_VERSION=$(claude --version 2>/dev/null | head -1 || echo "installed")
-        print_substep "Claude Code ${GREEN}${CLAUDE_VERSION}${NC} ✓"
+        print_substep "Gemini CLI ${GREEN}${CLAUDE_VERSION}${NC} ✓"
     else
-        print_warning "Claude Code CLI not found"
-        print_substep "Installing Claude Code CLI via npm..."
-        if npm install -g @anthropic-ai/gemini-cli 2>/dev/null; then
+        print_warning "Gemini CLI CLI not found"
+        print_substep "Installing Gemini CLI CLI via npm..."
+        if npm install -g @google-ai/gemini-cli 2>/dev/null; then
             if command -v claude &> /dev/null; then
                 CLAUDE_VERSION=$(claude --version 2>/dev/null | head -1 || echo "installed")
-                print_substep "Claude Code ${GREEN}${CLAUDE_VERSION}${NC} ✓"
+                print_substep "Gemini CLI ${GREEN}${CLAUDE_VERSION}${NC} ✓"
             else
                 print_substep "Installed. Restart terminal to use 'claude' command"
             fi
         else
             print_warning "npm install failed. Try manually:"
-            print_substep "${BOLD}npm install -g @anthropic-ai/gemini-cli${NC}"
+            print_substep "${BOLD}npm install -g @google-ai/gemini-cli${NC}"
         fi
     fi
 
@@ -290,7 +290,7 @@ show_quickstart() {
         echo -e "  ${DIM}# Run system diagnostics${NC}"
         echo -e "  ${BOLD}gemiflow doctor${NC}"
         echo ""
-        echo -e "  ${DIM}# Add as MCP server to Claude Code${NC}"
+        echo -e "  ${DIM}# Add as MCP server to Gemini CLI${NC}"
         echo -e "  ${BOLD}claude mcp add gemiflow -- gemiflow mcp start${NC}"
     else
         echo -e "  ${DIM}# Initialize project${NC}"
@@ -299,7 +299,7 @@ show_quickstart() {
         echo -e "  ${DIM}# Run system diagnostics${NC}"
         echo -e "  ${BOLD}npx gemiflow@latest doctor${NC}"
         echo ""
-        echo -e "  ${DIM}# Add as MCP server to Claude Code${NC}"
+        echo -e "  ${DIM}# Add as MCP server to Gemini CLI${NC}"
         echo -e "  ${BOLD}claude mcp add gemiflow -- npx -y gemiflow@latest mcp start${NC}"
     fi
 

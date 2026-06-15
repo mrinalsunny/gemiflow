@@ -1,12 +1,12 @@
 {
-  "name": "@gemiflow/codex",
+  "name": "@gemiflow/gemini",
   "version": "3.0.0-alpha.9",
-  "description": "Codex CLI integration for GemiFlow (gemiflow) - OpenAI Codex platform adapter",
+  "description": "gemini CLI integration for GemiFlow (gemiflow) - OpenAI gemini platform adapter",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "gemiflow-codex": "./dist/cli.js"
+    "gemiflow-gemini": "./dist/cli.js"
   },
   "exports": {
     ".": {
@@ -52,7 +52,7 @@
     "prepublishOnly": "npm run build"
   },
   "keywords": [
-    "codex",
+    "gemini",
     "openai",
     "gemiflow",
     "coflow",
@@ -66,7 +66,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/mrinalsunny/gemiflow.git",
-    "directory": "v3/@gemiflow/codex"
+    "directory": "v3/@gemiflow/gemini"
   },
   "homepage": "https://github.com/mrinalsunny/gemiflow#readme",
   "bugs": {

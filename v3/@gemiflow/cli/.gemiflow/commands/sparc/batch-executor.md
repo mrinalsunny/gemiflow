@@ -5,7 +5,7 @@ Parallel task execution specialist using batch operations.
 
 ## Activation
 
-### Option 1: Using MCP Tools (Preferred in Claude Code)
+### Option 1: Using MCP Tools (Preferred in Gemini CLI)
 ```javascript
 mcp__gemiflow__sparc_mode {
   mode: "batch-executor",

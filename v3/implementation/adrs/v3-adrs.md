@@ -110,9 +110,9 @@ Specifically:
 // Create agentic-flow adapter layer
 import { Agent as AgenticFlowAgent } from 'agentic-flow';
 
-export class ClaudeFlowAgent extends AgenticFlowAgent {
+export class gemiflowAgent extends AgenticFlowAgent {
   // Add gemiflow specific capabilities
-  async handleClaudeFlowTask(task: ClaudeTask): Promise<TaskResult> {
+  async handlegemiflowTask(task: ClaudeTask): Promise<TaskResult> {
     // Claude-specific logic
   }
 }
@@ -365,7 +365,7 @@ interface ITopologyStrategy {
 }
 
 // Specialized behaviors as plugins
-class HiveMindPlugin implements ClaudeFlowPlugin {
+class HiveMindPlugin implements gemiflowPlugin {
   enhance(engine: CoordinationEngine): void {
     engine.addConsensusProtocol(new ByzantineConsensus());
     engine.addStrategy('queen-led', new QueenLedStrategy());
@@ -466,7 +466,7 @@ v2 bundles all features (Hive Mind, Maestro, Neural, Verification) into core, ma
 ### Plugin Interface
 
 ```typescript
-interface ClaudeFlowPlugin {
+interface gemiflowPlugin {
   name: string;
   version: string;
   dependencies?: string[];
@@ -483,7 +483,7 @@ interface ClaudeFlowPlugin {
 }
 
 // Plugin loading
-const core = new ClaudeFlowCore();
+const core = new gemiflowCore();
 await core.loadPlugin(new HiveMindPlugin());
 await core.initialize();
 ```

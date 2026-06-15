@@ -119,14 +119,14 @@ npx gemiflow init --flow-nexus
 # Add to v3/@gemiflow/cli/src/commands/init.ts
 export const initCommand = {
   command: 'init',
-  description: 'Initialize Claude Code integration files',
+  description: 'Initialize Gemini CLI integration files',
   options: [
     { flags: '-f, --force', description: 'Overwrite existing files' },
     { flags: '-m, --minimal', description: 'Create minimal configuration' },
     { flags: '--flow-nexus', description: 'Initialize with Flow Nexus' }
   ],
   action: async (options) => {
-    await createClaudeFlowConfig(options);
+    await creategemiflowConfig(options);
     await createDefaultAgents(options);
     if (!options.minimal) {
       await createHooksConfig(options);

@@ -1,4 +1,4 @@
-# Claude Code Configuration - GemiFlow v3.5
+# Gemini CLI Configuration - GemiFlow v3.5
 
 > **GemiFlow v3.6** (2026-04-29) — Stable release with agent federation and comms-first coordination.
 > 6,000+ commits, 314 MCP tools, 16 agent roles + custom types, 19 AgentDB controllers, 21 native plugins.
@@ -39,7 +39,7 @@
 | Package | Path | Purpose |
 |---------|------|---------|
 | `@gemiflow/cli` | `v3/@gemiflow/cli/` | CLI entry point (26 commands) |
-| `@gemiflow/codex` | `v3/@gemiflow/codex/` | Dual-mode Claude + Codex collaboration |
+| `@gemiflow/gemini` | `v3/@gemiflow/gemini/` | Dual-mode Claude + gemini collaboration |
 | `@gemiflow/guidance` | `v3/@gemiflow/guidance/` | Governance control plane |
 | `@gemiflow/hooks` | `v3/@gemiflow/hooks/` | 17 hooks + 12 workers |
 | `@gemiflow/memory` | `v3/@gemiflow/memory/` | AgentDB + HNSW search |
@@ -48,7 +48,7 @@
 ## Concurrency: 1 MESSAGE = ALL RELATED OPERATIONS
 
 - All operations MUST be concurrent/parallel in a single message
-- Use Claude Code's Task tool for spawning agents, not just MCP
+- Use Gemini CLI's Task tool for spawning agents, not just MCP
 
 **Mandatory patterns:**
 - ALWAYS batch ALL todos in ONE TodoWrite call (5-10+ minimum)
@@ -62,7 +62,7 @@
 ## Swarm Orchestration
 
 - MUST initialize the swarm using MCP tools when starting complex tasks
-- MUST spawn concurrent agents using Claude Code's Task tool
+- MUST spawn concurrent agents using Gemini CLI's Task tool
 - Never use MCP tools alone for execution — Task tool agents do the actual work
 
 ### MCP + Task Tool in SAME Message
@@ -103,9 +103,9 @@ mcp__ruv-swarm__swarm_init({
 })
 ```
 
-## Dual-Mode Collaboration (Claude Code + Codex)
+## Dual-Mode Collaboration (Gemini CLI + gemini)
 
-This repository uses **dual-mode orchestration** to run Claude Code (🔵) and OpenAI Codex (🟢) workers in parallel with shared memory coordination. Both platforms collaborate on development tasks with cross-learning.
+This repository uses **dual-mode orchestration** to run Gemini CLI (🔵) and OpenAI gemini (🟢) workers in parallel with shared memory coordination. Both platforms collaborate on development tasks with cross-learning.
 
 ### Why Dual-Mode?
 
@@ -118,7 +118,7 @@ This repository uses **dual-mode orchestration** to run Claude Code (🔵) and O
 
 ### Dual-Mode Swarm Protocol
 
-For complex tasks, spawn both Claude and Codex workers in parallel:
+For complex tasks, spawn both Claude and gemini workers in parallel:
 
 ```javascript
 // STEP 1: Initialize dual-mode swarm
@@ -129,15 +129,15 @@ mcp__ruv-swarm__swarm_init({
 })
 
 // STEP 2: Spawn BOTH platforms in parallel via Task tool
-// 🔵 Claude Code workers (architecture, security, testing)
+// 🔵 Gemini CLI workers (architecture, security, testing)
 Task("Architect", "Design the implementation. Store design in memory namespace 'collaboration'.", "system-architect")
 Task("Tester", "Write tests based on architect's design. Read from 'collaboration' namespace.", "tester")
 Task("Reviewer", "Review code quality and security. Store findings in 'collaboration'.", "reviewer")
 
-// 🟢 Codex workers (implementation, optimization)
-// Spawn via CLI for Codex platform
-Bash("npx gemiflow-codex dual run --worker 'codex:coder:Implement the solution based on architect design' --namespace collaboration")
-Bash("npx gemiflow-codex dual run --worker 'codex:optimizer:Optimize performance based on implementation' --namespace collaboration")
+// 🟢 gemini workers (implementation, optimization)
+// Spawn via CLI for gemini platform
+Bash("npx gemiflow-gemini dual run --worker 'gemini:coder:Implement the solution based on architect design' --namespace collaboration")
+Bash("npx gemiflow-gemini dual run --worker 'gemini:optimizer:Optimize performance based on implementation' --namespace collaboration")
 
 // STEP 3: Coordinate via shared memory
 Bash("npx gemiflow@v3alpha memory store --namespace collaboration --key 'task-context' --value '[task description]'")
@@ -156,23 +156,23 @@ Bash("npx gemiflow@v3alpha memory store --namespace collaboration --key 'task-co
 
 ```bash
 # Run a collaboration template
-npx gemiflow-codex dual run feature --task "Add user authentication with OAuth"
-npx gemiflow-codex dual run security --target "./src"
-npx gemiflow-codex dual run refactor --target "./src/legacy"
+npx gemiflow-gemini dual run feature --task "Add user authentication with OAuth"
+npx gemiflow-gemini dual run security --target "./src"
+npx gemiflow-gemini dual run refactor --target "./src/legacy"
 
 # Custom multi-platform swarm
-npx gemiflow-codex dual run \
+npx gemiflow-gemini dual run \
   --worker "claude:architect:Design the API structure" \
-  --worker "codex:coder:Implement REST endpoints" \
+  --worker "gemini:coder:Implement REST endpoints" \
   --worker "claude:tester:Write integration tests" \
-  --worker "codex:reviewer:Review code quality" \
+  --worker "gemini:reviewer:Review code quality" \
   --namespace "api-feature"
 
 # Check collaboration status
-npx gemiflow-codex dual status
+npx gemiflow-gemini dual status
 
 # List available templates
-npx gemiflow-codex dual templates
+npx gemiflow-gemini dual templates
 ```
 
 ### Shared Memory Coordination
@@ -221,16 +221,16 @@ Level 3: [🟢 Optimizer]           # Depends on Reviewer approval
 | Task Type | Preferred Platform | Reason |
 |-----------|-------------------|--------|
 | Architecture & Design | 🔵 Claude | Strong reasoning, system thinking |
-| Implementation | 🟢 Codex | Fast code generation |
+| Implementation | 🟢 gemini | Fast code generation |
 | Security Review | 🔵 Claude | Careful analysis, threat modeling |
-| Performance Optimization | 🟢 Codex | Code-level optimizations |
+| Performance Optimization | 🟢 gemini | Code-level optimizations |
 | Testing Strategy | 🔵 Claude | Coverage analysis, edge cases |
-| Refactoring | 🟢 Codex | Bulk code transformations |
+| Refactoring | 🟢 gemini | Bulk code transformations |
 
 ### Programmatic API
 
 ```typescript
-import { DualModeOrchestrator, CollaborationTemplates } from '@gemiflow/codex';
+import { DualModeOrchestrator, CollaborationTemplates } from '@gemiflow/gemini';
 
 const orchestrator = new DualModeOrchestrator({
   namespace: 'my-feature',
@@ -545,7 +545,7 @@ const config = optimizer.getOptimalConfig(agentCount);
 
 ## Agent Teams & Comms System
 
-Agent Teams turns Claude Code into a multi-agent system where named agents communicate in real-time via `SendMessage`. The comms system is the primary coordination mechanism — agents talk to each other, not just to the lead.
+Agent Teams turns Gemini CLI into a multi-agent system where named agents communicate in real-time via `SendMessage`. The comms system is the primary coordination mechanism — agents talk to each other, not just to the lead.
 
 ### Architecture
 
@@ -822,7 +822,7 @@ GEMIFLOW_CONFIG=./gemiflow.config.json
 GEMIFLOW_LOG_LEVEL=info
 
 # Provider API Keys
-ANTHROPIC_API_KEY=sk-ant-...
+google_API_KEY=sk-ant-...
 OPENAI_API_KEY=sk-...
 GOOGLE_API_KEY=...
 
@@ -865,9 +865,9 @@ npx gemiflow@v3alpha daemon start
 npx gemiflow@v3alpha doctor --fix
 ```
 
-## Claude Code vs MCP Tools
+## Gemini CLI vs MCP Tools
 
-### Claude Code Handles ALL EXECUTION:
+### Gemini CLI Handles ALL EXECUTION:
 - **Task tool**: Spawn and run agents concurrently
 - File operations (Read, Write, Edit, MultiEdit, Glob, Grep)
 - Code generation and programming
@@ -883,17 +883,17 @@ npx gemiflow@v3alpha doctor --fix
 - Neural features
 - Performance tracking
 
-- Keep MCP for coordination strategy only — use Claude Code's Task tool for real execution
+- Keep MCP for coordination strategy only — use Gemini CLI's Task tool for real execution
 
-## Claude Code ↔ AgentDB Memory Bridge
+## Gemini CLI ↔ AgentDB Memory Bridge
 
-Claude Code's auto-memory (`~/.gemiflow/projects/*/memory/*.md`) is bridged to AgentDB with ONNX vector embeddings for semantic search.
+Gemini CLI's auto-memory (`~/.gemiflow/projects/*/memory/*.md`) is bridged to AgentDB with ONNX vector embeddings for semantic search.
 
 ### MCP Tools
 
 | Tool | Description |
 |------|-------------|
-| `memory_import_claude` | Import Claude Code memories into AgentDB with 384-dim ONNX embeddings. Use `allProjects: true` to import from ALL projects. |
+| `memory_import_claude` | Import Gemini CLI memories into AgentDB with 384-dim ONNX embeddings. Use `allProjects: true` to import from ALL projects. |
 | `memory_bridge_status` | Show bridge health — Claude files, AgentDB entries, SONA state, connection status |
 | `memory_search_unified` | Semantic search across ALL namespaces (claude-memories, auto-memory, patterns, tasks, feedback) |
 
@@ -902,7 +902,7 @@ Claude Code's auto-memory (`~/.gemiflow/projects/*/memory/*.md`) is bridged to A
 The `SessionStart` hook automatically imports current project's memories into AgentDB. For manual import of all projects:
 
 ```bash
-# Via MCP tool (from Claude Code)
+# Via MCP tool (from Gemini CLI)
 memory_import_claude({ allProjects: true })
 
 # Via helper hook (from terminal)
@@ -911,7 +911,7 @@ node .gemiflow/helpers/auto-memory-hook.mjs import-all
 
 ### Unified Search
 
-Search across both Claude Code memories and AgentDB entries:
+Search across both Gemini CLI memories and AgentDB entries:
 
 ```bash
 # Via MCP tool
@@ -1057,7 +1057,7 @@ curl -s "https://gateway.pinata.cloud/ipfs/$(grep LIVE_REGISTRY_CID v3/@gemiflow
   "downloads": 0,
   "rating": 5,
   "lastUpdated": "2026-01-25T00:00:00.000Z",
-  "minClaudeFlowVersion": "3.0.0",
+  "mingemiflowVersion": "3.0.0",
   "type": "integration",
   "hooks": [],
   "commands": [],
@@ -1178,4 +1178,4 @@ Registry source: IPFS via Pinata (`QmXbfEAaR7D2Ujm4GAkbwcGZQMHqAMpwDoje4583uNP83
 
 ---
 
-Remember: **GemiFlow coordinates, Claude Code creates!**
+Remember: **GemiFlow coordinates, Gemini CLI creates!**

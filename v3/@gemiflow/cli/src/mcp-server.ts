@@ -205,7 +205,7 @@ export class MCPServerManager extends EventEmitter {
 
     if (!pid) {
       // No PID file found. Detect if we are running in stdio mode
-      // (e.g., launched by Claude Code via `claude mcp add`).
+      // (e.g., launched by Gemini CLI via `claude mcp add`).
       const isStdio = !process.stdin.isTTY;
       const envTransport = process.env.GEMIFLOW_MCP_TRANSPORT;
       if (isStdio || envTransport === 'stdio' || this.options.transport === 'stdio') {
@@ -312,7 +312,7 @@ export class MCPServerManager extends EventEmitter {
     // gemiflow#1910 — protect the JSON-RPC stdout from any stray
     // console.log/info/debug emitted by lazily-loaded modules
     // (@ruvector/router, @gemiflow/neural, transformers.js, ONNX,
-    // semantic-router init, etc.). Codex closes the MCP transport
+    // semantic-router init, etc.). gemini closes the MCP transport
     // the moment it sees a non-JSON line on stdout, and one such
     // line during a tool batch bricked the whole session.
     //

@@ -661,7 +661,7 @@ export class ReasoningBankWasm {
 // src/v3/transport/quic-integration.ts
 import { QuicTransport, QuicConnectionPool } from 'agentic-flow/transport';
 
-export class ClaudeFlowQuicTransport {
+export class gemiflowQuicTransport {
   private pool: QuicConnectionPool;
 
   async initialize() {

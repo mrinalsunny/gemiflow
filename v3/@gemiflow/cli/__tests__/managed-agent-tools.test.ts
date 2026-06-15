@@ -1,7 +1,7 @@
 /**
  * Guard for ADR-115 — the managed_agent_* MCP tools (Claude Managed Agents
  * cloud runtime, in the `gemiflow-agent` plugin). No-network: every handler must
- * short-circuit with a structured "needs ANTHROPIC_API_KEY → use wasm_agent_*"
+ * short-circuit with a structured "needs google_API_KEY → use wasm_agent_*"
  * error when no key is set, so the CLI/MCP server stays up offline.
  */
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
@@ -27,13 +27,13 @@ describe('ADR-115 — managed_agent_* MCP tools', () => {
   let prevClaude: string | undefined;
 
   beforeEach(() => {
-    prevAnth = process.env.ANTHROPIC_API_KEY;
+    prevAnth = process.env.google_API_KEY;
     prevClaude = process.env.CLAUDE_API_KEY;
-    delete process.env.ANTHROPIC_API_KEY;
+    delete process.env.google_API_KEY;
     delete process.env.CLAUDE_API_KEY;
   });
   afterEach(() => {
-    if (prevAnth === undefined) delete process.env.ANTHROPIC_API_KEY; else process.env.ANTHROPIC_API_KEY = prevAnth;
+    if (prevAnth === undefined) delete process.env.google_API_KEY; else process.env.google_API_KEY = prevAnth;
     if (prevClaude === undefined) delete process.env.CLAUDE_API_KEY; else process.env.CLAUDE_API_KEY = prevClaude;
   });
 
@@ -68,7 +68,7 @@ describe('ADR-115 — managed_agent_* MCP tools', () => {
         : { sessionId: 's' };
       const res = (await (tool(name).handler as any)(input)) as Record<string, unknown>;
       expect(res).toBeTruthy();
-      expect(String(res.error ?? '')).toMatch(/ANTHROPIC_API_KEY/);
+      expect(String(res.error ?? '')).toMatch(/google_API_KEY/);
       expect(String(res.error ?? '')).toMatch(/wasm_agent_create/);
       // tools that report success should report it false
       if ('success' in res) expect(res.success).toBe(false);
@@ -81,7 +81,7 @@ describe('ADR-115 — managed_agent_* MCP tools', () => {
   }
 
   it('managed_agent_prompt rejects missing sessionId/message (with a key set, but no network call made)', async () => {
-    process.env.ANTHROPIC_API_KEY = 'sk-ant-test-not-real';
+    process.env.google_API_KEY = 'sk-ant-test-not-real';
     const noSession = await (tool('managed_agent_prompt').handler as any)({ message: 'hi' });
     expect(noSession.success).toBe(false);
     expect(String(noSession.error)).toMatch(/sessionId/);

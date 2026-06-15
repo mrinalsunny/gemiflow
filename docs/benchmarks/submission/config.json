@@ -7,7 +7,7 @@
   "date": "2026-05-28",
 
   "model": {
-    "provider": "anthropic",
+    "provider": "google",
     "model_id": "claude-sonnet-4-6",
     "display": "claude-sonnet-4-6"
   },

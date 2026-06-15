@@ -437,7 +437,7 @@ export function generateHookHandler(): string {
     '',
     'const [,, command, ...args] = process.argv;',
     '',
-    '// Read stdin with timeout — Claude Code sends hook data as JSON via stdin.',
+    '// Read stdin with timeout — Gemini CLI sends hook data as JSON via stdin.',
     '// Timeout prevents hanging when stdin is in an ambiguous state (not TTY, not pipe).',
     'async function readStdin() {',
     '  if (process.stdin.isTTY) return "";',
@@ -466,7 +466,7 @@ export function generateHookHandler(): string {
     '  // Prefer stdin fields, then env, then argv. `hookInput.toolInput` is an',
     '  // object (e.g. {command:"ls"}); falling back to it directly bound prompt',
     '  // to the object and tripped .toLowerCase() / .substring() on every Bash',
-    '  // hook (#1944). Pull `.command` off whichever stdin shape Claude Code sent.',
+    '  // hook (#1944). Pull `.command` off whichever stdin shape Gemini CLI sent.',
     '  var toolInputObj = hookInput.toolInput || hookInput.tool_input || {};',
     "  var prompt = hookInput.prompt || hookInput.command || toolInputObj.command || process.env.PROMPT || process.env.TOOL_INPUT_command || args.join(' ') || '';",
     '',
@@ -957,10 +957,10 @@ try {
       process.exit(1);
   }
 } catch (err) {
-  // Hooks must never crash Claude Code - fail silently
+  // Hooks must never crash Gemini CLI - fail silently
   dim(\`Error (non-critical): \${err.message}\`);
 }
-// Ensure clean exit for Claude Code hooks (exit 0 = success)
+// Ensure clean exit for Gemini CLI hooks (exit 0 = success)
 process.exit(0);
 `;
 }
@@ -979,8 +979,8 @@ param(
 )
 
 $ErrorActionPreference = 'SilentlyContinue'
-$ClaudeFlowDir = Join-Path $PWD '.gemiflow'
-$PidDir = Join-Path $ClaudeFlowDir 'pids'
+$gemiflowDir = Join-Path $PWD '.gemiflow'
+$PidDir = Join-Path $gemiflowDir 'pids'
 
 # Ensure directories exist
 if (-not (Test-Path $PidDir)) {
@@ -1260,7 +1260,7 @@ export function generateGemiFlowHookCjs(): string {
  * plugin's bash-only gemiflow-hook.sh.
  *
  * Always exits 0 — hook subcommands are best-effort telemetry and must
- * never block a Claude Code turn.
+ * never block a Gemini CLI turn.
  */
 
 'use strict';

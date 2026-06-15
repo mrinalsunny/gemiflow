@@ -1,7 +1,7 @@
 /**
  * Regression test for #2352 (Bug A): validatePath used to reject every
  * absolute Windows path because backslash was in the general SHELL_META set.
- * Claude Code hook events deliver absolute paths in `tool_input.file_path`,
+ * Gemini CLI hook events deliver absolute paths in `tool_input.file_path`,
  * so every forwarded `hooks post-edit` call failed on Windows — and Bug B
  * hid the failure behind a "[OK]" log.
  *

@@ -150,8 +150,8 @@ gemiflow
 # Removed Windows wrapper files per user request
 hive-mind-prompt-*.txt
 
-# Codex local configuration
-.codex/
+# gemini local configuration
+.gemini/
 
 # GemiFlow runtime data
 .gemiflow-flow/data/

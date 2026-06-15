@@ -163,7 +163,7 @@ describe('Docker Compose Configuration', () => {
       'MCP_GROUP_SECURITY', 'MCP_GROUP_BROWSER',
       'MCP_GROUP_NEURAL', 'MCP_GROUP_AGENTIC_FLOW',
       'MCP_GROUP_CLAUDE_CODE', 'MCP_GROUP_GEMINI',
-      'MCP_GROUP_CODEX',
+      'MCP_GROUP_gemini',
     ];
     for (const g of groups) {
       expect(composeContent).toContain(g);
@@ -462,7 +462,7 @@ describe('CLI Dockerfile (gemiflow:lite)', () => {
   it('prunes heavy optional dependencies to reduce image size', () => {
     const prunedPackages = [
       'agentic-flow', '@opentelemetry', 'onnxruntime-node',
-      '@anthropic-ai', 'agentdb',
+      '@google-ai', 'agentdb',
     ];
     for (const pkg of prunedPackages) {
       expect(dockerContent).toContain(pkg);
@@ -529,7 +529,7 @@ describe('Environment Example (.env.example)', () => {
       'MCP_GROUP_SECURITY', 'MCP_GROUP_BROWSER',
       'MCP_GROUP_NEURAL', 'MCP_GROUP_AGENTIC_FLOW',
       'MCP_GROUP_CLAUDE_CODE', 'MCP_GROUP_GEMINI',
-      'MCP_GROUP_CODEX',
+      'MCP_GROUP_gemini',
     ];
     for (const g of groups) {
       expect(envContent).toContain(g);

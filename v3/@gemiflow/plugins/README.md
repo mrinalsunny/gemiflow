@@ -153,7 +153,7 @@ await pool.shutdown();
 import { ProviderRegistry, ProviderFactory, BaseLLMProvider } from '@gemiflow/plugins';
 
 const registry = new ProviderRegistry({
-  fallbackChain: ['anthropic', 'openai'],
+  fallbackChain: ['google', 'openai'],
   costOptimization: true
 });
 

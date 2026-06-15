@@ -46,7 +46,7 @@ interface PluginEntry {
   downloads: number;
   rating: number;
   lastUpdated: string;
-  minClaudeFlowVersion: string;
+  mingemiflowVersion: string;
   type: string;
   hooks: string[];
   commands: string[];
@@ -227,7 +227,7 @@ async function generateRegistry(): Promise<PluginRegistry> {
       downloads: stats?.downloads || 0,
       rating: 0,
       lastUpdated: now,
-      minClaudeFlowVersion: '3.0.0',
+      mingemiflowVersion: '3.0.0',
       type: 'integration',
       hooks: [],
       commands: [],

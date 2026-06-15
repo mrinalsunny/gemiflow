@@ -1,7 +1,7 @@
 /**
- * @gemiflow/codex - Migration Tests
+ * @gemiflow/gemini - Migration Tests
  *
- * Tests for Claude Code to Codex migration functions
+ * Tests for Gemini CLI to gemini migration functions
  */
 
 import { describe, it, expect } from 'vitest';
@@ -564,8 +564,8 @@ describe('generateMigrationReport', () => {
       const result: MigrationResult = {
         success: true,
         mappings: [
-          { claudeCode: 'CLAUDE.md', codex: 'AGENTS.md', status: 'mapped', notes: 'Main file' },
-          { claudeCode: '/skill', codex: '$skill', status: 'mapped', notes: 'Syntax change' },
+          { claudeCode: 'CLAUDE.md', gemini: 'AGENTS.md', status: 'mapped', notes: 'Main file' },
+          { claudeCode: '/skill', gemini: '$skill', status: 'mapped', notes: 'Syntax change' },
         ],
       };
 
@@ -573,7 +573,7 @@ describe('generateMigrationReport', () => {
 
       expect(report).toContain('## Feature Mappings');
       // Table now includes Notes column
-      expect(report).toContain('| Claude Code | Codex | Status | Notes |');
+      expect(report).toContain('| Gemini CLI | gemini | Status | Notes |');
       expect(report).toContain('CLAUDE.md');
       expect(report).toContain('AGENTS.md');
       expect(report).toContain('mapped');
@@ -643,7 +643,7 @@ describe('FEATURE_MAPPINGS', () => {
     const mapping = FEATURE_MAPPINGS.find(m => m.claudeCode === 'CLAUDE.md');
 
     expect(mapping).toBeDefined();
-    expect(mapping!.codex).toBe('AGENTS.md');
+    expect(mapping!.gemini).toBe('AGENTS.md');
     expect(mapping!.status).toBe('mapped');
   });
 
@@ -651,7 +651,7 @@ describe('FEATURE_MAPPINGS', () => {
     const mapping = FEATURE_MAPPINGS.find(m => m.claudeCode === '/skill-name');
 
     expect(mapping).toBeDefined();
-    expect(mapping!.codex).toBe('$skill-name');
+    expect(mapping!.gemini).toBe('$skill-name');
     expect(mapping!.status).toBe('mapped');
   });
 
@@ -659,7 +659,7 @@ describe('FEATURE_MAPPINGS', () => {
     const mapping = FEATURE_MAPPINGS.find(m => m.claudeCode === 'MCP servers');
 
     expect(mapping).toBeDefined();
-    expect(mapping!.codex).toBe('[mcp_servers]');
+    expect(mapping!.gemini).toBe('[mcp_servers]');
     expect(mapping!.status).toBe('mapped');
   });
 

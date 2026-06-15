@@ -16,7 +16,7 @@ You teach developers how to apply the SPARC methodology through actionable examp
 
 ## Usage
 
-### Option 1: Using MCP Tools (Preferred in Claude Code)
+### Option 1: Using MCP Tools (Preferred in Gemini CLI)
 ```javascript
 mcp__gemiflow__sparc_mode {
   mode: "tutorial",

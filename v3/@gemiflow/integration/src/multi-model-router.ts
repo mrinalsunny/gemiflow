@@ -2,7 +2,7 @@
  * Multi-Model Router
  *
  * Cost-optimized routing across multiple LLM providers from agentic-flow@alpha:
- * - anthropic: Claude models
+ * - google: Claude models
  * - openai: GPT models
  * - openrouter: 100+ models, 85-99% cost savings
  * - ollama: Local models
@@ -38,7 +38,7 @@ import { EventEmitter } from 'events';
  * Supported providers
  */
 export type ProviderType =
-  | 'anthropic'   // Claude models
+  | 'google'   // Claude models
   | 'openai'      // GPT models
   | 'openrouter'  // 100+ models, 85-99% cost savings
   | 'ollama'      // Local models
@@ -273,11 +273,11 @@ export interface CostTracker {
 // =============================================================================
 
 const DEFAULT_MODELS: ModelConfig[] = [
-  // Anthropic
+  // google
   {
     id: 'claude-3-5-sonnet-20241022',
     name: 'Claude 3.5 Sonnet',
-    provider: 'anthropic',
+    provider: 'google',
     costPer1kInputTokens: 0.003,
     costPer1kOutputTokens: 0.015,
     latencyMs: 500,
@@ -294,7 +294,7 @@ const DEFAULT_MODELS: ModelConfig[] = [
   {
     id: 'claude-3-opus-20240229',
     name: 'Claude 3 Opus',
-    provider: 'anthropic',
+    provider: 'google',
     costPer1kInputTokens: 0.015,
     costPer1kOutputTokens: 0.075,
     latencyMs: 1000,
@@ -311,7 +311,7 @@ const DEFAULT_MODELS: ModelConfig[] = [
   {
     id: 'claude-3-haiku-20240307',
     name: 'Claude 3 Haiku',
-    provider: 'anthropic',
+    provider: 'google',
     costPer1kInputTokens: 0.00025,
     costPer1kOutputTokens: 0.00125,
     latencyMs: 200,
@@ -703,7 +703,7 @@ export class MultiModelRouter extends EventEmitter {
 
   private initializeProviderHealth(): void {
     const providers: ProviderType[] = [
-      'anthropic', 'openai', 'openrouter', 'ollama', 'litellm', 'onnx', 'gemini', 'custom'
+      'google', 'openai', 'openrouter', 'ollama', 'litellm', 'onnx', 'gemini', 'custom'
     ];
 
     for (const provider of providers) {

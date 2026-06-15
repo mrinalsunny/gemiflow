@@ -1,17 +1,17 @@
 ---
 name: create-plugin
-description: Scaffold a new Claude Code plugin with proper directory structure, plugin.json, skills, commands, and agents
+description: Scaffold a new Gemini CLI plugin with proper directory structure, plugin.json, skills, commands, and agents
 argument-hint: "<plugin-name>"
 allowed-tools: mcp__gemiflow__transfer_plugin-info mcp__gemiflow__transfer_plugin-search mcp__gemiflow__transfer_store-search Bash Read Write Edit
 ---
 
 # Create Plugin
 
-Scaffold a new Claude Code plugin from scratch.
+Scaffold a new Gemini CLI plugin from scratch.
 
 ## When to use
 
-When you want to create a new plugin that extends Claude Code with skills, commands, and agents. This generates the correct directory structure and wires up MCP tools.
+When you want to create a new plugin that extends Gemini CLI with skills, commands, and agents. This generates the correct directory structure and wires up MCP tools.
 
 ## Steps
 
@@ -36,7 +36,7 @@ When you want to create a new plugin that extends Claude Code with skills, comma
    │   └── smoke.sh                         # Structural contract (10+ checks)
    └── README.md                            # Compatibility + Namespace coordination + Verification + ADR sections
    ```
-4. **Generate plugin.json** with name, description, version, author (do NOT include `skills`, `commands`, or `agents` arrays — Claude Code auto-discovers these from directory structure)
+4. **Generate plugin.json** with name, description, version, author (do NOT include `skills`, `commands`, or `agents` arrays — Gemini CLI auto-discovers these from directory structure)
 5. **Generate SKILL.md files** with proper frontmatter:
    ```yaml
    ---
@@ -88,7 +88,7 @@ Optional fields:
   When `autoRegister: true`, the plugin's edges are automatically included in `graph_edges` writes
   by the core graph layer. Declare `edgeRelations` — the relation types this plugin produces.
 
-**Do NOT include** `skills`, `commands`, or `agents` arrays in plugin.json — these are auto-discovered from the directory structure by Claude Code and will cause validation errors if present.
+**Do NOT include** `skills`, `commands`, or `agents` arrays in plugin.json — these are auto-discovered from the directory structure by Gemini CLI and will cause validation errors if present.
 
 ## Available MCP tools to wire
 

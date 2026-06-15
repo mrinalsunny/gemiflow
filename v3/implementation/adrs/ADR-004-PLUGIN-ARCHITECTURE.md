@@ -28,7 +28,7 @@ v2 bundles all features (Hive Mind, Maestro, Neural, Verification) into core, ma
 ## Plugin Interface
 
 ```typescript
-interface ClaudeFlowPlugin {
+interface gemiflowPlugin {
   name: string;
   version: string;
   dependencies?: string[];
@@ -45,7 +45,7 @@ interface ClaudeFlowPlugin {
 }
 
 // Plugin loading
-const core = new ClaudeFlowCore();
+const core = new gemiflowCore();
 await core.loadPlugin(new HiveMindPlugin());
 await core.initialize();
 ```
@@ -69,9 +69,9 @@ await core.initialize();
 **Plugin Registration:**
 ```typescript
 class PluginManager {
-  private plugins: Map<string, ClaudeFlowPlugin> = new Map();
+  private plugins: Map<string, gemiflowPlugin> = new Map();
 
-  async loadPlugin(plugin: ClaudeFlowPlugin): Promise<void> {
+  async loadPlugin(plugin: gemiflowPlugin): Promise<void> {
     // Check dependencies
     for (const dep of plugin.dependencies || []) {
       if (!this.plugins.has(dep)) {

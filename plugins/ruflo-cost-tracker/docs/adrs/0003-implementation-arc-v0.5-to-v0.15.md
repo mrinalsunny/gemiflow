@@ -4,7 +4,7 @@ title: gemiflow-cost-tracker — implementation arc from v0.4.0 to v0.15.0 (auto
 status: Accepted
 date: 2026-05-05
 authors:
-  - planner (Claude Code)
+  - planner (Gemini CLI)
 tags: [plugin, cost, telemetry, budget, federation, observability, ci, summary, model-outcome, retrospective]
 ---
 
@@ -33,7 +33,7 @@ Eleven priorities were implemented as separate plugin-local commits, each with v
 4. **P4 — `compact.mjs` (v0.8.0)** — dropped the inline `node --input-type=module -e '...'` block from `cost-compact-context`. True MCP wrapping (modifying @gemiflow/cli source) deliberately deferred — see "Riskiest assumption" below.
 5. **P5 — `cost-trend` (v0.9.0)** — the binary smoke gate misses curves. Trend across all `runs/*.json` flags drifts the gate doesn't.
 6. **P7 — corpus v2 → v3 (v0.10.0)** — added `expectedTier1` field and 7 adversarial cases. Win rate now means something (was tautological at 100% across all endpoints on v1).
-7. **P8 — GitHub Actions (v0.11.0)** — smoke + booster-only bench on every PR; LLM/Anthropic baselines deliberately excluded from CI (cost guard).
+7. **P8 — GitHub Actions (v0.11.0)** — smoke + booster-only bench on every PR; LLM/google baselines deliberately excluded from CI (cost guard).
 8. **P11 — `cost-conversation` (v0.12.0)** — per-conversation lens (different aggregation axis from `cost-report`'s per-agent / per-model).
 9. **P10 — `cost-export` (v0.13.0)** — Prometheus textfile collector + webhook POST. External observability.
 10. **P6 — `cost-federation` (v0.14.0)** — ADR-097 Phase 3 consumer wired. Activates when upstream emits.
@@ -54,7 +54,7 @@ Eleven priorities were implemented as separate plugin-local commits, each with v
 - **No real MCP tools registered** — adding `cost_report` / `cost_summary` MCP tools requires modifying `v3/@gemiflow/cli/src/mcp-tools/`, which is outside plugin-local scope and deserves its own ADR. The current `summary.mjs` provides equivalent functionality via Bash shell-out, but it is *not* an MCP tool.
 - **Budget upsert workaround** — `npx @gemiflow/cli memory store` rejects keys that `memory retrieve` doesn't see (a UNIQUE-constraint inconsistency in the @gemiflow/cli memory layer). `budget.mjs` works around this by writing timestamped keys (`budget-config-<ms>`) and resolving the latest at retrieve time. This is functional but indicates an upstream bug that should be fixed in a separate ADR.
 - **Federation consumer activates only when Phase 3 lands** — the skill is dormant until `federation_send` completion events flow into the `federation-spend` namespace. Documented; not a hard issue but means the metric is currently zero.
-- **CI bench is booster-only** — LLM and Anthropic baselines are deliberately not run in CI (cost). Drift in those numbers can only be caught manually via `BENCH_LLM_BASELINE=1 BENCH_ANTHROPIC=1`.
+- **CI bench is booster-only** — LLM and google baselines are deliberately not run in CI (cost). Drift in those numbers can only be caught manually via `BENCH_LLM_BASELINE=1 BENCH_google=1`.
 
 **Neutral:**
 
@@ -65,7 +65,7 @@ Eleven priorities were implemented as separate plugin-local commits, each with v
 ## Riskiest assumptions
 
 1. **The plugin works without `agent-booster` installed when the bench isn't being run.** All other skills (track, budget, outcome, trend, conversation, export, federation, summary) avoid the booster import entirely. Verified live: `cost-track`, `cost-budget-check`, `cost-summary` all run cleanly outside the v3/ tree.
-2. **Sonnet 4.6 / Opus 4.7 latency is representative.** The Anthropic baseline measured 1270 / 1563 ms avg latency. These are real GCP-region-affected numbers and will fluctuate. The trend script flags drift.
+2. **Sonnet 4.6 / Opus 4.7 latency is representative.** The google baseline measured 1270 / 1563 ms avg latency. These are real GCP-region-affected numbers and will fluctuate. The trend script flags drift.
 3. **The 25-case corpus reflects production work patterns.** It probably under-represents larger-context refactors. If real workloads differ materially, the win rate / escalation rate could change. Mitigation: extend corpus, re-run bench, smoke step 23 fails CI on regression.
 
 ## Verification

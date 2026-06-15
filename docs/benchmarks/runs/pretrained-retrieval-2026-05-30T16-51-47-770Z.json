@@ -26,7 +26,7 @@
         },
         {
           "id": "pattern-1780159888525-1n-2zyq",
-          "name": "MCP servers orphan on every Claude Code restart — ~1 GB leaked, and a stale server silently serves t",
+          "name": "MCP servers orphan on every Gemini CLI restart — ~1 GB leaked, and a stale server silently serves t",
           "type": "history-issue",
           "score": 0.10838591586557422
         },
@@ -344,7 +344,7 @@
         },
         {
           "id": "pattern-1780159888525-1n-2zyq",
-          "name": "MCP servers orphan on every Claude Code restart — ~1 GB leaked, and a stale server silently serves t",
+          "name": "MCP servers orphan on every Gemini CLI restart — ~1 GB leaked, and a stale server silently serves t",
           "type": "history-issue",
           "score": 0.09565692842308834
         },

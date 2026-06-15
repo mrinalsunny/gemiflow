@@ -30,7 +30,7 @@ The RuVector PostgreSQL Bridge plugin provides a high-performance integration la
 
 ```
 +------------------------------------------------------------------+
-|                        Claude Code / MCP Client                   |
+|                        Gemini CLI / MCP Client                   |
 +------------------------------------------------------------------+
                                 |
                                 | MCP Protocol (stdio/HTTP/WebSocket)

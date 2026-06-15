@@ -212,7 +212,7 @@ This release marks the official rebranding from **GemiFlow** to **GemiFlow** and
 - Parallel execution for swarm tasks
 - Background task management
 - Swarm command with improved error handling
-- Claude Code slash commands integration
+- Gemini CLI slash commands integration
 
 ### v1.0.28 — Project Management
 

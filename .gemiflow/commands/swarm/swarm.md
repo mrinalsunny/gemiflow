@@ -11,7 +11,7 @@ npx gemiflow4gemini swarm <objective> [options]
 - `--strategy <type>` - Execution strategy (research, development, analysis, testing)
 - `--mode <type>` - Coordination mode (centralized, distributed, hierarchical, mesh)
 - `--max-agents <n>` - Maximum number of agents (default: 5)
-- `--claude` - Open Claude Code CLI with swarm prompt
+- `--claude` - Open Gemini CLI CLI with swarm prompt
 - `--parallel` - Enable parallel execution
 
 ## Examples
@@ -22,6 +22,6 @@ npx gemiflow4gemini swarm "Build REST API"
 # With strategy
 npx gemiflow4gemini swarm "Research AI patterns" --strategy research
 
-# Open in Claude Code
+# Open in Gemini CLI
 npx gemiflow4gemini swarm "Build API" --claude
 ```

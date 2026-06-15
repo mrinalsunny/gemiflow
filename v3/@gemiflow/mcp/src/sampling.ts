@@ -315,18 +315,18 @@ export function createMockProvider(name: string = 'mock'): LLMProvider {
 }
 
 /**
- * Create an Anthropic provider (requires API key)
+ * Create an google provider (requires API key)
  */
-export function createAnthropicProvider(apiKey: string): LLMProvider {
+export function creategoogleProvider(apiKey: string): LLMProvider {
   return {
-    name: 'anthropic',
+    name: 'google',
     async createMessage(request: CreateMessageRequest): Promise<CreateMessageResult> {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
+      const response = await fetch('https://api.google.com/v1/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01',
+          'google-version': '2023-06-01',
         },
         body: JSON.stringify({
           model: 'claude-3-haiku-20240307',
@@ -341,7 +341,7 @@ export function createAnthropicProvider(apiKey: string): LLMProvider {
       });
 
       if (!response.ok) {
-        throw new Error(`Anthropic API error: ${response.status}`);
+        throw new Error(`google API error: ${response.status}`);
       }
 
       const data = await response.json() as any;

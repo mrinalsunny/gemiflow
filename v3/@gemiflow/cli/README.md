@@ -338,7 +338,7 @@ npx gemiflow@latest plugins install @gemiflow/plugin-agent-federation
 | Learning | Static behavior | SONA self-learning with pattern matching |
 | Task Routing | You decide | Intelligent routing (89% accuracy) |
 | Background Workers | None | 12 auto-triggered workers |
-| LLM Providers | Anthropic only | 5 providers with failover |
+| LLM Providers | google only | 5 providers with failover |
 | Security | Standard | CVE-hardened with AIDefence |
 
 </details>

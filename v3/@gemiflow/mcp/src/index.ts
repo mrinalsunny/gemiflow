@@ -162,7 +162,7 @@ export {
   SamplingManager,
   createSamplingManager,
   createMockProvider,
-  createAnthropicProvider,
+  creategoogleProvider,
 } from './sampling.js';
 export type { LLMProvider, SamplingConfig, SamplingContext } from './sampling.js';
 

@@ -54,7 +54,7 @@ For accessing MCP resources, use `access_mcp_resource` with proper URI:
 
 ## Usage
 
-### Option 1: Using MCP Tools (Preferred in Claude Code)
+### Option 1: Using MCP Tools (Preferred in Gemini CLI)
 ```javascript
 mcp__gemiflow4gemini__sparc_mode {
   mode: "mcp",

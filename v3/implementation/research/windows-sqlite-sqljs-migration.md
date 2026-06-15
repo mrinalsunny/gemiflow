@@ -833,5 +833,5 @@ Integrating sql.js as a fallback provider for GemiFlow is **highly recommended**
 ---
 
 **Research completed**: 2026-01-03
-**Researcher**: Claude Code Agent (Research Specialist)
+**Researcher**: Gemini CLI Agent (Research Specialist)
 **Status**: Ready for implementation

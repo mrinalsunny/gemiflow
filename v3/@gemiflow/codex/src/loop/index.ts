@@ -8,7 +8,7 @@ export interface LoopRunOptions {
   projectPath?: string;
   prompt?: string;
   command?: string;
-  codexCommand?: string;
+  geminiCommand?: string;
   model?: string;
   intervalSeconds?: number;
   maxIterations?: number;
@@ -24,7 +24,7 @@ export interface LoopRunOptions {
 export interface LoopState {
   name: string;
   projectPath: string;
-  mode: 'codex' | 'command';
+  mode: 'gemini' | 'command';
   prompt?: string;
   command?: string;
   status: 'idle' | 'running' | 'stopping' | 'completed' | 'failed' | 'stopped';
@@ -66,7 +66,7 @@ export function normalizeLoopName(name = 'default'): string {
 
 export function resolveLoopPaths(projectPath: string, name = 'default', stateDir?: string): LoopPaths {
   const safeName = normalizeLoopName(name);
-  const resolvedStateDir = path.resolve(projectPath, stateDir ?? path.join('.codex', 'loop'));
+  const resolvedStateDir = path.resolve(projectPath, stateDir ?? path.join('.gemini', 'loop'));
   return {
     stateDir: resolvedStateDir,
     statePath: path.join(resolvedStateDir, `${safeName}.json`),
@@ -96,10 +96,10 @@ export async function requestLoopStop(projectPath: string, name = 'default', sta
   return paths;
 }
 
-export function buildCodexLoopPrompt(state: LoopState): string {
+export function buildgeminiLoopPrompt(state: LoopState): string {
   const max = state.maxIterations > 0 ? state.maxIterations : 'unbounded';
   return [
-    'You are running inside a Codex /loop-compatible iteration.',
+    'You are running inside a gemini /loop-compatible iteration.',
     `Loop: ${state.name}`,
     `Iteration: ${state.iteration}/${max}`,
     `Project: ${state.projectPath}`,
@@ -113,7 +113,7 @@ export function buildCodexLoopPrompt(state: LoopState): string {
   ].join('\n');
 }
 
-export async function runCodexLoop(options: LoopRunOptions = {}): Promise<LoopState> {
+export async function rungeminiLoop(options: LoopRunOptions = {}): Promise<LoopState> {
   const projectPath = path.resolve(options.projectPath ?? process.cwd());
   const name = normalizeLoopName(options.name);
   const paths = resolveLoopPaths(projectPath, name, options.stateDir);
@@ -121,9 +121,9 @@ export async function runCodexLoop(options: LoopRunOptions = {}): Promise<LoopSt
   const maxIterations = clampInteger(options.maxIterations ?? 10, 0, 100_000);
   const timeoutMs = clampInteger(options.timeoutMs ?? 30 * 60_000, 1_000, 24 * 60 * 60_000);
   const untilFile = path.resolve(projectPath, options.untilFile ?? paths.completePath);
-  const mode: LoopState['mode'] = options.command ? 'command' : 'codex';
+  const mode: LoopState['mode'] = options.command ? 'command' : 'gemini';
 
-  if (mode === 'codex' && !options.prompt?.trim()) {
+  if (mode === 'gemini' && !options.prompt?.trim()) {
     throw new Error('loop run requires a prompt unless --command is provided');
   }
 
@@ -166,7 +166,7 @@ export async function runCodexLoop(options: LoopRunOptions = {}): Promise<LoopSt
 
       const result = mode === 'command'
         ? await runShellCommand(options.command!, projectPath, timeoutMs)
-        : await runCodexExec(options, state, timeoutMs);
+        : await rungeminiExec(options, state, timeoutMs);
 
       state.lastExitCode = result.code;
       state.lastOutput = truncate(result.stdout || result.stderr, 8_000);
@@ -215,12 +215,12 @@ export async function runCodexLoop(options: LoopRunOptions = {}): Promise<LoopSt
   }
 }
 
-async function runCodexExec(options: LoopRunOptions, state: LoopState, timeoutMs: number): Promise<LoopCommandResult> {
+async function rungeminiExec(options: LoopRunOptions, state: LoopState, timeoutMs: number): Promise<LoopCommandResult> {
   const args = ['exec', '--sandbox', options.sandbox ?? 'workspace-write'];
   if (options.skipGitRepoCheck !== false) args.push('--skip-git-repo-check');
   if (options.model) args.push('-m', options.model);
-  args.push(buildCodexLoopPrompt(state));
-  return runProcess(options.codexCommand ?? 'codex', args, state.projectPath, timeoutMs);
+  args.push(buildgeminiLoopPrompt(state));
+  return runProcess(options.geminiCommand ?? 'gemini', args, state.projectPath, timeoutMs);
 }
 
 async function runShellCommand(command: string, cwd: string, timeoutMs: number): Promise<LoopCommandResult> {

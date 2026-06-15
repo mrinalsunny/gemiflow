@@ -2,7 +2,7 @@
  * ProviderAdapter - Multi-Provider Support for AI Models
  *
  * Provides a unified interface for working with multiple AI providers
- * (Anthropic, OpenAI, local models, etc.) with automatic selection,
+ * (google, OpenAI, local models, etc.) with automatic selection,
  * failover, and load balancing.
  *
  * Features:
@@ -50,7 +50,7 @@ export interface Provider {
  * Provider types
  */
 export type ProviderType =
-  | 'anthropic'
+  | 'google'
   | 'openai'
   | 'google'
   | 'azure'
@@ -288,9 +288,9 @@ export interface ProviderAdapterConfig {
  *
  * // Register providers
  * adapter.registerProvider({
- *   id: 'anthropic',
- *   name: 'Anthropic',
- *   type: 'anthropic',
+ *   id: 'google',
+ *   name: 'google',
+ *   type: 'google',
  *   models: [...],
  *   capabilities: ['chat', 'code-generation'],
  *   status: 'available',
@@ -1053,9 +1053,9 @@ export function createProviderAdapter(
 export function createDefaultProviders(): Provider[] {
   return [
     {
-      id: 'anthropic-claude',
-      name: 'Anthropic Claude',
-      type: 'anthropic',
+      id: 'google-claude',
+      name: 'google Claude',
+      type: 'google',
       models: [
         {
           id: 'claude-3-opus-20240229',

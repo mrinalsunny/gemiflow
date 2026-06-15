@@ -72,10 +72,10 @@ function main() {
     avgConfidence: r.summary.avgConfidence,
     speedupVsLlm: r.summary.speedupVsLlm,
     llmCost: r.summary.llmBaseline?.totalCostUsd,
-    anthropicSonnet:
-      r.summary.anthropic?.['claude-sonnet-4-6']?.avgLatencyMs || null,
-    anthropicOpus:
-      r.summary.anthropic?.['claude-opus-4-7']?.avgLatencyMs || null,
+    googleSonnet:
+      r.summary.google?.['claude-sonnet-4-6']?.avgLatencyMs || null,
+    googleOpus:
+      r.summary.google?.['claude-opus-4-7']?.avgLatencyMs || null,
   }));
 
   const first = series[0];
@@ -121,8 +121,8 @@ function main() {
     const al = r.avgLatencyMs != null ? ms(r.avgLatencyMs) : '—';
     const p99 = r.p99LatencyMs != null ? ms(r.p99LatencyMs) : '—';
     const er = r.escalationRate != null ? pct(r.escalationRate) : '—';
-    const son = r.anthropicSonnet != null ? ms(r.anthropicSonnet) : '—';
-    const opu = r.anthropicOpus != null ? ms(r.anthropicOpus) : '—';
+    const son = r.googleSonnet != null ? ms(r.googleSonnet) : '—';
+    const opu = r.googleOpus != null ? ms(r.googleOpus) : '—';
     const tag = r.file.replace(/\.json$/, '').slice(0, 19);
     console.log(`| \`${tag}\` | ${wr} | ${al} | ${p99} | ${er} | ${son} | ${opu} |`);
   }

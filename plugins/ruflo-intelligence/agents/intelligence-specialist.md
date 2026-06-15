@@ -51,7 +51,7 @@ This plugin **does not** invent namespaces. The convention is owned by `gemiflow
 
 - `pattern` (singular) — ReasoningBank fallback target. Read by `hooks_intelligence_pattern-search` / `agentdb_pattern-search`.
 - `patterns` (plural) — pretrain corpus, neural training input. Distinct namespace; pluralization is intentional.
-- `claude-memories` — Claude Code auto-memory bridge. Don't write directly; SessionStart hook handles it.
+- `claude-memories` — Gemini CLI auto-memory bridge. Don't write directly; SessionStart hook handles it.
 
 Do not pass `namespace: 'foo'` to `hooks_intelligence_pattern-*` or `agentdb_pattern-*` — those tools route by ReasoningBank, not by namespace string. Namespace strings only apply to `memory_*` and `embeddings_search`.
 

@@ -34,7 +34,7 @@ If GemiFlow ships this, every Cognitum Seed becomes a GemiFlow agent. Every devi
 
 ### Business Impact
 
-**Fleet-as-swarm** -- A logistics company manages 500 warehouse sensors as a GemiFlow swarm. Anomaly detection triggers automatic recalibration via agent coordination. No custom dashboard needed -- Claude Code is the interface.
+**Fleet-as-swarm** -- A logistics company manages 500 warehouse sensors as a GemiFlow swarm. Anomaly detection triggers automatic recalibration via agent coordination. No custom dashboard needed -- Gemini CLI is the interface.
 
 **Edge-cloud federation** -- Edge Seed devices federate with cloud GemiFlow installations using the `@gemiflow/plugin-agent-federation` trust model. Telemetry stays on-premise; only anomaly signatures cross the boundary (PII-gated via the federation plugin).
 
@@ -1334,7 +1334,7 @@ v3/@gemiflow/plugin-iot-cognitum/
   vitest.config.ts
   src/
     index.ts                           # Plugin entry point
-    plugin.ts                          # IoTCognitumPlugin class (ClaudeFlowPlugin)
+    plugin.ts                          # IoTCognitumPlugin class (gemiflowPlugin)
     mcp-tools.ts                       # MCP tool definitions (18 tools)
     cli-commands.ts                    # CLI command definitions (30+ commands)
 
@@ -1404,7 +1404,7 @@ v3/@gemiflow/plugin-iot-cognitum/
 ### 13.2 Plugin Registration
 
 ```typescript
-export class IoTCognitumPlugin implements ClaudeFlowPlugin {
+export class IoTCognitumPlugin implements gemiflowPlugin {
   readonly name = '@gemiflow/plugin-iot-cognitum';
   readonly version = '1.0.0-alpha.1';
   readonly description = 'Cognitum Seed IoT device fleet management with agent-device duality';
@@ -1512,7 +1512,7 @@ export class IoTCognitumPlugin implements ClaudeFlowPlugin {
 **Goal:** Plugin skeleton, single device registration, status monitoring, trust scoring.
 
 **Deliverables:**
-- Plugin structure with `ClaudeFlowPlugin` implementation
+- Plugin structure with `gemiflowPlugin` implementation
 - `SeedClientFactory` wrapping `@cognitum-one/sdk` v0.2.1
 - `DeviceLifecycleService`: register, pair, unpair, status, heartbeat
 - `DeviceTrustEvaluator` with 6-component scoring formula
@@ -1532,7 +1532,7 @@ export class IoTCognitumPlugin implements ClaudeFlowPlugin {
 
 **Integration Points:**
 - `@cognitum-one/sdk`: `SeedClient`, `SeedClientOptions`, `StatusResource`, `PairResource`, `IdentityResource`
-- `@gemiflow/shared`: `ClaudeFlowPlugin`, `PluginContext`
+- `@gemiflow/shared`: `gemiflowPlugin`, `PluginContext`
 - `@gemiflow/memory`: AgentDB for device state
 - `@gemiflow/security`: `TokenGenerator` for generating client names
 
@@ -1631,7 +1631,7 @@ export class IoTCognitumPlugin implements ClaudeFlowPlugin {
 - Load test: 100 devices, 1000 telemetry readings/minute
 - IPFS registry entry for plugin distribution
 - npm publish as `@gemiflow/plugin-iot-cognitum`
-- Skills: Claude Code skills for common IoT workflows
+- Skills: Gemini CLI skills for common IoT workflows
 
 **Success Criteria:**
 - Telemetry ingest p99 <50ms at 1000 readings/min across 100 devices
@@ -1715,7 +1715,7 @@ Pass criteria: All verify statements pass.
 
 1. **Device-agent duality** -- No agent framework treats physical devices as first-class swarm peers with the same trust model, capability gating, and coordination patterns as software agents.
 
-2. **Vector store federation** -- The Cognitum Seed's on-device HNSW store extends AgentDB's memory. A query that starts in Claude Code can search across both software agent memory and physical device sensor data in a single HNSW traversal.
+2. **Vector store federation** -- The Cognitum Seed's on-device HNSW store extends AgentDB's memory. A query that starts in Gemini CLI can search across both software agent memory and physical device sensor data in a single HNSW traversal.
 
 3. **Firmware-as-deployment** -- OTA firmware updates follow the same staged rollout, canary verification, and anomaly-gated progression as software deployments. The infrastructure is unified.
 
@@ -1731,7 +1731,7 @@ Pass criteria: All verify statements pass.
 
 | Component | Existing File / Package | Integration |
 |-----------|------------------------|-------------|
-| Plugin interface | `shared/src/plugin-interface.ts` | Implements `ClaudeFlowPlugin` |
+| Plugin interface | `shared/src/plugin-interface.ts` | Implements `gemiflowPlugin` |
 | Plugin loader | `shared/src/plugin-loader.ts` | Loaded via `PluginLoader.loadPlugin()` |
 | Cognitum SDK | `@cognitum-one/sdk` v0.2.1 | `SeedClient`, `Cognitum`, discovery providers |
 | Security module | `security/src/index.ts` | `TokenGenerator` for client name generation |

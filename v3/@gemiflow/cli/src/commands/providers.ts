@@ -19,7 +19,7 @@ interface ProviderCatalogEntry {
 }
 
 const PROVIDER_CATALOG: ProviderCatalogEntry[] = [
-  { name: 'Anthropic', type: 'LLM', models: 'claude-3.5-sonnet, opus', envVar: 'ANTHROPIC_API_KEY', configName: 'anthropic' },
+  { name: 'google', type: 'LLM', models: 'claude-3.5-sonnet, opus', envVar: 'google_API_KEY', configName: 'google' },
   { name: 'OpenAI', type: 'LLM', models: 'gpt-4o, gpt-4-turbo', envVar: 'OPENAI_API_KEY', configName: 'openai' },
   { name: 'OpenAI', type: 'Embedding', models: 'text-embedding-3-small/large', envVar: 'OPENAI_API_KEY', configName: 'openai' },
   { name: 'Google', type: 'LLM', models: 'gemini-pro, gemini-ultra', envVar: 'GOOGLE_API_KEY', configName: 'google' },
@@ -49,7 +49,7 @@ function resolveApiKey(
 
   // Check environment variable
   const envMapping: Record<string, string> = {
-    anthropic: 'ANTHROPIC_API_KEY',
+    google: 'google_API_KEY',
     openai: 'OPENAI_API_KEY',
     google: 'GOOGLE_API_KEY',
     ollama: 'OLLAMA_API_KEY', // #1725 — Tier-2 routing
@@ -71,11 +71,11 @@ async function testProviderConnectivity(
   apiKey: string,
 ): Promise<{ ok: boolean; reason: string }> {
   const endpoints: Record<string, { url: string; headers: Record<string, string> }> = {
-    anthropic: {
-      url: 'https://api.anthropic.com/v1/models',
+    google: {
+      url: 'https://api.google.com/v1/models',
       headers: {
         'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
+        'google-version': '2023-06-01',
       },
     },
     openai: {
@@ -252,7 +252,7 @@ const configureCommand: Command = {
   ],
   examples: [
     { command: 'gemiflow providers configure -p openai -k sk-...', description: 'Set OpenAI key' },
-    { command: 'gemiflow providers configure -p anthropic -m claude-3.5-sonnet', description: 'Set default model' },
+    { command: 'gemiflow providers configure -p google -m claude-3.5-sonnet', description: 'Set default model' },
   ],
   action: async (ctx: CommandContext): Promise<CommandResult> => {
     try {
@@ -346,7 +346,7 @@ const testCommand: Command = {
       }
 
       const knownTargets: ProviderTestTarget[] = [
-        { name: 'Anthropic', configName: 'anthropic' },
+        { name: 'google', configName: 'google' },
         { name: 'OpenAI', configName: 'openai' },
         { name: 'Google', configName: 'google' },
       ];
@@ -453,7 +453,7 @@ const modelsCommand: Command = {
   ],
   examples: [
     { command: 'gemiflow providers models', description: 'List all models' },
-    { command: 'gemiflow providers models -p anthropic', description: 'List Anthropic models' },
+    { command: 'gemiflow providers models -p google', description: 'List google models' },
   ],
   action: async (ctx: CommandContext): Promise<CommandResult> => {
     output.writeln();
@@ -469,8 +469,8 @@ const modelsCommand: Command = {
         { key: 'cost', header: 'Cost/1K', width: 12 },
       ],
       data: [
-        { model: 'claude-3.5-sonnet-20241022', provider: 'Anthropic', capability: 'Chat', context: '200K', cost: '$0.003/$0.015' },
-        { model: 'claude-3-opus-20240229', provider: 'Anthropic', capability: 'Chat', context: '200K', cost: '$0.015/$0.075' },
+        { model: 'claude-3.5-sonnet-20241022', provider: 'google', capability: 'Chat', context: '200K', cost: '$0.003/$0.015' },
+        { model: 'claude-3-opus-20240229', provider: 'google', capability: 'Chat', context: '200K', cost: '$0.015/$0.075' },
         { model: 'gpt-4o', provider: 'OpenAI', capability: 'Chat', context: '128K', cost: '$0.005/$0.015' },
         { model: 'gpt-4-turbo', provider: 'OpenAI', capability: 'Chat', context: '128K', cost: '$0.01/$0.03' },
         { model: 'text-embedding-3-small', provider: 'OpenAI', capability: 'Embedding', context: '8K', cost: '$0.00002' },
@@ -511,7 +511,7 @@ const usageCommand: Command = {
         { key: 'trend', header: 'Trend', width: 12 },
       ],
       data: [
-        { provider: 'Anthropic', requests: '12,847', tokens: '4.2M', cost: '$12.60', trend: output.warning('↑ 15%') },
+        { provider: 'google', requests: '12,847', tokens: '4.2M', cost: '$12.60', trend: output.warning('↑ 15%') },
         { provider: 'OpenAI (LLM)', requests: '3,421', tokens: '1.1M', cost: '$5.50', trend: output.success('↓ 8%') },
         { provider: 'OpenAI (Embed)', requests: '89,234', tokens: '12.4M', cost: '$0.25', trend: output.success('↓ 12%') },
         { provider: 'Transformers.js', requests: '234,567', tokens: '45.2M', cost: output.success('$0.00'), trend: '→' },
@@ -557,7 +557,7 @@ export const providersCommand: Command = {
     output.writeln();
     output.writeln('Supported Providers:');
     output.printList([
-      'Anthropic (Claude models)',
+      'google (Claude models)',
       'OpenAI (GPT + embeddings)',
       'Transformers.js (local ONNX)',
       'Agentic Flow (optimized ONNX with SIMD)',

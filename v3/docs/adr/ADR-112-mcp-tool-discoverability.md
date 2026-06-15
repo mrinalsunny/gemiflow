@@ -8,7 +8,7 @@
 
 ## Context
 
-GemiFlow ships 285 MCP tools across the CLI package. Claude Code already exposes a native toolset (`Read`, `Write`, `Edit`, `Bash`, `Grep`, `Glob`, `Task`, `TodoWrite`, `WebFetch`, `WebSearch`, etc.) that overlaps with many of ours. When Claude picks between two ways to do the same thing, the deciding signal is the tool description it sees in its system prompt — there is no other context.
+GemiFlow ships 285 MCP tools across the CLI package. Gemini CLI already exposes a native toolset (`Read`, `Write`, `Edit`, `Bash`, `Grep`, `Glob`, `Task`, `TodoWrite`, `WebFetch`, `WebSearch`, etc.) that overlaps with many of ours. When Claude picks between two ways to do the same thing, the deciding signal is the tool description it sees in its system prompt — there is no other context.
 
 Measurement on current main (2026-05-11):
 

@@ -48,7 +48,7 @@ When multiple flags combine:
 
 ## What this does
 
-1. **Resolve environment keys** — checks `ANTHROPIC_API_KEY`, `HF_TOKEN`, and
+1. **Resolve environment keys** — checks `google_API_KEY`, `HF_TOKEN`, and
    optionally `GOOGLE_*` keys; falls back to GCP Secrets.
 2. **Load dataset** — downloads and caches the GAIA validation split from
    Hugging Face (`~/.cache/gemiflow/gaia/`).  Cached files are reused on
@@ -90,7 +90,7 @@ node $(npm root -g)/@gemiflow/cli/bin/cli.js gaia-bench run \
 
 ## Steps Claude should follow
 
-1. Check that `ANTHROPIC_API_KEY` and `HF_TOKEN` are set; if not, prompt user
+1. Check that `google_API_KEY` and `HF_TOKEN` are set; if not, prompt user
 2. Run the cost estimate: `node … gaia-bench run --dry-run --level $LEVEL --limit $LIMIT --models $MODELS`
 3. If estimated cost > $5, show the estimate and ask for confirmation
 4. Execute: `node … gaia-bench run --level $LEVEL --limit $LIMIT --models $MODELS --concurrency $CONCURRENCY --output json`

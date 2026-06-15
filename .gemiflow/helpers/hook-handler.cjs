@@ -57,9 +57,9 @@ function runWithTimeout(fn, label) {
 
 const [,, command, ...args] = process.argv;
 
-// Read stdin — Claude Code sends hook data as JSON via stdin
+// Read stdin — Gemini CLI sends hook data as JSON via stdin
 // Uses a timeout to prevent hanging when stdin is in an ambiguous state
-// (not TTY, not a proper pipe) which happens with Claude Code hook invocations.
+// (not TTY, not a proper pipe) which happens with Gemini CLI hook invocations.
 async function readStdin() {
   if (process.stdin.isTTY) return '';
   return new Promise((resolve) => {
@@ -96,7 +96,7 @@ async function main() {
   // Merge stdin data into prompt resolution: prefer stdin fields, then env vars.
   // NEVER fall back to argv args — shell glob expansion of braces in bash output
   // creates junk files (#1342). Use env vars or stdin only.
-  // Normalize snake_case/camelCase: Claude Code sends tool_input/tool_name (snake_case)
+  // Normalize snake_case/camelCase: Gemini CLI sends tool_input/tool_name (snake_case)
   var toolInput = hookInput.toolInput || hookInput.tool_input || {};
   var toolName = hookInput.toolName || hookInput.tool_name || '';
 
@@ -264,6 +264,6 @@ if (command && handlers[command]) {
 main().catch(function(e) {
   console.log('[WARN] Hook handler error: ' + e.message);
 }).finally(function() {
-  // Ensure clean exit for Claude Code hooks
+  // Ensure clean exit for Gemini CLI hooks
   process.exit(0);
 });

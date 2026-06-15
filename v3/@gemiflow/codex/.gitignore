@@ -1,10 +1,10 @@
 
-# Codex local configuration
-.codex/
+# gemini local configuration
+.gemini/
 
 # Claude Flow runtime data
-.claude-flow/data/
-.claude-flow/logs/
+.gemiflow/data/
+.gemiflow/logs/
 
 # Environment variables
 .env

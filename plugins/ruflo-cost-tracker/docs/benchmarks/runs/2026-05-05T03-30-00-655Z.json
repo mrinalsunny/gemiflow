@@ -41,7 +41,7 @@
     },
     "speedupVsLlm": 1524.25,
     "costDeltaUsdPerEdit": 0.000027400000000000002,
-    "anthropic": {
+    "google": {
       "claude-sonnet-4-6": {
         "model": "claude-sonnet-4-6",
         "total": 16,
@@ -480,7 +480,7 @@
       "costUsd": 0.0000323
     }
   ],
-  "anthropicResults": {
+  "googleResults": {
     "claude-sonnet-4-6": [
       {
         "id": "var-to-const-1",

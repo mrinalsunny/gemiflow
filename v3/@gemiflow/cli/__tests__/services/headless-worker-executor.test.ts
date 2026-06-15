@@ -2,17 +2,17 @@
  * HeadlessWorkerExecutor Tests
  *
  * Comprehensive tests for the headless worker execution service that
- * runs Claude Code in headless mode for background worker tasks.
+ * runs Gemini CLI in headless mode for background worker tasks.
  *
  * Tests cover:
  * 1. HeadlessWorkerExecutor instantiation
- * 2. isAvailable() - Claude Code availability detection
+ * 2. isAvailable() - Gemini CLI availability detection
  * 3. execute() with various headless configurations
  * 4. Context building from file patterns
  * 5. Prompt template building
  * 6. Output parsing for json/text/markdown
  * 7. Timeout handling
- * 8. Error handling for missing Claude Code
+ * 8. Error handling for missing Gemini CLI
  * 9. Event emissions (output, error)
  * 10. HEADLESS_WORKERS configuration validation
  */
@@ -121,7 +121,7 @@ class HeadlessWorkerExecutor extends EventEmitter {
     const timeout = config.timeout ?? this.config.defaultTimeout;
 
     if (!(await this.isAvailable())) {
-      const error = 'Claude Code is not available. Install with: npm install -g @google/gemini-cli';
+      const error = 'Gemini CLI is not available. Install with: npm install -g @google/gemini-cli';
       this.emit('error', { workerId: config.workerId, error });
       return {
         success: false,
@@ -409,7 +409,7 @@ describe('HeadlessWorkerExecutor', () => {
     });
 
     it('should return true with Claude capitalized', async () => {
-      (execSync as Mock).mockReturnValue('Claude Code CLI v1.0.0');
+      (execSync as Mock).mockReturnValue('Gemini CLI CLI v1.0.0');
 
       const result = await executor.isAvailable();
 
@@ -581,7 +581,7 @@ describe('HeadlessWorkerExecutor', () => {
       );
     });
 
-    it('should return error when Claude Code is not available', async () => {
+    it('should return error when Gemini CLI is not available', async () => {
       (execSync as Mock).mockImplementation(() => {
         throw new Error('Not found');
       });
@@ -598,7 +598,7 @@ describe('HeadlessWorkerExecutor', () => {
       const result = await executor.execute(config);
 
       expect(result.success).toBe(false);
-      expect(result.error).toContain('Claude Code is not available');
+      expect(result.error).toContain('Gemini CLI is not available');
       expect(errorHandler).toHaveBeenCalled();
     });
   });
@@ -849,7 +849,7 @@ describe('HeadlessWorkerExecutor', () => {
   });
 
   describe('Error Handling', () => {
-    it('should handle missing Claude Code gracefully', async () => {
+    it('should handle missing Gemini CLI gracefully', async () => {
       (execSync as Mock).mockImplementation(() => {
         throw new Error('ENOENT');
       });

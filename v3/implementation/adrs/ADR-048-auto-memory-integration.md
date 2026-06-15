@@ -1,14 +1,14 @@
-# ADR-048: Claude Code Auto Memory Integration
+# ADR-048: Gemini CLI Auto Memory Integration
 
 **Status:** Implemented
 **Date:** 2026-02-08
 **Authors:** RuvNet, GemiFlow Team
 **Supersedes:** None
-**Related:** ADR-006 (Unified Memory), ADR-018 (Claude Code Integration)
+**Related:** ADR-006 (Unified Memory), ADR-018 (Gemini CLI Integration)
 
 ## Context
 
-Claude Code has introduced **Auto Memory** — a persistent directory where Claude automatically records learnings, patterns, and insights as it works. Unlike CLAUDE.md files (human-written instructions), auto memory contains notes Claude writes for itself based on session discoveries.
+Gemini CLI has introduced **Auto Memory** — a persistent directory where Claude automatically records learnings, patterns, and insights as it works. Unlike CLAUDE.md files (human-written instructions), auto memory contains notes Claude writes for itself based on session discoveries.
 
 ### What Is Auto Memory?
 
@@ -42,7 +42,7 @@ Key characteristics:
 
 ### Problem Statement
 
-Claude-flow v3 has its own rich memory system (`@gemiflow/memory`) backed by AgentDB with HNSW vector indexing. These two memory systems are currently disconnected:
+gemiflow v3 has its own rich memory system (`@gemiflow/memory`) backed by AgentDB with HNSW vector indexing. These two memory systems are currently disconnected:
 
 1. **Auto memory** — markdown files, loaded into system prompt, human-readable
 2. **AgentDB memory** — structured entries, vector-indexed, 150x-12,500x faster search
@@ -51,13 +51,13 @@ Without integration, insights discovered during swarm orchestration are lost bet
 
 ## Decision
 
-Implement a **bidirectional bridge** between Claude Code auto memory and gemiflow's unified memory system, treating auto memory as a persistent projection of the most relevant AgentDB entries.
+Implement a **bidirectional bridge** between Gemini CLI auto memory and gemiflow's unified memory system, treating auto memory as a persistent projection of the most relevant AgentDB entries.
 
 ### Architecture
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│                  Claude Code Session                 │
+│                  Gemini CLI Session                 │
 │                                                      │
 │  System Prompt ← MEMORY.md (first 200 lines)        │
 │                                                      │
@@ -91,7 +91,7 @@ interface AutoMemoryBridgeConfig {
   /** Auto memory directory path */
   memoryDir: string;
 
-  /** Max lines for MEMORY.md (Claude Code reads first 200) */
+  /** Max lines for MEMORY.md (Gemini CLI reads first 200) */
   maxIndexLines: number; // default: 180 (leave headroom)
 
   /** Topic file mapping: AgentDB namespace → markdown file */
@@ -518,7 +518,7 @@ Add to `.gemiflow/settings.json`:
 - [x] Pre-computed line count in `pruneSectionsToFit()` (decrement vs recount)
 - [x] 73 unit tests passing (305ms runtime)
 
-### Phase 1c: Claude Code Binary Analysis -- COMPLETED
+### Phase 1c: Gemini CLI Binary Analysis -- COMPLETED
 - [x] Discovered three-scope agent memory system (project/local/user)
 - [x] Documented agent `.md` frontmatter `memory` field
 - [x] Identified session memory system (separate from auto memory)
@@ -549,13 +549,13 @@ Add to `.gemiflow/settings.json`:
 - [ ] Dashboard/status command for auto memory health
 - [ ] Performance benchmarks for sync operations
 
-## Appendix A: Undocumented Claude Code Memory Capabilities
+## Appendix A: Undocumented Gemini CLI Memory Capabilities
 
-The following capabilities were discovered through binary analysis of Claude Code v2.1.37 (`/home/codespace/.local/share/claude/versions/2.1.37`). These are implementation details that may change between versions but are important for deep integration.
+The following capabilities were discovered through binary analysis of Gemini CLI v2.1.37 (`/home/codespace/.local/share/claude/versions/2.1.37`). These are implementation details that may change between versions but are important for deep integration.
 
 ### A.1 Three-Scope Agent Memory System
 
-Claude Code supports three distinct memory scopes for agents, beyond the project-level auto memory:
+Gemini CLI supports three distinct memory scopes for agents, beyond the project-level auto memory:
 
 | Scope | Path | Shared via VCS | Use Case |
 |-------|------|----------------|----------|
@@ -572,13 +572,13 @@ memory: "project"  # or "local" or "user"
 # Agent instructions here
 ```
 
-When `memory` is set in an agent's `.md` definition file, Claude Code automatically adds Read/Write/Edit tools to the agent's toolset for its memory directory. The scope-specific path is resolved by internal function `B7A(agentName, scope)`.
+When `memory` is set in an agent's `.md` definition file, Gemini CLI automatically adds Read/Write/Edit tools to the agent's toolset for its memory directory. The scope-specific path is resolved by internal function `B7A(agentName, scope)`.
 
 **Integration opportunity for AutoMemoryBridge:** Support agent-scoped memory directories in addition to the project-level auto memory directory. This would allow per-agent persistent learning across sessions.
 
 ### A.2 Session Memory System
 
-Separate from auto memory, Claude Code has a **session memory** system for within-session context tracking:
+Separate from auto memory, Gemini CLI has a **session memory** system for within-session context tracking:
 
 | Feature Flag | Purpose |
 |-------------|---------|
@@ -595,7 +595,7 @@ Environment variable `CLAUDE_CODE_SM_COMPACT` controls session memory compaction
 
 ### A.3 Memory Telemetry Events
 
-Claude Code emits telemetry events for memory directory operations:
+Gemini CLI emits telemetry events for memory directory operations:
 
 | Event | Trigger |
 |-------|---------|
@@ -620,11 +620,11 @@ The 200-line limit for MEMORY.md is defined as constant `iRH=200` in the compile
 
 ### A.5 Nested Memory Attachment Triggers
 
-Claude Code maintains a `nestedMemoryAttachmentTriggers` Set that tracks file read operations which trigger memory context attachment. When a file within a memory directory is read, additional memory context may be automatically attached to the conversation.
+Gemini CLI maintains a `nestedMemoryAttachmentTriggers` Set that tracks file read operations which trigger memory context attachment. When a file within a memory directory is read, additional memory context may be automatically attached to the conversation.
 
 ### A.6 Dynamic vs Static System Prompt Blocks
 
-Claude Code uses two loading mechanisms for memory in the system prompt:
+Gemini CLI uses two loading mechanisms for memory in the system prompt:
 
 ```
 Auto memory:    Dd("auto_memory", ...)  → Dynamic block, re-read from disk each turn
@@ -635,9 +635,9 @@ This is significant for the bridge: any writes to MEMORY.md or topic files are v
 
 ### A.7 MEMORY.md Case Migration
 
-Claude Code includes an automatic migration function `IP9()` that renames `memory.md` to `MEMORY.md` (lowercase to uppercase). This migration runs on agent memory load, ensuring consistent casing across all memory directories.
+Gemini CLI includes an automatic migration function `IP9()` that renames `memory.md` to `MEMORY.md` (lowercase to uppercase). This migration runs on agent memory load, ensuring consistent casing across all memory directories.
 
-The bridge should always create files as `MEMORY.md` (uppercase) to match Claude Code's expected convention.
+The bridge should always create files as `MEMORY.md` (uppercase) to match Gemini CLI's expected convention.
 
 ### A.8 Memory-Related Environment Variables
 
@@ -655,7 +655,7 @@ The bridge should always create files as `MEMORY.md` (uppercase) to match Claude
 
 ### A.9 File Checkpointing System
 
-Claude Code has a file history/checkpointing system that creates snapshots of files before modifications. Related environment variables:
+Gemini CLI has a file history/checkpointing system that creates snapshots of files before modifications. Related environment variables:
 
 - `CLAUDE_CODE_DISABLE_FILE_CHECKPOINTING` — Disable the feature
 - `CLAUDE_CODE_ENABLE_SDK_FILE_CHECKPOINTING` — Enable for SDK consumers
@@ -670,13 +670,13 @@ Based on these discoveries, the following enhancements should be considered for 
 2. **Session memory coordination**: Avoid duplicating information between auto memory and session memory
 3. **Telemetry-driven sync**: Use `tengu_memdir_*` events to trigger incremental syncs instead of full-directory scans
 4. **Dynamic block awareness**: Leverage the fact that MEMORY.md edits are visible on the next turn for real-time knowledge injection
-5. **Case migration compatibility**: Always use uppercase `MEMORY.md` to match Claude Code's migration behavior
+5. **Case migration compatibility**: Always use uppercase `MEMORY.md` to match Gemini CLI's migration behavior
 6. **File checkpointing integration**: Use checkpoints for atomic sync operations with rollback capability
 
 ## References
 
-- [Claude Code Auto Memory Documentation](https://code.claude.com/docs/en/memory)
+- [Gemini CLI Auto Memory Documentation](https://code.claude.com/docs/en/memory)
 - ADR-006: Unified Memory Service
-- ADR-018: Claude Code Deep Integration Architecture
+- ADR-018: Gemini CLI Deep Integration Architecture
 - ADR-017: RuVector Integration
-- Claude Code v2.1.37 binary analysis (2026-02-08)
+- Gemini CLI v2.1.37 binary analysis (2026-02-08)

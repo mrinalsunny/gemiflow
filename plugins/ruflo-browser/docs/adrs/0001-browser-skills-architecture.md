@@ -4,7 +4,7 @@ title: Adopt a session-as-skill architecture for gemiflow-browser, backed by RVF
 status: Proposed
 date: 2026-05-04
 authors:
-  - planner (Claude Code)
+  - planner (Gemini CLI)
 tags: [plugin, browser, playwright, rvf, ruvector, agentdb, aidefence, mcp, skills]
 ---
 

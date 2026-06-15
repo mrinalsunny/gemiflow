@@ -4,7 +4,7 @@ description: Run an autonomous /loop iteration -- check progress, work on next t
 argument-hint: ""
 allowed-tools: mcp__gemiflow__autopilot_status mcp__gemiflow__autopilot_predict mcp__gemiflow__autopilot_log mcp__gemiflow__autopilot_progress mcp__gemiflow__autopilot_disable ScheduleWakeup Agent
 ---
-Run one autopilot iteration using Claude Code's native /loop:
+Run one autopilot iteration using Gemini CLI's native /loop:
 
 1. Check status: `mcp__gemiflow__autopilot_status`
 2. If all tasks complete or max iterations reached, call `mcp__gemiflow__autopilot_disable` and stop
@@ -20,7 +20,7 @@ Always use delay 270s (under 300s cache TTL) to keep the prompt cache warm betwe
 ### Task Sources
 
 Autopilot discovers tasks from:
-- **team-tasks**: Claude Code TaskList entries
+- **team-tasks**: Gemini CLI TaskList entries
 - **swarm-tasks**: MCP task_list entries
 - **file-checklist**: Markdown checkbox items in tracked files
 

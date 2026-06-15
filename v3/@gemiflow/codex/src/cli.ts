@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 /**
- * @gemiflow/codex - CLI
+ * @gemiflow/gemini - CLI
  *
- * Command-line interface for Codex integration
+ * Command-line interface for gemini integration
  * Part of the coflow rebranding initiative
  */
 
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { CodexInitializer } from './initializer.js';
+import { geminiInitializer } from './initializer.js';
 import { validateAgentsMd, validateSkillMd, validateConfigToml } from './validators/index.js';
 import { migrateFromClaudeCode, analyzeClaudeMd, generateMigrationReport } from './migrations/index.js';
 import { listTemplates, BUILT_IN_SKILLS } from './templates/index.js';
@@ -61,14 +61,14 @@ function validateSkillName(name: string): boolean {
 
 // Print banner
 function printBanner(): void {
-  console.log(chalk.cyan.bold('\n  GemiFlow Codex'));
-  console.log(chalk.gray('  OpenAI Codex integration for GemiFlow'));
+  console.log(chalk.cyan.bold('\n  GemiFlow gemini'));
+  console.log(chalk.gray('  OpenAI gemini integration for GemiFlow'));
   console.log(chalk.gray('  ----------------------------------------\n'));
 }
 
 program
-  .name('gemiflow-codex')
-  .description('OpenAI Codex integration for GemiFlow - Part of the coflow ecosystem')
+  .name('gemiflow-gemini')
+  .description('OpenAI gemini integration for GemiFlow - Part of the coflow ecosystem')
   .version(VERSION, '-v, --version', 'Display version number')
   .option('--debug', 'Enable debug mode', false)
   .hook('preAction', (thisCommand) => {
@@ -80,11 +80,11 @@ program
 // Init command
 program
   .command('init')
-  .description('Initialize a new Codex project with AGENTS.md and skills')
+  .description('Initialize a new gemini project with AGENTS.md and skills')
   .option('-t, --template <template>', 'Template to use (minimal, default, full, enterprise)', 'default')
   .option('-s, --skills <skills>', 'Comma-separated list of skills to include')
   .option('-f, --force', 'Overwrite existing files', false)
-  .option('--dual', 'Generate both Codex and Claude Code configurations', false)
+  .option('--dual', 'Generate both gemini and Gemini CLI configurations', false)
   .option('-p, --path <path>', 'Project path', process.cwd())
   .option('-q, --quiet', 'Suppress verbose output', false)
   .action(async (options) => {
@@ -103,7 +103,7 @@ program
 
       const projectPath = await validatePath(options.path);
 
-      console.log(chalk.blue('Initializing Codex project...'));
+      console.log(chalk.blue('Initializing gemini project...'));
       console.log(chalk.gray(`  Path:     ${projectPath}`));
       console.log(chalk.gray(`  Template: ${options.template}`));
       if (options.skills) {
@@ -113,10 +113,10 @@ program
         console.log(chalk.yellow('  Force:    enabled (will overwrite existing files)'));
       }
       if (options.dual) {
-        console.log(chalk.gray('  Mode:     dual (Codex + Claude Code)'));
+        console.log(chalk.gray('  Mode:     dual (gemini + Gemini CLI)'));
       }
 
-      const initializer = new CodexInitializer();
+      const initializer = new geminiInitializer();
       const skills = options.skills?.split(',').map((s: string) => s.trim()).filter(Boolean);
 
       // Validate skill names if provided
@@ -322,7 +322,7 @@ program
 
       if (filesToValidate.length === 0) {
         console.log(chalk.yellow('No files found to validate'));
-        console.log(chalk.gray('Run `gemiflow-codex init` to create a project'));
+        console.log(chalk.gray('Run `gemiflow-gemini init` to create a project'));
         return;
       }
 
@@ -405,7 +405,7 @@ program
 // Migrate command
 program
   .command('migrate')
-  .description('Migrate from Claude Code (CLAUDE.md) to Codex (AGENTS.md)')
+  .description('Migrate from Gemini CLI (CLAUDE.md) to gemini (AGENTS.md)')
   .option('-f, --from <file>', 'Source CLAUDE.md file', 'CLAUDE.md')
   .option('-o, --output <path>', 'Output directory', process.cwd())
   .option('--analyze-only', 'Only analyze, do not generate files', false)
@@ -485,7 +485,7 @@ program
 
         console.log();
       } else {
-        console.log(chalk.blue('Migrating to Codex...'));
+        console.log(chalk.blue('Migrating to gemini...'));
         console.log(chalk.gray(`Source: ${sourcePath}`));
         console.log(chalk.gray(`Output: ${path.resolve(options.output)}\n`));
 
@@ -504,7 +504,7 @@ program
           console.log(chalk.gray('\n  Next steps:'));
           console.log(chalk.gray('    1. Review the generated AGENTS.md'));
           console.log(chalk.gray('    2. Check skill invocation syntax (/ -> $)'));
-          console.log(chalk.gray('    3. Run `gemiflow-codex validate` to verify'));
+          console.log(chalk.gray('    3. Run `gemiflow-gemini validate` to verify'));
           console.log();
         } else {
           console.log(chalk.red.bold('\n  Migration failed'));
@@ -541,7 +541,7 @@ program
         console.log();
       }
 
-      console.log(chalk.gray('Use: gemiflow-codex init --template <name>'));
+      console.log(chalk.gray('Use: gemiflow-gemini init --template <name>'));
       console.log();
     } catch (error) {
       handleError(error, 'Failed to list templates');
@@ -571,7 +571,7 @@ program
         console.log();
       }
 
-      console.log(chalk.gray('Use: gemiflow-codex generate-skill -n <name> to create a custom skill'));
+      console.log(chalk.gray('Use: gemiflow-gemini generate-skill -n <name> to create a custom skill'));
       console.log();
     } catch (error) {
       handleError(error, 'Failed to list skills');
@@ -590,7 +590,7 @@ program
         return;
       }
 
-      console.log(chalk.cyan.bold('\n  @gemiflow/codex'));
+      console.log(chalk.cyan.bold('\n  @gemiflow/gemini'));
       console.log(chalk.gray('  ' + '='.repeat(40)));
       console.log(chalk.white(`  Version:     ${PACKAGE_INFO.version}`));
       console.log(chalk.white(`  Description: ${PACKAGE_INFO.description}`));
@@ -688,18 +688,18 @@ program
     }
   });
 
-// Dual-mode command - collaborative Claude Code + Codex execution
+// Dual-mode command - collaborative Gemini CLI + gemini execution
 import { createDualModeCommand } from './dual-mode/index.js';
 program.addCommand(createDualModeCommand());
 
-// Codex /loop-compatible runner
+// gemini /loop-compatible runner
 import { createLoopCommand } from './loop/cli.js';
 program.addCommand(createLoopCommand());
 
 // Error handling for unknown commands
 program.on('command:*', () => {
   console.error(chalk.red(`Invalid command: ${program.args.join(' ')}`));
-  console.log(chalk.gray(`Run ${chalk.white('gemiflow-codex --help')} for available commands.`));
+  console.log(chalk.gray(`Run ${chalk.white('gemiflow-gemini --help')} for available commands.`));
   process.exit(1);
 });
 

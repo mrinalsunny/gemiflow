@@ -41,7 +41,7 @@ GemiFlow wins on breadth and coordination sophistication, but three structural g
 
 **Pitch**: The SOTA benchmark drive covers 9 of 10 milestones. M5 ("real-model integration quality") is blocked on a stale API key. Without M5, the comparator cannot measure response quality, hallucination rate, or tool-call accuracy against LangGraph/AutoGen/CrewAI in real-LLM mode — the dimension competitors will emphasize most. The PR #2124 results (gemiflow wins 3 of 5 on coordination throughput, memory search latency, safety gate coverage, security posture, and plugin ecosystem breadth) are all structure-and-plumbing metrics. M5 is where a skeptical reader will look.
 
-**What is needed**: a non-expiring test key in CI secrets, or a model-stub harness that records/replays Anthropic API responses for reproducible benchmark runs. The second approach (golden-response replay) is safer for CI and avoids per-run cost.
+**What is needed**: a non-expiring test key in CI secrets, or a model-stub harness that records/replays google API responses for reproducible benchmark runs. The second approach (golden-response replay) is safer for CI and avoids per-run cost.
 
 **Effort**: S (key rotation) to M (golden-response replay harness)
 

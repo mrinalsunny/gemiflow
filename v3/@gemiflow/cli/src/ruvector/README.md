@@ -6,7 +6,7 @@ Repository: https://github.com/ruvnet/ruvector
 
 ## Overview
 
-RuVector is a high-performance vector database for Node.js with automatic native/WASM fallback. It provides self-learning intelligence for Claude Code with Q-learning optimization, vector memory, and automatic agent routing.
+RuVector is a high-performance vector database for Node.js with automatic native/WASM fallback. It provides self-learning intelligence for Gemini CLI with Q-learning optimization, vector memory, and automatic agent routing.
 
 ## Installation
 
@@ -16,7 +16,7 @@ npm install ruvector
 
 ## MCP Server Integration
 
-Add to Claude Code:
+Add to Gemini CLI:
 
 ```bash
 claude mcp add ruvector-mcp -- npx ruvector mcp-server

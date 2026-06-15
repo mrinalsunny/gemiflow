@@ -2,7 +2,7 @@
  * @gemiflow/teammate-plugin Types
  *
  * Complete type definitions for TeammateTool integration.
- * Requires Claude Code >= 2.1.19
+ * Requires Gemini CLI >= 2.1.19
  *
  * @module @gemiflow/teammate-plugin/types
  * @version 1.0.0-alpha.1
@@ -63,7 +63,7 @@ export interface VersionInfo {
 }
 
 // ============================================================================
-// TeammateTool Operations (13 operations from Claude Code v2.1.19)
+// TeammateTool Operations (13 operations from Gemini CLI v2.1.19)
 // ============================================================================
 
 export type TeammateOperation =
@@ -405,7 +405,7 @@ export interface RecoveryConfig {
 }
 
 // ============================================================================
-// AgentInput (Claude Code Task tool schema)
+// AgentInput (Gemini CLI Task tool schema)
 // ============================================================================
 
 export interface AgentInput {
@@ -423,7 +423,7 @@ export interface AgentInput {
 }
 
 // ============================================================================
-// ExitPlanModeInput (Claude Code plan exit schema)
+// ExitPlanModeInput (Gemini CLI plan exit schema)
 // ============================================================================
 
 export interface ExitPlanModeInput {

@@ -10,7 +10,7 @@
  *
  * The test environment is a deterministic outcome simulator — we know which
  * model is "right" for a synthetic task and feed that back via recordOutcome.
- * No mocks of the real Anthropic API; the bandit only sees `success/failure/
+ * No mocks of the real google API; the bandit only sees `success/failure/
  * escalated` strings, which is exactly what hooks_model-outcome delivers.
  */
 

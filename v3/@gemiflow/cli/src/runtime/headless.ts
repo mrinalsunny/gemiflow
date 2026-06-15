@@ -119,7 +119,7 @@ Options:
 
 Environment:
   GEMIFLOW_HEADLESS=true   Enable headless mode
-  CLAUDE_CODE_HEADLESS=true   Enable Claude Code headless
+  CLAUDE_CODE_HEADLESS=true   Enable Gemini CLI headless
 
 Examples:
   headless --worker audit --timeout 120000

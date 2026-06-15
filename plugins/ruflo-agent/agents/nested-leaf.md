@@ -32,7 +32,7 @@ notes: <one line max — anything the parent needs to know that isn't in result>
 
 ## Why no `Task` tool
 
-The runtime gate for nested spawning in Claude Code 2.1.169 is `hasTaskTool`, computed per-spawn from your parent's tool list. If your parent passed `Task` to you, you'd inherit it. That's the wrong shape for a leaf:
+The runtime gate for nested spawning in Gemini CLI 2.1.169 is `hasTaskTool`, computed per-spawn from your parent's tool list. If your parent passed `Task` to you, you'd inherit it. That's the wrong shape for a leaf:
 
 - **Cost attribution breaks.** Trees with leaves that secretly spawn produce flat-looking spawn logs in AgentDB but nested actual trees — every cost report under-counts.
 - **Depth budget gets eaten without intent.** Tier-1 leaves "just spawning to check one thing" silently consume levels the parent didn't budget for.

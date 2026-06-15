@@ -3,7 +3,7 @@
 /**
  * Statusline CLI
  *
- * Generate statusline output for Claude Code integration.
+ * Generate statusline output for Gemini CLI integration.
  *
  * Usage:
  *   statusline              Output formatted statusline

@@ -1,5 +1,5 @@
 /**
- * @gemiflow/codex - Dual-Mode Tests
+ * @gemiflow/gemini - Dual-Mode Tests
  *
  * Covers parseWorkerSpecs (W2), CollaborationTemplates, the `dual`
  * command wiring, and DualModeOrchestrator dependency leveling.
@@ -18,27 +18,27 @@ describe('parseWorkerSpecs', () => {
   });
 
   it('chains workers sequentially by default', () => {
-    const ws = parseWorkerSpecs(['claude:architect:Design', 'codex:coder:Build', 'codex:tester:Test'], false);
+    const ws = parseWorkerSpecs(['claude:architect:Design', 'gemini:coder:Build', 'gemini:tester:Test'], false);
     expect(ws.map(w => w.id)).toEqual(['architect', 'coder', 'tester']);
-    expect(ws.map(w => w.platform)).toEqual(['claude', 'codex', 'codex']);
+    expect(ws.map(w => w.platform)).toEqual(['claude', 'gemini', 'gemini']);
     expect(ws[0].dependsOn).toBeUndefined();
     expect(ws[1].dependsOn).toEqual(['architect']);
     expect(ws[2].dependsOn).toEqual(['coder']);
   });
 
   it('runs workers in parallel when parallel=true (no dependsOn)', () => {
-    const ws = parseWorkerSpecs(['claude:a:x', 'codex:b:y'], true);
+    const ws = parseWorkerSpecs(['claude:a:x', 'gemini:b:y'], true);
     expect(ws.every(w => w.dependsOn === undefined)).toBe(true);
   });
 
   it('keeps colons inside the prompt (splits on the first two only)', () => {
-    const [w] = parseWorkerSpecs(['codex:coder:Fix bug: handle null in foo:bar'], false);
+    const [w] = parseWorkerSpecs(['gemini:coder:Fix bug: handle null in foo:bar'], false);
     expect(w.prompt).toBe('Fix bug: handle null in foo:bar');
     expect(w.role).toBe('coder');
   });
 
   it('deduplicates ids for repeated roles', () => {
-    const ws = parseWorkerSpecs(['codex:coder:a', 'codex:coder:b', 'codex:coder:c'], true);
+    const ws = parseWorkerSpecs(['gemini:coder:a', 'gemini:coder:b', 'gemini:coder:c'], true);
     expect(ws.map(w => w.id)).toEqual(['coder', 'coder-2', 'coder-3']);
   });
 
@@ -57,7 +57,7 @@ describe('parseWorkerSpecs', () => {
   });
 
   it('throws on an unknown platform', () => {
-    expect(() => parseWorkerSpecs(['gemini:coder:do it'], false)).toThrow(/claude.*codex/);
+    expect(() => parseWorkerSpecs(['gemini:coder:do it'], false)).toThrow(/claude.*gemini/);
   });
 });
 
@@ -66,7 +66,7 @@ describe('CollaborationTemplates', () => {
     const ws = CollaborationTemplates.featureDevelopment('Add OAuth');
     expect(ws.map(w => w.id)).toEqual(['architect', 'coder', 'tester', 'reviewer']);
     expect(ws.find(w => w.id === 'architect')!.platform).toBe('claude');
-    expect(ws.find(w => w.id === 'coder')!.platform).toBe('codex');
+    expect(ws.find(w => w.id === 'coder')!.platform).toBe('gemini');
     expect(ws.find(w => w.id === 'coder')!.dependsOn).toEqual(['architect']);
     expect(ws.find(w => w.id === 'tester')!.dependsOn).toEqual(['coder']);
     expect(ws.find(w => w.id === 'reviewer')!.dependsOn).toEqual(['coder', 'tester']);
@@ -110,9 +110,9 @@ describe('dual command wiring', () => {
 describe('DualModeOrchestrator', () => {
   const orch = () => new DualModeOrchestrator({ projectPath: '/tmp' });
 
-  it('uses safe defaults (codex command, not claude)', () => {
+  it('uses safe defaults (gemini command, not claude)', () => {
     const o = orch() as unknown as { config: Record<string, unknown> };
-    expect(o.config.codexCommand).toBe('codex');
+    expect(o.config.geminiCommand).toBe('gemini');
     expect(o.config.claudeCommand).toBe('claude');
     expect(o.config.maxConcurrent).toBe(4);
     expect(o.config.sharedNamespace).toBe('collaboration');
@@ -121,8 +121,8 @@ describe('DualModeOrchestrator', () => {
   it('buildDependencyLevels groups a linear pipeline one-per-level', () => {
     const ws: WorkerConfig[] = [
       { id: 'a', platform: 'claude', role: 'a', prompt: 'x' },
-      { id: 'b', platform: 'codex', role: 'b', prompt: 'y', dependsOn: ['a'] },
-      { id: 'c', platform: 'codex', role: 'c', prompt: 'z', dependsOn: ['b'] },
+      { id: 'b', platform: 'gemini', role: 'b', prompt: 'y', dependsOn: ['a'] },
+      { id: 'c', platform: 'gemini', role: 'c', prompt: 'z', dependsOn: ['b'] },
     ];
     const levels = (orch() as unknown as { buildDependencyLevels(w: WorkerConfig[]): WorkerConfig[][] }).buildDependencyLevels(ws);
     expect(levels.map(l => l.map(w => w.id))).toEqual([['a'], ['b'], ['c']]);
@@ -131,8 +131,8 @@ describe('DualModeOrchestrator', () => {
   it('buildDependencyLevels puts independent workers in the same level', () => {
     const ws: WorkerConfig[] = [
       { id: 'a', platform: 'claude', role: 'a', prompt: 'x' },
-      { id: 'b', platform: 'codex', role: 'b', prompt: 'y' },
-      { id: 'c', platform: 'codex', role: 'c', prompt: 'z', dependsOn: ['a', 'b'] },
+      { id: 'b', platform: 'gemini', role: 'b', prompt: 'y' },
+      { id: 'c', platform: 'gemini', role: 'c', prompt: 'z', dependsOn: ['a', 'b'] },
     ];
     const levels = (orch() as unknown as { buildDependencyLevels(w: WorkerConfig[]): WorkerConfig[][] }).buildDependencyLevels(ws);
     expect(levels.length).toBe(2);
@@ -143,7 +143,7 @@ describe('DualModeOrchestrator', () => {
   it('buildDependencyLevels breaks a circular dependency instead of looping forever', () => {
     const ws: WorkerConfig[] = [
       { id: 'a', platform: 'claude', role: 'a', prompt: 'x', dependsOn: ['b'] },
-      { id: 'b', platform: 'codex', role: 'b', prompt: 'y', dependsOn: ['a'] },
+      { id: 'b', platform: 'gemini', role: 'b', prompt: 'y', dependsOn: ['a'] },
     ];
     const levels = (orch() as unknown as { buildDependencyLevels(w: WorkerConfig[]): WorkerConfig[][] }).buildDependencyLevels(ws);
     expect(levels.flat().map(w => w.id).sort()).toEqual(['a', 'b']);

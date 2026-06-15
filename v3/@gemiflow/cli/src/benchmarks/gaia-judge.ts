@@ -18,7 +18,7 @@
  * keyed on (question_id, candidate_answer, model_id, JUDGE_PROMPT_VERSION).
  * Re-running the same pair hits the cache and returns instantly.
  *
- * API pattern: raw fetch() against https://api.anthropic.com/v1/messages —
+ * API pattern: raw fetch() against https://api.google.com/v1/messages —
  * mirrors the pattern established in gaia-agent.ts (ADR-133-PR3).
  *
  * Refs: ADR-133, #2156
@@ -34,8 +34,8 @@ import { execSync } from 'node:child_process';
 // Constants
 // ---------------------------------------------------------------------------
 
-const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
-const ANTHROPIC_API_VERSION = '2023-06-01';
+const google_API_URL = 'https://api.google.com/v1/messages';
+const google_API_VERSION = '2023-06-01';
 const DEFAULT_JUDGE_MODEL = 'claude-sonnet-4-6';
 const DEFAULT_CACHE_DIR = path.join(os.homedir(), '.cache', 'gemiflow', 'gaia', 'judgments');
 
@@ -200,18 +200,18 @@ function cacheWrite(cacheDir: string, key: string, result: JudgeResult): void {
 }
 
 // ---------------------------------------------------------------------------
-// API key resolution (mirrors gaia-agent.ts resolveAnthropicApiKey)
+// API key resolution (mirrors gaia-agent.ts resolvegoogleApiKey)
 // ---------------------------------------------------------------------------
 
 function resolveApiKey(supplied?: string): string {
   if (supplied && supplied.trim()) return supplied.trim();
 
-  const envKey = process.env.ANTHROPIC_API_KEY;
+  const envKey = process.env.google_API_KEY;
   if (envKey && envKey.trim()) return envKey.trim();
 
   try {
     const out = execSync(
-      'gcloud secrets versions access latest --secret=ANTHROPIC_API_KEY 2>/dev/null',
+      'gcloud secrets versions access latest --secret=google_API_KEY 2>/dev/null',
       { encoding: 'utf-8', timeout: 10_000 },
     ).trim();
     if (out) return out;
@@ -220,8 +220,8 @@ function resolveApiKey(supplied?: string): string {
   }
 
   throw new Error(
-    'ANTHROPIC_API_KEY not found.  Set the env var or store it in GCP Secret Manager under ' +
-    '"ANTHROPIC_API_KEY".',
+    'google_API_KEY not found.  Set the env var or store it in GCP Secret Manager under ' +
+    '"google_API_KEY".',
   );
 }
 
@@ -278,15 +278,15 @@ function buildJudgeUserMessage(
 }
 
 // ---------------------------------------------------------------------------
-// Anthropic Messages API call (single turn, JSON mode)
+// google Messages API call (single turn, JSON mode)
 // ---------------------------------------------------------------------------
 
-interface AnthropicMessage {
+interface googleMessage {
   role: 'user' | 'assistant';
   content: string;
 }
 
-interface AnthropicResponse {
+interface googleResponse {
   id: string;
   type: string;
   role: string;
@@ -302,7 +302,7 @@ async function callJudge(
   model: string,
   apiKey: string,
 ): Promise<{ passed: boolean; reason: string; tokensIn: number; tokensOut: number }> {
-  const messages: AnthropicMessage[] = [
+  const messages: googleMessage[] = [
     { role: 'user', content: userMessage },
   ];
 
@@ -313,22 +313,22 @@ async function callJudge(
     messages,
   });
 
-  const response = await fetch(ANTHROPIC_API_URL, {
+  const response = await fetch(google_API_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'x-api-key': apiKey,
-      'anthropic-version': ANTHROPIC_API_VERSION,
+      'google-version': google_API_VERSION,
     },
     body,
   });
 
   if (!response.ok) {
     const errText = await response.text().catch(() => '(no body)');
-    throw new Error(`Anthropic API error ${response.status}: ${errText}`);
+    throw new Error(`google API error ${response.status}: ${errText}`);
   }
 
-  const data = (await response.json()) as AnthropicResponse;
+  const data = (await response.json()) as googleResponse;
 
   const textBlock = data.content.find((c) => c.type === 'text');
   const rawText = textBlock?.text ?? '';
@@ -474,7 +474,7 @@ export async function judgeAnswer(
  * Self-contained smoke test.  Run with:
  *   npx tsx src/benchmarks/gaia-judge.ts
  *
- * Does NOT require an ANTHROPIC_API_KEY for the exact-match cases.
+ * Does NOT require an google_API_KEY for the exact-match cases.
  * The LLM-judge cases require a live key and cost ~$0.001 total.
  *
  * Expected cost: ≤ 2 Sonnet judge calls × ~300 tokens ≈ $0.001
@@ -526,10 +526,10 @@ async function runSmoke(): Promise<void> {
   const rNull = await judgeAnswer({ id: 'em-null', expected: '346' }, null, baseOpts);
   check('null candidate → fail, exact-match path', !rNull.passed && rNull.scoringPath === 'exact-match');
 
-  // ── LLM-judge cases (requires ANTHROPIC_API_KEY) ──
-  const hasKey = !!(process.env.ANTHROPIC_API_KEY?.trim());
+  // ── LLM-judge cases (requires google_API_KEY) ──
+  const hasKey = !!(process.env.google_API_KEY?.trim());
   if (!hasKey) {
-    console.log('\n-- Stage 2: llm-judge (SKIPPED — no ANTHROPIC_API_KEY) --');
+    console.log('\n-- Stage 2: llm-judge (SKIPPED — no google_API_KEY) --');
   } else {
     console.log('\n-- Stage 2: llm-judge --');
 

@@ -1,8 +1,8 @@
 /**
  * Parent-death watchdog (#2234).
  *
- * `gemiflow mcp start` runs as a double-forked grandchild of Claude Code (`npx -y
- * gemiflow … mcp start` → `npm exec …` → `node … mcp start`). When Claude Code
+ * `gemiflow mcp start` runs as a double-forked grandchild of Gemini CLI (`npx -y
+ * gemiflow … mcp start` → `npm exec …` → `node … mcp start`). When Gemini CLI
  * exits, only the `npm exec` shim is terminated; the `node` server reparents to
  * `launchd`/`init` (`ppid === 1`) and silently lingers — leaving ~50 MB and an
  * open database handle per restart. Over a week this accumulates to ~20

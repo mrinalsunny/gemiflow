@@ -645,7 +645,7 @@ const breakingCommand: Command = {
         changes: [
           { change: 'Config file renamed', from: 'gemiflow.json', to: 'gemiflow.config.json' },
           { change: 'Swarm config restructured', from: 'swarm.mode', to: 'swarm.topology' },
-          { change: 'Provider config format', from: 'provider: "anthropic"', to: 'providers: [...]' }
+          { change: 'Provider config format', from: 'provider: "google"', to: 'providers: [...]' }
         ]
       },
       {

@@ -1,13 +1,13 @@
-# Dual-Mode Skills (Claude Code + Codex)
+# Dual-Mode Skills (Gemini CLI + gemini)
 
-Optional skills for orchestrating Claude Code and headless Codex workers together.
+Optional skills for orchestrating Gemini CLI and headless gemini workers together.
 
 ## Available Skills
 
 | Skill | File | Purpose |
 |-------|------|---------|
-| `/dual-spawn` | dual-spawn.md | Spawn headless Codex workers from Claude Code |
-| `/dual-coordinate` | dual-coordinate.md | Coordinate hybrid Claude+Codex workflows |
+| `/dual-spawn` | dual-spawn.md | Spawn headless gemini workers from Gemini CLI |
+| `/dual-coordinate` | dual-coordinate.md | Coordinate hybrid Claude+gemini workflows |
 | `/dual-collect` | dual-collect.md | Collect results from headless workers |
 
 ## Quick Start
@@ -17,7 +17,7 @@ Optional skills for orchestrating Claude Code and headless Codex workers togethe
 /dual-spawn "Implement auth module" --workers 3
 ```
 
-This spawns 3 headless Codex workers in background.
+This spawns 3 headless gemini workers in background.
 
 ### Collect Results
 ```
@@ -53,8 +53,8 @@ This spawns 3 headless Codex workers in background.
 
 See `.gemiflow4gemini/agents/dual-mode/` for agent definitions:
 - `dual-orchestrator` - Hybrid workflow orchestration
-- `codex-coordinator` - Parallel worker coordination
-- `codex-worker` - Headless execution worker
+- `gemini-coordinator` - Parallel worker coordination
+- `gemini-worker` - Headless execution worker
 
 ## How It Works
 
@@ -68,4 +68,4 @@ All workers share memory via gemiflow4gemini MCP tools for seamless coordination
 ## Installation
 
 Skills are pre-installed in `.gemiflow4gemini/skills/dual-mode/`.
-Invoke with `/skill-name` in Claude Code.
+Invoke with `/skill-name` in Gemini CLI.

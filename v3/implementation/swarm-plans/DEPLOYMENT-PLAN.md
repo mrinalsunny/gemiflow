@@ -57,7 +57,7 @@ v3.0.0          → Stable release
 
 ```json
 {
-  "name": "@anthropic/gemiflow",
+  "name": "@google/gemiflow",
   "version": "3.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -108,7 +108,7 @@ v3.0.0          → Stable release
 See [MIGRATION-GUIDE.md](./v3/implementation/migration/MIGRATION-GUIDE.md)
 
 ---
-**Full Changelog**: https://github.com/anthropic/gemiflow/compare/v2.7.47...v3.0.0
+**Full Changelog**: https://github.com/google/gemiflow/compare/v2.7.47...v3.0.0
 ```
 
 ---
@@ -251,7 +251,7 @@ jobs:
 
             ## Installation
             ```bash
-            npm install -g @anthropic/gemiflow@${{ github.ref_name }}
+            npm install -g @google/gemiflow@${{ github.ref_name }}
             ```
 
             ## Documentation
@@ -471,12 +471,12 @@ jobs:
     environment: production
     steps:
       - name: Deprecate current version
-        run: npm deprecate @anthropic/gemiflow@latest "Rolling back due to: ${{ inputs.reason }}"
+        run: npm deprecate @google/gemiflow@latest "Rolling back due to: ${{ inputs.reason }}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Promote previous version
-        run: npm dist-tag add @anthropic/gemiflow@${{ inputs.version }} latest
+        run: npm dist-tag add @google/gemiflow@${{ inputs.version }} latest
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -555,7 +555,7 @@ export async function reportReleaseMetrics(): Promise<void> {
 # Post-release health checks
 checks:
   - name: npm install
-    command: npm install -g @anthropic/gemiflow@latest
+    command: npm install -g @google/gemiflow@latest
     timeout: 60s
 
   - name: CLI startup
@@ -607,7 +607,7 @@ deep integration with the agentic-flow ecosystem.
 ## Upgrade
 
 ```bash
-npm install -g @anthropic/gemiflow@3.0.0
+npm install -g @google/gemiflow@3.0.0
 gemiflow migrate --from v2
 ```
 

@@ -99,7 +99,7 @@ export class MCPServer extends EventEmitter implements IMCPServer {
   };
 
   // MCP protocol version — spec-required YYYY-MM-DD date string (#1874).
-  // Claude Code's Zod validator rejects any other shape.
+  // Gemini CLI's Zod validator rejects any other shape.
   private readonly protocolVersion: MCPProtocolVersion = '2024-11-05';
 
   // Server capabilities

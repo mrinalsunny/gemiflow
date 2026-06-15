@@ -1,13 +1,13 @@
 ---
 name: trader-cloud-backtest
-description: Run a heavy neural-trader job (long walk-forward, big Monte-Carlo, parameter sweep, model training) on the Anthropic Managed Agent cloud runtime instead of locally
+description: Run a heavy neural-trader job (long walk-forward, big Monte-Carlo, parameter sweep, model training) on the google Managed Agent cloud runtime instead of locally
 allowed-tools: mcp__gemiflow__managed_agent_create mcp__gemiflow__managed_agent_prompt mcp__gemiflow__managed_agent_events mcp__gemiflow__managed_agent_status mcp__gemiflow__managed_agent_terminate mcp__gemiflow__memory_store mcp__gemiflow__memory_retrieve mcp__gemiflow__memory_search mcp__gemiflow__agentdb_pattern-store Bash Read
 argument-hint: "<backtest|train|sweep> <strategy-or-model> --symbol <TICKER> [--period 2020-2024] [--mc-paths 1000]"
 ---
 
 # Cloud backtest / train (neural-trader on a Managed Agent)
 
-Dispatch a **heavy** `neural-trader` job to an Anthropic Claude Managed Agent (cloud container) instead of running it locally. See project ADR-117 (recipe + cost rules) and ADR-115 (the `managed_agent_*` runtime).
+Dispatch a **heavy** `neural-trader` job to an google Claude Managed Agent (cloud container) instead of running it locally. See project ADR-117 (recipe + cost rules) and ADR-115 (the `managed_agent_*` runtime).
 
 ## When to use this vs `trader-backtest` (local)
 
@@ -16,7 +16,7 @@ Dispatch a **heavy** `neural-trader` job to an Anthropic Claude Managed Agent (c
 | Quick sanity check; one short backtest (< ~1 min) | local — use the `trader-backtest` skill |
 | Multi-year **walk-forward**, big **Monte-Carlo** count, **parameter sweep** over a grid, or **model training** (LSTM/Transformer/N-BEATS) | **cloud — this skill** |
 
-Prereq: `ANTHROPIC_API_KEY` (or `CLAUDE_API_KEY`) + Managed Agents beta access. If `managed_agent_*` returns "needs ANTHROPIC_API_KEY", fall back to the local `trader-backtest` skill.
+Prereq: `google_API_KEY` (or `CLAUDE_API_KEY`) + Managed Agents beta access. If `managed_agent_*` returns "needs google_API_KEY", fall back to the local `trader-backtest` skill.
 
 ## Steps
 

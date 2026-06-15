@@ -316,7 +316,7 @@ export function generateClaudeLocalMd(local: LocalProfile): string {
 
   sections.push('# Local Development Notes');
   sections.push('');
-  sections.push('> This file is auto-gitignored by Claude Code. It stays on this machine only.');
+  sections.push('> This file is auto-gitignored by Gemini CLI. It stays on this machine only.');
   sections.push('');
 
   if (local.developer) {

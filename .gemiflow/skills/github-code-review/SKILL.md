@@ -997,11 +997,11 @@ fi
 
 ---
 
-## 🔗 Integration with Claude Code
+## 🔗 Integration with Gemini CLI
 
 ### Workflow Pattern
 
-1. **Claude Code** reads PR diff and context
+1. **Gemini CLI** reads PR diff and context
 2. **Swarm** coordinates review approach based on PR type
 3. **Agents** work in parallel on different review aspects
 4. **Progress** updates posted to PR automatically
@@ -1116,10 +1116,10 @@ npx ruv-swarm github review-init --pr 123 --parallel --cache-results
 
 ## 📄 License
 
-This skill is part of the Claude Code Flow project and is licensed under the MIT License.
+This skill is part of the Gemini CLI Flow project and is licensed under the MIT License.
 
 ---
 
 **Last Updated:** 2025-10-19
 **Version:** 1.0.0
-**Maintainer:** Claude Code Flow Team
+**Maintainer:** Gemini CLI Flow Team

@@ -128,7 +128,7 @@ for (const file of walkForHooksJson(REPO_ROOT)) {
   const events = Array.isArray(json?.hooks) ? json.hooks : Object.values(json?.hooks ?? {}).flat();
   const flat = [];
   // hooks can be either:
-  //   - { hooks: [ { matcher, hooks: [ { type, command } ] }, ... ] }   (Claude Code 1.x)
+  //   - { hooks: [ { matcher, hooks: [ { type, command } ] }, ... ] }   (Gemini CLI 1.x)
   //   - { hooks: { PostToolUse: [ ... ] } }                              (alt shape)
   for (const entry of events) {
     if (!entry) continue;

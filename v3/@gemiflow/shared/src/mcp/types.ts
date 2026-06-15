@@ -25,7 +25,7 @@ export type JsonRpcVersion = '2.0';
 /**
  * MCP Protocol Version. Per the [MCP spec](https://spec.modelcontextprotocol.io/specification/basic/lifecycle/#initialization)
  * this must be a `YYYY-MM-DD` date string (e.g. `'2024-11-05'`, `'2025-06-18'`).
- * Claude Code's Zod validator rejects any other shape (#1874).
+ * Gemini CLI's Zod validator rejects any other shape (#1874).
  */
 export type MCPProtocolVersion = string;
 

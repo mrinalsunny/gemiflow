@@ -1,14 +1,14 @@
 /**
- * @gemiflow/codex - CodexInitializer
+ * @gemiflow/gemini - geminiInitializer
  *
- * Main initialization class for setting up Codex projects
+ * Main initialization class for setting up gemini projects
  */
 
 import fs from 'fs-extra';
 import path from 'path';
 import type {
-  CodexInitOptions,
-  CodexInitResult,
+  geminiInitOptions,
+  geminiInitResult,
   AgentsMdTemplate,
   BuiltInSkill,
 } from './types.js';
@@ -23,9 +23,9 @@ import { DEFAULT_SKILLS_BY_TEMPLATE, AGENTS_OVERRIDE_TEMPLATE, GITIGNORE_ENTRIES
 const BUNDLED_SKILLS_DIR = '../../../../.agents/skills';
 
 /**
- * Main initializer for Codex projects
+ * Main initializer for gemini projects
  */
-export class CodexInitializer {
+export class geminiInitializer {
   private projectPath: string = '';
   private template: AgentsMdTemplate = 'default';
   private skills: string[] = [];
@@ -34,9 +34,9 @@ export class CodexInitializer {
   private bundledSkillsPath: string = '';
 
   /**
-   * Initialize a new Codex project
+   * Initialize a new gemini project
    */
-  async initialize(options: CodexInitOptions): Promise<CodexInitResult> {
+  async initialize(options: geminiInitOptions): Promise<geminiInitResult> {
     this.projectPath = path.resolve(options.projectPath);
     this.template = options.template ?? 'default';
     this.skills = options.skills ?? DEFAULT_SKILLS_BY_TEMPLATE[this.template];
@@ -130,17 +130,17 @@ export class CodexInitializer {
       }
 
       // Generate local overrides template
-      const overridePath = path.join(this.projectPath, '.codex', 'AGENTS.override.md');
+      const overridePath = path.join(this.projectPath, '.gemini', 'AGENTS.override.md');
       if (await this.shouldWriteFile(overridePath)) {
         await fs.writeFile(overridePath, AGENTS_OVERRIDE_TEMPLATE, 'utf-8');
-        filesCreated.push('.codex/AGENTS.override.md');
+        filesCreated.push('.gemini/AGENTS.override.md');
       }
 
       // Generate local config.toml
-      const localConfigPath = path.join(this.projectPath, '.codex', 'config.toml');
+      const localConfigPath = path.join(this.projectPath, '.gemini', 'config.toml');
       if (await this.shouldWriteFile(localConfigPath)) {
         await fs.writeFile(localConfigPath, await this.generateLocalConfigToml(), 'utf-8');
-        filesCreated.push('.codex/config.toml');
+        filesCreated.push('.gemini/config.toml');
       }
 
       // Update .gitignore
@@ -149,7 +149,7 @@ export class CodexInitializer {
         filesCreated.push('.gitignore (updated)');
       }
 
-      // Register MCP server with Codex
+      // Register MCP server with gemini
       const mcpResult = await this.registerMCPServer();
       if (mcpResult.registered) {
         filesCreated.push('MCP server (gemiflow) registered');
@@ -158,7 +158,7 @@ export class CodexInitializer {
         warnings.push(mcpResult.warning);
       }
 
-      // If dual mode, also generate Claude Code files
+      // If dual mode, also generate Gemini CLI files
       if (this.dual) {
         const dualResult = await this.generateDualPlatformFiles();
         filesCreated.push(...dualResult.files);
@@ -174,7 +174,7 @@ export class CodexInitializer {
         filesCreated.push('.agents/README.md');
       }
 
-      const result: CodexInitResult = {
+      const result: geminiInitResult = {
         success: true,
         filesCreated,
         skillsGenerated,
@@ -186,7 +186,7 @@ export class CodexInitializer {
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
       errors.push(errorMessage);
-      const result: CodexInitResult = {
+      const result: geminiInitResult = {
         success: false,
         filesCreated,
         skillsGenerated,
@@ -207,7 +207,7 @@ export class CodexInitializer {
       await fs.ensureDir(this.projectPath);
 
       // Check write permissions by attempting to create a temp file
-      const tempFile = path.join(this.projectPath, '.codex-init-test');
+      const tempFile = path.join(this.projectPath, '.gemini-init-test');
       await fs.writeFile(tempFile, 'test', 'utf-8');
       await fs.remove(tempFile);
     } catch (error) {
@@ -241,7 +241,7 @@ export class CodexInitializer {
     const dirs = [
       '.agents',
       '.agents/skills',
-      '.codex',
+      '.gemini',
       '.gemiflow',
       '.gemiflow/data',
       '.gemiflow/logs',
@@ -314,25 +314,25 @@ export class CodexInitializer {
   }
 
   /**
-   * Register gemiflow as MCP server with Codex
+   * Register gemiflow as MCP server with gemini
    */
   private async registerMCPServer(): Promise<{ registered: boolean; warning?: string }> {
     try {
       const { execSync } = await import('child_process');
 
-      // Check if codex CLI is available
+      // Check if gemini CLI is available
       try {
-        execSync('which codex', { stdio: 'pipe' });
+        execSync('which gemini', { stdio: 'pipe' });
       } catch {
         return {
           registered: false,
-          warning: 'Codex CLI not found. Run: codex mcp add gemiflow -- npx gemiflow mcp start',
+          warning: 'gemini CLI not found. Run: gemini mcp add gemiflow -- npx gemiflow mcp start',
         };
       }
 
       // Check if already registered
       try {
-        const list = execSync('codex mcp list 2>&1', { encoding: 'utf-8' });
+        const list = execSync('gemini mcp list 2>&1', { encoding: 'utf-8' });
         if (list.includes('gemiflow')) {
           return { registered: true }; // Already registered
         }
@@ -342,7 +342,7 @@ export class CodexInitializer {
 
       // Register the MCP server
       try {
-        execSync('codex mcp add gemiflow -- npx gemiflow mcp start', {
+        execSync('gemini mcp add gemiflow -- npx gemiflow mcp start', {
           stdio: 'pipe',
           timeout: 10000,
         });
@@ -351,13 +351,13 @@ export class CodexInitializer {
         const errorMessage = err instanceof Error ? err.message : String(err);
         return {
           registered: false,
-          warning: `Failed to register MCP server: ${errorMessage}. Run manually: codex mcp add gemiflow -- npx gemiflow mcp start`,
+          warning: `Failed to register MCP server: ${errorMessage}. Run manually: gemini mcp add gemiflow -- npx gemiflow mcp start`,
         };
       }
     } catch {
       return {
         registered: false,
-        warning: 'Could not register MCP server. Run manually: codex mcp add gemiflow -- npx gemiflow mcp start',
+        warning: 'Could not register MCP server. Run manually: gemini mcp add gemiflow -- npx gemiflow mcp start',
       };
     }
   }
@@ -388,10 +388,10 @@ export class CodexInitializer {
   }
 
   /**
-   * Generate local config.toml for .codex directory
+   * Generate local config.toml for .gemini directory
    */
   private async generateLocalConfigToml(): Promise<string> {
-    return `# Local Codex Configuration
+    return `# Local gemini Configuration
 # This file overrides .agents/config.toml for local development
 # DO NOT commit this file to version control
 
@@ -402,7 +402,7 @@ web_search = "live"
 
 # Debug settings
 # Uncomment to enable debug logging
-# CODEX_LOG_LEVEL = "debug"
+# gemini_LOG_LEVEL = "debug"
 
 # Local MCP server overrides
 # [mcp_servers.local]
@@ -412,7 +412,7 @@ web_search = "live"
 
 # Environment-specific settings
 # [env]
-# ANTHROPIC_API_KEY = "your-local-key"
+# google_API_KEY = "your-local-key"
 `;
   }
 
@@ -478,7 +478,7 @@ web_search = "live"
   }
 
   /**
-   * Update .gitignore with Codex entries
+   * Update .gitignore with gemini entries
    */
   private async updateGitignore(): Promise<boolean> {
     const gitignorePath = path.join(this.projectPath, '.gitignore');
@@ -488,8 +488,8 @@ web_search = "live"
       content = await fs.readFile(gitignorePath, 'utf-8');
     }
 
-    // Check if Codex entries already exist
-    if (content.includes('.codex/')) {
+    // Check if gemini entries already exist
+    if (content.includes('.gemini/')) {
       return false; // Already has entries
     }
 
@@ -506,7 +506,7 @@ web_search = "live"
   private generateAgentsReadme(): string {
     return `# .agents Directory
 
-This directory contains agent configuration and skills for OpenAI Codex CLI.
+This directory contains agent configuration and skills for OpenAI gemini CLI.
 
 ## Structure
 
@@ -540,13 +540,13 @@ Skills are invoked using \`$skill-name\` syntax. Each skill has:
 ## Documentation
 
 - Main instructions: \`AGENTS.md\` (project root)
-- Local overrides: \`.codex/AGENTS.override.md\` (gitignored)
+- Local overrides: \`.gemini/AGENTS.override.md\` (gitignored)
 - GemiFlow: https://github.com/ruvnet/gemiflow
 `;
   }
 
   /**
-   * Generate dual-platform files (Claude Code + Codex)
+   * Generate dual-platform files (Gemini CLI + gemini)
    */
   private async generateDualPlatformFiles(): Promise<{ files: string[]; warnings?: string[] }> {
     const files: string[] = [];
@@ -566,20 +566,20 @@ Skills are invoked using \`$skill-name\` syntax. Each skill has:
     // Generate a CLAUDE.md that references AGENTS.md
     const geminiMd = `# ${projectName}
 
-> This project supports both Claude Code and OpenAI Codex.
+> This project supports both Gemini CLI and OpenAI gemini.
 
 ## Platform Compatibility
 
 | Platform | Config File | Skill Syntax |
 |----------|-------------|--------------|
-| Claude Code | CLAUDE.md | /skill-name |
-| OpenAI Codex | AGENTS.md | $skill-name |
+| Gemini CLI | CLAUDE.md | /skill-name |
+| OpenAI gemini | AGENTS.md | $skill-name |
 
 ## Instructions
 
 **Primary instructions are in \`AGENTS.md\`** (Agentic AI Foundation standard).
 
-This file provides compatibility for Claude Code users.
+This file provides compatibility for Gemini CLI users.
 
 ## Quick Start
 
@@ -598,15 +598,15 @@ npm test
 
 Both platforms share the same skills in \`.agents/skills/\`:
 
-${this.skills.map(s => `- \`$${s}\` (Codex) / \`/${s}\` (Claude Code)`).join('\n')}
+${this.skills.map(s => `- \`$${s}\` (gemini) / \`/${s}\` (Gemini CLI)`).join('\n')}
 
 ## Configuration
 
-### Codex Configuration
+### gemini Configuration
 - Main: \`.agents/config.toml\`
-- Local: \`.codex/config.toml\` (gitignored)
+- Local: \`.gemini/config.toml\` (gitignored)
 
-### Claude Code Configuration
+### Gemini CLI Configuration
 - This file: \`CLAUDE.md\`
 - Local: \`CLAUDE.local.md\` (gitignored)
 
@@ -646,7 +646,7 @@ For complete instructions, see \`AGENTS.md\`.
 
 ---
 
-*Generated by @gemiflow/codex - Dual platform mode*
+*Generated by @gemiflow/gemini - Dual platform mode*
 `;
 
     await fs.writeFile(geminiMdPath, geminiMd, 'utf-8');
@@ -685,7 +685,7 @@ Enable verbose logging for development.
     if (await fs.pathExists(gitignorePath)) {
       let content = await fs.readFile(gitignorePath, 'utf-8');
       if (!content.includes('CLAUDE.local.md')) {
-        content += '\n# Claude Code local config\nCLAUDE.local.md\n';
+        content += '\n# Gemini CLI local config\nCLAUDE.local.md\n';
         await fs.writeFile(gitignorePath, content, 'utf-8');
       }
     }
@@ -698,13 +698,13 @@ Enable verbose logging for development.
   /**
    * Get the list of files that would be created (dry-run)
    */
-  async dryRun(options: CodexInitOptions): Promise<string[]> {
+  async dryRun(options: geminiInitOptions): Promise<string[]> {
     const files: string[] = [
       'AGENTS.md',
       '.agents/config.toml',
       '.agents/README.md',
-      '.codex/AGENTS.override.md',
-      '.codex/config.toml',
+      '.gemini/AGENTS.override.md',
+      '.gemini/config.toml',
       '.gitignore (updated)',
     ];
 
@@ -725,12 +725,12 @@ Enable verbose logging for development.
 /**
  * Quick initialization function for programmatic use
  */
-export async function initializeCodexProject(
+export async function initializegeminiProject(
   projectPath: string,
-  options?: Partial<CodexInitOptions>
-): Promise<CodexInitResult> {
-  const initializer = new CodexInitializer();
-  const initOptions: CodexInitOptions = {
+  options?: Partial<geminiInitOptions>
+): Promise<geminiInitResult> {
+  const initializer = new geminiInitializer();
+  const initOptions: geminiInitOptions = {
     projectPath,
     template: options?.template ?? 'default',
     force: options?.force ?? false,

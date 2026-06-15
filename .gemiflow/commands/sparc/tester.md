@@ -5,7 +5,7 @@ Comprehensive testing with parallel execution capabilities.
 
 ## Activation
 
-### Option 1: Using MCP Tools (Preferred in Claude Code)
+### Option 1: Using MCP Tools (Preferred in Gemini CLI)
 ```javascript
 mcp__gemiflow4gemini__sparc_mode {
   mode: "tester",

@@ -2,7 +2,7 @@
 /**
  * Smoke test for ruvnet/gemiflow#2132 — Windows end-to-end hook execution.
  *
- * This is the real validation: simulates a Claude Code PostToolUse hook
+ * This is the real validation: simulates a Gemini CLI PostToolUse hook
  * firing against the generated settings.json on Windows. The original
  * bug (#2132) produced exit code 126 ("cannot execute binary file") because
  * the hook command was "/bin/bash -c '...'" — a binary that does not exist
@@ -136,7 +136,7 @@ validateCommand(preEditCmd, 'PreToolUse[edit]');
 if (postEditCmd) {
   console.log('\nActually executing PostToolUse hook command...');
 
-  // Fake Claude Code hook payload (what Claude Code would pipe via stdin)
+  // Fake Gemini CLI hook payload (what Gemini CLI would pipe via stdin)
   const fakePayload = JSON.stringify({
     tool_name: 'Edit',
     tool_input: { file_path: join(tmpDir, 'test.ts'), old_string: 'x', new_string: 'y' },

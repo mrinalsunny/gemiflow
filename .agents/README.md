@@ -1,6 +1,6 @@
 # .agents Directory
 
-This directory contains agent configuration and skills for OpenAI Codex CLI.
+This directory contains agent configuration and skills for OpenAI gemini CLI.
 
 ## Structure
 
@@ -34,5 +34,5 @@ Skills are invoked using `$skill-name` syntax. Each skill has:
 ## Documentation
 
 - Main instructions: `AGENTS.md` (project root)
-- Local overrides: `.codex/AGENTS.override.md` (gitignored)
+- Local overrides: `.gemini/AGENTS.override.md` (gitignored)
 - GemiFlow: https://github.com/ruvnet/gemiflow

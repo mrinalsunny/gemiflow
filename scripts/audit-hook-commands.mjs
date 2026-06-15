@@ -5,7 +5,7 @@
  * Hooks fire on EVERY PreToolUse / PostToolUse / Stop / etc. A hook `command`
  * that does a bare `npx <pkg>@alpha …` re-resolves the dist-tag and re-installs
  * from cold cache on every fire; when that install crashes (e.g. an arborist
- * `Invalid Version` on npm 10.8.x) the user sees a hook error in Claude Code
+ * `Invalid Version` on npm 10.8.x) the user sees a hook error in Gemini CLI
  * after every turn. The fix: invoke `scripts/gemiflow-hook.sh` (prefers a locally-
  * installed `gemiflow`/`gemiflow` binary, falls back to `npx --prefer-offline`,
  * always exits 0). This guard fails CI if any hook `command` regresses.
@@ -89,7 +89,7 @@ for (const file of files) {
     if ((usesNpx || usesShim) && !NONFATAL_RE.test(command) && !continueOnError) {
       violations.push({
         file: rel, where,
-        reason: 'invokes the CLI but is not non-fatal — a CLI/install failure surfaces a hook error in Claude Code (#1921). Append `|| true` (or set `continueOnError: true`).',
+        reason: 'invokes the CLI but is not non-fatal — a CLI/install failure surfaces a hook error in Gemini CLI (#1921). Append `|| true` (or set `continueOnError: true`).',
         command,
       });
     }

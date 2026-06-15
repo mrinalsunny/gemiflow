@@ -55,7 +55,7 @@ const os = require('os');
 // Configuration
 const CONFIG = {
   maxAgents: ${maxAgents},
-  // Session-cost display. Claude Code's cost.total_cost_usd is a client-side
+  // Session-cost display. Gemini CLI's cost.total_cost_usd is a client-side
   // estimate that "may differ from your actual bill" and reads as misleading on
   // subscription plans, where token usage is not billed per dollar. These let
   // each user pick what the segment means to them without changing the default.
@@ -70,9 +70,9 @@ const CWD = process.cwd();
 
 // ─── Delegation cache ───────────────────────────────────────────
 // Cache the CLI JSON result for 60s so rapid prompt re-renders
-// (Claude Code refreshes the statusline several times a second while
+// (Gemini CLI refreshes the statusline several times a second while
 // streaming) don't re-invoke the CLI each time. #2337: bumped 10s→60s
-// because 10s was far too short for how often Claude Code re-renders.
+// because 10s was far too short for how often Gemini CLI re-renders.
 const CACHE_FILE = path.join(os.tmpdir(), 'gemiflow-statusline-cache-' + require('crypto').createHash('md5').update(CWD).digest('hex').slice(0, 8) + '.json');
 const CACHE_TTL_MS = 60000;
 
@@ -80,7 +80,7 @@ const CACHE_TTL_MS = 60000;
 // can invoke it directly via \`node\`. The previous version called
 // \`npx --yes @gemiflow/cli@latest\` on every uncached render, which forces
 // a registry resolution + cold-start of the entire CLI per render. With
-// multiple concurrent Claude Code sessions this storms the host (reporter
+// multiple concurrent Gemini CLI sessions this storms the host (reporter
 // saw load average 40-65 on a 12-core box).
 //
 // Returns the absolute path to bin/cli.js or null. Mirrors getPkgVersion()'s
@@ -247,7 +247,7 @@ function getLocalTests() {
   return { testFiles, testCases: testFiles * 4 };
 }
 
-// Count configured hooks from project .gemiflow/settings.json. Claude Code hooks
+// Count configured hooks from project .gemiflow/settings.json. Gemini CLI hooks
 // have no enabled/disabled flag, so every configured hook counts as enabled.
 function getLocalHooks() {
   const result = { enabled: 0, total: 0 };
@@ -313,7 +313,7 @@ function buildLocalFallback() {
   const memMB = Math.floor(process.memoryUsage().heapUsed / 1024 / 1024);
 
   return applyLocalOverlays({
-    user: { name: 'user', gitBranch: '', modelName: 'Claude Code' },
+    user: { name: 'user', gitBranch: '', modelName: 'Gemini CLI' },
     v3Progress: { domainsCompleted: 0, totalDomains: 5, dddProgress: 0, patternsLearned: 0, sessionsCompleted: 0 },
     security: { status: 'NONE', cvesFixed: 0, totalCves: 0 },
     swarm: { activeAgents: 0, maxAgents: CONFIG.maxAgents, coordinationActive: false },
@@ -446,12 +446,12 @@ function getModelName() {
     if (m.includes('sonnet')) return 'Sonnet 4.6';
     if (m.includes('haiku')) return 'Haiku 4.5';
   }
-  return 'Claude Code';
+  return 'Gemini CLI';
 }
 
-// ─── Stdin reader (Claude Code pipes session JSON) ──────────────
-// Claude Code sends session JSON via stdin. Read synchronously so the
-// script works both when invoked by Claude Code (stdin has JSON) and
+// ─── Stdin reader (Gemini CLI pipes session JSON) ──────────────
+// Gemini CLI sends session JSON via stdin. Read synchronously so the
+// script works both when invoked by Gemini CLI (stdin has JSON) and
 // when run manually from terminal (stdin is empty/tty).
 let _stdinData = null;
 function getStdinData() {
@@ -555,7 +555,7 @@ function progressBar(current, total) {
 function generateStatusline() {
   const d = getStatuslineData();
   const git = getGitInfo();
-  const modelName = getModelFromStdin() || (d.user && d.user.modelName) || 'Claude Code';
+  const modelName = getModelFromStdin() || (d.user && d.user.modelName) || 'Gemini CLI';
   const ctxInfo = getContextFromStdin();
   const costInfo = getCostFromStdin();
   const pkgVersion = getPkgVersion();
@@ -747,7 +747,7 @@ gemiflow_statusline() {
 # Zsh: Add to RPROMPT
 # export RPROMPT='$(gemiflow_statusline)'
 
-# Claude Code: Add to .gemiflow/settings.json
+# Gemini CLI: Add to .gemiflow/settings.json
 # "statusLine": {
 #   "type": "command",
 #   "command": "node .gemiflow/helpers/statusline.cjs 2>/dev/null"

@@ -3,7 +3,7 @@
 **Status**: Proposed (2026-05-11)
 **Date**: 2026-05-11
 **Authors**: claude (drafted with rUv)
-**Related**: ADR-026 (3-tier model routing) · ADR-112 (MCP tool discoverability) · ADR-098 (plugin capability sync + token/performance/intelligence optimization) · ADR-G008 (optimizer promotion rule — "win twice to promote") · ADR-G009 (headless testing harness — Claude Code as evaluator) · RuVector / ReasoningBank intelligence pipeline (RETRIEVE → JUDGE → DISTILL → CONSOLIDATE) · [`dspy.ts`](https://github.com/ruvnet/dspy.ts) ([npm](https://www.npmjs.com/package/dspy.ts))
+**Related**: ADR-026 (3-tier model routing) · ADR-112 (MCP tool discoverability) · ADR-098 (plugin capability sync + token/performance/intelligence optimization) · ADR-G008 (optimizer promotion rule — "win twice to promote") · ADR-G009 (headless testing harness — Gemini CLI as evaluator) · RuVector / ReasoningBank intelligence pipeline (RETRIEVE → JUDGE → DISTILL → CONSOLIDATE) · [`dspy.ts`](https://github.com/ruvnet/dspy.ts) ([npm](https://www.npmjs.com/package/dspy.ts))
 **Supersedes**: nothing
 
 ## Context
@@ -107,7 +107,7 @@ A DSPy-compiled module can *write into* ReasoningBank (its trials are patterns),
 - ADR-098 — plugin capability sync + token/performance/intelligence optimization (how a `dspy` plugin advertises its capabilities; complements rather than overlaps the intelligence optimizer)
 - ADR-112 — MCP tool discoverability (every new `dspy_*` tool description must comply)
 - ADR-G008 — optimizer promotion rule, "win twice to promote" (bears directly on when a DSPy-`compile()`'d module is allowed to replace the current one; reuse this rule rather than inventing a DSPy-specific one)
-- ADR-G009 — headless testing harness, Claude Code as the evaluator (the natural way to run `dspy_eval` / `compile()` metrics that need a judging LM)
+- ADR-G009 — headless testing harness, Gemini CLI as the evaluator (the natural way to run `dspy_eval` / `compile()` metrics that need a judging LM)
 - `scripts/audit-plugin-packages.mjs` — plugin packaging guard the `@gemiflow/plugin-dspy` package must pass (#1902/#1903/#1904)
 
 > Causal edges (AgentDB): `ADR-114 depends-on ADR-G008` (promotion semantics), `ADR-114 depends-on ADR-G009` (eval harness), `ADR-114 relates-to ADR-098` (capability registration), `ADR-114 relates-to ADR-026` / `ADR-112` (must comply).

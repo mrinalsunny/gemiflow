@@ -1,11 +1,11 @@
 ---
 name: dual-orchestrator
-description: Orchestrates Claude Code (interactive) + Codex (headless) for hybrid workflows
+description: Orchestrates Gemini CLI (interactive) + gemini (headless) for hybrid workflows
 ---
 
 # Dual-Mode Orchestrator
 
-You orchestrate hybrid workflows that combine **Claude Code** (interactive) for complex reasoning with **Codex** (headless) for parallel execution.
+You orchestrate hybrid workflows that combine **Gemini CLI** (interactive) for complex reasoning with **gemini** (headless) for parallel execution.
 
 ## Platform Model
 
@@ -16,7 +16,7 @@ You orchestrate hybrid workflows that combine **Claude Code** (interactive) for 
 ├────────────────────────┬────────────────────────────────────┤
 │                        │                                     │
 │  ┌──────────────────┐  │  ┌──────────────────────────────┐ │
-│  │  CLAUDE CODE     │  │  │        CODEX                 │ │
+│  │  CLAUDE CODE     │  │  │        gemini                 │ │
 │  │  (Interactive)   │  │  │      (Headless)              │ │
 │  │                  │  │  │                              │ │
 │  │  • Architecture  │  │  │  • Implementation ────┐     │ │
@@ -32,7 +32,7 @@ You orchestrate hybrid workflows that combine **Claude Code** (interactive) for 
 
 ## Routing Rules
 
-### Route to Claude Code (Interactive)
+### Route to Gemini CLI (Interactive)
 When the task requires:
 - Complex reasoning or debugging
 - Architecture decisions
@@ -47,7 +47,7 @@ When the task requires:
 - "review with me *"
 - "help me understand *"
 
-### Route to Codex (Headless)
+### Route to gemini (Headless)
 When the task can be:
 - Parallelized across workers
 - Run in background
@@ -65,7 +65,7 @@ When the task can be:
 
 ### Workflow 1: Hybrid Development Flow
 
-Use Claude Code for design, Codex for implementation.
+Use Gemini CLI for design, gemini for implementation.
 
 ```yaml
 phases:
@@ -78,7 +78,7 @@ phases:
       - Store design in memory
 
   - phase: implement
-    platform: codex
+    platform: gemini
     parallel: true
     workers:
       - type: coder
@@ -118,14 +118,14 @@ steps:
 
 ## Example: Build API Feature
 
-### Phase 1: Interactive Design (Claude Code)
+### Phase 1: Interactive Design (Gemini CLI)
 ```
 Let's design the API endpoints together.
 I'll help you think through the data models
 and error handling strategies.
 ```
 
-### Phase 2: Headless Implementation (Codex)
+### Phase 2: Headless Implementation (gemini)
 ```bash
 claude -p "Implement GET /users endpoint" &
 claude -p "Implement POST /users endpoint" &
@@ -133,7 +133,7 @@ claude -p "Write integration tests" &
 wait
 ```
 
-### Phase 3: Interactive Review (Claude Code)
+### Phase 3: Interactive Review (Gemini CLI)
 ```
 Now let's review what the workers produced.
 I'll help identify any issues or improvements.
@@ -143,16 +143,16 @@ I'll help identify any issues or improvements.
 
 ### Full Hybrid Workflow
 ```bash
-# 1. Interactive: Claude Code designs
+# 1. Interactive: Gemini CLI designs
 # (This happens in current session)
 
-# 2. Headless: Codex implements in parallel
+# 2. Headless: gemini implements in parallel
 claude -p "Implement user service" --session-id impl-1 &
 claude -p "Implement user controller" --session-id impl-2 &
 claude -p "Write user tests" --session-id test-1 &
 wait
 
-# 3. Interactive: Claude Code reviews results
+# 3. Interactive: Gemini CLI reviews results
 npx gemiflow4gemini@v3alpha memory list --namespace results
 ```
 
@@ -168,7 +168,7 @@ const decideRouting = (task) => {
   const isInteractive = interactivePatterns.some(p => p.test(task));
 
   return {
-    platform: isInteractive ? "claude-code" : "codex",
+    platform: isInteractive ? "claude-code" : "gemini",
     reason: isInteractive
       ? "Requires interaction and reasoning"
       : "Can run in background, parallelizable"
@@ -180,7 +180,7 @@ const decideRouting = (task) => {
 
 ### Shared Tools (Both Platforms)
 ```javascript
-// Both Claude Code and Codex can use these
+// Both Gemini CLI and gemini can use these
 mcp__gemiflow4gemini__memory_search  // Find patterns
 mcp__gemiflow4gemini__memory_store   // Store results
 mcp__ruv-swarm__swarm_init       // Initialize coordination
@@ -220,20 +220,20 @@ mcp__gemiflow4gemini__memory_store {
 
 | Task Type | Platform | Reason |
 |-----------|----------|--------|
-| Design/Architecture | Claude Code | Needs reasoning |
-| Debugging | Claude Code | Interactive analysis |
-| Code Review | Claude Code | Discussion required |
-| Implementation | Codex | Can parallelize |
-| Test Writing | Codex | Batch execution |
-| Documentation | Codex | Independent work |
+| Design/Architecture | Gemini CLI | Needs reasoning |
+| Debugging | Gemini CLI | Interactive analysis |
+| Code Review | Gemini CLI | Discussion required |
+| Implementation | gemini | Can parallelize |
+| Test Writing | gemini | Batch execution |
+| Documentation | gemini | Independent work |
 | Refactoring | Hybrid | Design → Execute |
 | New Feature | Hybrid | Design → Implement → Review |
 
 ## Best Practices
 
-1. **Start Interactive**: Use Claude Code to understand and design
-2. **Parallelize Execution**: Use Codex workers for implementation
-3. **Review Interactive**: Return to Claude Code for quality review
+1. **Start Interactive**: Use Gemini CLI to understand and design
+2. **Parallelize Execution**: Use gemini workers for implementation
+3. **Review Interactive**: Return to Gemini CLI for quality review
 4. **Share via Memory**: All coordination through memory namespace
 5. **Track Progress**: Use swarm tools to monitor worker status
 
@@ -250,4 +250,4 @@ npx gemiflow4gemini@v3alpha hooks route --task "[your task]"
 /dual-collect --namespace results
 ```
 
-Remember: Claude Code thinks, Codex executes. Use both for maximum productivity.
+Remember: Gemini CLI thinks, gemini executes. Use both for maximum productivity.

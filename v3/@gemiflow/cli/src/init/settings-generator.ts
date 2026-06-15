@@ -59,13 +59,13 @@ export function generateSettings(options: InitOptions): object {
     };
   }
 
-  // Note: Claude Code expects 'model' to be a string, not an object
+  // Note: Gemini CLI expects 'model' to be a string, not an object
   // Model preferences are stored in gemiflow settings instead
   // settings.model = 'claude-sonnet-4-5-20250929'; // Uncomment if you want to set a default model
 
   // Add Agent Teams configuration (experimental feature)
   settings.env = {
-    // Enable Claude Code Agent Teams for multi-agent coordination
+    // Enable Gemini CLI Agent Teams for multi-agent coordination
     CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS: '1',
     // GemiFlow specific environment
     GEMIFLOW_V3_ENABLED: 'true',
@@ -178,7 +178,7 @@ const IS_WINDOWS = process.platform === 'win32';
  * install layout. `gemiflow init` can land helpers either project-locally
  * (`<project>/.gemiflow/helpers/…`, when run from a project root) or globally
  * (`$HOME/.gemiflow/helpers/…`, when settings.json gets merged into the
- * user-level Claude Code config). The earlier `${CLAUDE_PROJECT_DIR:-.}`
+ * user-level Gemini CLI config). The earlier `${CLAUDE_PROJECT_DIR:-.}`
  * form assumed project-local — so any global-install user hit
  * `MODULE_NOT_FOUND` on every Bash/Edit/Session hook (#1943).
  *
@@ -196,7 +196,7 @@ function hookCmd(script: string, subcommand: string): string {
   }
   // POSIX sh: prefer project-local helpers, fall back to $HOME/.gemiflow/.
   // The fallback handles `gemiflow init`'s global-install path where helpers
-  // live at `$HOME/.gemiflow/helpers/` but Claude Code still sets
+  // live at `$HOME/.gemiflow/helpers/` but Gemini CLI still sets
   // `CLAUDE_PROJECT_DIR` to the *project* root (which has no helpers).
   // eslint-disable-next-line no-template-curly-in-string
   const projVar = '${CLAUDE_PROJECT_DIR:-.}';
@@ -216,11 +216,11 @@ function autoMemoryCmd(subcommand: string): string {
 }
 
 /**
- * Generate statusLine configuration for Claude Code
+ * Generate statusLine configuration for Gemini CLI
  * Uses local helper script for cross-platform compatibility (no npx cold-start)
  */
 function generateStatusLineConfig(_options: InitOptions): object {
-  // Claude Code pipes JSON session data to the script via stdin.
+  // Gemini CLI pipes JSON session data to the script via stdin.
   // Valid fields: type, command, padding (optional).
   // The script runs after each assistant message (debounced 300ms).
   //
@@ -229,7 +229,7 @@ function generateStatusLineConfig(_options: InitOptions): object {
   // Git-Bash / WSL), `sh` either isn't found or its quoting gets
   // mangled, producing weird artifacts like files named `0)` or
   // `toastr.error('ESD...` from misparsed tokens leaking back into
-  // the file system. NEVER use `cmd /c` for statusline — Claude Code
+  // the file system. NEVER use `cmd /c` for statusline — Gemini CLI
   // manages stdin directly for statusline commands and `cmd /c`
   // blocks the stdin forwarding.
   //
@@ -465,7 +465,7 @@ function generateHooksConfig(config: HooksConfig): object {
     },
   ];
 
-  // Notification — capture Claude Code notifications for logging
+  // Notification — capture Gemini CLI notifications for logging
   if (config.notification) {
     hooks.Notification = [
       {
@@ -481,7 +481,7 @@ function generateHooksConfig(config: HooksConfig): object {
   }
 
   // NOTE: TeammateIdle, TaskCompleted, and PostCompact are NOT accepted by
-  // Claude Code's settings.json validator (rejected as "Invalid key in record").
+  // Gemini CLI's settings.json validator (rejected as "Invalid key in record").
   // Agent Teams coordination lives in gemiflow.agentTeams.hooks instead.
 
   return hooks;

@@ -1,9 +1,9 @@
 # Neural Pattern Training
 
 ## 🎯 Key Principle
-**This tool coordinates Claude Code's actions. It does NOT write code or create content.**
+**This tool coordinates Gemini CLI's actions. It does NOT write code or create content.**
 
-## MCP Tool Usage in Claude Code
+## MCP Tool Usage in Gemini CLI
 
 **Tool:** `mcp__gemiflow__neural_train`
 
@@ -28,7 +28,7 @@ Training improves:
 
 ## Example Usage
 
-**In Claude Code:**
+**In Gemini CLI:**
 1. Train coordination patterns: Use tool `mcp__gemiflow__neural_train` with parameters `{"pattern_type": "coordination", "training_data": "successful task patterns", "epochs": 50}`
 2. Train optimization patterns: Use tool `mcp__gemiflow__neural_train` with parameters `{"pattern_type": "optimization", "training_data": "performance metrics", "epochs": 30}`
 3. Check training status: Use tool `mcp__gemiflow__neural_status`
@@ -36,7 +36,7 @@ Training improves:
 
 ## Important Reminders
 - ✅ This tool provides coordination and structure
-- ✅ Claude Code performs all actual implementation
+- ✅ Gemini CLI performs all actual implementation
 - ❌ The tool does NOT write code
 - ❌ The tool does NOT access files directly
 - ❌ The tool does NOT execute commands

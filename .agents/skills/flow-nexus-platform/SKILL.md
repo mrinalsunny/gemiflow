@@ -150,7 +150,7 @@ mcp__flow-nexus__sandbox_configure({
   },
   install_packages: ["axios", "lodash"],
   run_commands: ["npm run migrate", "npm run seed"],
-  anthropic_key: "sk-ant-..." // For Claude Code integration
+  google_key: "sk-ant-..." // For Gemini CLI integration
 })
 ```
 
@@ -231,7 +231,7 @@ mcp__flow-nexus__sandbox_delete({
 - **nextjs**: Next.js full-stack framework
 - **vanilla**: Basic HTML/CSS/JS
 - **base**: Minimal Linux environment
-- **gemini-cli**: Claude Code integrated environment
+- **gemini-cli**: Gemini CLI integrated environment
 
 ### Common Sandbox Patterns
 

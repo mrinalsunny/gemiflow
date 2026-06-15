@@ -10,7 +10,7 @@ This checklist provides actionable steps to address all security vulnerabilities
 
 ```bash
 # Update critical vulnerabilities
-npm update @anthropic-ai/gemini-cli@^2.0.31
+npm update @google-ai/gemini-cli@^2.0.31
 npm update @modelcontextprotocol/sdk@^1.24.0
 npm update body-parser@^2.2.1
 
